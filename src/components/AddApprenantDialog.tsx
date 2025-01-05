@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { Plus } from "lucide-react";
 
 export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => {
@@ -28,6 +28,15 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
+      if (!token) {
+        toast({
+          variant: "destructive",
+          title: "Erreur",
+          description: "Vous devez être connecté pour effectuer cette action",
+        });
+        return;
+      }
+
       const response = await axios.post(
         "http://kahoot.nos-apps.com/api/apprenant",
         formData,
@@ -58,7 +67,10 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Ajouter un apprenant</Button>
+        <Button>
+          <Plus className="mr-2" />
+          Ajouter un apprenant
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -84,7 +96,9 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
               <Input
                 id="prenom"
                 value={formData.prenom}
-                onChange={(e) => setFormData({ ...formData, prenom: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, prenom: e.target.value })
+                }
                 className="col-span-3"
               />
             </div>
@@ -96,7 +110,9 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
                 id="email"
                 type="email"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 className="col-span-3"
               />
             </div>
@@ -107,7 +123,9 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
               <Input
                 id="phone"
                 value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
+                }
                 className="col-span-3"
               />
             </div>
