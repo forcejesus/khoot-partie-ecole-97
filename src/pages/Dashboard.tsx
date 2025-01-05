@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { LogOut, Users, GraduationCap } from "lucide-react";
 import { ApprenantsList } from "@/components/ApprenantsList";
+import { EnseignantsList } from "@/components/EnseignantsList";
 import axios from "axios";
 import { useToast } from "@/hooks/use-toast";
 
@@ -11,6 +12,7 @@ const Dashboard = () => {
   const { user, logout } = useAuth();
   const { toast } = useToast();
   const [totalApprenants, setTotalApprenants] = useState(0);
+  const [totalEnseignants, setTotalEnseignants] = useState(0);
 
   const fetchTotalApprenants = async () => {
     try {
@@ -48,8 +50,40 @@ const Dashboard = () => {
     }
   };
 
+  const fetchTotalEnseignants = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const userDataStr = localStorage.getItem("user");
+
+      if (!token || !userDataStr) {
+        return;
+      }
+
+      const userData = JSON.parse(userDataStr);
+
+      const response = await axios.get(
+        "http://kahoot.nos-apps.com/api/users",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.success) {
+        const filteredEnseignants = response.data.data.filter(
+          (enseignant: any) => enseignant.ecole._id === userData.ecole._id
+        );
+        setTotalEnseignants(filteredEnseignants.length);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération des statistiques:", error);
+    }
+  };
+
   useEffect(() => {
     fetchTotalApprenants();
+    fetchTotalEnseignants();
   }, []);
 
   return (
@@ -85,7 +119,7 @@ const Dashboard = () => {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Total Enseignants</p>
-                <p className="text-2xl font-bold">0</p>
+                <p className="text-2xl font-bold">{totalEnseignants}</p>
               </div>
             </div>
           </Card>
@@ -102,7 +136,10 @@ const Dashboard = () => {
           </Card>
         </div>
 
-        <ApprenantsList onApprenantChange={fetchTotalApprenants} />
+        <div className="space-y-8">
+          <EnseignantsList onEnseignantChange={fetchTotalEnseignants} />
+          <ApprenantsList onApprenantChange={fetchTotalApprenants} />
+        </div>
       </main>
     </div>
   );
