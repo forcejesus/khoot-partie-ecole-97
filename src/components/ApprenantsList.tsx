@@ -1,8 +1,5 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useToast } from "@/hooks/use-toast";
-import { Apprenant, ApprenantResponse } from "@/types/apprenant";
-import { AddApprenantDialog } from "./AddApprenantDialog";
 import {
   Table,
   TableBody,
@@ -13,20 +10,24 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
+import { AddApprenantDialog } from "./AddApprenantDialog";
+import { Apprenant } from "@/types/apprenant";
 
-export function ApprenantsList() {
+export const ApprenantsList = () => {
   const [apprenants, setApprenants] = useState<Apprenant[]>([]);
   const { toast } = useToast();
 
   const fetchApprenants = async () => {
     try {
-      const response = await axios.get<ApprenantResponse>(
-        "http://khoot.nos-apps.com/api/apprenant"
+      const response = await axios.get(
+        "http://kahoot.nos-apps.com/api/apprenant"
       );
       if (response.data.success) {
         setApprenants(response.data.data);
       }
     } catch (error) {
+      console.error("Erreur lors de la récupération des apprenants:", error);
       toast({
         variant: "destructive",
         title: "Erreur",
@@ -38,7 +39,7 @@ export function ApprenantsList() {
   const handleDelete = async (id: string) => {
     try {
       const response = await axios.delete(
-        `http://khoot.nos-apps.com/api/apprenant/delete/${id}`
+        `http://kahoot.nos-apps.com/api/apprenant/delete/${id}`
       );
       if (response.data.success) {
         toast({
@@ -48,10 +49,11 @@ export function ApprenantsList() {
         fetchApprenants();
       }
     } catch (error) {
+      console.error("Erreur lors de la suppression:", error);
       toast({
         variant: "destructive",
         title: "Erreur",
-        description: "Erreur lors de la suppression",
+        description: "Impossible de supprimer l'apprenant",
       });
     }
   };

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,37 +10,38 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/use-toast";
-import axios from "axios";
+import { useToast } from "@/components/ui/use-toast";
+import { Plus } from "lucide-react";
 
-export function AddApprenantDialog({ onApprenantAdded }: { onApprenantAdded: () => void }) {
-  const [open, setOpen] = useState(false);
+export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => {
   const { toast } = useToast();
+  const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
-    avatar: "",
-    phone: "",
     email: "",
+    phone: "",
+    avatar: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://khoot.nos-apps.com/api/apprenant", formData);
+      const response = await axios.post("http://kahoot.nos-apps.com/api/apprenant", formData);
       if (response.data.success) {
         toast({
           title: "Succès",
           description: "Apprenant ajouté avec succès",
         });
         setOpen(false);
-        onApprenantAdded();
+        onSuccess();
       }
     } catch (error) {
+      console.error("Erreur lors de l'ajout:", error);
       toast({
         variant: "destructive",
         title: "Erreur",
-        description: "Erreur lors de l'ajout de l'apprenant",
+        description: "Impossible d'ajouter l'apprenant",
       });
     }
   };
