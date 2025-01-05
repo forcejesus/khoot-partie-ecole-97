@@ -22,14 +22,16 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
     email: "",
     phone: "",
     avatar: "Mon avatar",
-    ecole: "670e66283996da36c7cfe378"
+    ecole: ""
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      if (!token) {
+      const userDataStr = localStorage.getItem("user");
+
+      if (!token || !userDataStr) {
         toast({
           variant: "destructive",
           title: "Erreur",
@@ -38,9 +40,15 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
         return;
       }
 
+      const userData = JSON.parse(userDataStr);
+      const dataToSend = {
+        ...formData,
+        ecole: userData.ecole._id
+      };
+
       const response = await axios.post(
         "http://kahoot.nos-apps.com/api/apprenant",
-        formData,
+        dataToSend,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -60,7 +68,7 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
           email: "",
           phone: "",
           avatar: "Mon avatar",
-          ecole: "670e66283996da36c7cfe378"
+          ecole: ""
         });
         onSuccess();
       }
