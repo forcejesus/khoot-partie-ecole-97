@@ -82,7 +82,7 @@ export const ApprenantsList = ({ onApprenantChange }: ApprenantsListProps) => {
       }
 
       const response = await axios.delete(
-        `http://kahoot.nos-apps.com/api/apprenant/${id}`,
+        `http://kahoot.nos-apps.com/api/apprenant/delete/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
