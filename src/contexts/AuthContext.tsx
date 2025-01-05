@@ -35,7 +35,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const token = localStorage.getItem("token");
     const userData = localStorage.getItem("user");
     if (token && userData) {
-      setUser(JSON.parse(userData));
+      try {
+        setUser(JSON.parse(userData));
+      } catch (error) {
+        console.error("Error parsing user data:", error);
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+      }
     }
   }, []);
 
@@ -47,33 +53,53 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         password,
       });
 
-      if (response.data.token) {
+      if (response.data && response.data.token) {
         const token = response.data.token;
         localStorage.setItem("token", token);
         
-        // Decode JWT token
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
+        try {
+          // Decode JWT token
+          const base64Url = token.split('.')[1];
+          const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          }).join(''));
 
-        const decoded = JSON.parse(jsonPayload);
-        const userData = {
-          id: decoded.id,
-          name: decoded.name,
-          email: decoded.email,
-          ecole: decoded.ecole,
-        };
+          const decoded = JSON.parse(jsonPayload);
+          
+          if (!decoded.id || !decoded.name || !decoded.email || !decoded.ecole) {
+            throw new Error("Invalid token data");
+          }
 
-        setUser(userData);
-        localStorage.setItem("user", JSON.stringify(userData));
-        
-        toast.success("Connexion réussie");
-        navigate("/dashboard");
+          const userData = {
+            id: decoded.id,
+            name: decoded.name,
+            email: decoded.email,
+            ecole: decoded.ecole,
+          };
+
+          setUser(userData);
+          localStorage.setItem("user", JSON.stringify(userData));
+          
+          toast.success("Connexion réussie");
+          navigate("/dashboard");
+        } catch (error) {
+          console.error("Error decoding token:", error);
+          toast.error("Erreur lors de la connexion");
+          localStorage.removeItem("token");
+        }
+      } else {
+        toast.error("Réponse du serveur invalide");
       }
-    } catch (error) {
-      toast.error("Email ou mot de passe incorrect");
+    } catch (error: any) {
+      console.error("Login error:", error);
+      if (error.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else if (error.response?.status === 401) {
+        toast.error("Email ou mot de passe incorrect");
+      } else {
+        toast.error("Erreur lors de la connexion");
+      }
     } finally {
       setIsLoading(false);
     }
