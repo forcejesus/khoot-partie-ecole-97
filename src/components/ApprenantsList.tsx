@@ -23,11 +23,35 @@ export const ApprenantsList = () => {
   const fetchApprenants = async () => {
     try {
       setIsLoading(true);
+      const token = localStorage.getItem("token");
+      const userDataStr = localStorage.getItem("user");
+
+      if (!token || !userDataStr) {
+        toast({
+          variant: "destructive",
+          title: "Erreur",
+          description: "Vous devez être connecté pour voir la liste des apprenants",
+        });
+        return;
+      }
+
+      const userData = JSON.parse(userDataStr);
+
       const response = await axios.get(
-        "http://kahoot.nos-apps.com/api/apprenant"
+        "http://kahoot.nos-apps.com/api/apprenant",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
+
       if (response.data.success) {
-        setApprenants(response.data.data);
+        // Filtrer les apprenants pour ne garder que ceux de l'école de l'utilisateur connecté
+        const filteredApprenants = response.data.data.filter(
+          (apprenant: Apprenant) => apprenant.ecole._id === userData.ecole._id
+        );
+        setApprenants(filteredApprenants);
       }
     } catch (error) {
       console.error("Erreur lors de la récupération des apprenants:", error);
