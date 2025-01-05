@@ -44,14 +44,24 @@ export const ApprenantsList = () => {
   const handleDelete = async (id: string) => {
     try {
       const token = localStorage.getItem("token");
+      if (!token) {
+        toast({
+          variant: "destructive",
+          title: "Erreur",
+          description: "Vous devez être connecté pour effectuer cette action",
+        });
+        return;
+      }
+
       const response = await axios.delete(
-        `http://kahoot.nos-apps.com/api/apprenant/delete/${id}`,
+        `http://kahoot.nos-apps.com/api/apprenant/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
+
       if (response.data.success) {
         toast({
           title: "Succès",
@@ -76,7 +86,12 @@ export const ApprenantsList = () => {
   return (
     <div className="container mx-auto py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Liste des apprenants</h1>
+        <div>
+          <h1 className="text-2xl font-bold">Liste des apprenants</h1>
+          <p className="text-gray-600 mt-1">
+            Total: {apprenants.length} apprenant{apprenants.length > 1 ? "s" : ""}
+          </p>
+        </div>
         <AddApprenantDialog onSuccess={fetchApprenants} />
       </div>
       
