@@ -21,7 +21,8 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
     prenom: "",
     email: "",
     phone: "",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg",
+    avatar: "Mon avatar",
+    ecole: "670e66283996da36c7cfe378"
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -37,27 +38,9 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
         return;
       }
 
-      // Récupérer l'ID de l'école depuis le localStorage
-      const userData = localStorage.getItem("user");
-      if (!userData) {
-        toast({
-          variant: "destructive",
-          title: "Erreur",
-          description: "Informations utilisateur non trouvées",
-        });
-        return;
-      }
-
-      const { ecole } = JSON.parse(userData);
-      
-      const dataToSend = {
-        ...formData,
-        ecole: ecole._id, // Ajouter l'ID de l'école aux données
-      };
-
       const response = await axios.post(
         "http://kahoot.nos-apps.com/api/apprenant",
-        dataToSend,
+        formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -76,7 +59,8 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
           prenom: "",
           email: "",
           phone: "",
-          avatar: "https://api.dicebear.com/7.x/avataaars/svg",
+          avatar: "Mon avatar",
+          ecole: "670e66283996da36c7cfe378"
         });
         onSuccess();
       }
