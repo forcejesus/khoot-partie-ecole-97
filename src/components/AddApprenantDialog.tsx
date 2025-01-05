@@ -88,6 +88,29 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
     }
   };
 
+  const validateApprenantData = (data: any) => {
+    const requiredFields = ['nom', 'prenom', 'email', 'phone'];
+    const missingFields = requiredFields.filter(field => !data[field] || data[field].trim() === '');
+    
+    if (missingFields.length > 0) {
+      return {
+        isValid: false,
+        message: `Champs manquants: ${missingFields.join(', ')}`
+      };
+    }
+
+    // Validation basique de l'email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+      return {
+        isValid: false,
+        message: `Email invalide: ${data.email}`
+      };
+    }
+
+    return { isValid: true };
+  };
+
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -121,8 +144,17 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
 
           let successCount = 0;
           let errorCount = 0;
+          let errorMessages: string[] = [];
 
           for (const apprenant of apprenants) {
+            const validation = validateApprenantData(apprenant);
+            
+            if (!validation.isValid) {
+              errorCount++;
+              errorMessages.push(`${apprenant.nom} ${apprenant.prenom}: ${validation.message}`);
+              continue;
+            }
+
             try {
               await axios.post(
                 "http://kahoot.nos-apps.com/api/apprenant",
@@ -134,10 +166,15 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
                 }
               );
               successCount++;
-            } catch (error) {
+            } catch (error: any) {
               errorCount++;
-              console.error("Erreur lors de l'ajout d'un apprenant:", error);
+              const errorMessage = error.response?.data?.message || "Erreur inconnue";
+              errorMessages.push(`${apprenant.nom} ${apprenant.prenom}: ${errorMessage}`);
             }
+          }
+
+          if (errorMessages.length > 0) {
+            console.error("Erreurs d'importation:", errorMessages);
           }
 
           toast({
