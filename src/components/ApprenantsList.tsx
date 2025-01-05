@@ -21,7 +21,7 @@ export function ApprenantsList() {
   const fetchApprenants = async () => {
     try {
       const response = await axios.get<ApprenantResponse>(
-        import.meta.env.VITE_API_URL + "/api/apprenant"
+        "http://khoot.nos-apps.com/api/apprenant"
       );
       if (response.data.success) {
         setApprenants(response.data.data);
@@ -38,7 +38,7 @@ export function ApprenantsList() {
   const handleDelete = async (id: string) => {
     try {
       const response = await axios.delete(
-        `${import.meta.env.VITE_API_URL}/api/apprenant/delete/${id}`
+        `http://khoot.nos-apps.com/api/apprenant/delete/${id}`
       );
       if (response.data.success) {
         toast({

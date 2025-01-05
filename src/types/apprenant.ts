@@ -15,6 +15,7 @@ export interface Apprenant {
   email: string;
   ecole: Ecole;
   date: string;
+  __v?: number;
 }
 
 export interface ApprenantResponse {
