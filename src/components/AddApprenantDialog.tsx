@@ -27,7 +27,16 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://kahoot.nos-apps.com/api/apprenant", formData);
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        "http://kahoot.nos-apps.com/api/apprenant",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.data.success) {
         toast({
           title: "Succès",
@@ -110,4 +119,4 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
       </DialogContent>
     </Dialog>
   );
-}
+};

@@ -43,8 +43,14 @@ export const ApprenantsList = () => {
 
   const handleDelete = async (id: string) => {
     try {
+      const token = localStorage.getItem("token");
       const response = await axios.delete(
-        `http://kahoot.nos-apps.com/api/apprenant/delete/${id}`
+        `http://kahoot.nos-apps.com/api/apprenant/delete/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       if (response.data.success) {
         toast({
