@@ -21,7 +21,7 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
     prenom: "",
     email: "",
     phone: "",
-    avatar: "",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -37,29 +37,55 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
         return;
       }
 
+      // Récupérer l'ID de l'école depuis le localStorage
+      const userData = localStorage.getItem("user");
+      if (!userData) {
+        toast({
+          variant: "destructive",
+          title: "Erreur",
+          description: "Informations utilisateur non trouvées",
+        });
+        return;
+      }
+
+      const { ecole } = JSON.parse(userData);
+      
+      const dataToSend = {
+        ...formData,
+        ecole: ecole._id, // Ajouter l'ID de l'école aux données
+      };
+
       const response = await axios.post(
         "http://kahoot.nos-apps.com/api/apprenant",
-        formData,
+        dataToSend,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
+
       if (response.data.success) {
         toast({
           title: "Succès",
           description: "Apprenant ajouté avec succès",
         });
         setOpen(false);
+        setFormData({
+          nom: "",
+          prenom: "",
+          email: "",
+          phone: "",
+          avatar: "https://api.dicebear.com/7.x/avataaars/svg",
+        });
         onSuccess();
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erreur lors de l'ajout:", error);
       toast({
         variant: "destructive",
         title: "Erreur",
-        description: "Impossible d'ajouter l'apprenant",
+        description: error.response?.data?.message || "Impossible d'ajouter l'apprenant",
       });
     }
   };
@@ -87,6 +113,7 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
                 value={formData.nom}
                 onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
                 className="col-span-3"
+                required
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -100,6 +127,7 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
                   setFormData({ ...formData, prenom: e.target.value })
                 }
                 className="col-span-3"
+                required
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -114,6 +142,7 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
                   setFormData({ ...formData, email: e.target.value })
                 }
                 className="col-span-3"
+                required
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -127,6 +156,7 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
                   setFormData({ ...formData, phone: e.target.value })
                 }
                 className="col-span-3"
+                required
               />
             </div>
           </div>
