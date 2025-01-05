@@ -51,8 +51,11 @@ export const EnseignantsList = ({ onEnseignantChange }: EnseignantsListProps) =>
       );
 
       if (response.data.success) {
+        // Filtrer uniquement les utilisateurs avec le statut "enseignant" ou "Enseignant"
         const filteredEnseignants = response.data.data.filter(
-          (enseignant: Enseignant) => enseignant.ecole._id === userData.ecole._id
+          (enseignant: Enseignant) => 
+            enseignant.ecole === userData.ecole._id && 
+            (enseignant.statut.toLowerCase() === "enseignant")
         );
         setEnseignants(filteredEnseignants);
         onEnseignantChange?.();

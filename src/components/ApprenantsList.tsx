@@ -131,7 +131,7 @@ export const ApprenantsList = ({ onApprenantChange }: ApprenantsListProps) => {
               <TableHead>Prénom</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Téléphone</TableHead>
-              <TableHead>École</TableHead>
+              <TableHead>Matricule</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -154,7 +154,7 @@ export const ApprenantsList = ({ onApprenantChange }: ApprenantsListProps) => {
                   <TableCell>{apprenant.prenom}</TableCell>
                   <TableCell>{apprenant.email}</TableCell>
                   <TableCell>{apprenant.phone}</TableCell>
-                  <TableCell>{apprenant.ecole.libelle}</TableCell>
+                  <TableCell>{apprenant.matricule}</TableCell>
                   <TableCell>
                     <Button
                       variant="destructive"
