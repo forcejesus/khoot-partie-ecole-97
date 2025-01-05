@@ -11,7 +11,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Loader2 } from "lucide-react";
+import { Plus, Loader2, Upload } from "lucide-react";
+import Papa from "papaparse";
+import { Separator } from "@/components/ui/separator";
 
 export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => {
   const { toast } = useToast();
@@ -84,6 +86,82 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setIsLoading(true);
+    
+    Papa.parse(file, {
+      complete: async (results) => {
+        try {
+          const token = localStorage.getItem("token");
+          const userDataStr = localStorage.getItem("user");
+
+          if (!token || !userDataStr) {
+            toast({
+              variant: "destructive",
+              title: "Erreur",
+              description: "Vous devez être connecté pour effectuer cette action",
+            });
+            return;
+          }
+
+          const userData = JSON.parse(userDataStr);
+          const apprenants = results.data.slice(1).map((row: any) => ({
+            nom: row[0],
+            prenom: row[1],
+            email: row[2],
+            phone: row[3],
+            avatar: "Mon avatar",
+            ecole: userData.ecole._id
+          }));
+
+          let successCount = 0;
+          let errorCount = 0;
+
+          for (const apprenant of apprenants) {
+            try {
+              await axios.post(
+                "http://kahoot.nos-apps.com/api/apprenant",
+                apprenant,
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              );
+              successCount++;
+            } catch (error) {
+              errorCount++;
+              console.error("Erreur lors de l'ajout d'un apprenant:", error);
+            }
+          }
+
+          toast({
+            title: "Import terminé",
+            description: `${successCount} apprenants ajoutés avec succès, ${errorCount} erreurs`,
+          });
+
+          if (successCount > 0) {
+            setOpen(false);
+            onSuccess();
+          }
+        } catch (error: any) {
+          toast({
+            variant: "destructive",
+            title: "Erreur",
+            description: "Erreur lors de l'import du fichier CSV",
+          });
+        } finally {
+          setIsLoading(false);
+        }
+      },
+      header: true,
+      skipEmptyLines: true,
+    });
   };
 
   return (
@@ -169,6 +247,29 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
             </Button>
           </div>
         </form>
+
+        <Separator className="my-4" />
+
+        <div className="space-y-4">
+          <div className="text-sm text-gray-500">
+            Ou importez un fichier CSV (colonnes: nom, prénom, email, téléphone)
+          </div>
+          <div className="flex justify-center">
+            <label className="cursor-pointer">
+              <Input
+                type="file"
+                accept=".csv"
+                className="hidden"
+                onChange={handleFileUpload}
+                disabled={isLoading}
+              />
+              <div className="flex items-center gap-2 px-4 py-2 border rounded-md hover:bg-gray-50">
+                <Upload className="h-4 w-4" />
+                <span>Importer CSV</span>
+              </div>
+            </label>
+          </div>
+        </div>
       </DialogContent>
     </Dialog>
   );
