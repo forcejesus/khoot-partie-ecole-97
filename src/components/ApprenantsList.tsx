@@ -13,13 +13,16 @@ import { Trash2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { AddApprenantDialog } from "./AddApprenantDialog";
 import { Apprenant } from "@/types/apprenant";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const ApprenantsList = () => {
   const [apprenants, setApprenants] = useState<Apprenant[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
 
   const fetchApprenants = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get(
         "http://kahoot.nos-apps.com/api/apprenant"
       );
@@ -33,6 +36,8 @@ export const ApprenantsList = () => {
         title: "Erreur",
         description: "Impossible de récupérer la liste des apprenants",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -66,7 +71,7 @@ export const ApprenantsList = () => {
     <div className="container mx-auto py-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Liste des apprenants</h1>
-        <AddApprenantDialog onApprenantAdded={fetchApprenants} />
+        <AddApprenantDialog onSuccess={fetchApprenants} />
       </div>
       
       <div className="rounded-md border">
@@ -82,27 +87,41 @@ export const ApprenantsList = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {apprenants.map((apprenant) => (
-              <TableRow key={apprenant._id}>
-                <TableCell>{apprenant.nom}</TableCell>
-                <TableCell>{apprenant.prenom}</TableCell>
-                <TableCell>{apprenant.email}</TableCell>
-                <TableCell>{apprenant.phone}</TableCell>
-                <TableCell>{apprenant.ecole.libelle}</TableCell>
-                <TableCell>
-                  <Button
-                    variant="destructive"
-                    size="icon"
-                    onClick={() => handleDelete(apprenant._id)}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {isLoading ? (
+              // Affichage du loader
+              [...Array(3)].map((_, index) => (
+                <TableRow key={index}>
+                  <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[150px]" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
+                  <TableCell><Skeleton className="h-8 w-8" /></TableCell>
+                </TableRow>
+              ))
+            ) : (
+              apprenants.map((apprenant) => (
+                <TableRow key={apprenant._id}>
+                  <TableCell>{apprenant.nom}</TableCell>
+                  <TableCell>{apprenant.prenom}</TableCell>
+                  <TableCell>{apprenant.email}</TableCell>
+                  <TableCell>{apprenant.phone}</TableCell>
+                  <TableCell>{apprenant.ecole.libelle}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="destructive"
+                      size="icon"
+                      onClick={() => handleDelete(apprenant._id)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </div>
     </div>
   );
-}
+};
