@@ -15,7 +15,11 @@ import { AddApprenantDialog } from "./AddApprenantDialog";
 import { Apprenant } from "@/types/apprenant";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const ApprenantsList = () => {
+interface ApprenantsListProps {
+  onApprenantChange?: () => void;
+}
+
+export const ApprenantsList = ({ onApprenantChange }: ApprenantsListProps) => {
   const [apprenants, setApprenants] = useState<Apprenant[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
@@ -47,11 +51,11 @@ export const ApprenantsList = () => {
       );
 
       if (response.data.success) {
-        // Filtrer les apprenants pour ne garder que ceux de l'école de l'utilisateur connecté
         const filteredApprenants = response.data.data.filter(
           (apprenant: Apprenant) => apprenant.ecole._id === userData.ecole._id
         );
         setApprenants(filteredApprenants);
+        onApprenantChange?.();
       }
     } catch (error) {
       console.error("Erreur lors de la récupération des apprenants:", error);
@@ -133,7 +137,6 @@ export const ApprenantsList = () => {
           </TableHeader>
           <TableBody>
             {isLoading ? (
-              // Affichage du loader
               [...Array(3)].map((_, index) => (
                 <TableRow key={index}>
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>

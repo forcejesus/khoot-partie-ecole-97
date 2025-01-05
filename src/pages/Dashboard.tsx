@@ -1,12 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { LogOut, Users, GraduationCap } from "lucide-react";
 import { ApprenantsList } from "@/components/ApprenantsList";
+import axios from "axios";
+import { useToast } from "@/hooks/use-toast";
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
+  const { toast } = useToast();
+  const [totalApprenants, setTotalApprenants] = useState(0);
+
+  const fetchTotalApprenants = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const userDataStr = localStorage.getItem("user");
+
+      if (!token || !userDataStr) {
+        toast({
+          variant: "destructive",
+          title: "Erreur",
+          description: "Vous devez être connecté pour voir les statistiques",
+        });
+        return;
+      }
+
+      const userData = JSON.parse(userDataStr);
+
+      const response = await axios.get(
+        "http://kahoot.nos-apps.com/api/apprenant",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.success) {
+        const filteredApprenants = response.data.data.filter(
+          (apprenant: any) => apprenant.ecole._id === userData.ecole._id
+        );
+        setTotalApprenants(filteredApprenants.length);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération des statistiques:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTotalApprenants();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -52,13 +96,13 @@ const Dashboard = () => {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Total Apprenants</p>
-                <p className="text-2xl font-bold">0</p>
+                <p className="text-2xl font-bold">{totalApprenants}</p>
               </div>
             </div>
           </Card>
         </div>
 
-        <ApprenantsList />
+        <ApprenantsList onApprenantChange={fetchTotalApprenants} />
       </main>
     </div>
   );

@@ -11,11 +11,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Plus } from "lucide-react";
+import { Plus, Loader2 } from "lucide-react";
 
 export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
@@ -27,6 +28,7 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const token = localStorage.getItem("token");
       const userDataStr = localStorage.getItem("user");
@@ -79,6 +81,8 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
         title: "Erreur",
         description: error.response?.data?.message || "Impossible d'ajouter l'apprenant",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -153,7 +157,16 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
             </div>
           </div>
           <div className="flex justify-end">
-            <Button type="submit">Ajouter</Button>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Chargement...
+                </>
+              ) : (
+                'Ajouter'
+              )}
+            </Button>
           </div>
         </form>
       </DialogContent>
