@@ -85,7 +85,7 @@ export const EnseignantsList = ({ onEnseignantChange }: EnseignantsListProps) =>
       }
 
       const response = await axios.delete(
-        `http://kahoot.nos-apps.com/api/users/delete/${id}`,
+        `http://kahoot.nos-apps.com/api/user/delete/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
