@@ -2,34 +2,11 @@ import React from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { LogOut, Search, Users, GraduationCap } from "lucide-react";
+import { LogOut, Users, GraduationCap } from "lucide-react";
+import { ApprenantsList } from "@/components/ApprenantsList";
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
-  const [searchTeachers, setSearchTeachers] = React.useState("");
-  const [searchStudents, setSearchStudents] = React.useState("");
-
-  // Dummy data for demonstration
-  const teachers = [
-    { id: 1, name: "John Doe", subject: "Mathematics" },
-    { id: 2, name: "Jane Smith", subject: "Physics" },
-    // Add more teachers as needed
-  ];
-
-  const students = [
-    { id: 1, name: "Alice Johnson", class: "Terminal" },
-    { id: 2, name: "Bob Wilson", class: "Terminal" },
-    // Add more students as needed
-  ];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -64,7 +41,7 @@ const Dashboard = () => {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Total Enseignants</p>
-                <p className="text-2xl font-bold">{teachers.length}</p>
+                <p className="text-2xl font-bold">0</p>
               </div>
             </div>
           </Card>
@@ -75,81 +52,13 @@ const Dashboard = () => {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Total Apprenants</p>
-                <p className="text-2xl font-bold">{students.length}</p>
+                <p className="text-2xl font-bold">0</p>
               </div>
             </div>
           </Card>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
-              <h2 className="text-lg font-semibold">Enseignants</h2>
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <Input
-                  type="search"
-                  placeholder="Rechercher..."
-                  value={searchTeachers}
-                  onChange={(e) => setSearchTeachers(e.target.value)}
-                  className="pl-9"
-                />
-              </div>
-            </div>
-            <Card className="bg-white/80 backdrop-blur-sm">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Nom</TableHead>
-                    <TableHead>Matière</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {teachers.map((teacher) => (
-                    <TableRow key={teacher.id}>
-                      <TableCell>{teacher.name}</TableCell>
-                      <TableCell>{teacher.subject}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Card>
-          </div>
-
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
-              <h2 className="text-lg font-semibold">Apprenants</h2>
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <Input
-                  type="search"
-                  placeholder="Rechercher..."
-                  value={searchStudents}
-                  onChange={(e) => setSearchStudents(e.target.value)}
-                  className="pl-9"
-                />
-              </div>
-            </div>
-            <Card className="bg-white/80 backdrop-blur-sm">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Nom</TableHead>
-                    <TableHead>Classe</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {students.map((student) => (
-                    <TableRow key={student.id}>
-                      <TableCell>{student.name}</TableCell>
-                      <TableCell>{student.class}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Card>
-          </div>
-        </div>
+        <ApprenantsList />
       </main>
     </div>
   );
