@@ -72,7 +72,9 @@ const Dashboard = () => {
 
       if (response.data.success) {
         const filteredEnseignants = response.data.data.filter(
-          (enseignant: any) => enseignant.ecole._id === userData.ecole._id
+          (enseignant: any) => 
+            enseignant.ecole === userData.ecole._id && 
+            enseignant.statut.toLowerCase() === "enseignant"
         );
         setTotalEnseignants(filteredEnseignants.length);
       }
