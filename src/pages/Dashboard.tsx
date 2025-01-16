@@ -24,9 +24,7 @@ const Dashboard = () => {
   const fetchTotalGames = async () => {
     try {
       const token = localStorage.getItem("token");
-      const userDataStr = localStorage.getItem("user");
-
-      if (!token || !userDataStr) {
+      if (!token) {
         toast({
           variant: "destructive",
           title: "Erreur",
@@ -34,8 +32,6 @@ const Dashboard = () => {
         });
         return;
       }
-
-      const userData = JSON.parse(userDataStr);
 
       const response = await axios.get(
         "http://kahoot.nos-apps.com/api/jeux",
@@ -47,10 +43,7 @@ const Dashboard = () => {
       );
 
       if (response.data.success) {
-        const filteredGames = response.data.data.filter(
-          (game: any) => game.ecole === userData.ecole._id
-        );
-        setTotalGames(filteredGames.length);
+        setTotalGames(response.data.data.length);
       }
     } catch (error) {
       console.error("Erreur lors de la récupération des jeux:", error);
