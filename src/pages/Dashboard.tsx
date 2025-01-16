@@ -9,10 +9,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Users, GraduationCap, LogOut, GamepadIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user } = useAuth();
   const [totalApprenants, setTotalApprenants] = useState(0);
   const [totalEnseignants, setTotalEnseignants] = useState(0);
   const [totalGames, setTotalGames] = useState(0);
@@ -139,7 +141,14 @@ export default function Dashboard() {
   return (
     <div className="container mx-auto py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Tableau de bord</h1>
+        <div>
+          <h1 className="text-2xl font-bold">Tableau de bord</h1>
+          {user && user.ecole && (
+            <p className="text-gray-600 mt-1">
+              École : {user.ecole.libelle}
+            </p>
+          )}
+        </div>
         <Button variant="outline" onClick={handleLogout}>
           <LogOut className="mr-2 h-4 w-4" />
           Déconnexion
