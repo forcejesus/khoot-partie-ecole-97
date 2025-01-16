@@ -13,7 +13,9 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
+    // Vérifie si l'utilisateur est déjà connecté
+    const token = localStorage.getItem("token");
+    if (user || token) {
       navigate("/dashboard");
     }
   }, [user, navigate]);
