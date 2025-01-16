@@ -27,6 +27,7 @@ interface Jeu {
   createdBy: CreatedBy;
   questions: any[];
   planification: any[];
+  date: string;
 }
 
 export const JeuxList = () => {
@@ -79,6 +80,17 @@ export const JeuxList = () => {
     fetchJeux();
   }, []);
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('fr-FR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
   return (
     <div className="container mx-auto py-8">
       <div className="flex justify-between items-center mb-6">
@@ -99,6 +111,7 @@ export const JeuxList = () => {
               <TableHead>Email</TableHead>
               <TableHead>Nombre de questions</TableHead>
               <TableHead>Planifié</TableHead>
+              <TableHead>Date de création</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -110,6 +123,7 @@ export const JeuxList = () => {
                   <TableCell><Skeleton className="h-4 w-[200px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[150px]" /></TableCell>
                 </TableRow>
               ))
             ) : (
@@ -124,6 +138,7 @@ export const JeuxList = () => {
                       {jeu.planification?.length > 0 ? "Oui" : "Non"}
                     </Badge>
                   </TableCell>
+                  <TableCell>{formatDate(jeu.date)}</TableCell>
                 </TableRow>
               ))
             )}
