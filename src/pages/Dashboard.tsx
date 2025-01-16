@@ -2,17 +2,23 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { LogOut, Users, GraduationCap } from "lucide-react";
+import { LogOut, Users, GraduationCap, Menu } from "lucide-react";
 import { ApprenantsList } from "@/components/ApprenantsList";
 import { EnseignantsList } from "@/components/EnseignantsList";
 import axios from "axios";
 import { useToast } from "@/hooks/use-toast";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
   const { toast } = useToast();
   const [totalApprenants, setTotalApprenants] = useState(0);
   const [totalEnseignants, setTotalEnseignants] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const fetchTotalApprenants = async () => {
     try {
@@ -90,31 +96,64 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-gray-900">Tableau de bord</h1>
+      <header className="bg-white shadow-sm sticky top-0 z-50">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <Sheet>
+                <SheetTrigger asChild className="lg:hidden">
+                  <Button variant="ghost" size="icon" className="mr-2">
+                    <Menu className="h-5 w-5" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-64">
+                  <div className="py-4">
+                    <div className="space-y-4">
+                      <div className="px-4">
+                        <h2 className="text-lg font-semibold text-gray-900">
+                          {user?.ecole.libelle}
+                        </h2>
+                        <p className="text-sm text-gray-500">
+                          Tableau de bord
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+              
+              <h1 className="text-2xl font-bold text-gray-900 hidden lg:block">
+                Tableau de bord
+              </h1>
+            </div>
+
             <div className="flex items-center space-x-4">
-              <div className="text-right">
-                <p className="text-sm text-gray-500">École</p>
-                <p className="text-sm font-medium">{user?.ecole.libelle}</p>
+              <div className="hidden md:flex items-center space-x-2 mr-4">
+                <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Users className="h-4 w-4 text-primary" />
+                </div>
+                <div className="text-sm">
+                  <p className="font-medium text-gray-900">{user?.ecole.libelle}</p>
+                  <p className="text-gray-500 text-xs">Administration</p>
+                </div>
               </div>
+              
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={logout}
-                className="hover:bg-gray-100"
+                className="hover:bg-red-50 hover:text-red-600 transition-colors"
               >
                 <LogOut className="h-5 w-5" />
               </Button>
             </div>
           </div>
-        </div>
+        </nav>
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <Card className="p-6 bg-white/80 backdrop-blur-sm">
+          <Card className="p-6 bg-white/80 backdrop-blur-sm hover:shadow-md transition-shadow">
             <div className="flex items-center space-x-4">
               <div className="p-3 bg-primary/10 rounded-full">
                 <Users className="h-6 w-6 text-primary" />
@@ -125,7 +164,7 @@ const Dashboard = () => {
               </div>
             </div>
           </Card>
-          <Card className="p-6 bg-white/80 backdrop-blur-sm">
+          <Card className="p-6 bg-white/80 backdrop-blur-sm hover:shadow-md transition-shadow">
             <div className="flex items-center space-x-4">
               <div className="p-3 bg-primary/10 rounded-full">
                 <GraduationCap className="h-6 w-6 text-primary" />
