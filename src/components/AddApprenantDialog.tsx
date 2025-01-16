@@ -28,6 +28,7 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
     ecole: ""
   });
 
+  // Gère la soumission du formulaire
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -88,6 +89,7 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
     }
   };
 
+  // Gère l'upload du fichier CSV
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;

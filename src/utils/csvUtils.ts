@@ -1,50 +1,43 @@
-import Papa from "papaparse";
-import { z } from "zod";
-
-export const apprenantSchema = z.object({
-  nom: z.string().min(1, "Le nom est requis"),
-  prenom: z.string().min(1, "Le prénom est requis"),
-  email: z.string().email("Email invalide"),
-  phone: z.string().min(1, "Le téléphone est requis"),
-});
-
-export type ApprenantImport = z.infer<typeof apprenantSchema>;
-
-export interface ImportResult {
-  successCount: number;
-  errorCount: number;
-  errorMessages: string[];
+export interface ApprenantImport {
+  nom: string;
+  prenom: string;
+  email: string;
+  phone: string;
 }
 
-export const processCSVFile = (file: File): Promise<ApprenantImport[]> => {
+export const processCSVFile = async (file: File): Promise<ApprenantImport[]> => {
   return new Promise((resolve, reject) => {
-    Papa.parse(file, {
-      header: true,
-      skipEmptyLines: true,
-      complete: (results) => {
-        const apprenants = results.data.map((row: any) => ({
-          nom: row.nom?.trim(),
-          prenom: row.prenom?.trim(),
-          email: row.email?.trim(),
-          phone: row.phone?.toString().trim(),
-        }));
-        resolve(apprenants);
-      },
-      error: (error) => {
-        reject(error);
-      },
-    });
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const text = event.target?.result as string;
+      const lines = text.split("\n");
+      const apprenants: ApprenantImport[] = [];
+
+      for (const line of lines) {
+        const [nom, prenom, email, phone] = line.split(",");
+        if (nom && prenom && email && phone) {
+          apprenants.push({ nom, prenom, email, phone });
+        }
+      }
+      resolve(apprenants);
+    };
+    reader.onerror = (error) => reject(error);
+    reader.readAsText(file);
   });
 };
 
-export const validateApprenant = (data: any): { isValid: boolean; message?: string } => {
-  const result = apprenantSchema.safeParse(data);
-  if (!result.success) {
-    const errors = result.error.errors.map((err) => `${err.path}: ${err.message}`);
-    return {
-      isValid: false,
-      message: errors.join(", "),
-    };
+export const validateApprenant = (apprenant: ApprenantImport) => {
+  if (!apprenant.nom) {
+    return { isValid: false, message: "Le nom est requis." };
   }
-  return { isValid: true };
+  if (!apprenant.prenom) {
+    return { isValid: false, message: "Le prénom est requis." };
+  }
+  if (!apprenant.email) {
+    return { isValid: false, message: "L'email est requis." };
+  }
+  if (!apprenant.phone) {
+    return { isValid: false, message: "Le téléphone est requis." };
+  }
+  return { isValid: true, message: "" };
 };

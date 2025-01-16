@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useAuth } from "@/contexts/AuthContext";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { LogOut, Users, GraduationCap, Menu, GamepadIcon } from "lucide-react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 import { ApprenantsList } from "@/components/ApprenantsList";
 import { EnseignantsList } from "@/components/EnseignantsList";
-import axios from "axios";
-import { useToast } from "@/hooks/use-toast";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Users, GraduationCap, LogOut, GamepadIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-const Dashboard = () => {
-  const { user, logout } = useAuth();
+export default function Dashboard() {
+  const navigate = useNavigate();
   const { toast } = useToast();
   const [totalApprenants, setTotalApprenants] = useState(0);
   const [totalEnseignants, setTotalEnseignants] = useState(0);
   const [totalGames, setTotalGames] = useState(0);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Récupère le nombre total de jeux
   const fetchTotalGames = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -47,185 +43,110 @@ const Dashboard = () => {
       }
     } catch (error) {
       console.error("Erreur lors de la récupération des jeux:", error);
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: "Impossible de récupérer les statistiques des jeux",
+      });
     }
   };
 
-  const fetchTotalApprenants = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const userDataStr = localStorage.getItem("user");
+  // Gère la déconnexion
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/");
+  };
 
-      if (!token || !userDataStr) {
-        toast({
-          variant: "destructive",
-          title: "Erreur",
-          description: "Vous devez être connecté pour voir les statistiques",
-        });
-        return;
-      }
-
+  // Met à jour le nombre total d'apprenants
+  const handleApprenantChange = () => {
+    const userDataStr = localStorage.getItem("user");
+    if (userDataStr) {
       const userData = JSON.parse(userDataStr);
-
-      const response = await axios.get(
-        "http://kahoot.nos-apps.com/api/apprenant",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.data.success) {
-        const filteredApprenants = response.data.data.filter(
-          (apprenant: any) => apprenant.ecole._id === userData.ecole._id
-        );
-        setTotalApprenants(filteredApprenants.length);
-      }
-    } catch (error) {
-      console.error("Erreur lors de la récupération des statistiques:", error);
+      setTotalApprenants(userData.ecole.apprenants?.length || 0);
     }
   };
 
-  const fetchTotalEnseignants = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const userDataStr = localStorage.getItem("user");
-
-      if (!token || !userDataStr) {
-        return;
-      }
-
+  // Met à jour le nombre total d'enseignants
+  const handleEnseignantChange = () => {
+    const userDataStr = localStorage.getItem("user");
+    if (userDataStr) {
       const userData = JSON.parse(userDataStr);
-
-      const response = await axios.get(
-        "http://kahoot.nos-apps.com/api/users",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.data.success) {
-        const filteredEnseignants = response.data.data.filter(
-          (enseignant: any) => 
-            enseignant.ecole === userData.ecole._id && 
-            enseignant.statut.toLowerCase() === "enseignant"
-        );
-        setTotalEnseignants(filteredEnseignants.length);
-      }
-    } catch (error) {
-      console.error("Erreur lors de la récupération des statistiques:", error);
+      setTotalEnseignants(userData.ecole.enseignants?.length || 0);
     }
   };
 
+  // Effet au chargement du composant
   useEffect(() => {
-    fetchTotalApprenants();
-    fetchTotalEnseignants();
+    const userDataStr = localStorage.getItem("user");
+    if (userDataStr) {
+      const userData = JSON.parse(userDataStr);
+      setTotalApprenants(userData.ecole.apprenants?.length || 0);
+      setTotalEnseignants(userData.ecole.enseignants?.length || 0);
+    }
     fetchTotalGames();
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <Sheet>
-                <SheetTrigger asChild className="lg:hidden">
-                  <Button variant="ghost" size="icon" className="mr-2">
-                    <Menu className="h-5 w-5" />
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="left" className="w-64">
-                  <div className="py-4">
-                    <div className="space-y-4">
-                      <div className="px-4">
-                        <h2 className="text-lg font-semibold text-gray-900">
-                          {user?.ecole.libelle}
-                        </h2>
-                        <p className="text-sm text-gray-500">
-                          Tableau de bord
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </SheetContent>
-              </Sheet>
-              
-              <h1 className="text-2xl font-bold text-gray-900 hidden lg:block">
-                Tableau de bord
-              </h1>
-            </div>
+    <div className="container mx-auto py-8">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Tableau de bord</h1>
+        <Button variant="outline" onClick={handleLogout}>
+          <LogOut className="mr-2 h-4 w-4" />
+          Déconnexion
+        </Button>
+      </div>
 
-            <div className="flex items-center space-x-4">
-              <div className="hidden md:flex items-center space-x-2 mr-4">
-                <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Users className="h-4 w-4 text-primary" />
-                </div>
-                <div className="text-sm">
-                  <p className="font-medium text-gray-900">{user?.ecole.libelle}</p>
-                  <p className="text-gray-500 text-xs">Administration</p>
-                </div>
-              </div>
-              
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={logout}
-                className="hover:bg-red-50 hover:text-red-600 transition-colors"
-              >
-                <LogOut className="h-5 w-5" />
-              </Button>
-            </div>
-          </div>
-        </nav>
-      </header>
+      <div className="grid gap-4 md:grid-cols-3 mb-6">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              Total Apprenants
+            </CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{totalApprenants}</div>
+          </CardContent>
+        </Card>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="p-6 bg-white/80 backdrop-blur-sm hover:shadow-md transition-shadow">
-            <div className="flex items-center space-x-4">
-              <div className="p-3 bg-primary/10 rounded-full">
-                <Users className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Total Enseignants</p>
-                <p className="text-2xl font-bold">{totalEnseignants}</p>
-              </div>
-            </div>
-          </Card>
-          <Card className="p-6 bg-white/80 backdrop-blur-sm hover:shadow-md transition-shadow">
-            <div className="flex items-center space-x-4">
-              <div className="p-3 bg-primary/10 rounded-full">
-                <GraduationCap className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Total Apprenants</p>
-                <p className="text-2xl font-bold">{totalApprenants}</p>
-              </div>
-            </div>
-          </Card>
-          <Card className="p-6 bg-white/80 backdrop-blur-sm hover:shadow-md transition-shadow">
-            <div className="flex items-center space-x-4">
-              <div className="p-3 bg-primary/10 rounded-full">
-                <GamepadIcon className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Total Jeux</p>
-                <p className="text-2xl font-bold">{totalGames}</p>
-              </div>
-            </div>
-          </Card>
-        </div>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              Total Enseignants
+            </CardTitle>
+            <GraduationCap className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{totalEnseignants}</div>
+          </CardContent>
+        </Card>
 
-        <div className="space-y-8">
-          <EnseignantsList onEnseignantChange={fetchTotalEnseignants} />
-          <ApprenantsList onApprenantChange={fetchTotalApprenants} />
-        </div>
-      </main>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              Total Jeux
+            </CardTitle>
+            <GamepadIcon className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{totalGames}</div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Tabs defaultValue="apprenants" className="space-y-4">
+        <TabsList>
+          <TabsTrigger value="apprenants">Apprenants</TabsTrigger>
+          <TabsTrigger value="enseignants">Enseignants</TabsTrigger>
+        </TabsList>
+        <TabsContent value="apprenants">
+          <ApprenantsList onApprenantChange={handleApprenantChange} />
+        </TabsContent>
+        <TabsContent value="enseignants">
+          <EnseignantsList onEnseignantChange={handleEnseignantChange} />
+        </TabsContent>
+      </Tabs>
     </div>
   );
-};
-
-export default Dashboard;
+}

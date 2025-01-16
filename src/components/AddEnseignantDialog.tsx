@@ -25,6 +25,7 @@ export const AddEnseignantDialog = ({ onSuccess }: { onSuccess: () => void }) =>
     statut: "enseignant",
   });
 
+  // Gère la soumission du formulaire
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
