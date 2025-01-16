@@ -123,8 +123,8 @@ export const JeuxList = () => {
                   <TableCell>{jeu.createdBy?.email || "Non spécifié"}</TableCell>
                   <TableCell>{jeu.questions?.length || 0} questions</TableCell>
                   <TableCell>
-                    <Badge variant={jeu.planification ? "default" : "secondary"}>
-                      {jeu.planification ? "Oui" : "Non"}
+                    <Badge variant={jeu.planification?.dateDebut && jeu.planification?.dateFin ? "default" : "secondary"}>
+                      {jeu.planification?.dateDebut && jeu.planification?.dateFin ? "Oui" : "Non"}
                     </Badge>
                   </TableCell>
                 </TableRow>
