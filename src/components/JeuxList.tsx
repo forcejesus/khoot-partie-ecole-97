@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
 
 interface CreatedBy {
   _id: string;
-  nom: string;
+  name: string;
   email: string;
 }
 
@@ -26,10 +26,7 @@ interface Jeu {
   updatedAt: string;
   createdBy: CreatedBy;
   questions: any[];
-  planification?: {
-    dateDebut: string;
-    dateFin: string;
-  };
+  planification: any[];
 }
 
 export const JeuxList = () => {
@@ -119,12 +116,12 @@ export const JeuxList = () => {
               jeux.map((jeu) => (
                 <TableRow key={jeu._id}>
                   <TableCell className="font-medium">{jeu.titre}</TableCell>
-                  <TableCell>{jeu.createdBy?.nom || "Non spécifié"}</TableCell>
+                  <TableCell>{jeu.createdBy?.name || "Non spécifié"}</TableCell>
                   <TableCell>{jeu.createdBy?.email || "Non spécifié"}</TableCell>
                   <TableCell>{jeu.questions?.length || 0} questions</TableCell>
                   <TableCell>
-                    <Badge variant={jeu.planification?.dateDebut && jeu.planification?.dateFin ? "default" : "secondary"}>
-                      {jeu.planification?.dateDebut && jeu.planification?.dateFin ? "Oui" : "Non"}
+                    <Badge variant={jeu.planification?.length > 0 ? "default" : "secondary"}>
+                      {jeu.planification?.length > 0 ? "Oui" : "Non"}
                     </Badge>
                   </TableCell>
                 </TableRow>
