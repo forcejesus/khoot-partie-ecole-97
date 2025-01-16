@@ -4,6 +4,7 @@ import axios from "axios";
 import { useToast } from "@/hooks/use-toast";
 import { ApprenantsList } from "@/components/ApprenantsList";
 import { EnseignantsList } from "@/components/EnseignantsList";
+import { JeuxList } from "@/components/JeuxList";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Users, GraduationCap, LogOut, GamepadIcon, School, MapPin } from "lucide-react";
@@ -201,15 +202,19 @@ export default function Dashboard() {
       </div>
 
       <Tabs defaultValue="apprenants" className="space-y-4">
-        <TabsList className="grid w-full md:w-[400px] grid-cols-2">
+        <TabsList className="grid w-full md:w-[400px] grid-cols-3">
           <TabsTrigger value="apprenants">Apprenants</TabsTrigger>
           <TabsTrigger value="enseignants">Enseignants</TabsTrigger>
+          <TabsTrigger value="jeux">Jeux</TabsTrigger>
         </TabsList>
         <TabsContent value="apprenants">
           <ApprenantsList onApprenantChange={handleApprenantChange} />
         </TabsContent>
         <TabsContent value="enseignants">
           <EnseignantsList onEnseignantChange={handleEnseignantChange} />
+        </TabsContent>
+        <TabsContent value="jeux">
+          <JeuxList />
         </TabsContent>
       </Tabs>
     </div>
