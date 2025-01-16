@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { LogOut, Users, GraduationCap, Menu } from "lucide-react";
+import { LogOut, Users, GraduationCap, Menu, GamepadIcon } from "lucide-react";
 import { ApprenantsList } from "@/components/ApprenantsList";
 import { EnseignantsList } from "@/components/EnseignantsList";
 import axios from "axios";
@@ -18,7 +18,44 @@ const Dashboard = () => {
   const { toast } = useToast();
   const [totalApprenants, setTotalApprenants] = useState(0);
   const [totalEnseignants, setTotalEnseignants] = useState(0);
+  const [totalGames, setTotalGames] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const fetchTotalGames = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const userDataStr = localStorage.getItem("user");
+
+      if (!token || !userDataStr) {
+        toast({
+          variant: "destructive",
+          title: "Erreur",
+          description: "Vous devez être connecté pour voir les statistiques",
+        });
+        return;
+      }
+
+      const userData = JSON.parse(userDataStr);
+
+      const response = await axios.get(
+        "http://kahoot.nos-apps.com/api/jeux",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.success) {
+        const filteredGames = response.data.data.filter(
+          (game: any) => game.ecole === userData.ecole._id
+        );
+        setTotalGames(filteredGames.length);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération des jeux:", error);
+    }
+  };
 
   const fetchTotalApprenants = async () => {
     try {
@@ -92,6 +129,7 @@ const Dashboard = () => {
   useEffect(() => {
     fetchTotalApprenants();
     fetchTotalEnseignants();
+    fetchTotalGames();
   }, []);
 
   return (
@@ -152,7 +190,7 @@ const Dashboard = () => {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card className="p-6 bg-white/80 backdrop-blur-sm hover:shadow-md transition-shadow">
             <div className="flex items-center space-x-4">
               <div className="p-3 bg-primary/10 rounded-full">
@@ -172,6 +210,17 @@ const Dashboard = () => {
               <div>
                 <p className="text-sm text-gray-500">Total Apprenants</p>
                 <p className="text-2xl font-bold">{totalApprenants}</p>
+              </div>
+            </div>
+          </Card>
+          <Card className="p-6 bg-white/80 backdrop-blur-sm hover:shadow-md transition-shadow">
+            <div className="flex items-center space-x-4">
+              <div className="p-3 bg-primary/10 rounded-full">
+                <GamepadIcon className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Total Jeux</p>
+                <p className="text-2xl font-bold">{totalGames}</p>
               </div>
             </div>
           </Card>
