@@ -34,7 +34,7 @@ const Index = () => {
             size="lg"
             className="bg-white text-purple-600 hover:bg-gray-100"
           >
-            Commencer maintenant
+            Se connecter
           </Button>
         </div>
       </section>
