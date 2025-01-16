@@ -10,6 +10,13 @@ import {
 } from "@/components/ui/table";
 import { useToast } from "@/components/ui/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Badge } from "@/components/ui/badge";
+
+interface CreatedBy {
+  _id: string;
+  nom: string;
+  email: string;
+}
 
 interface Jeu {
   _id: string;
@@ -17,6 +24,12 @@ interface Jeu {
   description: string;
   createdAt: string;
   updatedAt: string;
+  createdBy: CreatedBy;
+  questions: any[];
+  planification?: {
+    dateDebut: string;
+    dateFin: string;
+  };
 }
 
 export const JeuxList = () => {
@@ -85,15 +98,17 @@ export const JeuxList = () => {
           <TableHeader>
             <TableRow>
               <TableHead>Titre</TableHead>
-              <TableHead>Description</TableHead>
-              <TableHead>Date de création</TableHead>
-              <TableHead>Dernière modification</TableHead>
+              <TableHead>Créé par</TableHead>
+              <TableHead>Email</TableHead>
+              <TableHead>Nombre de questions</TableHead>
+              <TableHead>Planifié</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {isLoading ? (
               [...Array(3)].map((_, index) => (
                 <TableRow key={index}>
+                  <TableCell><Skeleton className="h-4 w-[150px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[150px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[200px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
@@ -103,10 +118,15 @@ export const JeuxList = () => {
             ) : (
               jeux.map((jeu) => (
                 <TableRow key={jeu._id}>
-                  <TableCell>{jeu.titre}</TableCell>
-                  <TableCell>{jeu.description}</TableCell>
-                  <TableCell>{new Date(jeu.createdAt).toLocaleDateString()}</TableCell>
-                  <TableCell>{new Date(jeu.updatedAt).toLocaleDateString()}</TableCell>
+                  <TableCell className="font-medium">{jeu.titre}</TableCell>
+                  <TableCell>{jeu.createdBy?.nom || "Non spécifié"}</TableCell>
+                  <TableCell>{jeu.createdBy?.email || "Non spécifié"}</TableCell>
+                  <TableCell>{jeu.questions?.length || 0} questions</TableCell>
+                  <TableCell>
+                    <Badge variant={jeu.planification ? "success" : "secondary"}>
+                      {jeu.planification ? "Oui" : "Non"}
+                    </Badge>
+                  </TableCell>
                 </TableRow>
               ))
             )}
