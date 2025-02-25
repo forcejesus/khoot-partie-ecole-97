@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -22,9 +21,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-      {/* Hero Section amélioré */}
+      {/* Hero Section avec nouvelle image de quiz */}
       <section className="relative h-[800px] flex items-center justify-center bg-gradient-to-br from-[#8B5CF6] via-[#D946EF] to-[#EC4899] text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=2000')] opacity-20 bg-cover bg-center mix-blend-overlay" />
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=2000')] opacity-20 bg-cover bg-center mix-blend-overlay" />
         <div className="absolute inset-0 bg-black bg-opacity-30" />
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="max-w-4xl mx-auto space-y-8">
@@ -43,11 +42,10 @@ const Index = () => {
             </Button>
           </div>
         </div>
-        {/* Effet de vague décoratif */}
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-white/10 backdrop-blur-sm transform -skew-y-2" />
       </section>
 
-      {/* Section Fonctionnalités avec design amélioré */}
+      {/* Section Fonctionnalités */}
       <section className="py-32 relative overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
@@ -102,7 +100,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Section Prix avec design premium */}
+      {/* Section Prix avec prix en FCFA */}
       <section className="py-32 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
@@ -117,7 +115,7 @@ const Index = () => {
                 <CardTitle className="text-2xl font-bold text-gray-800">Gratuit</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-5xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">0€</div>
+                <div className="text-5xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">0 FCFA</div>
                 <ul className="space-y-4">
                   <li className="flex items-center text-gray-600">
                     <Star className="h-5 w-5 text-purple-500 mr-2" />
@@ -146,7 +144,7 @@ const Index = () => {
                 <CardTitle className="text-2xl font-bold text-gray-800">Pro</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-5xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">29€</div>
+                <div className="text-5xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">19 000 FCFA</div>
                 <ul className="space-y-4">
                   <li className="flex items-center text-gray-600">
                     <Star className="h-5 w-5 text-purple-500 mr-2" />
@@ -206,7 +204,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Section Contact avec design élégant */}
+      {/* Section Contact */}
       <section className="py-32 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
@@ -252,7 +250,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer avec design moderne */}
+      {/* Footer avec informations de Brazzaville */}
       <footer className="bg-gray-900 text-white py-20">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-16">
@@ -293,13 +291,16 @@ const Index = () => {
               <h3 className="text-xl font-bold mb-6 text-white">Contact</h3>
               <ul className="space-y-3">
                 <li className="text-gray-400 hover:text-white transition-colors">
-                  contact@khoot-eces.fr
+                  contact@khoot-eces.cg
                 </li>
                 <li className="text-gray-400 hover:text-white transition-colors">
-                  01 23 45 67 89
+                  +242 06 956 53 90
                 </li>
                 <li className="text-gray-400 hover:text-white transition-colors">
-                  Paris, France
+                  Avenue de l'Indépendance
+                </li>
+                <li className="text-gray-400 hover:text-white transition-colors">
+                  Brazzaville, République du Congo
                 </li>
               </ul>
             </div>
