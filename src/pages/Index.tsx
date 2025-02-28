@@ -1,23 +1,12 @@
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
 import { BookOpen, Users, Target, ArrowRight, Star } from "lucide-react";
 
 const Index = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
-
-  const handleContactSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: "Message envoyé",
-      description: "Nous vous répondrons dans les plus brefs délais.",
-    });
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
@@ -199,52 +188,6 @@ const Index = () => {
                   Contactez-nous
                 </Button>
               </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Section Contact */}
-      <section className="py-32 bg-gradient-to-b from-white to-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent inline-block">
-              Contactez-nous
-            </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto mt-4 rounded-full" />
-          </div>
-          <div className="max-w-lg mx-auto">
-            <Card className="p-8 shadow-xl hover:shadow-2xl transition-shadow duration-500 border-0">
-              <form onSubmit={handleContactSubmit} className="space-y-6">
-                <div>
-                  <label className="block mb-2 font-medium text-gray-700">Nom</label>
-                  <Input 
-                    placeholder="Votre nom" 
-                    className="w-full border-gray-200 focus:border-purple-500 transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 font-medium text-gray-700">Email</label>
-                  <Input 
-                    type="email" 
-                    placeholder="votre@email.com" 
-                    className="w-full border-gray-200 focus:border-purple-500 transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 font-medium text-gray-700">Message</label>
-                  <Textarea 
-                    placeholder="Comment pouvons-nous vous aider ?" 
-                    className="min-h-[150px] w-full border-gray-200 focus:border-purple-500 transition-colors" 
-                  />
-                </div>
-                <Button 
-                  type="submit" 
-                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 transition-opacity"
-                >
-                  Envoyer le message
-                </Button>
-              </form>
             </Card>
           </div>
         </div>
