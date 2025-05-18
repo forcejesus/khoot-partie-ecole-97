@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -26,6 +27,8 @@ export default {
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "#6366f1",
+          light: "#818cf8",
+          dark: "#4f46e5",
           foreground: "#ffffff",
         },
         secondary: {
@@ -43,6 +46,18 @@ export default {
         accent: {
           DEFAULT: "#f8fafc",
           foreground: "#0f172a",
+        },
+        success: {
+          DEFAULT: "#10b981",
+          foreground: "#ffffff",
+        },
+        warning: {
+          DEFAULT: "#f59e0b",
+          foreground: "#ffffff",
+        },
+        info: {
+          DEFAULT: "#3b82f6",
+          foreground: "#ffffff",
         },
       },
       borderRadius: {
@@ -63,11 +78,26 @@ export default {
           "0%": { opacity: "0", transform: "translateY(10px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        slideIn: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+        pulse: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         fadeIn: "fadeIn 0.5s ease-out forwards",
+        slideIn: "slideIn 0.5s ease-out forwards",
+        pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+      },
+      boxShadow: {
+        soft: "0 4px 20px rgba(0, 0, 0, 0.05)",
+        card: "0 8px 30px rgba(0, 0, 0, 0.08)",
+        intense: "0 10px 40px rgba(0, 0, 0, 0.12)",
       },
     },
   },
