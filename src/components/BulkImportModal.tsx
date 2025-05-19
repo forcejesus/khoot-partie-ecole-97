@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 import { useAuth } from "@/contexts/AuthContext";
@@ -12,21 +13,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Progress } from "@/components/ui/progress";
-import { AlertCircle, FileSpreadsheet, Upload, CheckCircle2, XCircle } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { FileSpreadsheet, Upload } from "lucide-react";
 import { ApprenantImport } from "@/utils/csvUtils";
 import Papa from "papaparse";
+
+// Import the new components
+import { FileUploader } from "@/components/bulkImport/FileUploader";
+import { ErrorDisplay } from "@/components/bulkImport/ErrorDisplay";
+import { DataPreview } from "@/components/bulkImport/DataPreview";
+import { ImportProgress } from "@/components/bulkImport/ImportProgress";
+import { SuccessMessage } from "@/components/bulkImport/SuccessMessage";
 
 interface BulkImportModalProps {
   type: "apprenants" | "enseignants";
@@ -268,104 +265,18 @@ export default function BulkImportModal({ type, onSuccess }: BulkImportModalProp
         </DialogHeader>
 
         {success ? (
-          <div className="flex flex-col items-center py-8">
-            <CheckCircle2 className="h-16 w-16 text-green-500 mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Importation réussie!</h3>
-            <p className="text-center text-muted-foreground">
-              Vos {typeLabel} ont été importés avec succès.
-            </p>
-          </div>
+          <SuccessMessage type={type} />
         ) : (
           <>
             {isLoading ? (
-              <div className="py-6 space-y-4">
-                <h3 className="font-medium text-center">
-                  Importation en cours...
-                </h3>
-                <Progress value={uploadProgress} className="h-2" />
-                <p className="text-center text-sm text-muted-foreground">
-                  {uploadProgress}% terminé
-                </p>
-              </div>
+              <ImportProgress uploadProgress={uploadProgress} />
             ) : (
               <>
                 <div className="grid w-full items-center gap-4">
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="file">Fichier CSV ou Excel</Label>
-                    <div className="flex items-center gap-2">
-                      <input
-                        id="file"
-                        type="file"
-                        accept=".csv,.xlsx,.xls"
-                        onChange={handleFileChange}
-                        className="hidden"
-                      />
-                      <Button
-                        variant="outline"
-                        onClick={() => document.getElementById("file")?.click()}
-                        className="w-full h-24 border-dashed flex flex-col gap-2"
-                      >
-                        <Upload className="h-6 w-6" />
-                        <span>
-                          {file ? file.name : `Cliquez pour sélectionner un fichier`}
-                        </span>
-                      </Button>
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      Format: Nom, Prénom, Email, Téléphone
-                    </p>
-                  </div>
-
-                  {errors.length > 0 && (
-                    <Alert variant="destructive">
-                      <AlertCircle className="h-4 w-4" />
-                      <AlertTitle>Erreurs détectées</AlertTitle>
-                      <AlertDescription>
-                        <ul className="list-disc pl-5 text-sm">
-                          {errors.slice(0, 3).map((error, idx) => (
-                            <li key={idx}>{error}</li>
-                          ))}
-                          {errors.length > 3 && (
-                            <li>...et {errors.length - 3} autres erreurs</li>
-                          )}
-                        </ul>
-                      </AlertDescription>
-                    </Alert>
-                  )}
-
+                  <FileUploader onFileChange={handleFileChange} file={file} />
+                  <ErrorDisplay errors={errors} />
                   {parsedData.length > 0 && errors.length === 0 && (
-                    <div>
-                      <h3 className="font-medium mb-2">Aperçu des données ({parsedData.length} enregistrements)</h3>
-                      <div className="border rounded-lg max-h-[200px] overflow-y-auto">
-                        <Table>
-                          <TableHeader>
-                            <TableRow>
-                              <TableHead>Nom</TableHead>
-                              <TableHead>Prénom</TableHead>
-                              <TableHead>Email</TableHead>
-                              <TableHead>Téléphone</TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                            {parsedData.slice(0, 5).map((item, idx) => (
-                              <TableRow key={idx}>
-                                <TableCell>{item.nom}</TableCell>
-                                <TableCell>{item.prenom}</TableCell>
-                                <TableCell>{item.email}</TableCell>
-                                <TableCell>{item.phone}</TableCell>
-                              </TableRow>
-                            ))}
-                            {parsedData.length > 5 && (
-                              <TableRow>
-                                <TableCell colSpan={4} className="text-center text-sm text-muted-foreground">
-                                  ... et {parsedData.length - 5} autres enregistrements
-                                </TableCell>
-                              </TableRow>
-                            )}
-                          </TableBody>
-                        </Table>
-                      </div>
-                    </div>
+                    <DataPreview parsedData={parsedData} />
                   )}
                 </div>
               </>
