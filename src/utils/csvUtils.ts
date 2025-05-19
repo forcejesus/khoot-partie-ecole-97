@@ -1,3 +1,4 @@
+
 export interface ApprenantImport {
   nom: string;
   prenom: string;
@@ -23,12 +24,12 @@ export const processCSVFile = async (file: File): Promise<ApprenantImport[]> => 
           const values = line.includes(';') ? line.split(';') : line.split(',');
           const [nom, prenom, email, phone] = values.map(value => value.trim());
           
-          if (nom && prenom && email && phone) {
+          if (nom && prenom && email) {
             apprenants.push({
               nom,
               prenom,
               email,
-              phone
+              phone: phone || ''
             });
           }
         }
@@ -49,9 +50,6 @@ export const validateApprenant = (apprenant: ApprenantImport) => {
   }
   if (!apprenant.email) {
     return { isValid: false, message: "L'email est requis." };
-  }
-  if (!apprenant.phone) {
-    return { isValid: false, message: "Le téléphone est requis." };
   }
 
   // Validation basique de l'email
