@@ -15,6 +15,9 @@ import Offres from "./pages/Offres";
 import Solution from "./pages/Solution";
 import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
+import Apprenants from "./pages/Apprenants";
+import Enseignants from "./pages/Enseignants";
+import Jeux from "./pages/Jeux";
 import DashboardLayout from "./layouts/DashboardLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
@@ -37,7 +40,7 @@ const App: React.FC = () => {
             <ThemeProvider>
               <AuthProvider>
                 <Toaster />
-                <Sonner />
+                <Sonner position="top-right" />
                 <Routes>
                   {/* Routes publiques avec Navbar */}
                   <Route path="/" element={<><Navbar /><Index /></>} />
@@ -54,6 +57,36 @@ const App: React.FC = () => {
                       <ProtectedRoute>
                         <DashboardLayout>
                           <Dashboard />
+                        </DashboardLayout>
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/apprenants"
+                    element={
+                      <ProtectedRoute>
+                        <DashboardLayout>
+                          <Apprenants />
+                        </DashboardLayout>
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/enseignants"
+                    element={
+                      <ProtectedRoute>
+                        <DashboardLayout>
+                          <Enseignants />
+                        </DashboardLayout>
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/jeux"
+                    element={
+                      <ProtectedRoute>
+                        <DashboardLayout>
+                          <Jeux />
                         </DashboardLayout>
                       </ProtectedRoute>
                     }
