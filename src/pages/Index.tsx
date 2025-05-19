@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
@@ -5,7 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   BookOpen, Users, Target, ArrowRight, Star, 
   Sparkles, Award, Clock, Shield, Check, LucideIcon,
-  BarChart, LineChart, PieChart, MapPin, TrendingUp
+  BarChart, LineChart, PieChart, MapPin, TrendingUp,
+  Mail, Phone
 } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import { toast } from "sonner";
