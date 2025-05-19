@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
@@ -14,6 +15,16 @@ import { useToast } from "@/components/ui/use-toast";
 import { AddApprenantDialog } from "./AddApprenantDialog";
 import { Apprenant } from "@/types/apprenant";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface ApprenantsListProps {
   onApprenantChange?: () => void;
@@ -23,6 +34,8 @@ export const ApprenantsList = ({ onApprenantChange }: ApprenantsListProps) => {
   const [apprenants, setApprenants] = useState<Apprenant[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [apprenantToDelete, setApprenantToDelete] = useState<string | null>(null);
 
   const fetchApprenants = async () => {
     try {
@@ -69,7 +82,14 @@ export const ApprenantsList = ({ onApprenantChange }: ApprenantsListProps) => {
     }
   };
 
-  const handleDelete = async (id: string) => {
+  const confirmDelete = (id: string) => {
+    setApprenantToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDelete = async () => {
+    if (!apprenantToDelete) return;
+    
     try {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -82,7 +102,7 @@ export const ApprenantsList = ({ onApprenantChange }: ApprenantsListProps) => {
       }
 
       const response = await axios.delete(
-        `http://kahoot.nos-apps.com/api/apprenant/delete/${id}`,
+        `http://kahoot.nos-apps.com/api/apprenant/delete/${apprenantToDelete}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -104,6 +124,9 @@ export const ApprenantsList = ({ onApprenantChange }: ApprenantsListProps) => {
         title: "Erreur",
         description: "Impossible de supprimer l'apprenant",
       });
+    } finally {
+      setApprenantToDelete(null);
+      setDeleteDialogOpen(false);
     }
   };
 
@@ -159,7 +182,7 @@ export const ApprenantsList = ({ onApprenantChange }: ApprenantsListProps) => {
                     <Button
                       variant="destructive"
                       size="icon"
-                      onClick={() => handleDelete(apprenant._id)}
+                      onClick={() => confirmDelete(apprenant._id)}
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -170,6 +193,23 @@ export const ApprenantsList = ({ onApprenantChange }: ApprenantsListProps) => {
           </TableBody>
         </Table>
       </div>
+
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Confirmation de suppression</AlertDialogTitle>
+            <AlertDialogDescription>
+              Êtes-vous sûr de vouloir supprimer cet apprenant ? Cette action est irréversible.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Annuler</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+              Supprimer
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
