@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import axios from "axios";
 import { useAuth } from "@/contexts/AuthContext";
@@ -85,8 +84,9 @@ export default function BulkImportModal({ type, onSuccess }: BulkImportModalProp
       // Handle Excel files with Papa Parse
       Papa.parse(selectedFile, {
         complete: function(results) {
-          // Skip header row if present
-          const hasHeader = results.data && results.data.length > 0 && 
+          // Fix the type issue by ensuring data is an array first 
+          const hasHeader = Array.isArray(results.data) && results.data.length > 0 && 
+                         Array.isArray(results.data[0]) && 
                          results.data[0].some((header: any) => 
                          typeof header === 'string' && 
                          (header.toLowerCase().includes('nom') || 
@@ -95,21 +95,31 @@ export default function BulkImportModal({ type, onSuccess }: BulkImportModalProp
           
           const startRow = hasHeader ? 1 : 0;
           
+          if (!Array.isArray(results.data)) {
+            toast({
+              variant: "destructive",
+              title: "Format non valide",
+              description: "Le fichier ne contient pas de données valides.",
+            });
+            return;
+          }
+          
           // Process the data
           const data = results.data.slice(startRow).map((row: any) => {
+            if (!Array.isArray(row)) return null;
             return {
               nom: row[0] || '',
               prenom: row[1] || '',
               email: row[2] || '',
               phone: row[3] || ''
             };
-          }).filter((item: any) => item.nom && item.prenom && item.email); // Filter out empty rows
+          }).filter((item): item is ApprenantImport => !!item && !!item.nom && !!item.prenom && !!item.email); // Type guard with filter
           
           setParsedData(data);
           
           // Validate each record
           const validationErrors: string[] = [];
-          data.forEach((data: any, index: number) => {
+          data.forEach((data: ApprenantImport, index: number) => {
             const { isValid, message } = validateApprenant(data);
             if (!isValid) {
               validationErrors.push(`Ligne ${index + 1}: ${message}`);

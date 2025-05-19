@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-type Theme = "dark" | "light";
+type Theme = "dark" | "light" | "system";
 
 type ThemeContextType = {
   theme: Theme;
@@ -18,9 +18,34 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const root = window.document.documentElement;
+    
+    // Handle system preference
+    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    
+    // Remove existing theme classes
     root.classList.remove("light", "dark");
-    root.classList.add(theme);
-    localStorage.setItem("theme", theme);
+    
+    // Apply the appropriate theme
+    if (theme === "system") {
+      root.classList.add(systemTheme);
+      localStorage.setItem("theme", theme);
+    } else {
+      root.classList.add(theme);
+      localStorage.setItem("theme", theme);
+    }
+    
+    // Add listener for system theme changes if using system theme
+    if (theme === "system") {
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      const handleChange = () => {
+        const newSystemTheme = mediaQuery.matches ? "dark" : "light";
+        root.classList.remove("light", "dark");
+        root.classList.add(newSystemTheme);
+      };
+      
+      mediaQuery.addEventListener("change", handleChange);
+      return () => mediaQuery.removeEventListener("change", handleChange);
+    }
   }, [theme]);
 
   return (

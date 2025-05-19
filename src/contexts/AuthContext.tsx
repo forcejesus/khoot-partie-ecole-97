@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -8,6 +9,8 @@ interface School {
   libelle: string;
   adresse: string;
   ville: string;
+  phone: string;  // Added phone property
+  email: string;  // Added email property
 }
 
 interface User {
@@ -22,6 +25,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   isLoading: boolean;
+  refreshUser: () => Promise<void>; // Added refreshUser function
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -44,6 +48,39 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     }
   }, []);
+
+  // Add refreshUser function to fetch updated user data
+  const refreshUser = async () => {
+    const token = localStorage.getItem("token");
+    const storedUser = localStorage.getItem("user");
+    
+    if (!token || !storedUser) {
+      return;
+    }
+    
+    try {
+      const userData = JSON.parse(storedUser);
+      const response = await axios.get(
+        `http://kahoot.nos-apps.com/api/users/${userData.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      
+      if (response.data && response.data.success) {
+        const updatedUser = {
+          ...userData,
+          ecole: response.data.data.ecole
+        };
+        setUser(updatedUser);
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+      }
+    } catch (error) {
+      console.error("Error refreshing user data:", error);
+    }
+  };
 
   const login = async (email: string, password: string) => {
     setIsLoading(true);
@@ -114,7 +151,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isLoading }}>
+    <AuthContext.Provider value={{ user, login, logout, isLoading, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );
