@@ -11,8 +11,13 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
 import Index from "./pages/Index";
+import Offres from "./pages/Offres";
+import Solution from "./pages/Solution";
+import FAQ from "./pages/FAQ";
+import Contact from "./pages/Contact";
 import DashboardLayout from "./layouts/DashboardLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Navbar from "./components/Navbar";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,8 +39,15 @@ const App: React.FC = () => {
                 <Toaster />
                 <Sonner />
                 <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/login" element={<Login />} />
+                  {/* Routes publiques avec Navbar */}
+                  <Route path="/" element={<><Navbar /><Index /></>} />
+                  <Route path="/offres" element={<><Navbar /><Offres /></>} />
+                  <Route path="/solution" element={<><Navbar /><Solution /></>} />
+                  <Route path="/faq" element={<><Navbar /><FAQ /></>} />
+                  <Route path="/contact" element={<><Navbar /><Contact /></>} />
+                  <Route path="/login" element={<><Navbar /><Login /></>} />
+                  
+                  {/* Routes protégées avec Dashboard Layout */}
                   <Route
                     path="/dashboard"
                     element={

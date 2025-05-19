@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   BookOpen, Users, Target, ArrowRight, Star, 
@@ -192,13 +191,14 @@ const Index = () => {
               transition={{ duration: 0.8, delay: 0.9 }}
               className="flex flex-col md:flex-row gap-4 justify-center"
             >
-              <Button
-                onClick={() => navigate("/login")}
-                size="lg"
-                className="bg-white/95 text-purple-600 hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(139,92,246,0.3)] text-lg px-8 py-6 rounded-xl"
-              >
-                Commencer l'aventure <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              <Link to="/solution">
+                <Button
+                  size="lg"
+                  className="bg-white/95 text-purple-600 hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(139,92,246,0.3)] text-lg px-8 py-6 rounded-xl"
+                >
+                  Découvrir la solution <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
               <Button
                 onClick={handleDemoClick}
                 variant="outline"
@@ -511,6 +511,13 @@ const Index = () => {
               </Card>
             </motion.div>
           </div>
+          <div className="text-center mt-8">
+            <Link to="/offres">
+              <Button variant="outline" className="mt-4">
+                Voir toutes nos offres <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -541,15 +548,25 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
             viewport={{ once: true }}
-            className="flex justify-center"
+            className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Button 
-              onClick={() => navigate("/login")}
-              size="lg" 
-              className="bg-white text-purple-600 hover:bg-white/90 hover:scale-105 transition-all duration-300 shadow-lg text-lg px-10 py-6 rounded-xl"
-            >
-              Commencer dès maintenant <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            <Link to="/login">
+              <Button 
+                size="lg" 
+                className="bg-white text-purple-600 hover:bg-white/90 hover:scale-105 transition-all duration-300 shadow-lg text-lg px-10 py-6 rounded-xl w-full sm:w-auto"
+              >
+                Commencer dès maintenant <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <Link to="/contact">
+              <Button 
+                variant="outline"
+                size="lg" 
+                className="border-2 border-white text-white hover:bg-white/10 transition-all duration-300 text-lg px-10 py-6 rounded-xl w-full sm:w-auto"
+              >
+                Nous contacter
+              </Button>
+            </Link>
           </motion.div>
         </div>
       </section>
@@ -570,24 +587,29 @@ const Index = () => {
               <h3 className="text-xl font-bold mb-6 text-white">Liens rapides</h3>
               <ul className="space-y-3">
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  <Link to="/" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">
                     Accueil
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">
-                    À propos
-                  </a>
+                  <Link to="/solution" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">
+                    Notre Solution
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">
-                    Fonctionnalités
-                  </a>
+                  <Link to="/offres" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">
+                    Nos offres
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  <Link to="/faq" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">
+                    FAQ
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/contact" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">
                     Contact
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -595,11 +617,11 @@ const Index = () => {
               <h3 className="text-xl font-bold mb-6 text-white">Contact</h3>
               <ul className="space-y-3">
                 <li className="flex items-center text-gray-400 hover:text-white transition-colors">
-                  <MapPin className="w-4 h-4 mr-2" />
+                  <Mail className="w-4 h-4 mr-2" />
                   contact@khoot-eces.cg
                 </li>
                 <li className="flex items-center text-gray-400 hover:text-white transition-colors">
-                  <MapPin className="w-4 h-4 mr-2" />
+                  <Phone className="w-4 h-4 mr-2" />
                   +242 06 956 53 90
                 </li>
                 <li className="flex items-center text-gray-400 hover:text-white transition-colors">
