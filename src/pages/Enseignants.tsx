@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Plus, Upload, GraduationCap } from "lucide-react";
-import AddEnseignantDialog from "@/components/AddEnseignantDialog";
+import { AddEnseignantDialog } from "@/components/AddEnseignantDialog";
 import BulkImportModal from "@/components/BulkImportModal";
-import EnseignantsList from "@/components/EnseignantsList";
+import { EnseignantsList } from "@/components/EnseignantsList";
 
 const Enseignants = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -105,9 +105,11 @@ const Enseignants = () => {
         />
         
         <BulkImportModal
-          open={isBulkImportOpen}
-          onOpenChange={setIsBulkImportOpen}
           type="enseignants"
+          onSuccess={() => {
+            setIsBulkImportOpen(false);
+            // Refresh the list if needed
+          }}
         />
       </div>
     </div>

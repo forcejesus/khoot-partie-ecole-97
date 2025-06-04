@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, Gamepad2 } from "lucide-react";
-import JeuxList from "@/components/JeuxList";
+import { JeuxList } from "@/components/JeuxList";
 
 const Jeux = () => {
   const [searchTerm, setSearchTerm] = useState("");

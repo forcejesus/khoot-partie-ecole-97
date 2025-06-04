@@ -65,7 +65,7 @@ const Dashboard = () => {
           
           {user && (
             <p className="text-xl text-gray-700 mt-6 font-medium">
-              Bienvenue, <span className="text-orange-600 font-bold">{user.prenom} {user.nom}</span> !
+              Bienvenue, <span className="text-orange-600 font-bold">{user.name}</span> !
             </p>
           )}
         </div>
