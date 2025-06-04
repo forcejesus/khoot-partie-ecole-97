@@ -5,8 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
-  Mail, Phone, MapPin, Clock, Send, 
-  MessageCircle, Users, Award 
+  Mail, Phone, Send, MessageCircle
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -36,66 +35,38 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Logic pour envoyer le formulaire
     console.log("Form submitted:", formData);
   };
 
   const contactInfo = [
     {
       icon: Mail,
-      title: "Email",
-      content: "contact@akili-education.cg",
-      description: "Réponse sous 24h",
+      title: "Support technique",
+      email: "support@akili-education.cg",
+      phone: "+242 06 956 53 90",
       color: "from-blue-500 to-cyan-500"
     },
     {
-      icon: Phone,
-      title: "Téléphone",
-      content: "+242 06 956 53 90",
-      description: "Lun-Ven 8h-18h",
+      icon: Mail,
+      title: "Partenariats",
+      email: "partenaires@akili-education.cg", 
+      phone: "+242 06 956 53 91",
       color: "from-green-500 to-emerald-500"
     },
     {
-      icon: MapPin,
-      title: "Adresse",
-      content: "Avenue de l'Indépendance",
-      description: "Brazzaville, République du Congo",
-      color: "from-orange-500 to-red-500"
-    },
-    {
-      icon: Clock,
-      title: "Horaires",
-      content: "8h00 - 18h00",
-      description: "Du Lundi au Vendredi",
-      color: "from-purple-500 to-indigo-500"
-    }
-  ];
-
-  const reasons = [
-    {
-      icon: MessageCircle,
-      title: "Support technique",
-      description: "Aide avec la plateforme, bugs, questions techniques"
-    },
-    {
-      icon: Users,
-      title: "Partenariats",
-      description: "Collaboration avec votre école ou institution"
-    },
-    {
-      icon: Award,
+      icon: Mail,
       title: "Formations",
-      description: "Sessions de formation personnalisées pour vos équipes"
+      email: "formations@akili-education.cg",
+      phone: "+242 06 956 53 92",
+      color: "from-orange-500 to-red-500"
     }
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50 relative overflow-hidden">
-      {/* Motif de fond africain global */}
       <div className="fixed inset-0 opacity-5 bg-kente-stripes pointer-events-none"></div>
       
       <div className="container mx-auto py-8 px-4 md:px-6 relative z-10">
-        {/* En-tête avec ornements africains */}
         <motion.div 
           initial="hidden"
           animate="visible"
@@ -126,7 +97,6 @@ const Contact = () => {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
-          {/* Formulaire de contact */}
           <motion.div 
             initial="hidden"
             whileInView="visible"
@@ -145,10 +115,10 @@ const Contact = () => {
               </CardHeader>
               
               <CardContent className="relative z-10">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
+                <form onSubmit={handleSubmit} className="space-y-8">
+                  <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-lg font-medium text-gray-700 mb-3">
                         Nom complet *
                       </label>
                       <Input
@@ -157,11 +127,11 @@ const Contact = () => {
                         onChange={handleInputChange}
                         placeholder="Votre nom"
                         required
-                        className="border-2 border-orange-200 focus:border-orange-400"
+                        className="h-14 text-lg border-2 border-orange-200 focus:border-orange-400 bg-white"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-lg font-medium text-gray-700 mb-3">
                         Email *
                       </label>
                       <Input
@@ -171,13 +141,13 @@ const Contact = () => {
                         onChange={handleInputChange}
                         placeholder="votre@email.com"
                         required
-                        className="border-2 border-orange-200 focus:border-orange-400"
+                        className="h-14 text-lg border-2 border-orange-200 focus:border-orange-400 bg-white"
                       />
                     </div>
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-lg font-medium text-gray-700 mb-3">
                       Sujet *
                     </label>
                     <Input
@@ -186,12 +156,12 @@ const Contact = () => {
                       onChange={handleInputChange}
                       placeholder="L'objet de votre message"
                       required
-                      className="border-2 border-orange-200 focus:border-orange-400"
+                      className="h-14 text-lg border-2 border-orange-200 focus:border-orange-400 bg-white"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-lg font-medium text-gray-700 mb-3">
                       Message *
                     </label>
                     <Textarea
@@ -200,33 +170,23 @@ const Contact = () => {
                       onChange={handleInputChange}
                       placeholder="Décrivez votre demande en détail..."
                       required
-                      rows={6}
-                      className="border-2 border-orange-200 focus:border-orange-400"
+                      rows={8}
+                      className="text-lg border-2 border-orange-200 focus:border-orange-400 bg-white resize-none"
                     />
                   </div>
                   
                   <Button 
                     type="submit"
-                    className="w-full bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white py-3 text-lg font-medium"
+                    className="w-full bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white py-4 text-xl font-medium h-16"
                   >
-                    <Send className="w-5 h-5 mr-2" />
+                    <Send className="w-6 h-6 mr-3" />
                     Envoyer le message
                   </Button>
                 </form>
-                
-                {/* Ornement décoratif */}
-                <div className="flex justify-center mt-6">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-3 h-3 bg-african-gold rounded-full"></div>
-                    <div className="w-4 h-1 bg-african-kente rounded-full"></div>
-                    <div className="w-3 h-3 bg-african-terracotta rounded-full"></div>
-                  </div>
-                </div>
               </CardContent>
             </Card>
           </motion.div>
 
-          {/* Informations de contact */}
           <div className="space-y-8">
             <motion.div 
               initial="hidden"
@@ -234,54 +194,33 @@ const Contact = () => {
               viewport={{ once: true, margin: "-100px" }}
               variants={fadeInVariants}
             >
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 font-african">
+              <h2 className="text-3xl font-bold text-gray-800 mb-8 font-african">
                 Nos coordonnées
               </h2>
               
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="space-y-6">
                 {contactInfo.map((info, index) => (
                   <Card key={index} className="border-2 border-orange-200 bg-gradient-to-br from-white to-orange-50 relative overflow-hidden hover:shadow-african transition-all duration-300">
                     <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${info.color}`}></div>
                     <div className="absolute inset-0 opacity-5 bg-tribal-dots"></div>
                     
-                    <CardContent className="p-4 relative z-10">
-                      <div className="flex items-start gap-3">
-                        <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${info.color} flex items-center justify-center shadow-card flex-shrink-0`}>
-                          <info.icon className="w-5 h-5 text-white" />
+                    <CardContent className="p-6 relative z-10">
+                      <div className="flex items-start gap-4">
+                        <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${info.color} flex items-center justify-center shadow-card flex-shrink-0`}>
+                          <info.icon className="w-6 h-6 text-white" />
                         </div>
-                        <div>
-                          <h3 className="font-bold text-gray-800">{info.title}</h3>
-                          <p className="text-gray-600 font-medium">{info.content}</p>
-                          <p className="text-sm text-gray-500">{info.description}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div 
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={fadeInVariants}
-            >
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 font-african">
-                Comment pouvons-nous vous aider ?
-              </h2>
-              
-              <div className="space-y-4">
-                {reasons.map((reason, index) => (
-                  <Card key={index} className="border border-orange-200 bg-gradient-to-r from-white to-orange-50 hover:shadow-lg transition-all duration-300">
-                    <CardContent className="p-4">
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center flex-shrink-0">
-                          <reason.icon className="w-4 h-4 text-white" />
-                        </div>
-                        <div>
-                          <h3 className="font-bold text-gray-800 mb-1">{reason.title}</h3>
-                          <p className="text-gray-600 text-sm">{reason.description}</p>
+                        <div className="flex-1">
+                          <h3 className="text-xl font-bold text-gray-800 mb-3 font-african">{info.title}</h3>
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                              <Mail className="w-4 h-4 text-gray-500" />
+                              <span className="text-lg text-gray-700">{info.email}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Phone className="w-4 h-4 text-gray-500" />
+                              <span className="text-lg text-gray-700">{info.phone}</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </CardContent>
@@ -292,7 +231,6 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Citation motivante */}
         <motion.div 
           initial="hidden"
           whileInView="visible"
