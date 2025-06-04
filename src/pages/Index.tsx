@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,16 +15,6 @@ import { motion } from "framer-motion";
 
 const Index = () => {
   const navigate = useNavigate();
-  const [scrollY, setScrollY] = useState(0);
-  
-  // Animation pour l'apparition des éléments au scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
   
   const fadeInVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -32,13 +23,6 @@ const Index = () => {
       y: 0,
       transition: { duration: 0.8, ease: "easeOut" }
     }
-  };
-  
-  const handleDemoClick = () => {
-    toast.success("Découvrez notre démo interactive !", {
-      description: "Une expérience d'apprentissage révolutionnaire"
-    });
-    navigate("/login");
   };
 
   const testimonials = [
@@ -122,11 +106,11 @@ const Index = () => {
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
       variants={fadeInVariants}
-      className={`${color} p-8 rounded-2xl flex flex-col items-center justify-center shadow-tribal hover:scale-105 transition-all duration-500 hover:shadow-kente relative overflow-hidden animate-tribal-pulse`}
+      className={`${color} p-8 rounded-2xl flex flex-col items-center justify-center shadow-tribal hover:scale-105 transition-all duration-500 hover:shadow-kente relative overflow-hidden`}
     >
       {/* Motif africain en arrière-plan avec masque tribal */}
       <div className="absolute inset-0 opacity-20 bg-mask-texture">
-        <svg viewBox="0 0 100 100" className="w-full h-full animate-mask-float">
+        <svg viewBox="0 0 100 100" className="w-full h-full">
           <defs>
             <pattern id="african-stat-pattern" x="0" y="0" width="25" height="25" patternUnits="userSpaceOnUse">
               <polygon points="12.5,0 25,12.5 12.5,25 0,12.5" fill="white" opacity="0.3"/>
@@ -142,7 +126,7 @@ const Index = () => {
       <div className="absolute top-2 left-2 right-2 h-1 bg-gradient-to-r from-african-gold via-african-kente to-african-gold rounded-full opacity-60"></div>
       <div className="absolute bottom-2 left-2 right-2 h-1 bg-gradient-to-r from-african-gold via-african-kente to-african-gold rounded-full opacity-60"></div>
       
-      <h3 className="text-5xl font-bold text-white mb-3 relative z-10 font-african animate-african-dance">{number}</h3>
+      <h3 className="text-5xl font-bold text-white mb-3 relative z-10 font-african">{number}</h3>
       <p className="text-white text-center relative z-10 font-medium">{text}</p>
       
       {/* Ornements africains */}
@@ -161,21 +145,21 @@ const Index = () => {
       viewport={{ once: true, margin: "-50px" }}
       variants={fadeInVariants}
     >
-      <Card className="group hover:shadow-african transition-all duration-500 border-0 bg-white/95 backdrop-blur-sm relative overflow-hidden h-full animate-baobab-sway">
+      <Card className="group hover:shadow-african transition-all duration-500 border-0 bg-white/95 backdrop-blur-sm relative overflow-hidden h-full">
         {/* Bordure colorée africaine avec motif Kente */}
-        <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${color || 'from-orange-500 via-red-500 to-yellow-500'} animate-kente-wave`}></div>
+        <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${color || 'from-orange-500 via-red-500 to-yellow-500'}`}></div>
         
         {/* Motif de fond africain */}
         <div className="absolute inset-0 opacity-5 bg-tribal-dots"></div>
         
         <CardHeader className="text-center relative z-10">
-          <div className={`mx-auto w-20 h-20 mb-6 rounded-2xl bg-gradient-to-br ${color || 'from-orange-100 to-red-50'} flex items-center justify-center group-hover:scale-110 transition-transform duration-500 relative shadow-card animate-tribal-pulse`}>
+          <div className={`mx-auto w-20 h-20 mb-6 rounded-2xl bg-gradient-to-br ${color || 'from-orange-100 to-red-50'} flex items-center justify-center group-hover:scale-110 transition-transform duration-500 relative shadow-card`}>
             {/* Motifs décoratifs dans l'icône */}
             <div className="absolute inset-0 opacity-20 rounded-2xl">
-              <div className="w-3 h-3 bg-african-terracotta rounded-full absolute top-2 left-2 animate-pulse"></div>
-              <div className="w-2 h-2 bg-african-gold rounded-full absolute top-3 right-3 animate-pulse"></div>
-              <div className="w-2 h-2 bg-african-kente rounded-full absolute bottom-2 left-3 animate-pulse"></div>
-              <div className="w-3 h-3 bg-african-ochre rounded-full absolute bottom-2 right-2 animate-pulse"></div>
+              <div className="w-3 h-3 bg-african-terracotta rounded-full absolute top-2 left-2"></div>
+              <div className="w-2 h-2 bg-african-gold rounded-full absolute top-3 right-3"></div>
+              <div className="w-2 h-2 bg-african-kente rounded-full absolute bottom-2 left-3"></div>
+              <div className="w-3 h-3 bg-african-ochre rounded-full absolute bottom-2 right-2"></div>
             </div>
             <Icon className="h-10 w-10 text-orange-600 relative z-10" />
           </div>
@@ -226,16 +210,16 @@ const Index = () => {
                 <polygon points="50,0 60,10 50,20 40,10" fill="white" opacity="0.6"/>
               </pattern>
             </defs>
-            <rect width="100%" height="100%" fill="url(#african-hero-geo)" className="text-white animate-african-dance"/>
+            <rect width="100%" height="100%" fill="url(#african-hero-geo)" className="text-white"/>
             <rect x="0" y="0" width="100%" height="40" fill="url(#tribal-border)" className="text-white"/>
             <rect x="0" y="760" width="100%" height="40" fill="url(#tribal-border)" className="text-white"/>
           </svg>
         </div>
         
         {/* Éléments décoratifs flottants */}
-        <div className="absolute top-20 left-20 w-16 h-16 bg-gradient-to-r from-african-gold to-african-ochre rounded-full opacity-30 animate-mask-float"></div>
-        <div className="absolute top-40 right-32 w-12 h-12 bg-gradient-to-r from-african-kente to-african-sunset rounded-full opacity-40 animate-african-dance"></div>
-        <div className="absolute bottom-32 left-40 w-20 h-20 bg-gradient-to-r from-african-terracotta to-african-baobab rounded-full opacity-25 animate-tribal-pulse"></div>
+        <div className="absolute top-20 left-20 w-16 h-16 bg-gradient-to-r from-african-gold to-african-ochre rounded-full opacity-30"></div>
+        <div className="absolute top-40 right-32 w-12 h-12 bg-gradient-to-r from-african-kente to-african-sunset rounded-full opacity-40"></div>
+        <div className="absolute bottom-32 left-40 w-20 h-20 bg-gradient-to-r from-african-terracotta to-african-baobab rounded-full opacity-25"></div>
         
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -253,25 +237,23 @@ const Index = () => {
               >
                 {/* Ornements tribaux autour du titre */}
                 <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 flex space-x-4">
-                  <div className="w-8 h-8 bg-african-gold clip-path-kente-diamond opacity-60 animate-african-dance"></div>
-                  <div className="w-6 h-6 bg-african-kente rounded-full opacity-80 animate-tribal-pulse"></div>
-                  <div className="w-8 h-8 bg-african-gold clip-path-kente-diamond opacity-60 animate-african-dance"></div>
+                  <div className="w-8 h-8 bg-african-gold clip-path-kente-diamond opacity-60"></div>
+                  <div className="w-6 h-6 bg-african-kente rounded-full opacity-80"></div>
+                  <div className="w-8 h-8 bg-african-gold clip-path-kente-diamond opacity-60"></div>
                 </div>
                 
-                <h1 className="text-9xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-orange-300 to-red-300 font-african tracking-widest animate-tribal-pulse relative">
+                <h1 className="text-9xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-orange-300 to-red-300 font-african tracking-widest relative">
                   AKILI
-                  {/* Effet de brillance africain */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-kente-wave"></div>
                 </h1>
                 
                 {/* Ornement central complexe */}
                 <div className="flex justify-center items-center mb-6">
-                  <div className="h-2 w-24 bg-gradient-to-r from-african-gold to-african-ochre rounded-full animate-kente-wave"></div>
-                  <div className="mx-6 w-12 h-12 bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 rounded-full flex items-center justify-center relative animate-tribal-pulse">
+                  <div className="h-2 w-24 bg-gradient-to-r from-african-gold to-african-ochre rounded-full"></div>
+                  <div className="mx-6 w-12 h-12 bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 rounded-full flex items-center justify-center relative">
                     <div className="w-8 h-8 bg-white rounded-full"></div>
-                    <div className="absolute inset-0 border-4 border-african-kente rounded-full animate-african-dance"></div>
+                    <div className="absolute inset-0 border-4 border-african-kente rounded-full"></div>
                   </div>
-                  <div className="h-2 w-24 bg-gradient-to-l from-african-gold to-african-ochre rounded-full animate-kente-wave"></div>
+                  <div className="h-2 w-24 bg-gradient-to-l from-african-gold to-african-ochre rounded-full"></div>
                 </div>
               </motion.div>
               
@@ -305,7 +287,7 @@ const Index = () => {
               <Link to="/solution">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 text-white hover:from-yellow-600 hover:via-orange-600 hover:to-red-600 hover:scale-105 transition-all duration-300 shadow-tribal text-lg px-10 py-8 rounded-2xl border-4 border-yellow-400/30 relative overflow-hidden animate-tribal-pulse"
+                  className="bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 text-white hover:from-yellow-600 hover:via-orange-600 hover:to-red-600 hover:scale-105 transition-all duration-300 shadow-tribal text-lg px-10 py-8 rounded-2xl border-4 border-yellow-400/30 relative overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-kente-stripes opacity-20"></div>
                   <span className="relative z-10 flex items-center gap-3">
@@ -314,17 +296,6 @@ const Index = () => {
                   </span>
                 </Button>
               </Link>
-              <Button
-                onClick={handleDemoClick}
-                variant="outline"
-                size="lg"
-                className="bg-transparent border-4 border-yellow-300/70 text-yellow-100 hover:bg-yellow-500/20 hover:scale-105 transition-all duration-300 text-lg px-10 py-8 rounded-2xl backdrop-blur-sm animate-baobab-sway"
-              >
-                <span className="flex items-center gap-3">
-                  Voir la démo
-                  <div className="w-4 h-4 bg-yellow-300 clip-path-kente-diamond"></div>
-                </span>
-              </Button>
             </motion.div>
           </div>
         </motion.div>
@@ -370,13 +341,13 @@ const Index = () => {
             {/* Ornement traditionnel au-dessus du titre */}
             <div className="flex justify-center mb-6">
               <div className="flex items-center space-x-3">
-                <div className="w-6 h-6 bg-african-terracotta clip-path-kente-diamond animate-african-dance"></div>
+                <div className="w-6 h-6 bg-african-terracotta clip-path-kente-diamond"></div>
                 <div className="w-8 h-2 bg-gradient-to-r from-african-gold to-african-ochre rounded-full"></div>
-                <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center animate-tribal-pulse">
+                <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
                   <div className="w-6 h-6 bg-white rounded-full"></div>
                 </div>
                 <div className="w-8 h-2 bg-gradient-to-l from-african-gold to-african-ochre rounded-full"></div>
-                <div className="w-6 h-6 bg-african-terracotta clip-path-kente-diamond animate-african-dance"></div>
+                <div className="w-6 h-6 bg-african-terracotta clip-path-kente-diamond"></div>
               </div>
             </div>
             
@@ -390,9 +361,9 @@ const Index = () => {
             
             {/* Motifs décoratifs sous le titre */}
             <div className="flex justify-center mt-6 space-x-2">
-              <div className="w-3 h-3 bg-african-gold rounded-full animate-pulse"></div>
-              <div className="w-4 h-4 bg-african-kente rounded-full animate-african-dance"></div>
-              <div className="w-3 h-3 bg-african-terracotta rounded-full animate-pulse"></div>
+              <div className="w-3 h-3 bg-african-gold rounded-full"></div>
+              <div className="w-4 h-4 bg-african-kente rounded-full"></div>
+              <div className="w-3 h-3 bg-african-terracotta rounded-full"></div>
             </div>
           </motion.div>
 
@@ -412,9 +383,6 @@ const Index = () => {
 
       {/* Statistiques avec thème africain renforcé */}
       <section className="py-32 bg-gradient-to-b from-red-50 via-orange-50 to-yellow-50 relative overflow-hidden">
-        {/* Motif de séparation tribal */}
-        <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-african-terracotta via-african-gold to-african-kente"></div>
-        
         <div className="container mx-auto px-4 relative z-10">
           <motion.div 
             initial="hidden"
@@ -425,7 +393,7 @@ const Index = () => {
           >
             {/* Masque africain stylisé comme ornement */}
             <div className="flex justify-center mb-8">
-              <div className="w-20 h-24 bg-gradient-to-b from-african-baobab to-african-earth clip-path-african-mask relative animate-mask-float">
+              <div className="w-20 h-24 bg-gradient-to-b from-african-baobab to-african-earth clip-path-african-mask relative">
                 <div className="absolute inset-0 bg-african-pattern opacity-30"></div>
                 <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-african-gold rounded-full"></div>
                 <div className="absolute bottom-1/3 left-1/2 transform -translate-x-1/2 w-4 h-1 bg-african-gold rounded-full"></div>
@@ -456,7 +424,6 @@ const Index = () => {
       <section className="py-40 relative overflow-hidden bg-gradient-to-b from-yellow-50 via-orange-50 to-red-50">
         {/* Séparateur tribal en haut */}
         <div className="absolute top-0 left-0 right-0 h-20 bg-white transform -skew-y-2 shadow-lg" />
-        <div className="absolute top-2 left-0 right-0 h-2 bg-gradient-to-r from-african-kente via-african-gold to-african-terracotta"></div>
         
         <div className="container mx-auto px-4 pt-12 relative z-10">
           <motion.div 
@@ -469,15 +436,15 @@ const Index = () => {
             {/* Ornement en forme de tambour africain */}
             <div className="flex justify-center mb-8">
               <div className="relative">
-                <div className="w-16 h-16 bg-gradient-to-r from-african-baobab to-african-earth rounded-full flex items-center justify-center animate-tribal-pulse">
+                <div className="w-16 h-16 bg-gradient-to-r from-african-baobab to-african-earth rounded-full flex items-center justify-center">
                   <div className="w-12 h-12 border-4 border-african-gold rounded-full flex items-center justify-center">
-                    <div className="w-6 h-6 bg-african-gold rounded-full animate-african-dance"></div>
+                    <div className="w-6 h-6 bg-african-gold rounded-full"></div>
                   </div>
                 </div>
-                <div className="absolute -top-2 -left-2 w-4 h-4 bg-african-kente rounded-full animate-pulse"></div>
-                <div className="absolute -top-2 -right-2 w-4 h-4 bg-african-ochre rounded-full animate-pulse"></div>
-                <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-african-sunset rounded-full animate-pulse"></div>
-                <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-african-terracotta rounded-full animate-pulse"></div>
+                <div className="absolute -top-2 -left-2 w-4 h-4 bg-african-kente rounded-full"></div>
+                <div className="absolute -top-2 -right-2 w-4 h-4 bg-african-ochre rounded-full"></div>
+                <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-african-sunset rounded-full"></div>
+                <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-african-terracotta rounded-full"></div>
               </div>
             </div>
             
@@ -503,10 +470,6 @@ const Index = () => {
 
       {/* Section Témoignages avec style africain */}
       <section className="py-32 relative overflow-hidden bg-white">
-        {/* Bordures tribales */}
-        <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-african-terracotta via-african-gold to-african-kente"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-r from-african-kente via-african-gold to-african-terracotta"></div>
-        
         <div className="container mx-auto px-4">
           <motion.div 
             initial="hidden"
@@ -532,7 +495,7 @@ const Index = () => {
                       transition={{ duration: 0.5 }}
                       className="p-8"
                     >
-                      <Card className="bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50 border-4 border-orange-200 shadow-african overflow-hidden relative animate-baobab-sway">
+                      <Card className="bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50 border-4 border-orange-200 shadow-african overflow-hidden relative">
                         {/* Motif de fond dans la carte */}
                         <div className="absolute inset-0 opacity-5 bg-tribal-dots"></div>
                         
@@ -541,15 +504,15 @@ const Index = () => {
                         
                         <CardContent className="p-10 relative z-10">
                           <div className="flex flex-col md:flex-row items-center gap-10">
-                            <div className="w-32 h-32 rounded-full overflow-hidden flex-shrink-0 border-6 border-african-gold relative animate-tribal-pulse">
+                            <div className="w-32 h-32 rounded-full overflow-hidden flex-shrink-0 border-6 border-african-gold relative">
                               <img 
                                 src={testimonial.avatar} 
                                 alt={testimonial.name} 
                                 className="w-full h-full object-cover"
                               />
                               {/* Ornements autour de l'avatar */}
-                              <div className="absolute -top-2 -right-2 w-6 h-6 bg-african-kente rounded-full animate-african-dance"></div>
-                              <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-african-terracotta rounded-full animate-pulse"></div>
+                              <div className="absolute -top-2 -right-2 w-6 h-6 bg-african-kente rounded-full"></div>
+                              <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-african-terracotta rounded-full"></div>
                             </div>
                             <div className="flex-1 text-center md:text-left">
                               <p className="text-xl italic mb-6 text-gray-700 leading-relaxed">"{testimonial.content}"</p>
@@ -573,8 +536,8 @@ const Index = () => {
                 ))}
               </CarouselContent>
               <div className="flex justify-center mt-8 gap-6">
-                <CarouselPrevious className="relative -left-0 h-12 w-12 rounded-full bg-white border-4 border-orange-200 hover:bg-orange-50 shadow-card animate-baobab-sway" />
-                <CarouselNext className="relative -right-0 h-12 w-12 rounded-full bg-white border-4 border-orange-200 hover:bg-orange-50 shadow-card animate-baobab-sway" />
+                <CarouselPrevious className="relative -left-0 h-12 w-12 rounded-full bg-white border-4 border-orange-200 hover:bg-orange-50 shadow-card" />
+                <CarouselNext className="relative -right-0 h-12 w-12 rounded-full bg-white border-4 border-orange-200 hover:bg-orange-50 shadow-card" />
               </div>
             </Carousel>
           </div>

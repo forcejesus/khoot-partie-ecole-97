@@ -59,7 +59,7 @@ export default {
           DEFAULT: "#0ea5e9",
           foreground: "#ffffff",
         },
-        // Palette africaine étendue
+        // Palette africaine étendue et enrichie
         african: {
           terracotta: "#cd6133",
           ochre: "#cc8400",
@@ -73,6 +73,15 @@ export default {
           mud: "#8b7355",
           savanna: "#daa520",
           tribal: "#cd853f",
+          // Nouvelles couleurs africaines
+          ebony: "#2c1810",
+          ivory: "#fffff0",
+          leopard: "#ffbf00",
+          zebra: "#36454f",
+          acacia: "#c19a6b",
+          mahogany: "#c04000",
+          calabash: "#d2691e",
+          palm: "#228b22",
         },
       },
       borderRadius: {
@@ -106,36 +115,6 @@ export default {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.5" },
         },
-        // Nouvelles animations africaines
-        "african-dance": {
-          "0%, 100%": { transform: "rotate(0deg) scale(1)" },
-          "25%": { transform: "rotate(1deg) scale(1.02)" },
-          "75%": { transform: "rotate(-1deg) scale(0.98)" },
-        },
-        "tribal-pulse": {
-          "0%, 100%": { 
-            transform: "scale(1)",
-            boxShadow: "0 0 0 0 rgba(234, 88, 12, 0.4)"
-          },
-          "50%": { 
-            transform: "scale(1.05)",
-            boxShadow: "0 0 0 10px rgba(234, 88, 12, 0)"
-          },
-        },
-        "kente-wave": {
-          "0%": { transform: "translateX(-100%) skewX(0deg)" },
-          "50%": { transform: "translateX(0%) skewX(-5deg)" },
-          "100%": { transform: "translateX(100%) skewX(0deg)" },
-        },
-        "baobab-sway": {
-          "0%, 100%": { transform: "rotate(0deg)" },
-          "25%": { transform: "rotate(0.5deg)" },
-          "75%": { transform: "rotate(-0.5deg)" },
-        },
-        "mask-float": {
-          "0%, 100%": { transform: "translateY(0px) rotate(0deg)" },
-          "50%": { transform: "translateY(-10px) rotate(2deg)" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -143,11 +122,6 @@ export default {
         fadeIn: "fadeIn 0.5s ease-out forwards",
         slideIn: "slideIn 0.5s ease-out forwards",
         pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        "african-dance": "african-dance 3s ease-in-out infinite",
-        "tribal-pulse": "tribal-pulse 2s infinite",
-        "kente-wave": "kente-wave 4s ease-in-out infinite",
-        "baobab-sway": "baobab-sway 6s ease-in-out infinite",
-        "mask-float": "mask-float 3s ease-in-out infinite",
       },
       boxShadow: {
         soft: "0 4px 20px rgba(234, 88, 12, 0.08)",
@@ -162,11 +136,16 @@ export default {
         'tribal-dots': "url(\"data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23cd6133' fill-opacity='0.15'%3E%3Ccircle cx='20' cy='20' r='2'/%3E%3Ccircle cx='10' cy='10' r='1'/%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/svg%3E\")",
         'kente-stripes': "url(\"data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='kente' x='0' y='0' width='20' height='20' patternUnits='userSpaceOnUse'%3E%3Crect x='0' y='0' width='10' height='10' fill='%23ea580c'/%3E%3Crect x='10' y='10' width='10' height='10' fill='%23ffd700'/%3E%3Crect x='0' y='10' width='10' height='10' fill='%23dc2626'/%3E%3Crect x='10' y='0' width='10' height='10' fill='%23059669'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100' height='100' fill='url(%23kente)' opacity='0.1'/%3E%3C/svg%3E\")",
         'mask-texture': "url(\"data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23cd6133' fill-opacity='0.08'%3E%3Cpath d='M40 0L60 20L40 40L20 20z'/%3E%3Cpath d='M0 40L20 60L40 40L20 20z'/%3E%3Cpath d='M40 40L60 60L80 40L60 20z'/%3E%3Cpath d='M40 40L20 60L0 40L20 20z'/%3E%3C/g%3E%3C/svg%3E\")",
+        // Nouveaux motifs africains
+        'adinkra-pattern': "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23cd6133' fill-opacity='0.1'%3E%3Cpath d='M30 5L35 20L50 20L40 30L45 45L30 35L15 45L20 30L10 20L25 20Z'/%3E%3C/g%3E%3C/svg%3E\")",
+        'mudcloth-dots': "url(\"data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23cc8400' fill-opacity='0.12'%3E%3Ccircle cx='25' cy='25' r='3'/%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3Ccircle cx='40' cy='10' r='2'/%3E%3Ccircle cx='10' cy='40' r='2'/%3E%3Ccircle cx='40' cy='40' r='2'/%3E%3C/g%3E%3C/svg%3E\")",
+        'wax-print': "url(\"data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='wax' x='0' y='0' width='30' height='30' patternUnits='userSpaceOnUse'%3E%3Cellipse cx='15' cy='15' rx='8' ry='12' fill='%23ffd700' opacity='0.1'/%3E%3Cellipse cx='15' cy='15' rx='4' ry='6' fill='%23e74c3c' opacity='0.1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%' height='100%' fill='url(%23wax)'/%3E%3C/svg%3E\")",
       },
       clipPath: {
         'african-mask': 'polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)',
         'kente-diamond': 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
         'tribal-arrow': 'polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%)',
+        'baobab-tree': 'polygon(45% 0%, 55% 0%, 70% 40%, 85% 80%, 100% 100%, 0% 100%, 15% 80%, 30% 40%)',
       }
     },
   },
