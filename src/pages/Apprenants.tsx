@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,6 +10,11 @@ const Apprenants = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isBulkImportOpen, setIsBulkImportOpen] = useState(false);
+
+  const handleRefresh = () => {
+    // Refresh logic if needed
+    window.location.reload();
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50 relative overflow-hidden">
@@ -99,17 +103,14 @@ const Apprenants = () => {
         </div>
 
         {/* Modales */}
-        <AddApprenantDialog 
-          open={isAddDialogOpen} 
-          onOpenChange={setIsAddDialogOpen} 
-        />
+        <AddApprenantDialog onSuccess={handleRefresh} />
         
         {isBulkImportOpen && (
           <BulkImportModal
             type="apprenants"
             onSuccess={() => {
               setIsBulkImportOpen(false);
-              // Refresh the list if needed
+              handleRefresh();
             }}
           />
         )}
