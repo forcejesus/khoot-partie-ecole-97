@@ -139,7 +139,7 @@ const InscriptionEcoles = () => {
                   </label>
                   <textarea
                     className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none text-base"
-                    rows="3"
+                    rows={3}
                     placeholder="Adresse de votre école..."
                   ></textarea>
                 </div>
