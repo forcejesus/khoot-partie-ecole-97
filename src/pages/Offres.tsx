@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Star, Crown, Users, Zap, Shield, Target } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Offres = () => {
   const fadeInVariants = {
@@ -91,7 +92,7 @@ const Offres = () => {
     {
       icon: Target,
       title: "Approche pédagogique",
-      description: "Méthodes d'apprentissage inspirées des traditions africaines"
+      description: "Méthodes d'apprentissage modernes et efficaces"
     }
   ];
 
@@ -101,7 +102,7 @@ const Offres = () => {
       <div className="fixed inset-0 opacity-5 bg-kente-stripes pointer-events-none"></div>
       
       <div className="container mx-auto py-8 px-4 md:px-6 relative z-10">
-        {/* En-tête avec ornements africains */}
+        {/* En-tête */}
         <motion.div 
           initial="hidden"
           animate="visible"
@@ -109,21 +110,14 @@ const Offres = () => {
           className="mb-16 text-center"
         >
           <div className="flex justify-center mb-6">
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 bg-african-terracotta clip-path-kente-diamond"></div>
-              <div className="w-8 h-2 bg-gradient-to-r from-african-gold to-african-ochre rounded-full"></div>
-              <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
-                <Star className="w-5 h-5 text-white" />
-              </div>
-              <div className="w-8 h-2 bg-gradient-to-l from-african-gold to-african-ochre rounded-full"></div>
-              <div className="w-6 h-6 bg-african-terracotta clip-path-kente-diamond"></div>
+            <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
+              <Star className="w-5 h-5 text-white" />
             </div>
           </div>
           
           <h1 className="text-5xl font-bold bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-african mb-4">
             Nos Offres AKILI
           </h1>
-          <div className="w-32 h-2 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 mx-auto rounded-full shadow-african" />
           
           <p className="text-xl text-gray-700 mt-8 max-w-3xl mx-auto font-medium">
             Choisissez l'offre qui correspond à vos besoins et libérez le potentiel éducatif de votre institution
@@ -149,10 +143,6 @@ const Offres = () => {
                   </div>
                 )}
                 
-                {/* Bordure colorée africaine */}
-                <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${offer.color}`}></div>
-                
-                {/* Motif de fond */}
                 <div className="absolute inset-0 opacity-5 bg-tribal-dots"></div>
                 
                 <CardHeader className="text-center relative z-10">
@@ -180,18 +170,11 @@ const Offres = () => {
                     ))}
                   </ul>
                   
-                  <Button className={`w-full bg-gradient-to-r ${offer.color} hover:opacity-90 transition-all text-white font-medium py-3`}>
-                    {offer.name === "Excellence" ? "Nous contacter" : "Choisir cette offre"}
-                  </Button>
-                  
-                  {/* Ornement décoratif */}
-                  <div className="flex justify-center mt-4">
-                    <div className="flex items-center space-x-1">
-                      <div className="w-2 h-2 bg-african-terracotta rounded-full"></div>
-                      <div className="w-3 h-1 bg-african-gold rounded-full"></div>
-                      <div className="w-2 h-2 bg-african-kente rounded-full"></div>
-                    </div>
-                  </div>
+                  <Link to="/inscription-ecoles">
+                    <Button className={`w-full bg-gradient-to-r ${offer.color} hover:opacity-90 transition-all text-white font-medium py-3`}>
+                      {offer.name === "Excellence" ? "Nous contacter" : "Choisir cette offre"}
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             </motion.div>
@@ -206,7 +189,6 @@ const Offres = () => {
           variants={fadeInVariants}
           className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-african border-2 border-orange-200 relative overflow-hidden"
         >
-          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500"></div>
           <div className="absolute inset-0 opacity-5 bg-tribal-dots"></div>
           
           <div className="relative z-10">
@@ -243,12 +225,16 @@ const Offres = () => {
             Rejoignez les centaines d'écoles qui font confiance à AKILI pour révolutionner l'apprentissage en Afrique.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white px-8 py-4">
-              Demander une démo
-            </Button>
-            <Button variant="outline" size="lg" className="border-2 border-orange-300 text-orange-600 hover:bg-orange-50 px-8 py-4">
-              Nous contacter
-            </Button>
+            <Link to="/inscription-ecoles">
+              <Button size="lg" className="bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white px-8 py-4">
+                Prennez un abonnement
+              </Button>
+            </Link>
+            <Link to="/contact">
+              <Button variant="outline" size="lg" className="border-2 border-orange-300 text-orange-600 hover:bg-orange-50 px-8 py-4">
+                Nous contacter
+              </Button>
+            </Link>
           </div>
         </motion.div>
       </div>

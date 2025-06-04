@@ -18,7 +18,7 @@ const Footer = () => {
       <div className="absolute inset-0 bg-tribal-dots opacity-10"></div>
       
       <div className="container mx-auto px-4 py-16 relative z-10">
-        <div className="grid md:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           {/* Logo et description */}
           <div className="md:col-span-1">
             <div className="flex items-center mb-4">
@@ -65,28 +65,6 @@ const Footer = () => {
                 <Link to="/contact" className="text-gray-300 hover:text-orange-500 transition-colors font-cairo">
                   Contact
                 </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h3 className="text-lg font-bold mb-4 text-orange-500 font-african">Services</h3>
-            <ul className="space-y-2">
-              <li>
-                <span className="text-gray-300 font-cairo">Quiz interactifs</span>
-              </li>
-              <li>
-                <span className="text-gray-300 font-cairo">Jeux éducatifs</span>
-              </li>
-              <li>
-                <span className="text-gray-300 font-cairo">Suivi des performances</span>
-              </li>
-              <li>
-                <span className="text-gray-300 font-cairo">Formation des enseignants</span>
-              </li>
-              <li>
-                <span className="text-gray-300 font-cairo">Support technique</span>
               </li>
             </ul>
           </div>

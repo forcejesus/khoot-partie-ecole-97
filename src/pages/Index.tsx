@@ -41,7 +41,6 @@ const Index = () => {
       <section className="relative overflow-hidden">
         {/* Background patterns */}
         <div className="absolute inset-0 bg-african-pattern opacity-10"></div>
-        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500"></div>
         
         <div className="container mx-auto px-4 py-20 md:py-32">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -66,9 +65,11 @@ const Index = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                <Button size="lg" className="bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white px-8 py-6 text-lg">
-                  Commencer gratuitement
-                </Button>
+                <Link to="/inscription-ecoles">
+                  <Button size="lg" className="bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white px-8 py-6 text-lg">
+                    Prennez un abonnement
+                  </Button>
+                </Link>
                 <Link to="/solution">
                   <Button variant="outline" size="lg" className="border-2 border-orange-300 text-orange-600 hover:bg-orange-50 px-8 py-6 text-lg">
                     Découvrir la solution <ArrowRight className="ml-2 h-5 w-5" />
@@ -221,15 +222,10 @@ const Index = () => {
             <p className="text-xl mb-8 max-w-2xl mx-auto relative z-10">
               Rejoignez plus de 500 écoles à travers l'Afrique qui utilisent déjà AKILI pour créer des expériences d'apprentissage engageantes et mesurer les progrès de leurs élèves.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-              <Link to="/contact">
+            <div className="flex justify-center relative z-10">
+              <Link to="/inscription-ecoles">
                 <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100 px-8 py-4 text-lg">
-                  Nous contacter
-                </Button>
-              </Link>
-              <Link to="/offres">
-                <Button variant="outline" size="lg" className="border-2 border-white text-white hover:bg-white/10 px-8 py-4 text-lg">
-                  Voir nos offres
+                  Prennez un abonnement
                 </Button>
               </Link>
             </div>

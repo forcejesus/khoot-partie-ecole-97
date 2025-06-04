@@ -15,6 +15,7 @@ import Offres from "./pages/Offres";
 import Solution from "./pages/Solution";
 import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
+import InscriptionEcoles from "./pages/InscriptionEcoles";
 import Apprenants from "./pages/Apprenants";
 import Enseignants from "./pages/Enseignants";
 import Jeux from "./pages/Jeux";
@@ -49,6 +50,7 @@ const App: React.FC = () => {
                   <Route path="/solution" element={<><Navbar /><Solution /><Footer /></>} />
                   <Route path="/faq" element={<><Navbar /><FAQ /><Footer /></>} />
                   <Route path="/contact" element={<><Navbar /><Contact /><Footer /></>} />
+                  <Route path="/inscription-ecoles" element={<><Navbar /><InscriptionEcoles /><Footer /></>} />
                   <Route path="/login" element={<><Navbar /><Login /><Footer /></>} />
                   
                   {/* Routes protégées avec Dashboard Layout AKILI */}

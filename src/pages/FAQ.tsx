@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { HelpCircle, MessageCircle, Mail, Phone } from "lucide-react";
+import { HelpCircle, Mail, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 
 const FAQ = () => {
@@ -24,7 +24,7 @@ const FAQ = () => {
   const faqs = [
     {
       question: "Qu'est-ce qu'AKILI exactement ?",
-      answer: "AKILI est une plateforme éducative interactive qui transforme l'apprentissage en expérience ludique. Inspirée de la richesse culturelle africaine, elle combine jeux éducatifs, gestion d'apprenants et analytiques avancées pour révolutionner l'éducation en Afrique."
+      answer: "AKILI est une plateforme éducative interactive qui transforme l'apprentissage en expérience ludique. Elle combine jeux éducatifs, gestion d'apprenants et analytiques avancées pour révolutionner l'éducation en Afrique."
     },
     {
       question: "Quels âges et niveaux scolaires sont supportés ?",
@@ -32,7 +32,7 @@ const FAQ = () => {
     },
     {
       question: "Comment fonctionne la gamification ?",
-      answer: "Nos jeux transforment les leçons traditionnelles en aventures captivantes. Les apprenants gagnent des points, débloques des badges inspirés de l'artisanat africain, et progressent dans des parcours adaptatifs qui respectent leur rythme d'apprentissage."
+      answer: "Nos jeux transforment les leçons traditionnelles en aventures captivantes. Les apprenants gagnent des points, débloquent des badges, et progressent dans des parcours adaptatifs qui respectent leur rythme d'apprentissage."
     },
     {
       question: "Quelle connexion internet est nécessaire ?",
@@ -56,27 +56,21 @@ const FAQ = () => {
     }
   ];
 
-  const contactOptions = [
+  const contactInfo = [
     {
-      icon: MessageCircle,
-      title: "Chat en direct",
-      description: "Discutez avec notre équipe",
-      action: "Ouvrir le chat",
-      color: "from-blue-500 to-cyan-500"
+      type: "Support technique",
+      email: "support@akili-education.cg",
+      phone: "+242 06 956 53 90"
     },
     {
-      icon: Mail,
-      title: "Email",
-      description: "contact@akili-education.cg",
-      action: "Envoyer un email",
-      color: "from-green-500 to-emerald-500"
+      type: "Partenariats",
+      email: "partenaires@akili-education.cg", 
+      phone: "+242 05 123 45 67"
     },
     {
-      icon: Phone,
-      title: "Téléphone",
-      description: "+242 06 956 53 90",
-      action: "Nous appeler",
-      color: "from-orange-500 to-red-500"
+      type: "Formations",
+      email: "formations@akili-education.cg",
+      phone: "+242 06 789 01 23"
     }
   ];
 
@@ -86,7 +80,7 @@ const FAQ = () => {
       <div className="fixed inset-0 opacity-5 bg-kente-stripes pointer-events-none"></div>
       
       <div className="container mx-auto py-8 px-4 md:px-6 relative z-10">
-        {/* En-tête avec ornements africains */}
+        {/* En-tête */}
         <motion.div 
           initial="hidden"
           animate="visible"
@@ -94,21 +88,14 @@ const FAQ = () => {
           className="mb-16 text-center"
         >
           <div className="flex justify-center mb-6">
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 bg-african-terracotta clip-path-kente-diamond"></div>
-              <div className="w-8 h-2 bg-gradient-to-r from-african-gold to-african-ochre rounded-full"></div>
-              <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
-                <HelpCircle className="w-5 h-5 text-white" />
-              </div>
-              <div className="w-8 h-2 bg-gradient-to-l from-african-gold to-african-ochre rounded-full"></div>
-              <div className="w-6 h-6 bg-african-terracotta clip-path-kente-diamond"></div>
+            <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
+              <HelpCircle className="w-5 h-5 text-white" />
             </div>
           </div>
           
           <h1 className="text-5xl font-bold bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-african mb-4">
             Questions Fréquentes
           </h1>
-          <div className="w-32 h-2 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 mx-auto rounded-full shadow-african" />
           
           <p className="text-xl text-gray-700 mt-8 max-w-3xl mx-auto font-medium">
             Trouvez rapidement les réponses à vos questions sur AKILI. 
@@ -125,7 +112,6 @@ const FAQ = () => {
           className="max-w-4xl mx-auto mb-16"
         >
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-african border-2 border-orange-200 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500"></div>
             <div className="absolute inset-0 opacity-5 bg-tribal-dots"></div>
             
             <div className="relative z-10">
@@ -161,36 +147,25 @@ const FAQ = () => {
             Vous ne trouvez pas votre réponse ?
           </h2>
           
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {contactOptions.map((option, index) => (
-              <Card key={index} className="group hover:shadow-african transition-all duration-500 border-2 border-orange-200 bg-gradient-to-br from-white to-orange-50 relative overflow-hidden">
-                <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${option.color}`}></div>
-                <div className="absolute inset-0 opacity-5 bg-tribal-dots"></div>
-                
-                <CardHeader className="text-center relative z-10">
-                  <div className={`mx-auto w-16 h-16 mb-4 rounded-xl bg-gradient-to-br ${option.color} flex items-center justify-center shadow-card`}>
-                    <option.icon className="h-8 w-8 text-white" />
-                  </div>
-                  <CardTitle className="text-xl font-bold text-gray-800 font-african">{option.title}</CardTitle>
-                </CardHeader>
-                
-                <CardContent className="text-center relative z-10">
-                  <p className="text-gray-600 mb-4">{option.description}</p>
-                  <Button className={`bg-gradient-to-r ${option.color} hover:opacity-90 transition-all text-white`}>
-                    {option.action}
-                  </Button>
-                  
-                  {/* Ornement décoratif */}
-                  <div className="flex justify-center mt-4">
-                    <div className="flex items-center space-x-1">
-                      <div className="w-2 h-2 bg-african-terracotta rounded-full"></div>
-                      <div className="w-3 h-1 bg-african-gold rounded-full"></div>
-                      <div className="w-2 h-2 bg-african-kente rounded-full"></div>
+          <div className="max-w-4xl mx-auto bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-african border-2 border-orange-200">
+            <h3 className="text-xl font-bold mb-6 text-gray-800">Nos coordonnées</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              {contactInfo.map((contact, index) => (
+                <div key={index} className="text-center p-4 bg-gradient-to-br from-orange-50 to-red-50 rounded-xl">
+                  <h4 className="font-bold text-gray-800 mb-3">{contact.type}</h4>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-center gap-2">
+                      <Mail className="h-4 w-4 text-orange-600" />
+                      <span className="text-gray-600 text-sm">{contact.email}</span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2">
+                      <Phone className="h-4 w-4 text-orange-600" />
+                      <span className="text-gray-600 text-sm">{contact.phone}</span>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
         </motion.div>
 
