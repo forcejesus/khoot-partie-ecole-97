@@ -42,7 +42,7 @@ const App: React.FC = () => {
                 <Toaster />
                 <Sonner position="top-right" />
                 <Routes>
-                  {/* Routes publiques avec Navbar */}
+                  {/* Routes publiques avec Navbar AKILI */}
                   <Route path="/" element={<><Navbar /><Index /></>} />
                   <Route path="/offres" element={<><Navbar /><Offres /></>} />
                   <Route path="/solution" element={<><Navbar /><Solution /></>} />
@@ -50,7 +50,7 @@ const App: React.FC = () => {
                   <Route path="/contact" element={<><Navbar /><Contact /></>} />
                   <Route path="/login" element={<><Navbar /><Login /></>} />
                   
-                  {/* Routes protégées avec Dashboard Layout */}
+                  {/* Routes protégées avec Dashboard Layout AKILI */}
                   <Route
                     path="/dashboard"
                     element={

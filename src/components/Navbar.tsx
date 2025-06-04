@@ -53,67 +53,88 @@ const Navbar = () => {
     <header 
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         scrolled 
-          ? "bg-white/95 backdrop-blur-sm shadow-sm dark:bg-gray-900/95" 
+          ? "bg-white/95 backdrop-blur-sm shadow-lg border-b border-orange-200/50 dark:bg-gray-900/95" 
           : "bg-transparent dark:bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center" onClick={closeMenu}>
-          <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-            KHOOT ECES
-          </span>
+        <Link to="/" className="flex items-center group" onClick={closeMenu}>
+          <div className="relative">
+            {/* Logo avec motif africain */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 rounded-lg opacity-20 group-hover:opacity-40 transition-opacity"></div>
+            <span className="relative text-3xl font-bold bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent tracking-wider font-serif">
+              AKILI
+            </span>
+          </div>
+          {/* Ornement africain */}
+          <div className="ml-2 flex items-center">
+            <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+            <div className="w-1 h-1 bg-red-400 rounded-full mx-1"></div>
+            <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+          </div>
         </Link>
         
         <div className="flex items-center gap-2 md:gap-4">
-          {/* Theme toggle button */}
+          {/* Theme toggle button avec style africain */}
           <Button
             variant="ghost"
             size="icon"
-            className="rounded-full"
+            className="rounded-full hover:bg-orange-100 dark:hover:bg-orange-900/20 border border-orange-200/50"
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
             aria-label="Toggle theme"
           >
             {theme === "light" ? (
-              <Moon className="h-[1.2rem] w-[1.2rem] rotate-90 transition-all dark:rotate-0" />
+              <Moon className="h-[1.2rem] w-[1.2rem] rotate-90 transition-all dark:rotate-0 text-orange-600" />
             ) : (
-              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 transition-all dark:rotate-90" />
+              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 transition-all dark:rotate-90 text-yellow-500" />
             )}
           </Button>
           
-          {/* Notifications */}
+          {/* Notifications avec style africain */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full relative">
-                <Bell className="h-[1.2rem] w-[1.2rem]" />
-                <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
+              <Button variant="ghost" size="icon" className="rounded-full relative hover:bg-orange-100 dark:hover:bg-orange-900/20 border border-orange-200/50">
+                <Bell className="h-[1.2rem] w-[1.2rem] text-orange-600" />
+                <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-gradient-to-r from-red-500 to-orange-500 animate-pulse"></span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-72">
-              <div className="px-4 py-2 font-medium border-b">Notifications</div>
-              <DropdownMenuItem className="p-3">
+            <DropdownMenuContent align="end" className="w-72 border-orange-200">
+              <div className="px-4 py-2 font-medium border-b border-orange-200 bg-gradient-to-r from-orange-50 to-red-50">
+                🔔 Notifications AKILI
+              </div>
+              <DropdownMenuItem className="p-3 hover:bg-orange-50">
                 <div>
-                  <p className="text-sm font-medium">Bienvenue sur KHOOT ECES</p>
-                  <p className="text-xs text-muted-foreground">Découvrez notre plateforme d'apprentissage</p>
+                  <p className="text-sm font-medium">Bienvenue sur AKILI 🎓</p>
+                  <p className="text-xs text-muted-foreground">Découvrez l'intelligence africaine numérique</p>
+                </div>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="p-3 hover:bg-orange-50">
+                <div>
+                  <p className="text-sm font-medium">Nouveaux jeux disponibles 🎮</p>
+                  <p className="text-xs text-muted-foreground">Explorez nos derniers contenus éducatifs</p>
                 </div>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           
-          {/* Mobile menu button */}
+          {/* Mobile menu button avec style africain */}
           <button 
-            className="md:hidden p-2 focus:outline-none" 
+            className="md:hidden p-2 focus:outline-none rounded-full hover:bg-orange-100 dark:hover:bg-orange-900/20 border border-orange-200/50" 
             onClick={toggleMenu}
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMenuOpen ? 
+              <X size={24} className="text-orange-600" /> : 
+              <Menu size={24} className="text-orange-600" />
+            }
           </button>
           
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation avec style africain */}
           <nav className="hidden md:flex items-center space-x-6">
             <NavLinks isActive={isActive} isMobile={false} closeMenu={closeMenu} />
             <Link to="/login">
               <Button 
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 text-white"
+                className="bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white border-2 border-orange-300/30 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                 size="sm"
               >
                 Se connecter
@@ -123,16 +144,27 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation avec thème africain */}
       {isMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-50 bg-white dark:bg-gray-900 pt-16">
-          <nav className="container mx-auto px-4 py-4 flex flex-col space-y-6">
+        <div className="md:hidden fixed inset-0 z-50 bg-gradient-to-br from-orange-50 via-white to-red-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-16">
+          {/* Motif de fond africain */}
+          <div className="absolute inset-0 opacity-5">
+            <svg className="w-full h-full" viewBox="0 0 100 100">
+              <pattern id="mobile-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                <circle cx="10" cy="10" r="2" fill="currentColor" className="text-orange-600"/>
+                <path d="M5,5 L15,15 M15,5 L5,15" stroke="currentColor" strokeWidth="1" className="text-red-600"/>
+              </pattern>
+              <rect width="100" height="100" fill="url(#mobile-pattern)"/>
+            </svg>
+          </div>
+          
+          <nav className="container mx-auto px-4 py-4 flex flex-col space-y-6 relative z-10">
             <NavLinks isActive={isActive} isMobile={true} closeMenu={closeMenu} />
             <Link to="/login" onClick={closeMenu}>
               <Button 
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 text-white"
+                className="w-full bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white shadow-lg text-lg py-6"
               >
-                Se connecter
+                Se connecter à AKILI
               </Button>
             </Link>
           </nav>
@@ -152,20 +184,20 @@ const NavLinks = ({
   closeMenu: () => void;
 }) => {
   const linkClasses = isMobile
-    ? "block py-3 text-xl font-medium hover:text-purple-600 transition-colors"
-    : "font-medium hover:text-purple-600 transition-colors relative group";
+    ? "block py-4 text-xl font-medium hover:text-orange-600 transition-colors border-l-4 border-transparent hover:border-orange-500 pl-4"
+    : "font-medium hover:text-orange-600 transition-colors relative group px-3 py-2 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900/20";
 
   const activeLinkClasses = isMobile
-    ? "block py-3 text-xl font-medium text-purple-600 transition-colors"
-    : "font-medium text-purple-600 transition-colors relative group";
+    ? "block py-4 text-xl font-medium text-orange-600 transition-colors border-l-4 border-orange-500 pl-4 bg-orange-50 dark:bg-orange-900/20"
+    : "font-medium text-orange-600 transition-colors relative group px-3 py-2 rounded-lg bg-orange-50 dark:bg-orange-900/20";
 
-  // Animation for desktop active links
+  // Animation for desktop active links avec style africain
   const activeLinkIndicator = !isMobile && (
-    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+    <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-orange-500 rounded-full"></span>
   );
 
   const activeIndicator = !isMobile && (
-    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-purple-600"></span>
+    <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-orange-500 rounded-full"></span>
   );
 
   return (
