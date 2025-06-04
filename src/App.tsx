@@ -21,6 +21,7 @@ import Jeux from "./pages/Jeux";
 import DashboardLayout from "./layouts/DashboardLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,13 +43,13 @@ const App: React.FC = () => {
                 <Toaster />
                 <Sonner position="top-right" />
                 <Routes>
-                  {/* Routes publiques avec Navbar AKILI */}
-                  <Route path="/" element={<><Navbar /><Index /></>} />
-                  <Route path="/offres" element={<><Navbar /><Offres /></>} />
-                  <Route path="/solution" element={<><Navbar /><Solution /></>} />
-                  <Route path="/faq" element={<><Navbar /><FAQ /></>} />
-                  <Route path="/contact" element={<><Navbar /><Contact /></>} />
-                  <Route path="/login" element={<><Navbar /><Login /></>} />
+                  {/* Routes publiques avec Navbar AKILI et Footer */}
+                  <Route path="/" element={<><Navbar /><Index /><Footer /></>} />
+                  <Route path="/offres" element={<><Navbar /><Offres /><Footer /></>} />
+                  <Route path="/solution" element={<><Navbar /><Solution /><Footer /></>} />
+                  <Route path="/faq" element={<><Navbar /><FAQ /><Footer /></>} />
+                  <Route path="/contact" element={<><Navbar /><Contact /><Footer /></>} />
+                  <Route path="/login" element={<><Navbar /><Login /><Footer /></>} />
                   
                   {/* Routes protégées avec Dashboard Layout AKILI */}
                   <Route

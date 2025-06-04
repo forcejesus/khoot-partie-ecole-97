@@ -12,26 +12,26 @@ const OffresSection = () => {
   const features = [
     {
       icon: Gamepad2,
-      title: "Jeux interactifs en temps réel",
-      description: "Créez des quiz, sondages et challenges captivants comme Kahoot, adaptés au contexte africain",
+      title: "Quiz interactifs en temps réel",
+      description: "Créez des quiz captivants en quelques clics. Les élèves participent depuis leurs appareils et voient leurs résultats instantanément",
       color: "from-orange-500 to-red-500"
     },
     {
       icon: Users,
       title: "Apprentissage collaboratif",
-      description: "Les élèves participent ensemble depuis leurs smartphones, tablettes ou ordinateurs",
+      description: "Encouragez la participation active de tous les élèves avec des défis en équipe et des activités de groupe interactives",
       color: "from-blue-500 to-cyan-500"
     },
     {
       icon: BarChart3,
-      title: "Analytiques détaillées",
-      description: "Suivez les performances en temps réel et identifiez les points d'amélioration",
+      title: "Suivi des performances",
+      description: "Analysez les résultats en détail, identifiez les difficultés et adaptez votre pédagogie en conséquence",
       color: "from-green-500 to-emerald-500"
     },
     {
       icon: Trophy,
-      title: "Gamification avancée",
-      description: "Classements, badges et récompenses pour motiver vos apprenants",
+      title: "Motivation par le jeu",
+      description: "Classements, badges et défis pour maintenir l'engagement et la motivation des apprenants tout au long de l'année",
       color: "from-purple-500 to-indigo-500"
     }
   ];
@@ -39,23 +39,23 @@ const OffresSection = () => {
   const benefits = [
     {
       icon: Zap,
-      title: "Rapidité",
-      description: "Lancez un quiz en moins de 2 minutes"
+      title: "Installation rapide",
+      description: "Déployez AKILI en moins de 5 minutes"
     },
     {
       icon: Smartphone,
-      title: "Mobile-first",
-      description: "Optimisé pour les smartphones africains"
+      title: "Multi-appareils",
+      description: "Fonctionne sur smartphones, tablettes et ordinateurs"
     },
     {
       icon: Globe,
-      title: "Hors ligne",
-      description: "Fonctionne même avec une connexion limitée"
+      title: "Accès hors ligne",
+      description: "Continuez à enseigner même sans internet"
     },
     {
       icon: Sparkles,
-      title: "Contenu local",
-      description: "Bibliothèque de contenus africains"
+      title: "Interface intuitive",
+      description: "Facile à utiliser pour tous les enseignants"
     }
   ];
 
@@ -78,12 +78,12 @@ const OffresSection = () => {
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6 font-african">
-            AKILI : Le <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">Kahoot Africain</span>
+            AKILI : <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">L'excellence éducative interactive</span>
           </h2>
           
           <p className="text-xl text-gray-600 max-w-4xl mx-auto mb-8">
-            Transformez vos cours en expériences interactives captivantes ! AKILI est la première plateforme 
-            d'apprentissage gamifiée conçue spécialement pour l'éducation africaine.
+            La première plateforme d'apprentissage gamifiée conçue pour les écoles modernes. 
+            Transformez vos cours traditionnels en expériences interactives qui captent l'attention et améliorent les résultats.
           </p>
           
           <div className="flex flex-wrap justify-center gap-6 mb-12">
@@ -128,17 +128,17 @@ const OffresSection = () => {
           className="text-center bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 rounded-2xl p-8 text-white"
         >
           <h3 className="text-2xl md:text-3xl font-bold mb-4 font-african">
-            Prêt à révolutionner vos cours ?
+            Prêt à moderniser votre pédagogie ?
           </h3>
           <p className="text-xl mb-8 opacity-90">
-            Rejoignez plus de 500 écoles africaines qui utilisent déjà AKILI pour engager leurs élèves
+            Rejoignez plus de 500 écoles qui ont déjà adopté AKILI pour améliorer l'engagement de leurs élèves et optimiser leurs résultats scolaires
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100 px-8 py-4 text-lg font-medium">
-              Essayer gratuitement
+              Commencer gratuitement
             </Button>
             <Button variant="outline" size="lg" className="border-2 border-white text-white hover:bg-white/10 px-8 py-4 text-lg font-medium">
-              Voir une démo
+              En savoir plus
             </Button>
           </div>
         </motion.div>

@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -61,16 +62,18 @@ const Index = () => {
               </h1>
               
               <p className="text-xl text-gray-600 mb-8 max-w-lg">
-                La première plateforme d'apprentissage gamifiée conçue spécifiquement pour les écoles africaines. Engagez vos élèves comme jamais auparavant.
+                La plateforme d'apprentissage interactif nouvelle génération. Créez des quiz engageants, suivez les progrès en temps réel et motivez vos élèves comme jamais auparavant.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                 <Button size="lg" className="bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white px-8 py-6 text-lg">
                   Commencer gratuitement
                 </Button>
-                <Button variant="outline" size="lg" className="border-2 border-orange-300 text-orange-600 hover:bg-orange-50 px-8 py-6 text-lg">
-                  Voir une démo <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                <Link to="/solution">
+                  <Button variant="outline" size="lg" className="border-2 border-orange-300 text-orange-600 hover:bg-orange-50 px-8 py-6 text-lg">
+                    Découvrir la solution <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
               </div>
               
               <motion.div 
@@ -80,10 +83,10 @@ const Index = () => {
                 className="mt-12 grid grid-cols-2 gap-4"
               >
                 {[
-                  { icon: CheckCircle2, text: "Adapté aux écoles africaines" },
-                  { icon: Zap, text: "Fonctionne hors ligne" },
+                  { icon: CheckCircle2, text: "Facile à utiliser" },
+                  { icon: Zap, text: "Installation rapide" },
                   { icon: Users, text: "+10,000 élèves actifs" },
-                  { icon: BarChart2, text: "Résultats prouvés" }
+                  { icon: BarChart2, text: "Résultats mesurables" }
                 ].map((item, index) => (
                   <motion.div 
                     key={index}
@@ -138,7 +141,7 @@ const Index = () => {
               Ce que disent nos <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">utilisateurs</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Découvrez comment AKILI transforme l'expérience éducative à travers l'Afrique
+              Découvrez comment AKILI aide les enseignants et écoles à améliorer l'engagement des élèves
             </p>
           </motion.div>
           
@@ -148,19 +151,19 @@ const Index = () => {
                 name: "Amadou Diallo",
                 role: "Directeur, École Primaire de Dakar",
                 image: "/images/testimonial-1.jpg",
-                quote: "AKILI a complètement transformé notre façon d'enseigner. Les élèves sont plus engagés et les résultats se sont améliorés de 40% en seulement 3 mois."
+                quote: "AKILI a transformé notre école. Les enseignants créent facilement des quiz interactifs et les élèves sont plus motivés. Nos résultats scolaires se sont améliorés de 40%."
               },
               {
                 name: "Fatima Nkosi",
                 role: "Enseignante, Lycée de Kinshasa",
                 image: "/images/testimonial-2.jpg",
-                quote: "Même avec une connexion internet limitée, nous pouvons utiliser AKILI efficacement. C'est la première solution vraiment adaptée à nos besoins africains."
+                quote: "Avec AKILI, mes cours de mathématiques sont devenus interactifs. Les élèves participent activement et je peux suivre leur compréhension en temps réel."
               },
               {
                 name: "Emmanuel Okafor",
                 role: "Parent d'élève, Lagos",
                 image: "/images/testimonial-3.jpg",
-                quote: "Mon fils attend avec impatience ses cours depuis qu'ils utilisent AKILI. L'apprentissage par le jeu a ravivé sa passion pour les mathématiques."
+                quote: "Mon fils attend avec impatience ses cours depuis que son école utilise AKILI. L'apprentissage par le jeu a ravivé sa passion pour les études."
               }
             ].map((testimonial, index) => (
               <motion.div
@@ -216,7 +219,7 @@ const Index = () => {
               Prêt à transformer l'éducation dans votre école ?
             </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto relative z-10">
-              Rejoignez plus de 500 écoles à travers l'Afrique qui utilisent déjà AKILI pour créer des expériences d'apprentissage engageantes.
+              Rejoignez plus de 500 écoles à travers l'Afrique qui utilisent déjà AKILI pour créer des expériences d'apprentissage engageantes et mesurer les progrès de leurs élèves.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
               <Link to="/contact">
