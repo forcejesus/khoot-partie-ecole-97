@@ -94,7 +94,7 @@ const Enseignants = () => {
           <div className="absolute inset-0 opacity-5 bg-mask-texture"></div>
           
           <div className="relative z-10">
-            <EnseignantsList searchTerm={searchTerm} />
+            <EnseignantsList />
           </div>
         </div>
 
@@ -104,13 +104,15 @@ const Enseignants = () => {
           onOpenChange={setIsAddDialogOpen} 
         />
         
-        <BulkImportModal
-          type="enseignants"
-          onSuccess={() => {
-            setIsBulkImportOpen(false);
-            // Refresh the list if needed
-          }}
-        />
+        {isBulkImportOpen && (
+          <BulkImportModal
+            type="enseignants"
+            onSuccess={() => {
+              setIsBulkImportOpen(false);
+              // Refresh the list if needed
+            }}
+          />
+        )}
       </div>
     </div>
   );

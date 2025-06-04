@@ -1,51 +1,22 @@
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send, Check } from "lucide-react";
-import { toast } from "sonner";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { 
+  Mail, Phone, MapPin, Clock, Send, 
+  MessageCircle, Users, Award 
+} from "lucide-react";
+import { motion } from "framer-motion";
 
 const Contact = () => {
-  const [formState, setFormState] = useState({
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
-    message: "",
+    message: ""
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormState(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate API call with timeout
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-      toast.success("Message envoyé avec succès !", {
-        description: "Nous vous répondrons dans les plus brefs délais."
-      });
-      
-      // Reset form after showing success
-      setTimeout(() => {
-        setFormState({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-        });
-        setIsSuccess(false);
-      }, 3000);
-    }, 1500);
-  };
 
   const fadeInVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -56,198 +27,290 @@ const Contact = () => {
     }
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Logic pour envoyer le formulaire
+    console.log("Form submitted:", formData);
+  };
+
   const contactInfo = [
     {
       icon: Mail,
       title: "Email",
-      info: "contact@khoot-eces.cg",
-      link: "mailto:contact@khoot-eces.cg"
+      content: "contact@akili-education.cg",
+      description: "Réponse sous 24h",
+      color: "from-blue-500 to-cyan-500"
     },
     {
       icon: Phone,
       title: "Téléphone",
-      info: "+242 06 956 53 90",
-      link: "tel:+24206956390"
+      content: "+242 06 956 53 90",
+      description: "Lun-Ven 8h-18h",
+      color: "from-green-500 to-emerald-500"
     },
     {
       icon: MapPin,
       title: "Adresse",
-      info: "Avenue de l'Indépendance, Brazzaville",
-      link: "#"
+      content: "Avenue de l'Indépendance",
+      description: "Brazzaville, République du Congo",
+      color: "from-orange-500 to-red-500"
+    },
+    {
+      icon: Clock,
+      title: "Horaires",
+      content: "8h00 - 18h00",
+      description: "Du Lundi au Vendredi",
+      color: "from-purple-500 to-indigo-500"
+    }
+  ];
+
+  const reasons = [
+    {
+      icon: MessageCircle,
+      title: "Support technique",
+      description: "Aide avec la plateforme, bugs, questions techniques"
+    },
+    {
+      icon: Users,
+      title: "Partenariats",
+      description: "Collaboration avec votre école ou institution"
+    },
+    {
+      icon: Award,
+      title: "Formations",
+      description: "Sessions de formation personnalisées pour vos équipes"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-      <div className="container mx-auto px-4 py-24">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50 relative overflow-hidden">
+      {/* Motif de fond africain global */}
+      <div className="fixed inset-0 opacity-5 bg-kente-stripes pointer-events-none"></div>
+      
+      <div className="container mx-auto py-8 px-4 md:px-6 relative z-10">
+        {/* En-tête avec ornements africains */}
         <motion.div 
           initial="hidden"
           animate="visible"
           variants={fadeInVariants}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent inline-block mb-6">
+          <div className="flex justify-center mb-6">
+            <div className="flex items-center space-x-3">
+              <div className="w-6 h-6 bg-african-terracotta clip-path-kente-diamond"></div>
+              <div className="w-8 h-2 bg-gradient-to-r from-african-gold to-african-ochre rounded-full"></div>
+              <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
+                <MessageCircle className="w-5 h-5 text-white" />
+              </div>
+              <div className="w-8 h-2 bg-gradient-to-l from-african-gold to-african-ochre rounded-full"></div>
+              <div className="w-6 h-6 bg-african-terracotta clip-path-kente-diamond"></div>
+            </div>
+          </div>
+          
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-african mb-4">
             Contactez-nous
           </h1>
-          <div className="w-20 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto mb-6 rounded-full" />
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Une question, une suggestion ou une demande spécifique ? Notre équipe est là pour vous aider.
+          <div className="w-32 h-2 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 mx-auto rounded-full shadow-african" />
+          
+          <p className="text-xl text-gray-700 mt-8 max-w-3xl mx-auto font-medium">
+            Nous sommes là pour vous accompagner dans votre transformation éducative. 
+            Partageons ensemble la vision d'une Afrique éduquée et connectée !
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
+          {/* Formulaire de contact */}
           <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="bg-white rounded-2xl shadow-lg p-8 md:p-10"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInVariants}
           >
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">Envoyez-nous un message</h2>
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  Nom complet
-                </label>
-                <Input
-                  id="name"
-                  name="name"
-                  placeholder="Votre nom"
-                  value={formState.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full"
-                />
-              </div>
+            <Card className="border-2 border-orange-200 bg-white/95 backdrop-blur-sm relative overflow-hidden shadow-african">
+              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500"></div>
+              <div className="absolute inset-0 opacity-5 bg-tribal-dots"></div>
               
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email
-                </label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="votre@email.com"
-                  value={formState.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full"
-                />
-              </div>
+              <CardHeader className="relative z-10">
+                <CardTitle className="text-2xl font-bold text-gray-800 font-african flex items-center gap-3">
+                  <Send className="w-6 h-6 text-orange-600" />
+                  Envoyez-nous un message
+                </CardTitle>
+              </CardHeader>
               
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
-                  Sujet
-                </label>
-                <Input
-                  id="subject"
-                  name="subject"
-                  placeholder="Le sujet de votre message"
-                  value={formState.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                  Message
-                </label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  placeholder="Votre message"
-                  value={formState.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  className="w-full resize-none"
-                />
-              </div>
-              
-              <Button 
-                type="submit" 
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90"
-                disabled={isSubmitting || isSuccess}
-              >
-                {isSubmitting ? (
-                  <span className="flex items-center">
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Envoi en cours...
-                  </span>
-                ) : isSuccess ? (
-                  <span className="flex items-center">
-                    <Check className="mr-2 h-4 w-4" />
-                    Message envoyé
-                  </span>
-                ) : (
-                  <span className="flex items-center">
-                    <Send className="mr-2 h-4 w-4" />
-                    Envoyer
-                  </span>
-                )}
-              </Button>
-            </form>
-          </motion.div>
-          
-          <motion.div 
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex flex-col space-y-8"
-          >
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold mb-6 text-gray-800">Informations de contact</h2>
-              <div className="space-y-6">
-                {contactInfo.map((item, index) => (
-                  <motion.a
-                    key={index}
-                    href={item.link}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                    className="flex items-start hover:bg-gray-50 p-3 rounded-lg transition-colors"
-                  >
-                    <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0 mr-4">
-                      <item.icon className="h-5 w-5 text-purple-600" />
+              <CardContent className="relative z-10">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Nom complet *
+                      </label>
+                      <Input
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        placeholder="Votre nom"
+                        required
+                        className="border-2 border-orange-200 focus:border-orange-400"
+                      />
                     </div>
                     <div>
-                      <h3 className="text-md font-medium text-gray-900">{item.title}</h3>
-                      <p className="text-gray-600">{item.info}</p>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Email *
+                      </label>
+                      <Input
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        placeholder="votre@email.com"
+                        required
+                        className="border-2 border-orange-200 focus:border-orange-400"
+                      />
                     </div>
-                  </motion.a>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Sujet *
+                    </label>
+                    <Input
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleInputChange}
+                      placeholder="L'objet de votre message"
+                      required
+                      className="border-2 border-orange-200 focus:border-orange-400"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Message *
+                    </label>
+                    <Textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      placeholder="Décrivez votre demande en détail..."
+                      required
+                      rows={6}
+                      className="border-2 border-orange-200 focus:border-orange-400"
+                    />
+                  </div>
+                  
+                  <Button 
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white py-3 text-lg font-medium"
+                  >
+                    <Send className="w-5 h-5 mr-2" />
+                    Envoyer le message
+                  </Button>
+                </form>
+                
+                {/* Ornement décoratif */}
+                <div className="flex justify-center mt-6">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-african-gold rounded-full"></div>
+                    <div className="w-4 h-1 bg-african-kente rounded-full"></div>
+                    <div className="w-3 h-3 bg-african-terracotta rounded-full"></div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Informations de contact */}
+          <div className="space-y-8">
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={fadeInVariants}
+            >
+              <h2 className="text-2xl font-bold text-gray-800 mb-6 font-african">
+                Nos coordonnées
+              </h2>
+              
+              <div className="grid sm:grid-cols-2 gap-4">
+                {contactInfo.map((info, index) => (
+                  <Card key={index} className="border-2 border-orange-200 bg-gradient-to-br from-white to-orange-50 relative overflow-hidden hover:shadow-african transition-all duration-300">
+                    <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${info.color}`}></div>
+                    <div className="absolute inset-0 opacity-5 bg-tribal-dots"></div>
+                    
+                    <CardContent className="p-4 relative z-10">
+                      <div className="flex items-start gap-3">
+                        <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${info.color} flex items-center justify-center shadow-card flex-shrink-0`}>
+                          <info.icon className="w-5 h-5 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-gray-800">{info.title}</h3>
+                          <p className="text-gray-600 font-medium">{info.content}</p>
+                          <p className="text-sm text-gray-500">{info.description}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 ))}
               </div>
-            </div>
-            
-            <div className="bg-white rounded-2xl shadow-lg p-8 flex-grow">
-              <h2 className="text-2xl font-bold mb-6 text-gray-800">Horaires d'ouverture</h2>
-              <ul className="space-y-3">
-                <li className="flex justify-between">
-                  <span className="font-medium">Lundi - Vendredi:</span>
-                  <span className="text-gray-600">8h00 - 18h00</span>
-                </li>
-                <li className="flex justify-between">
-                  <span className="font-medium">Samedi:</span>
-                  <span className="text-gray-600">9h00 - 15h00</span>
-                </li>
-                <li className="flex justify-between">
-                  <span className="font-medium">Dimanche:</span>
-                  <span className="text-gray-600">Fermé</span>
-                </li>
-              </ul>
-              <div className="mt-6 pt-6 border-t border-gray-200">
-                <h3 className="font-medium mb-2">Réponse garantie</h3>
-                <p className="text-gray-600">Nous nous engageons à répondre à toutes vos demandes dans un délai de 24 heures ouvrables.</p>
+            </motion.div>
+
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={fadeInVariants}
+            >
+              <h2 className="text-2xl font-bold text-gray-800 mb-6 font-african">
+                Comment pouvons-nous vous aider ?
+              </h2>
+              
+              <div className="space-y-4">
+                {reasons.map((reason, index) => (
+                  <Card key={index} className="border border-orange-200 bg-gradient-to-r from-white to-orange-50 hover:shadow-lg transition-all duration-300">
+                    <CardContent className="p-4">
+                      <div className="flex items-start gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center flex-shrink-0">
+                          <reason.icon className="w-4 h-4 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-gray-800 mb-1">{reason.title}</h3>
+                          <p className="text-gray-600 text-sm">{reason.description}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
+
+        {/* Citation motivante */}
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInVariants}
+          className="text-center mt-16 bg-gradient-to-br from-orange-600 via-red-600 to-yellow-600 rounded-2xl p-8 relative overflow-hidden"
+        >
+          <div className="absolute inset-0 opacity-10 bg-tribal-dots"></div>
+          
+          <div className="relative z-10">
+            <p className="text-2xl text-white italic font-medium mb-4">
+              "Seuls, nous pouvons faire si peu ; ensemble, nous pouvons faire tant."
+            </p>
+            <p className="text-yellow-200 font-medium">
+              - Helen Keller
+            </p>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

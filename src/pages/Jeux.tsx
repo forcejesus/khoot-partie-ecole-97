@@ -68,7 +68,7 @@ const Jeux = () => {
           <div className="absolute inset-0 opacity-5 bg-mask-texture"></div>
           
           <div className="relative z-10">
-            <JeuxList searchTerm={searchTerm} />
+            <JeuxList />
           </div>
         </div>
       </div>

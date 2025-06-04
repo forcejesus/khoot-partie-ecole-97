@@ -19,17 +19,32 @@ const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
 
   // Animation for desktop active links avec style africain
   const activeIndicator = !isMobile && (
-    <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-gradient-to-r from-orange-500 to-red-500 clip-path-kente-diamond animate-tribal-pulse"></span>
+    <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-gradient-to-r from-orange-500 to-red-500 clip-path-kente-diamond"></span>
   );
 
   const mobileActiveIndicator = isMobile && (
     <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-      <div className="w-3 h-3 bg-african-gold clip-path-kente-diamond animate-african-dance"></div>
+      <div className="w-3 h-3 bg-african-gold clip-path-kente-diamond"></div>
     </div>
   );
 
   return (
     <>
+      <Link 
+        to="/" 
+        className={isActive("/") ? activeLinkClasses : linkClasses}
+        onClick={closeMenu}
+      >
+        <span className="relative z-10">Accueil</span>
+        {isActive("/") && activeIndicator}
+        {isActive("/") && mobileActiveIndicator}
+        {/* Ornements pour mobile */}
+        {isMobile && !isActive("/") && (
+          <div className="absolute right-4 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="w-2 h-2 bg-african-terracotta rounded-full"></div>
+          </div>
+        )}
+      </Link>
       <Link 
         to="/offres" 
         className={isActive("/offres") ? activeLinkClasses : linkClasses}
@@ -41,7 +56,7 @@ const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
         {/* Ornements pour mobile */}
         {isMobile && !isActive("/offres") && (
           <div className="absolute right-4 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-            <div className="w-2 h-2 bg-african-terracotta rounded-full animate-pulse"></div>
+            <div className="w-2 h-2 bg-african-terracotta rounded-full"></div>
           </div>
         )}
       </Link>
@@ -55,7 +70,7 @@ const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
         {isActive("/solution") && mobileActiveIndicator}
         {isMobile && !isActive("/solution") && (
           <div className="absolute right-4 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-            <div className="w-2 h-2 bg-african-kente rounded-full animate-pulse"></div>
+            <div className="w-2 h-2 bg-african-kente rounded-full"></div>
           </div>
         )}
       </Link>
@@ -69,7 +84,7 @@ const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
         {isActive("/faq") && mobileActiveIndicator}
         {isMobile && !isActive("/faq") && (
           <div className="absolute right-4 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-            <div className="w-2 h-2 bg-african-gold rounded-full animate-pulse"></div>
+            <div className="w-2 h-2 bg-african-gold rounded-full"></div>
           </div>
         )}
       </Link>
@@ -78,12 +93,12 @@ const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
         className={isActive("/contact") ? activeLinkClasses : linkClasses}
         onClick={closeMenu}
       >
-        <span className="relative z-10">Contact</span>
+        <span className="relative z-10">Contactez-nous</span>
         {isActive("/contact") && activeIndicator}
         {isActive("/contact") && mobileActiveIndicator}
         {isMobile && !isActive("/contact") && (
           <div className="absolute right-4 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-            <div className="w-2 h-2 bg-african-sunset rounded-full animate-pulse"></div>
+            <div className="w-2 h-2 bg-african-sunset rounded-full"></div>
           </div>
         )}
       </Link>

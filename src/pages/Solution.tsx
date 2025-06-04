@@ -1,10 +1,13 @@
 
 import React from "react";
-import { motion } from "framer-motion";
-import {
-  BookOpen, Users, Target, Sparkles, Award, Clock, Shield,
-  BarChart, LineChart, PieChart, TrendingUp
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { 
+  BookOpen, Users, BarChart, Award, 
+  Smartphone, Globe, Zap, Shield,
+  Target, Lightbulb, Heart, Star
 } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Solution = () => {
   const fadeInVariants = {
@@ -18,159 +21,253 @@ const Solution = () => {
 
   const features = [
     {
-      icon: Sparkles,
+      icon: BookOpen,
       title: "Apprentissage gamifié",
-      description: "Transformez les leçons en jeux captivants qui motivent vos apprenants"
+      description: "Transformez l'éducation en aventure captivante avec nos jeux inspirés des traditions africaines",
+      color: "from-orange-500 to-red-500"
+    },
+    {
+      icon: Users,
+      title: "Gestion des apprenants",
+      description: "Suivez facilement les progrès de chaque élève avec des outils intuitifs et performants",
+      color: "from-african-gold to-african-ochre"
+    },
+    {
+      icon: BarChart,
+      title: "Analytiques avancées",
+      description: "Obtenez des insights précieux sur les performances avec des tableaux de bord détaillés",
+      color: "from-green-500 to-emerald-500"
     },
     {
       icon: Award,
       title: "Système de récompenses",
-      description: "Encouragez la participation avec des badges et classements en temps réel"
+      description: "Motivez vos apprenants avec des badges et certificats inspirés de l'artisanat africain",
+      color: "from-purple-500 to-indigo-500"
+    }
+  ];
+
+  const benefits = [
+    {
+      icon: Smartphone,
+      title: "Accessible partout",
+      description: "Plateforme optimisée pour tous les appareils, même avec une connexion limitée"
     },
     {
-      icon: Clock,
-      title: "Sessions chronométrées",
-      description: "Créez une ambiance dynamique avec des défis limités dans le temps"
+      icon: Globe,
+      title: "Multilingue",
+      description: "Interface disponible en français et langues locales africaines"
+    },
+    {
+      icon: Zap,
+      title: "Performance optimale",
+      description: "Infrastructure adaptée aux réalités technologiques africaines"
     },
     {
       icon: Shield,
-      title: "Sécurité des données",
-      description: "Protection des informations personnelles et des résultats d'apprentissage"
+      title: "Sécurité garantie",
+      description: "Protection des données conforme aux standards internationaux"
     }
   ];
-  
-  const advancedFeatures = [
+
+  const values = [
     {
-      icon: BarChart,
-      title: "Analytiques avancées",
-      description: "Suivez les performances des apprenants avec des graphiques détaillés et exportables"
+      icon: Target,
+      title: "Excellence éducative",
+      description: "Nous croyons que chaque enfant africain mérite une éducation de qualité mondiale"
     },
     {
-      icon: LineChart, 
-      title: "Progression personnalisée",
-      description: "Parcours adaptatif selon les forces et faiblesses identifiées"
+      icon: Lightbulb,
+      title: "Innovation culturelle",
+      description: "Nous intégrons la richesse culturelle africaine dans nos solutions technologiques"
     },
     {
-      icon: PieChart,
-      title: "Rapports institutionnels", 
-      description: "Générez des rapports consolidés pour l'ensemble de votre établissement"
-    },
-    {
-      icon: TrendingUp,
-      title: "Intelligence prédictive",
-      description: "Anticipe les besoins d'apprentissage grâce à l'IA et aux modèles prédictifs"
+      icon: Heart,
+      title: "Impact social",
+      description: "Notre mission est de contribuer au développement durable de l'Afrique par l'éducation"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-      <div className="container mx-auto px-4 py-24">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50 relative overflow-hidden">
+      {/* Motif de fond africain global */}
+      <div className="fixed inset-0 opacity-5 bg-kente-stripes pointer-events-none"></div>
+      
+      <div className="container mx-auto py-8 px-4 md:px-6 relative z-10">
+        {/* En-tête avec ornements africains */}
         <motion.div 
           initial="hidden"
           animate="visible"
           variants={fadeInVariants}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent inline-block mb-6">
-            Notre Solution
+          <div className="flex justify-center mb-6">
+            <div className="flex items-center space-x-3">
+              <div className="w-6 h-6 bg-african-terracotta clip-path-kente-diamond"></div>
+              <div className="w-8 h-2 bg-gradient-to-r from-african-gold to-african-ochre rounded-full"></div>
+              <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
+                <Lightbulb className="w-5 h-5 text-white" />
+              </div>
+              <div className="w-8 h-2 bg-gradient-to-l from-african-gold to-african-ochre rounded-full"></div>
+              <div className="w-6 h-6 bg-african-terracotta clip-path-kente-diamond"></div>
+            </div>
+          </div>
+          
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-african mb-4">
+            Notre Solution AKILI
           </h1>
-          <div className="w-20 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto mb-6 rounded-full" />
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Découvrez comment notre plateforme KHOOT ECES transforme l'apprentissage en Afrique
+          <div className="w-32 h-2 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 mx-auto rounded-full shadow-african" />
+          
+          <p className="text-xl text-gray-700 mt-8 max-w-4xl mx-auto font-medium">
+            Une plateforme éducative révolutionnaire qui marie l'intelligence africaine traditionnelle 
+            avec les technologies modernes pour transformer l'apprentissage.
           </p>
         </motion.div>
 
-        <section className="mb-20">
-          <h2 className="text-3xl font-bold text-gray-800 mb-12 text-center">Fonctionnalités principales</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Fonctionnalités principales */}
+        <motion.section 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInVariants}
+          className="mb-20"
+        >
+          <h2 className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-african">
+            Fonctionnalités Principales
+          </h2>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
-                className="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow duration-300"
-              >
-                <div className="w-14 h-14 mb-6 rounded-xl bg-gradient-to-br from-purple-100 to-purple-50 flex items-center justify-center">
-                  <feature.icon className="h-6 w-6 text-purple-600" />
-                </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-800">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
-              </motion.div>
+              <Card key={index} className="group hover:shadow-african transition-all duration-500 border-0 bg-white/95 backdrop-blur-sm relative overflow-hidden h-full">
+                <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${feature.color}`}></div>
+                <div className="absolute inset-0 opacity-5 bg-tribal-dots"></div>
+                
+                <CardHeader className="text-center relative z-10">
+                  <div className={`mx-auto w-16 h-16 mb-4 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center shadow-card`}>
+                    <feature.icon className="h-8 w-8 text-white" />
+                  </div>
+                  <CardTitle className="text-xl font-bold text-gray-800 font-african">{feature.title}</CardTitle>
+                </CardHeader>
+                
+                <CardContent className="relative z-10">
+                  <p className="text-gray-600 text-center">{feature.description}</p>
+                  
+                  {/* Ornement décoratif */}
+                  <div className="flex justify-center mt-4">
+                    <div className="flex items-center space-x-1">
+                      <div className="w-2 h-2 bg-african-terracotta rounded-full"></div>
+                      <div className="w-3 h-1 bg-african-gold rounded-full"></div>
+                      <div className="w-2 h-2 bg-african-kente rounded-full"></div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
-        </section>
+        </motion.section>
 
-        <section className="mb-20">
-          <h2 className="text-3xl font-bold text-gray-800 mb-12 text-center">Fonctionnalités avancées</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {advancedFeatures.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
-                className="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow duration-300"
-              >
-                <div className="w-14 h-14 mb-6 rounded-xl bg-gradient-to-br from-purple-100 to-purple-50 flex items-center justify-center">
-                  <feature.icon className="h-6 w-6 text-purple-600" />
-                </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-800">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
-              </motion.div>
+        {/* Avantages */}
+        <motion.section 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInVariants}
+          className="mb-20"
+        >
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-african border-2 border-orange-200 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500"></div>
+            <div className="absolute inset-0 opacity-5 bg-tribal-dots"></div>
+            
+            <div className="relative z-10">
+              <h2 className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-african">
+                Pourquoi Choisir AKILI ?
+              </h2>
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {benefits.map((benefit, index) => (
+                  <div key={index} className="text-center">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-orange-100 to-red-50 flex items-center justify-center shadow-card">
+                      <benefit.icon className="h-8 w-8 text-orange-600" />
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-800 mb-2 font-african">{benefit.title}</h3>
+                    <p className="text-gray-600 text-sm">{benefit.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* Nos valeurs */}
+        <motion.section 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInVariants}
+          className="mb-20"
+        >
+          <h2 className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-african">
+            Nos Valeurs
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {values.map((value, index) => (
+              <Card key={index} className="group hover:shadow-african transition-all duration-500 border-2 border-orange-200 bg-gradient-to-br from-white to-orange-50 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-african-terracotta via-african-gold to-african-kente"></div>
+                <div className="absolute inset-0 opacity-5 bg-mask-texture"></div>
+                
+                <CardHeader className="text-center relative z-10">
+                  <div className="mx-auto w-20 h-20 mb-4 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center shadow-card">
+                    <value.icon className="h-10 w-10 text-white" />
+                  </div>
+                  <CardTitle className="text-2xl font-bold text-gray-800 font-african">{value.title}</CardTitle>
+                </CardHeader>
+                
+                <CardContent className="relative z-10">
+                  <p className="text-gray-600 text-center leading-relaxed">{value.description}</p>
+                  
+                  {/* Ornement décoratif */}
+                  <div className="flex justify-center mt-6">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 bg-african-gold rounded-full"></div>
+                      <div className="w-4 h-1 bg-african-kente rounded-full"></div>
+                      <div className="w-3 h-3 bg-african-terracotta rounded-full"></div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
-        </section>
+        </motion.section>
 
-        <section>
-          <h2 className="text-3xl font-bold text-gray-800 mb-12 text-center">Comment ça fonctionne</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="flex flex-col items-center text-center"
-            >
-              <div className="w-16 h-16 mb-6 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center text-white text-2xl font-bold">
-                1
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-800">Créez vos quiz</h3>
-              <p className="text-gray-600">
-                Utilisez notre interface intuitive pour créer des questions interactives et engageantes
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex flex-col items-center text-center"
-            >
-              <div className="w-16 h-16 mb-6 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center text-white text-2xl font-bold">
-                2
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-800">Invitez vos apprenants</h3>
-              <p className="text-gray-600">
-                Partagez un simple code ou lien pour que vos apprenants rejoignent la session en temps réel
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="flex flex-col items-center text-center"
-            >
-              <div className="w-16 h-16 mb-6 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center text-white text-2xl font-bold">
-                3
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-800">Analysez les résultats</h3>
-              <p className="text-gray-600">
-                Obtenez des statistiques détaillées et des insights sur la performance de chaque apprenant
-              </p>
-            </motion.div>
+        {/* Call to action */}
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInVariants}
+          className="text-center bg-gradient-to-br from-orange-600 via-red-600 to-yellow-600 rounded-2xl p-12 relative overflow-hidden"
+        >
+          <div className="absolute inset-0 opacity-10 bg-tribal-dots"></div>
+          
+          <div className="relative z-10">
+            <Star className="w-16 h-16 text-yellow-300 mx-auto mb-6" />
+            <h2 className="text-3xl font-bold text-white mb-6 font-african">
+              Prêt à révolutionner l'éducation ?
+            </h2>
+            <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">
+              Rejoignez le mouvement AKILI et donnez à vos apprenants les outils 
+              pour exceller dans le monde numérique tout en honorant leurs racines africaines.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-white text-orange-600 hover:bg-yellow-50 px-8 py-4 font-semibold">
+                Découvrir nos offres
+              </Button>
+              <Button variant="outline" size="lg" className="border-2 border-white text-white hover:bg-white/10 px-8 py-4">
+                Demander une démo
+              </Button>
+            </div>
           </div>
-        </section>
+        </motion.div>
       </div>
     </div>
   );

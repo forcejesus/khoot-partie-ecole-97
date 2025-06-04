@@ -49,11 +49,11 @@ const Navbar = () => {
       className={`sticky top-0 z-50 w-full transition-all duration-500 ${
         scrolled 
           ? "bg-white/96 backdrop-blur-xl shadow-african border-b-2 border-orange-200/60 dark:bg-gray-900/96" 
-          : "bg-transparent dark:bg-transparent"
+          : "bg-white/90 backdrop-blur-lg shadow-lg border-b-2 border-orange-200/40 dark:bg-gray-900/90"
       }`}
     >
       {/* Bordure décorative africaine en haut */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-african-terracotta via-african-gold to-african-kente animate-kente-wave"></div>
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-african-terracotta via-african-gold to-african-kente"></div>
       
       <div className="container mx-auto px-4 h-18 flex items-center justify-between relative">
         <Logo closeMenu={closeMenu} />
@@ -68,7 +68,7 @@ const Navbar = () => {
             <NavLinks isActive={isActive} isMobile={false} closeMenu={closeMenu} />
             <Link to="/login">
               <Button 
-                className="bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white border-3 border-orange-300/40 shadow-african hover:shadow-tribal transition-all duration-500 hover:scale-105 relative overflow-hidden group animate-tribal-pulse px-6 py-3 text-lg"
+                className="bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white border-3 border-orange-300/40 shadow-african hover:shadow-tribal transition-all duration-500 hover:scale-105 relative overflow-hidden group px-6 py-3 text-lg font-medium"
                 size="lg"
               >
                 {/* Motif de fond dans le bouton */}
@@ -77,7 +77,7 @@ const Navbar = () => {
                 <span className="relative z-10 font-medium">Se connecter</span>
                 
                 {/* Effet de brillance */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-kente-wave opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </Button>
             </Link>
           </nav>
