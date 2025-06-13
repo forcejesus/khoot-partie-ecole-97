@@ -26,72 +26,68 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-800 text-white overflow-hidden">
+      <section className="relative bg-gradient-to-br from-violet-600 via-violet-700 to-indigo-800 text-white overflow-hidden">
         {/* Background pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.4"%3E%3Ccircle cx="30" cy="30" r="4"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.4\"%3E%3Ccircle cx=\"30\" cy=\"30\" r=\"4\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
         </div>
         
         <div className="container mx-auto px-6 py-20 relative z-10">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <motion.div
               initial="hidden"
               animate="visible"
               variants={fadeInVariants}
               className="text-center mb-16"
             >
-              <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 mb-8">
-                <Star className="w-5 h-5 text-yellow-300" />
-                <span className="text-sm font-medium">Plateforme éducative n°1 en Afrique</span>
+              <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-6 py-3 mb-8 border border-white/20">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium text-white/90">Plateforme éducative moderne</span>
               </div>
 
-              <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-                <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-8 leading-tight tracking-tight">
+                <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
                   AKILI
                 </span>
                 <br />
-                <span className="text-4xl md:text-5xl font-normal">
-                  Rendre l'apprentissage
-                </span>
-                <br />
-                <span className="text-3xl md:text-4xl font-light">
-                  irrésistible
+                <span className="text-white font-normal text-3xl md:text-4xl lg:text-5xl">
+                  Apprentissage interactif
                 </span>
               </h1>
               
-              <p className="text-xl md:text-2xl text-purple-100 mb-12 max-w-4xl mx-auto leading-relaxed">
-                Créez des quiz interactifs captivants, engagez vos élèves en temps réel 
-                et transformez votre salle de classe en expérience gamifiée
+              <p className="text-lg md:text-xl text-violet-100 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
+                Créez des quiz captivants, engagez vos élèves en temps réel 
+                et transformez votre classe avec la gamification
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
                 <Link to="/inscription-ecoles">
-                  <Button size="lg" className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-12 py-6 text-xl font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 border-0">
+                  <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 border-0">
                     Commencer gratuitement
-                    <ArrowRight className="ml-3 h-6 w-6" />
+                    <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
                 <Link to="/solution">
-                  <Button variant="outline" size="lg" className="border-2 border-white/30 text-white hover:bg-white/10 px-12 py-6 text-xl font-semibold rounded-full backdrop-blur-sm">
-                    <Play className="mr-3 h-6 w-6" />
+                  <Button variant="outline" size="lg" className="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg font-semibold rounded-lg backdrop-blur-sm">
+                    <Play className="mr-2 h-5 w-5" />
                     Voir la démo
                   </Button>
                 </Link>
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
                 {stats.map((stat, index) => (
                   <motion.div 
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 + index * 0.1 }}
-                    className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20"
+                    className="text-center bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20"
                   >
-                    <stat.icon className="h-8 w-8 text-orange-300 mx-auto mb-3" />
-                    <div className="font-bold text-2xl md:text-3xl text-white mb-1">{stat.number}</div>
-                    <div className="text-sm text-purple-200">{stat.label}</div>
+                    <stat.icon className="h-6 w-6 text-orange-300 mx-auto mb-2" />
+                    <div className="font-bold text-xl md:text-2xl text-white mb-1">{stat.number}</div>
+                    <div className="text-xs text-violet-200">{stat.label}</div>
                   </motion.div>
                 ))}
               </div>
@@ -117,16 +113,16 @@ const Index = () => {
             variants={fadeInVariants}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               Tout ce dont vous avez besoin pour 
-              <span className="text-purple-600"> captiver vos élèves</span>
+              <span className="text-violet-600"> captiver vos élèves</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               Des outils simples et puissants pour créer des expériences d'apprentissage inoubliables
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
               {
                 color: "bg-gradient-to-br from-orange-500 to-red-500",
@@ -153,12 +149,12 @@ const Index = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
-                className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 text-center group hover:-translate-y-2"
+                className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-all duration-300 text-center group hover:-translate-y-1"
               >
-                <div className={`w-20 h-20 ${feature.color} rounded-2xl flex items-center justify-center text-3xl mb-6 mx-auto group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`w-16 h-16 ${feature.color} rounded-xl flex items-center justify-center text-2xl mb-6 mx-auto group-hover:scale-110 transition-transform duration-300`}>
                   {feature.icon}
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{feature.title}</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">{feature.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{feature.description}</p>
               </motion.div>
             ))}
@@ -179,15 +175,15 @@ const Index = () => {
             variants={fadeInVariants}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Rejoignez les <span className="text-purple-600">leaders de l'éducation</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              Rejoignez les <span className="text-violet-600">leaders de l'éducation</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               Découvrez comment AKILI transforme l'apprentissage dans les écoles africaines
             </p>
           </motion.div>
           
-          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
               {
                 name: "Dr. Amadou Diallo",
@@ -218,25 +214,25 @@ const Index = () => {
                 viewport={{ once: true }}
                 variants={fadeInVariants}
                 transition={{ delay: index * 0.2 }}
-                className="bg-gray-50 rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300"
+                className="bg-gray-50 rounded-2xl p-8 shadow-sm hover:shadow-md transition-all duration-300"
               >
                 <div className="flex mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-500 fill-current" />
+                    <Star key={i} className="w-4 h-4 text-yellow-500 fill-current" />
                   ))}
                 </div>
                 
-                <p className="text-gray-700 leading-relaxed mb-6 italic text-lg">
+                <p className="text-gray-700 leading-relaxed mb-6 italic">
                   "{testimonial.quote}"
                 </p>
                 
                 <div className="flex items-center">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center text-2xl mr-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center text-xl mr-4">
                     {testimonial.image}
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 text-lg">{testimonial.name}</h3>
-                    <p className="text-gray-600">{testimonial.role}</p>
+                    <h3 className="font-bold text-gray-900">{testimonial.name}</h3>
+                    <p className="text-gray-600 text-sm">{testimonial.role}</p>
                   </div>
                 </div>
               </motion.div>
@@ -246,7 +242,7 @@ const Index = () => {
       </section>
       
       {/* CTA Final */}
-      <section className="py-20 bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
+      <section className="py-20 bg-gradient-to-r from-violet-600 to-indigo-600 text-white">
         <div className="container mx-auto px-6">
           <motion.div 
             initial="hidden"
@@ -255,18 +251,18 @@ const Index = () => {
             variants={fadeInVariants}
             className="text-center max-w-4xl mx-auto"
           >
-            <h2 className="text-4xl md:text-6xl font-bold mb-8">
+            <h2 className="text-3xl md:text-5xl font-bold mb-8">
               Prêt à transformer votre école ?
             </h2>
-            <p className="text-xl md:text-2xl mb-12 text-purple-100 leading-relaxed">
+            <p className="text-lg md:text-xl mb-12 text-violet-100 leading-relaxed">
               Rejoignez plus de 500 écoles qui utilisent déjà AKILI pour créer 
               des expériences d'apprentissage extraordinaires
             </p>
             <div className="flex justify-center">
               <Link to="/inscription-ecoles">
-                <Button size="lg" className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-12 py-6 text-2xl font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 border-0">
+                <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-10 py-4 text-xl font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 border-0">
                   Commencer maintenant
-                  <ArrowRight className="ml-3 h-7 w-7" />
+                  <ArrowRight className="ml-2 h-6 w-6" />
                 </Button>
               </Link>
             </div>
