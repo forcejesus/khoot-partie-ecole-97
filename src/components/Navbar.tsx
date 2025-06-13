@@ -44,22 +44,18 @@ const Navbar = () => {
 
   return (
     <header 
-      className={`sticky top-0 z-50 w-full transition-all duration-500 ${
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         scrolled 
-          ? "bg-white/96 backdrop-blur-xl shadow-lg border-b border-orange-200/50" 
-          : "bg-white/90 backdrop-blur-lg shadow-md border-b border-orange-200/30"
+          ? "bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-200" 
+          : "bg-white/90 backdrop-blur-lg shadow-sm border-b border-gray-100"
       }`}
     >
-      <div className="container mx-auto px-6 h-20 flex items-center justify-between relative">
+      <div className="container mx-auto px-6 h-16 flex items-center justify-between">
         <Logo closeMenu={closeMenu} />
         
-        {/* Navigation principale centrée */}
-        <div className="hidden md:flex items-center justify-center flex-1 mx-12">
-          <nav className="bg-white/90 backdrop-blur-md rounded-full px-8 py-3 shadow-lg border border-orange-200/60 relative overflow-hidden">
-            <div className="flex items-center space-x-8 relative z-10">
-              <NavLinks isActive={isActive} isMobile={false} closeMenu={closeMenu} />
-            </div>
-          </nav>
+        {/* Navigation principale */}
+        <div className="hidden md:flex items-center space-x-8">
+          <NavLinks isActive={isActive} isMobile={false} closeMenu={closeMenu} />
         </div>
 
         {/* Bouton de connexion et menu mobile */}
@@ -68,12 +64,10 @@ const Navbar = () => {
           
           <Link to="/login" className="hidden md:block">
             <Button 
-              className="bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group px-8 py-3 text-base font-semibold rounded-full border border-orange-300/20"
-              size="lg"
+              className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 px-6 py-2 text-sm font-semibold rounded-full border-0"
+              size="sm"
             >
-              <span className="relative z-10 flex items-center gap-2">
-                Se connecter
-              </span>
+              Se connecter
             </Button>
           </Link>
         </div>

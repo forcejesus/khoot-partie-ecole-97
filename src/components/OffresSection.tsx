@@ -4,99 +4,63 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   Gamepad2, Users, BarChart3, Trophy, 
-  Zap, Smartphone, Globe, Sparkles, ArrowRight, Star
+  Zap, Smartphone, Globe, Sparkles, ArrowRight
 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const OffresSection = () => {
   const features = [
     {
-      icon: Gamepad2,
-      title: "Quiz interactifs en temps réel",
-      description: "Créez des quiz captivants en quelques clics. Les élèves participent depuis leurs appareils et voient leurs résultats instantanément",
-      color: "from-orange-500 to-red-500",
-      bgColor: "from-orange-50 to-red-50"
+      icon: "🎮",
+      title: "Quiz interactifs",
+      description: "Créez des quiz captivants en quelques clics avec des questions variées et des résultats en temps réel",
+      color: "from-orange-500 to-red-500"
     },
     {
-      icon: Users,
-      title: "Apprentissage collaboratif",
-      description: "Encouragez la participation active de tous les élèves avec des défis en équipe et des activités de groupe interactives",
-      color: "from-blue-500 to-cyan-500",
-      bgColor: "from-blue-50 to-cyan-50"
+      icon: "👥",
+      title: "Collaboration",
+      description: "Encouragez le travail d'équipe avec des défis collaboratifs et des activités de groupe dynamiques",
+      color: "from-blue-500 to-cyan-500"
     },
     {
-      icon: BarChart3,
-      title: "Suivi des performances",
-      description: "Analysez les résultats en détail, identifiez les difficultés et adaptez votre pédagogie en conséquence",
-      color: "from-green-500 to-emerald-500",
-      bgColor: "from-green-50 to-emerald-50"
+      icon: "📊",
+      title: "Analyses",
+      description: "Obtenez des insights détaillés sur les performances et adaptez votre pédagogie en conséquence",
+      color: "from-green-500 to-emerald-500"
     },
     {
-      icon: Trophy,
-      title: "Motivation par le jeu",
-      description: "Classements, badges et défis pour maintenir l'engagement et la motivation des apprenants tout au long de l'année",
-      color: "from-purple-500 to-indigo-500",
-      bgColor: "from-purple-50 to-indigo-50"
+      icon: "🏆",
+      title: "Gamification",
+      description: "Motivez avec des badges, classements et récompenses pour maintenir l'engagement toute l'année",
+      color: "from-purple-500 to-indigo-500"
     }
   ];
 
   const benefits = [
-    {
-      icon: Zap,
-      title: "Installation rapide",
-      description: "Déployez AKILI en moins de 5 minutes",
-      stat: "5min"
-    },
-    {
-      icon: Smartphone,
-      title: "Multi-appareils",
-      description: "Fonctionne sur smartphones, tablettes et ordinateurs",
-      stat: "100%"
-    },
-    {
-      icon: Globe,
-      title: "Accès hors ligne",
-      description: "Continuez à enseigner même sans internet",
-      stat: "24/7"
-    },
-    {
-      icon: Sparkles,
-      title: "Interface intuitive",
-      description: "Facile à utiliser pour tous les enseignants",
-      stat: "0 formation"
-    }
+    { icon: "⚡", title: "5 minutes", description: "Pour démarrer" },
+    { icon: "📱", title: "Multi-appareils", description: "Partout, tout le temps" },
+    { icon: "🌍", title: "Hors ligne", description: "Même sans internet" },
+    { icon: "✨", title: "Zéro formation", description: "Interface intuitive" }
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-white via-orange-50/30 to-yellow-50/50 relative overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 right-10 w-32 h-32 bg-gradient-to-br from-orange-400/10 to-red-400/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-10 w-48 h-48 bg-gradient-to-br from-yellow-400/10 to-orange-400/10 rounded-full blur-3xl"></div>
-      </div>
-      
-      <div className="container mx-auto px-6 relative z-10">
+    <section className="py-20 bg-white">
+      <div className="container mx-auto px-6">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-100 to-yellow-100 border border-orange-200 rounded-full px-4 py-2 mb-8">
-            <Star className="w-4 h-4 text-orange-600" />
-            <span className="text-sm font-medium text-orange-800">Solution complète</span>
-          </div>
-          
-          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-8 font-african leading-tight">
-            AKILI : <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">L'excellence éducative</span>
-            <br />
-            <span className="text-3xl md:text-4xl font-normal text-gray-700">pour l'ère moderne</span>
+          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-8 leading-tight">
+            La solution complète pour 
+            <span className="text-purple-600"> l'éducation moderne</span>
           </h2>
           
           <p className="text-xl text-gray-600 max-w-4xl mx-auto mb-12 leading-relaxed">
-            La première plateforme d'apprentissage gamifiée conçue pour les écoles modernes. 
-            Transformez vos cours traditionnels en expériences interactives qui captent l'attention et améliorent les résultats.
+            Tout ce dont vous avez besoin pour transformer vos cours en expériences 
+            interactives qui captent l'attention et améliorent les résultats
           </p>
           
           {/* Benefits Grid */}
@@ -108,11 +72,10 @@ const OffresSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-orange-100 shadow-lg hover:shadow-xl transition-all duration-300 text-center"
+                className="bg-gray-50 rounded-2xl p-6 text-center hover:bg-gray-100 transition-colors duration-300"
               >
-                <benefit.icon className="w-8 h-8 text-orange-600 mx-auto mb-3" />
-                <div className="font-bold text-2xl text-orange-600 mb-1">{benefit.stat}</div>
-                <div className="font-semibold text-gray-900 mb-1">{benefit.title}</div>
+                <div className="text-3xl mb-3">{benefit.icon}</div>
+                <div className="font-bold text-lg text-gray-900 mb-1">{benefit.title}</div>
                 <div className="text-sm text-gray-600">{benefit.description}</div>
               </motion.div>
             ))}
@@ -120,7 +83,7 @@ const OffresSection = () => {
         </motion.div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto mb-16">
           {features.map((feature, index) => (
             <motion.div
               key={index}
@@ -128,19 +91,19 @@ const OffresSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="group"
             >
-              <Card className={`h-full bg-gradient-to-br ${feature.bgColor} border-2 border-white/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group overflow-hidden`}>
-                <CardHeader className="text-center relative">
-                  <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className={`mx-auto w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center shadow-lg relative z-10`}>
-                    <feature.icon className="h-8 w-8 text-white" />
+              <Card className="h-full bg-white border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 rounded-3xl overflow-hidden">
+                <CardHeader className="text-center p-8">
+                  <div className={`mx-auto w-20 h-20 mb-6 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center shadow-lg text-3xl group-hover:scale-110 transition-transform duration-300`}>
+                    {feature.icon}
                   </div>
-                  <CardTitle className="text-xl font-bold text-gray-900 font-african relative z-10">
+                  <CardTitle className="text-2xl font-bold text-gray-900 mb-4">
                     {feature.title}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="relative z-10">
-                  <p className="text-gray-700 text-center leading-relaxed">{feature.description}</p>
+                <CardContent className="px-8 pb-8">
+                  <p className="text-gray-600 text-center leading-relaxed">{feature.description}</p>
                 </CardContent>
               </Card>
             </motion.div>
@@ -153,21 +116,21 @@ const OffresSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mt-20"
+          className="text-center"
         >
-          <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-12 border border-orange-200 shadow-xl max-w-4xl mx-auto">
-            <h3 className="text-3xl font-bold text-gray-900 mb-6 font-african">
+          <div className="bg-gradient-to-br from-gray-50 to-purple-50 rounded-3xl p-12 border-2 border-gray-200 max-w-4xl mx-auto">
+            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               Prêt à révolutionner votre enseignement ?
             </h3>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
               Découvrez comment AKILI peut transformer l'expérience d'apprentissage dans votre établissement
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-                Commencer maintenant
+              <Button size="lg" className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-10 py-6 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 border-0">
+                Commencer gratuitement
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button variant="outline" size="lg" className="border-2 border-orange-300 text-orange-700 hover:bg-orange-50 px-8 py-4 text-lg font-semibold rounded-xl">
+              <Button variant="outline" size="lg" className="border-2 border-purple-300 text-purple-700 hover:bg-purple-50 px-10 py-6 text-lg font-semibold rounded-full">
                 En savoir plus
               </Button>
             </div>
