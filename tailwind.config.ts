@@ -90,12 +90,15 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ['Cairo', 'Inter', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
         serif: ['Amiri', 'Playfair Display', 'serif'],
         african: ['Scheherazade New', 'Amiri', 'serif'], // Police principale africaine
         arabic: ['Amiri', 'serif'], // Police arabe/africaine
         cairo: ['Cairo', 'sans-serif'], // Police moderne africaine
         markazi: ['Markazi Text', 'serif'], // Police persane/africaine
+        // Nouvelles polices modernes
+        inter: ['Inter', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
       },
       keyframes: {
         "accordion-down": {

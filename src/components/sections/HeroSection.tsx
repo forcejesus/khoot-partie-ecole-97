@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ArrowRight, Play, Users, Globe, Award, Target, Sparkles } from "lucide-react";
+import { ArrowRight, Users, Globe, Award, Target, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const HeroSection = () => {
@@ -26,10 +26,10 @@ const HeroSection = () => {
   };
 
   const stats = [
-    { icon: Users, number: "10,000+", label: "Élèves actifs", color: "text-blue-400" },
-    { icon: Globe, number: "500+", label: "Écoles partenaires", color: "text-green-400" },
-    { icon: Award, number: "95%", label: "Satisfaction", color: "text-yellow-400" },
-    { icon: Target, number: "40%", label: "Amélioration des résultats", color: "text-purple-400" }
+    { icon: Users, label: "Élèves actifs", description: "Des milliers d'élèves", color: "text-blue-400" },
+    { icon: Globe, label: "Écoles partenaires", description: "Centaines d'écoles", color: "text-green-400" },
+    { icon: Award, label: "Satisfaction", description: "Très haute satisfaction", color: "text-yellow-400" },
+    { icon: Target, label: "Amélioration", description: "Résultats exceptionnels", color: "text-purple-400" }
   ];
 
   return (
@@ -98,13 +98,13 @@ const HeroSection = () => {
                 transition={{ duration: 2, repeat: Infinity }}
                 className="w-2 h-2 bg-green-400 rounded-full"
               />
-              <span className="text-sm font-medium text-white/90">Plateforme éducative moderne</span>
+              <span className="text-sm font-medium text-white/90 font-inter">Plateforme éducative moderne</span>
               <Sparkles className="w-4 h-4 text-yellow-300" />
             </motion.div>
 
             <motion.h1 
               variants={fadeInVariants}
-              className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight tracking-tight"
+              className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight tracking-tight font-poppins"
             >
               <motion.span 
                 className="bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 bg-clip-text text-transparent"
@@ -117,7 +117,7 @@ const HeroSection = () => {
               <br />
               <motion.span 
                 variants={fadeInVariants}
-                className="text-white font-normal text-3xl md:text-5xl lg:text-6xl bg-gradient-to-r from-white to-violet-200 bg-clip-text text-transparent"
+                className="text-white font-normal text-3xl md:text-5xl lg:text-6xl bg-gradient-to-r from-white to-violet-200 bg-clip-text text-transparent font-inter"
               >
                 Apprentissage interactif
               </motion.span>
@@ -125,7 +125,7 @@ const HeroSection = () => {
             
             <motion.p 
               variants={fadeInVariants}
-              className="text-xl md:text-2xl text-violet-100 mb-12 max-w-4xl mx-auto leading-relaxed font-light"
+              className="text-xl md:text-2xl text-violet-100 mb-12 max-w-4xl mx-auto leading-relaxed font-light font-inter"
             >
               Créez des quiz captivants, engagez vos élèves en temps réel 
               et transformez votre classe avec la gamification moderne
@@ -133,30 +133,19 @@ const HeroSection = () => {
             
             <motion.div 
               variants={fadeInVariants}
-              className="flex flex-col sm:flex-row gap-6 justify-center mb-16"
+              className="flex justify-center mb-16"
             >
               <Link to="/inscription-ecoles">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Button size="lg" className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-10 py-6 text-xl font-semibold rounded-2xl shadow-2xl border-0 relative overflow-hidden group">
+                  <Button size="lg" className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-10 py-6 text-xl font-semibold rounded-2xl shadow-2xl border-0 relative overflow-hidden group font-poppins">
                     <span className="relative z-10 flex items-center">
                       Commencer gratuitement
                       <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
                     </span>
                     <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </Button>
-                </motion.div>
-              </Link>
-              <Link to="/solution">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button variant="outline" size="lg" className="border-2 border-white/40 text-white hover:bg-white/20 px-10 py-6 text-xl font-semibold rounded-2xl backdrop-blur-sm shadow-xl">
-                    <Play className="mr-3 h-6 w-6" />
-                    Voir la démo
                   </Button>
                 </motion.div>
               </Link>
@@ -175,8 +164,8 @@ const HeroSection = () => {
                   className="text-center bg-white/15 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-xl hover:bg-white/20 transition-all duration-300"
                 >
                   <stat.icon className={`h-8 w-8 ${stat.color} mx-auto mb-3`} />
-                  <div className="font-bold text-2xl md:text-3xl text-white mb-2">{stat.number}</div>
-                  <div className="text-sm text-violet-200 font-medium">{stat.label}</div>
+                  <div className="font-bold text-lg md:text-xl text-white mb-2 font-poppins">{stat.description}</div>
+                  <div className="text-sm text-violet-200 font-medium font-inter">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>

@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { HelpCircle, Mail, Phone } from "lucide-react";
+import { HelpCircle, Mail, Phone, MessageCircle, ArrowRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
 const FAQ = () => {
@@ -18,6 +18,16 @@ const FAQ = () => {
       opacity: 1, 
       y: 0,
       transition: { duration: 0.8, ease: "easeOut" }
+    }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
     }
   };
 
@@ -60,133 +70,198 @@ const FAQ = () => {
     {
       type: "Support technique",
       email: "support@akili-education.cg",
-      phone: "+242 06 956 53 90"
+      phone: "+242 06 956 53 90",
+      color: "from-violet-500 to-purple-500",
+      icon: MessageCircle
     },
     {
       type: "Partenariats",
       email: "partenaires@akili-education.cg", 
-      phone: "+242 05 123 45 67"
+      phone: "+242 05 123 45 67",
+      color: "from-orange-500 to-red-500",
+      icon: Mail
     },
     {
       type: "Formations",
       email: "formations@akili-education.cg",
-      phone: "+242 06 789 01 23"
+      phone: "+242 06 789 01 23",
+      color: "from-indigo-500 to-blue-500",
+      icon: Phone
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50 relative overflow-hidden">
-      {/* Motif de fond africain global */}
-      <div className="fixed inset-0 opacity-5 bg-kente-stripes pointer-events-none"></div>
+    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-purple-50 relative overflow-hidden font-inter">
+      {/* Background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div 
+          animate={{ 
+            y: [0, -20, 0],
+            rotate: [0, 5, 0]
+          }}
+          transition={{ 
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute top-20 left-10 w-32 h-32 bg-violet-200/30 rounded-full blur-xl"
+        />
+        <motion.div 
+          animate={{ 
+            y: [0, 30, 0],
+            rotate: [0, -5, 0]
+          }}
+          transition={{ 
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+          className="absolute top-1/3 right-20 w-24 h-24 bg-orange-200/30 rounded-full blur-xl"
+        />
+      </div>
       
       <div className="container mx-auto py-8 px-4 md:px-6 relative z-10">
-        {/* En-tête */}
+        {/* En-tête moderne */}
         <motion.div 
           initial="hidden"
           animate="visible"
-          variants={fadeInVariants}
+          variants={staggerContainer}
           className="mb-16 text-center"
         >
-          <div className="flex justify-center mb-6">
-            <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
-              <HelpCircle className="w-5 h-5 text-white" />
-            </div>
-          </div>
+          <motion.div 
+            variants={fadeInVariants}
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-100 to-purple-100 rounded-full px-6 py-3 mb-8 border border-violet-200 shadow-lg"
+          >
+            <HelpCircle className="w-5 h-5 text-violet-600" />
+            <span className="text-violet-700 font-semibold">Centre d'aide</span>
+            <Sparkles className="w-4 h-4 text-yellow-500" />
+          </motion.div>
           
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-african mb-4">
-            Questions Fréquentes
-          </h1>
+          <motion.h1 
+            variants={fadeInVariants}
+            className="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tight font-poppins"
+          >
+            <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+              Questions Fréquentes
+            </span>
+          </motion.h1>
           
-          <p className="text-xl text-gray-700 mt-8 max-w-3xl mx-auto font-medium">
+          <motion.p 
+            variants={fadeInVariants}
+            className="text-xl text-gray-600 mt-8 max-w-3xl mx-auto font-medium leading-relaxed"
+          >
             Trouvez rapidement les réponses à vos questions sur AKILI. 
             Notre sagesse numérique au service de votre curiosité !
-          </p>
+          </motion.p>
         </motion.div>
 
-        {/* FAQ Accordion */}
+        {/* FAQ Accordion moderne */}
         <motion.div 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          variants={fadeInVariants}
+          variants={staggerContainer}
           className="max-w-4xl mx-auto mb-16"
         >
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-african border-2 border-orange-200 relative overflow-hidden">
-            <div className="absolute inset-0 opacity-5 bg-tribal-dots"></div>
-            
-            <div className="relative z-10">
-              <Accordion type="single" collapsible className="space-y-4">
-                {faqs.map((faq, index) => (
+          <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/50">
+            <Accordion type="single" collapsible className="space-y-4">
+              {faqs.map((faq, index) => (
+                <motion.div key={index} variants={fadeInVariants}>
                   <AccordionItem 
-                    key={index} 
                     value={`item-${index}`}
-                    className="border border-orange-200 rounded-xl px-6 bg-gradient-to-r from-white to-orange-50"
+                    className="border border-violet-100 rounded-2xl px-6 bg-gradient-to-r from-white to-violet-50/50 hover:from-violet-50 hover:to-purple-50 transition-all duration-300 shadow-sm hover:shadow-lg"
                   >
-                    <AccordionTrigger className="text-left font-semibold text-gray-800 hover:text-orange-600 transition-colors">
+                    <AccordionTrigger className="text-left font-semibold text-gray-800 hover:text-violet-600 transition-colors py-6 font-poppins">
                       {faq.question}
                     </AccordionTrigger>
-                    <AccordionContent className="text-gray-600 leading-relaxed pt-2">
+                    <AccordionContent className="text-gray-600 leading-relaxed pt-2 pb-6 font-inter">
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
+                </motion.div>
+              ))}
+            </Accordion>
           </div>
         </motion.div>
 
-        {/* Contact Section */}
+        {/* Section Contact moderne */}
         <motion.div 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          variants={fadeInVariants}
+          variants={staggerContainer}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-african">
-            Vous ne trouvez pas votre réponse ?
-          </h2>
+          <motion.h2 
+            variants={fadeInVariants}
+            className="text-4xl md:text-5xl font-bold mb-12 font-poppins"
+          >
+            <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+              Vous ne trouvez pas votre réponse ?
+            </span>
+          </motion.h2>
           
-          <div className="max-w-4xl mx-auto bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-african border-2 border-orange-200">
-            <h3 className="text-xl font-bold mb-6 text-gray-800">Nos coordonnées</h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              {contactInfo.map((contact, index) => (
-                <div key={index} className="text-center p-4 bg-gradient-to-br from-orange-50 to-red-50 rounded-xl">
-                  <h4 className="font-bold text-gray-800 mb-3">{contact.type}</h4>
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-center gap-2">
-                      <Mail className="h-4 w-4 text-orange-600" />
-                      <span className="text-gray-600 text-sm">{contact.email}</span>
-                    </div>
-                    <div className="flex items-center justify-center gap-2">
-                      <Phone className="h-4 w-4 text-orange-600" />
-                      <span className="text-gray-600 text-sm">{contact.phone}</span>
-                    </div>
+          <motion.div 
+            variants={staggerContainer}
+            className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto"
+          >
+            {contactInfo.map((contact, index) => (
+              <motion.div 
+                key={index} 
+                variants={fadeInVariants}
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="bg-white/80 backdrop-blur-lg rounded-3xl p-8 shadow-xl border border-white/50 hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
+              >
+                <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${contact.color}`} />
+                
+                <div className={`w-16 h-16 bg-gradient-to-br ${contact.color} rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                  <contact.icon className="w-8 h-8 text-white" />
+                </div>
+                
+                <h4 className="font-bold text-gray-800 mb-6 text-lg font-poppins">{contact.type}</h4>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-center gap-3 text-gray-600">
+                    <Mail className="h-4 w-4 text-violet-500" />
+                    <span className="text-sm font-inter">{contact.email}</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-3 text-gray-600">
+                    <Phone className="h-4 w-4 text-violet-500" />
+                    <span className="text-sm font-inter">{contact.phone}</span>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </motion.div>
 
-        {/* Proverbe africain */}
+        {/* Proverbe africain moderne */}
         <motion.div 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeInVariants}
-          className="text-center bg-gradient-to-br from-orange-600 via-red-600 to-yellow-600 rounded-2xl p-8 relative overflow-hidden"
+          className="relative"
         >
-          <div className="absolute inset-0 opacity-10 bg-tribal-dots"></div>
-          
-          <div className="relative z-10">
-            <p className="text-2xl text-white italic font-medium mb-4">
-              "Celui qui pose une question est ignorant pendant cinq minutes, 
-              celui qui ne la pose pas reste ignorant toute sa vie."
-            </p>
-            <p className="text-yellow-200 font-medium">
-              - Proverbe africain
-            </p>
+          <div className="bg-gradient-to-br from-violet-600 via-purple-700 to-indigo-800 rounded-3xl p-12 relative overflow-hidden shadow-2xl">
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.1%22%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2220%22%20r%3D%222%22/%3E%3C/g%3E%3C/svg%3E')] opacity-20" />
+            
+            <div className="relative z-10 text-center">
+              <motion.div
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="mb-6"
+              >
+                <Sparkles className="w-12 h-12 text-yellow-300 mx-auto" />
+              </motion.div>
+              <p className="text-2xl md:text-3xl text-white italic font-medium mb-6 leading-relaxed font-inter">
+                "Celui qui pose une question est ignorant pendant cinq minutes, 
+                celui qui ne la pose pas reste ignorant toute sa vie."
+              </p>
+              <p className="text-yellow-200 font-semibold text-lg font-poppins">
+                - Proverbe africain
+              </p>
+            </div>
           </div>
         </motion.div>
       </div>
