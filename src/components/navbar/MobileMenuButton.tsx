@@ -10,7 +10,7 @@ interface MobileMenuButtonProps {
 const MobileMenuButton = ({ isMenuOpen, toggleMenu }: MobileMenuButtonProps) => {
   return (
     <button 
-      className="md:hidden p-3 focus:outline-none rounded-full hover:bg-gradient-to-r hover:from-orange-100 hover:to-red-100 dark:hover:bg-gradient-to-r dark:hover:from-orange-900/30 dark:hover:to-red-900/30 border-2 border-orange-200/60 hover:border-orange-400/60 transition-all duration-300 relative overflow-hidden group animate-baobab-sway" 
+      className="lg:hidden p-3 focus:outline-none rounded-full hover:bg-gradient-to-r hover:from-orange-100 hover:to-red-100 dark:hover:bg-gradient-to-r dark:hover:from-orange-900/30 dark:hover:to-red-900/30 border-2 border-orange-200/60 hover:border-orange-400/60 transition-all duration-300 relative overflow-hidden group animate-baobab-sway" 
       onClick={toggleMenu}
       aria-label={isMenuOpen ? "Close menu" : "Open menu"}
     >

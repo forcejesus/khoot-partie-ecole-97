@@ -60,18 +60,18 @@ const Navbar = () => {
         <div className="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Logo closeMenu={closeMenu} />
           
-          {/* Navigation principale - Desktop */}
-          <div className="hidden md:flex items-center space-x-8">
+          {/* Navigation principale - Desktop seulement (lg et plus) */}
+          <div className="hidden lg:flex items-center space-x-8">
             <NavLinks isActive={isActive} isMobile={false} closeMenu={closeMenu} />
           </div>
 
           {/* Bouton de connexion et menu mobile */}
           <div className="flex items-center gap-4">
-            <div className="md:hidden">
+            <div className="lg:hidden">
               <MobileMenuButton isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
             </div>
             
-            <Link to="/login" className="hidden md:block">
+            <Link to="/login" className="hidden lg:block">
               <Button 
                 className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 px-6 py-2 text-sm font-semibold rounded-full border-0"
                 size="sm"
