@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -12,9 +11,16 @@ const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
   const navigate = useNavigate();
 
   const handleNavigation = (path: string) => {
-    navigate(path);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Close mobile menu first
     closeMenu();
+    
+    // Navigate to the new route
+    navigate(path);
+    
+    // Force scroll to top immediately
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
   };
 
   const linkClasses = isMobile
