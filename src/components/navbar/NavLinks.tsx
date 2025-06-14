@@ -13,7 +13,7 @@ const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
 
   const handleNavigation = (path: string) => {
     navigate(path);
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     closeMenu();
   };
 

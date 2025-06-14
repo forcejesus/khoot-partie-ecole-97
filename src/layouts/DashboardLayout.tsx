@@ -44,11 +44,17 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const { user, logout } = useAuth();
   const { theme, setTheme } = useTheme();
 
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     logout();
     navigate("/");
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleThemeToggle = () => {
@@ -77,7 +83,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton
-                    onClick={() => navigate("/dashboard")}
+                    onClick={() => handleNavigation("/dashboard")}
                     tooltip="Tableau de bord"
                     className="text-base"
                   >
@@ -88,7 +94,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
                 <SidebarMenuItem>
                   <SidebarMenuButton
-                    onClick={() => navigate("/apprenants")}
+                    onClick={() => handleNavigation("/apprenants")}
                     tooltip="Apprenants"
                     className="text-base"
                   >
@@ -99,7 +105,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
                 <SidebarMenuItem>
                   <SidebarMenuButton
-                    onClick={() => navigate("/enseignants")}
+                    onClick={() => handleNavigation("/enseignants")}
                     tooltip="Enseignants"
                     className="text-base"
                   >
@@ -110,7 +116,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
                 <SidebarMenuItem>
                   <SidebarMenuButton
-                    onClick={() => navigate("/jeux")}
+                    onClick={() => handleNavigation("/jeux")}
                     tooltip="Jeux"
                     className="text-base"
                   >
@@ -121,7 +127,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
                 <SidebarMenuItem>
                   <SidebarMenuButton
-                    onClick={() => navigate("/settings")}
+                    onClick={() => handleNavigation("/settings")}
                     tooltip="Paramètres"
                     className="text-base"
                   >
