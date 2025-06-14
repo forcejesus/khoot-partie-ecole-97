@@ -90,15 +90,41 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        serif: ['Amiri', 'Playfair Display', 'serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        serif: ['Amiri', 'Playfair Display', 'Georgia', 'serif'],
         african: ['Scheherazade New', 'Amiri', 'serif'], // Police principale africaine
         arabic: ['Amiri', 'serif'], // Police arabe/africaine
         cairo: ['Cairo', 'sans-serif'], // Police moderne africaine
         markazi: ['Markazi Text', 'serif'], // Police persane/africaine
         // Nouvelles polices modernes
-        inter: ['Inter', 'sans-serif'],
-        poppins: ['Poppins', 'sans-serif'],
+        inter: ['Inter', 'system-ui', 'sans-serif'],
+        poppins: ['Poppins', 'system-ui', 'sans-serif'],
+      },
+      fontSize: {
+        // Tailles conformes aux normes d'accessibilité WCAG et Material Design
+        'xs': ['0.75rem', { lineHeight: '1rem' }],     // 12px
+        'sm': ['0.875rem', { lineHeight: '1.25rem' }], // 14px
+        'base': ['1rem', { lineHeight: '1.5rem' }],    // 16px - Taille de base recommandée
+        'lg': ['1.125rem', { lineHeight: '1.75rem' }], // 18px
+        'xl': ['1.25rem', { lineHeight: '1.75rem' }],  // 20px
+        '2xl': ['1.5rem', { lineHeight: '2rem' }],     // 24px
+        '3xl': ['1.875rem', { lineHeight: '2.25rem' }], // 30px
+        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],  // 36px
+        '5xl': ['3rem', { lineHeight: '1' }],          // 48px
+        '6xl': ['3.75rem', { lineHeight: '1' }],       // 60px
+        '7xl': ['4.5rem', { lineHeight: '1' }],        // 72px
+        '8xl': ['6rem', { lineHeight: '1' }],          // 96px
+        '9xl': ['8rem', { lineHeight: '1' }],          // 128px
+        // Tailles spécifiques mobiles (conformes aux normes iOS/Android)
+        'mobile-xs': ['0.75rem', { lineHeight: '1.125rem' }], // 12px avec line-height optimisé mobile
+        'mobile-sm': ['0.875rem', { lineHeight: '1.375rem' }], // 14px
+        'mobile-base': ['1rem', { lineHeight: '1.625rem' }],   // 16px - Taille minimum recommandée pour mobile
+        'mobile-lg': ['1.125rem', { lineHeight: '1.75rem' }], // 18px
+        'mobile-xl': ['1.25rem', { lineHeight: '1.875rem' }], // 20px
+        'mobile-2xl': ['1.5rem', { lineHeight: '2.125rem' }], // 24px
+        // Tailles pour tablette
+        'tablet-base': ['1.0625rem', { lineHeight: '1.625rem' }], // 17px - Optimal pour tablette
+        'tablet-lg': ['1.1875rem', { lineHeight: '1.8125rem' }], // 19px
       },
       keyframes: {
         "accordion-down": {
@@ -163,7 +189,19 @@ export default {
         'kente-diamond': 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
         'tribal-arrow': 'polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%)',
         'baobab-tree': 'polygon(45% 0%, 55% 0%, 70% 40%, 85% 80%, 100% 100%, 0% 100%, 15% 80%, 30% 40%)',
-      }
+      },
+      screens: {
+        'xs': '475px',
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
+        // Breakpoints spécifiques pour les tailles de police
+        'text-sm': '640px',
+        'text-md': '768px',
+        'text-lg': '1024px',
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

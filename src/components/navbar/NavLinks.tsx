@@ -18,49 +18,32 @@ const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
   };
 
   const linkClasses = isMobile
-    ? "block py-4 text-xl font-medium text-gray-700 hover:text-orange-600 transition-colors duration-300 pl-6"
-    : "font-medium text-gray-700 hover:text-orange-600 transition-colors duration-300 px-4 py-2";
+    ? "block py-4 px-4 text-mobile-lg md:text-tablet-lg font-medium text-gray-700 hover:text-orange-600 transition-colors duration-300 rounded-lg hover:bg-orange-50"
+    : "font-medium text-base lg:text-lg text-gray-700 hover:text-orange-600 transition-colors duration-300 px-4 py-2 rounded-lg hover:bg-orange-50/50";
 
   const activeLinkClasses = isMobile
-    ? "block py-4 text-xl font-medium text-orange-600 pl-6 bg-gradient-to-r from-orange-50 to-red-50 border-l-4 border-orange-500 animate-pulse"
-    : "font-medium text-orange-600 px-4 py-2 bg-gradient-to-r from-orange-100 to-red-100 rounded-full border-2 border-orange-300 animate-pulse";
+    ? "block py-4 px-4 text-mobile-lg md:text-tablet-lg font-semibold text-orange-600 bg-gradient-to-r from-orange-50 to-red-50 border-l-4 border-orange-500 rounded-lg"
+    : "font-semibold text-base lg:text-lg text-orange-600 px-4 py-2 bg-gradient-to-r from-orange-100 to-red-100 rounded-lg border border-orange-200";
+
+  const navigationItems = [
+    { path: "/", label: "Accueil" },
+    { path: "/offres", label: "Nos offres" },
+    { path: "/solution", label: "Notre Solution" },
+    { path: "/faq", label: "FAQ" },
+    { path: "/contact", label: "Contactez-nous" }
+  ];
 
   return (
     <>
-      <button 
-        onClick={() => handleNavigation("/")}
-        className={isActive("/") ? activeLinkClasses : linkClasses}
-      >
-        Accueil
-      </button>
-      
-      <button 
-        onClick={() => handleNavigation("/offres")}
-        className={isActive("/offres") ? activeLinkClasses : linkClasses}
-      >
-        Nos offres
-      </button>
-      
-      <button 
-        onClick={() => handleNavigation("/solution")}
-        className={isActive("/solution") ? activeLinkClasses : linkClasses}
-      >
-        Notre Solution
-      </button>
-      
-      <button 
-        onClick={() => handleNavigation("/faq")}
-        className={isActive("/faq") ? activeLinkClasses : linkClasses}
-      >
-        FAQ
-      </button>
-      
-      <button 
-        onClick={() => handleNavigation("/contact")}
-        className={isActive("/contact") ? activeLinkClasses : linkClasses}
-      >
-        Contactez-nous
-      </button>
+      {navigationItems.map(({ path, label }) => (
+        <button 
+          key={path}
+          onClick={() => handleNavigation(path)}
+          className={isActive(path) ? activeLinkClasses : linkClasses}
+        >
+          {label}
+        </button>
+      ))}
     </>
   );
 };
