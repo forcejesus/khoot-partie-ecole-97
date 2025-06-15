@@ -42,7 +42,6 @@ const OffresSection = () => {
   const benefits = [
     { icon: "⚡", title: t("home.solution.benefits.quick"), description: t("home.solution.benefits.quickDesc") },
     { icon: "📱", title: t("home.solution.benefits.multiDevice"), description: t("home.solution.benefits.multiDeviceDesc") },
-    { icon: "🌍", title: t("home.solution.benefits.offline"), description: t("home.solution.benefits.offlineDesc") },
     { icon: "✨", title: t("home.solution.benefits.intuitive"), description: t("home.solution.benefits.intuitiveDesc") }
   ];
 
@@ -84,7 +83,7 @@ const OffresSection = () => {
           </p>
           
           {/* Benefits Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16">
             {benefits.map((benefit, index) => (
               <motion.div 
                 key={index}
