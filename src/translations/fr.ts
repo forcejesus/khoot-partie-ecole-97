@@ -1,3 +1,4 @@
+
 export const fr = {
   // Navigation
   nav: {
@@ -231,8 +232,8 @@ export const fr = {
         description: "Plateforme optimisée pour tous les appareils, même avec une connexion limitée"
       },
       multilingual: {
-        title: "Multilingue",
-        description: "Interface disponible en français et langues locales africaines"
+        title: "Bilingue",
+        description: "Interface disponible en français et en anglais"
       },
       performance: {
         title: "Performance optimale",
