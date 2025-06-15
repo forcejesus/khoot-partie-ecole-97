@@ -114,31 +114,48 @@ const HeroSection = () => {
 
               <motion.h1 
                 variants={fadeInVariants}
-                className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight tracking-tight font-poppins"
+                className="text-4xl md:text-6xl lg:text-8xl font-black mb-4 leading-tight tracking-tight font-poppins text-center lg:text-left"
               >
                 <motion.span 
-                  className="bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 bg-clip-text text-transparent block mb-2"
-                  animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
-                  transition={{ duration: 5, repeat: Infinity }}
+                  className="bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 bg-clip-text text-transparent block mb-4 drop-shadow-lg"
+                  animate={{ 
+                    backgroundPosition: ["0%", "100%", "0%"],
+                    textShadow: [
+                      "0 0 20px rgba(251, 146, 60, 0.5)",
+                      "0 0 30px rgba(251, 146, 60, 0.7)",
+                      "0 0 20px rgba(251, 146, 60, 0.5)"
+                    ]
+                  }}
+                  transition={{ 
+                    backgroundPosition: { duration: 5, repeat: Infinity },
+                    textShadow: { duration: 3, repeat: Infinity }
+                  }}
                   style={{ backgroundSize: "200% 200%" }}
                 >
                   AKILI
                 </motion.span>
-                <motion.span 
-                  variants={fadeInVariants}
-                  className="text-white font-normal text-2xl md:text-3xl lg:text-4xl bg-gradient-to-r from-white to-violet-200 bg-clip-text text-transparent font-inter"
-                >
-                  L'éducation de demain, aujourd'hui
-                </motion.span>
               </motion.h1>
-              
-              <motion.p 
+
+              <motion.div
                 variants={fadeInVariants}
-                className="text-lg md:text-xl text-violet-100 mb-8 leading-relaxed font-light font-inter"
+                className="text-center lg:text-left mb-8"
               >
-                Transformez votre classe en terrain de jeu éducatif. Créez des quiz captivants, 
-                engagez vos élèves et suivez leurs progrès en temps réel avec notre plateforme intelligente.
-              </motion.p>
+                <motion.h2 
+                  className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 font-poppins"
+                  animate={{ 
+                    color: ["#ffffff", "#fbbf24", "#ffffff"],
+                  }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                >
+                  L'éducation à travers le plaisir du jeu
+                </motion.h2>
+                <motion.p 
+                  className="text-lg md:text-xl text-violet-100 leading-relaxed font-light font-inter"
+                >
+                  Transformez votre classe en terrain de jeu éducatif. Créez des quiz captivants, 
+                  engagez vos élèves et suivez leurs progrès en temps réel avec notre plateforme intelligente.
+                </motion.p>
+              </motion.div>
 
               {/* Features list */}
               <motion.div 
@@ -164,7 +181,7 @@ const HeroSection = () => {
               
               <motion.div 
                 variants={fadeInVariants}
-                className="flex flex-col sm:flex-row gap-4"
+                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
               >
                 <Link to="/inscription-ecoles">
                   <motion.div
