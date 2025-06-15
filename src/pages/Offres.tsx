@@ -8,7 +8,24 @@ import OffersCallToAction from "@/components/offers/OffersCallToAction";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Offres = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  
+  // Get features from translations as arrays
+  const getFeatures = (key: string): string[] => {
+    const translations = {
+      fr: require("../translations/fr").fr,
+      en: require("../translations/en").en
+    };
+    
+    const keys = key.split('.');
+    let value: any = translations[language];
+    
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    
+    return Array.isArray(value) ? value : [];
+  };
   
   const offers = [
     {
@@ -20,7 +37,7 @@ const Offres = () => {
       color: "from-orange-500 to-red-500",
       borderColor: "border-orange-200",
       bgGradient: "from-white to-orange-50",
-      features: t("offers.discovery.features") as string[]
+      features: getFeatures("offers.discovery.features")
     },
     {
       name: t("offers.wisdom.name"),
@@ -32,7 +49,7 @@ const Offres = () => {
       borderColor: "border-yellow-400",
       bgGradient: "from-yellow-50 to-orange-50",
       isPopular: true,
-      features: t("offers.wisdom.features") as string[]
+      features: getFeatures("offers.wisdom.features")
     },
     {
       name: t("offers.excellence.name"),
@@ -43,7 +60,7 @@ const Offres = () => {
       color: "from-green-500 to-emerald-500",
       borderColor: "border-green-200",
       bgGradient: "from-white to-green-50",
-      features: t("offers.excellence.features") as string[]
+      features: getFeatures("offers.excellence.features")
     }
   ];
 
