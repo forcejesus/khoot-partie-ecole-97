@@ -14,15 +14,17 @@ const HeroSection = () => {
       <div className="container mx-auto px-6 py-20 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left Column - Content */}
-            <div>
+            {/* Left Column - Content centré */}
+            <div className="lg:col-span-2 xl:col-span-1">
               <HeroContent />
               <HeroFeatures />
               <HeroButtons />
             </div>
 
             {/* Right Column - Stats */}
-            <HeroStats />
+            <div className="lg:col-span-2 xl:col-span-1">
+              <HeroStats />
+            </div>
           </div>
         </div>
       </div>

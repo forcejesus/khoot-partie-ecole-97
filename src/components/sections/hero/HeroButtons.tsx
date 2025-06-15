@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const HeroButtons = () => {
@@ -20,7 +20,7 @@ const HeroButtons = () => {
       initial="hidden"
       animate="visible"
       variants={fadeInVariants}
-      className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+      className="flex justify-center"
     >
       <Link to="/inscription-ecoles">
         <motion.div
@@ -36,16 +36,6 @@ const HeroButtons = () => {
           </Button>
         </motion.div>
       </Link>
-      
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        className="flex items-center gap-3 text-white font-semibold px-6 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all"
-      >
-        <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-          <Play className="w-4 h-4 ml-1" />
-        </div>
-        Voir la démo
-      </motion.button>
     </motion.div>
   );
 };

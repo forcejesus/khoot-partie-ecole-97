@@ -28,7 +28,7 @@ const HeroContent = () => {
       initial="hidden"
       animate="visible"
       variants={staggerContainer}
-      className="text-center lg:text-left"
+      className="text-center"
     >
       <motion.div 
         variants={fadeInVariants}
