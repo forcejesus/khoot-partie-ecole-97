@@ -29,13 +29,13 @@ const HeroContent = () => {
       variants={staggerContainer}
       className="text-center"
     >
-      {/* Titre AKILI centré */}
+      {/* Titre AKILI centré - Taille agrandie avec responsive */}
       <motion.div
         variants={fadeInVariants}
         className="mb-8"
       >
         <motion.h1 
-          className="text-6xl md:text-7xl lg:text-8xl font-black mb-6 leading-none tracking-tighter font-poppins"
+          className="text-7xl md:text-8xl lg:text-9xl xl:text-[12rem] font-black mb-6 leading-none tracking-tighter font-poppins"
         >
           <motion.span 
             className="bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 bg-clip-text text-transparent block drop-shadow-2xl"
@@ -92,7 +92,7 @@ const HeroContent = () => {
           >
             Plutôt que de combattre l'addiction aux écrans, 
             <span className="font-bold text-yellow-300 bg-yellow-300/20 px-2 py-1 rounded-lg ml-2">AKILI la réinvente pour le bien</span>.
-          </motion.p>
+          </p>
         </motion.div>
       </motion.div>
     </motion.div>
