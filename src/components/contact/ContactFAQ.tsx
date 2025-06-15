@@ -65,7 +65,7 @@ const ContactFAQ = () => {
           whileHover={{ scale: 1.05 }}
         >
           <HelpCircle className="w-5 h-5 text-blue-500" />
-          <span className="text-sm font-medium text-gray-700 font-inter">{t("contact.faqQuestions")}</span>
+          <span className="text-sm font-medium text-gray-700 font-inter">{t("contact.faq")}</span>
         </motion.div>
         
         <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 font-poppins">
