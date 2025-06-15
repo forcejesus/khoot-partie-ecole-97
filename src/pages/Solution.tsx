@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -9,8 +10,11 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Solution = () => {
+  const { t } = useLanguage();
+  
   const fadeInVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
@@ -33,26 +37,26 @@ const Solution = () => {
   const features = [
     {
       icon: BookOpen,
-      title: "Apprentissage gamifié",
-      description: "Transformez l'éducation en aventure captivante avec nos jeux inspirés des traditions africaines",
+      title: t("solution.features.gamification.title"),
+      description: t("solution.features.gamification.description"),
       color: "from-orange-500 to-red-500"
     },
     {
       icon: Users,
-      title: "Gestion des apprenants",
-      description: "Suivez facilement les progrès de chaque élève avec des outils intuitifs et performants",
+      title: t("solution.features.management.title"),
+      description: t("solution.features.management.description"),
       color: "from-blue-500 to-indigo-500"
     },
     {
       icon: BarChart,
-      title: "Analytiques avancées",
-      description: "Obtenez des insights précieux sur les performances avec des tableaux de bord détaillés",
+      title: t("solution.features.analytics.title"),
+      description: t("solution.features.analytics.description"),
       color: "from-green-500 to-emerald-500"
     },
     {
       icon: Award,
-      title: "Système de récompenses",
-      description: "Motivez vos apprenants avec des badges et certificats inspirés de l'artisanat africain",
+      title: t("solution.features.rewards.title"),
+      description: t("solution.features.rewards.description"),
       color: "from-purple-500 to-indigo-500"
     }
   ];
@@ -60,41 +64,41 @@ const Solution = () => {
   const benefits = [
     {
       icon: Smartphone,
-      title: "Accessible partout",
-      description: "Plateforme optimisée pour tous les appareils, même avec une connexion limitée"
+      title: t("solution.benefits.accessible.title"),
+      description: t("solution.benefits.accessible.description")
     },
     {
       icon: Globe,
-      title: "Multilingue",
-      description: "Interface disponible en français et langues locales africaines"
+      title: t("solution.benefits.multilingual.title"),
+      description: t("solution.benefits.multilingual.description")
     },
     {
       icon: Zap,
-      title: "Performance optimale",
-      description: "Infrastructure adaptée aux réalités technologiques africaines"
+      title: t("solution.benefits.performance.title"),
+      description: t("solution.benefits.performance.description")
     },
     {
       icon: Shield,
-      title: "Sécurité garantie",
-      description: "Protection des données conforme aux standards internationaux"
+      title: t("solution.benefits.security.title"),
+      description: t("solution.benefits.security.description")
     }
   ];
 
   const values = [
     {
       icon: Target,
-      title: "Excellence éducative",
-      description: "Nous croyons que chaque enfant africain mérite une éducation de qualité mondiale"
+      title: t("solution.values.excellence.title"),
+      description: t("solution.values.excellence.description")
     },
     {
       icon: Lightbulb,
-      title: "Innovation culturelle",
-      description: "Nous intégrons la richesse culturelle africaine dans nos solutions technologiques"
+      title: t("solution.values.innovation.title"),
+      description: t("solution.values.innovation.description")
     },
     {
       icon: Heart,
-      title: "Impact social",
-      description: "Notre mission est de contribuer au développement durable de l'Afrique par l'éducation"
+      title: t("solution.values.impact.title"),
+      description: t("solution.values.impact.description")
     }
   ];
 
@@ -120,7 +124,7 @@ const Solution = () => {
               transition={{ duration: 2, repeat: Infinity }}
               className="w-2 h-2 bg-orange-500 rounded-full"
             />
-            <span className="text-sm font-medium text-gray-700 font-inter">Innovation éducative africaine</span>
+            <span className="text-sm font-medium text-gray-700 font-inter">{t("solution.badge")}</span>
             <Sparkles className="w-4 h-4 text-orange-500" />
           </motion.div>
           
@@ -131,13 +135,12 @@ const Solution = () => {
               transition={{ duration: 5, repeat: Infinity }}
               style={{ backgroundSize: "200% 200%" }}
             >
-              Notre Solution AKILI
+              {t("solution.title")}
             </motion.span>
           </h1>
           
           <p className="text-lg md:text-xl text-gray-700 mt-8 max-w-4xl mx-auto font-medium leading-relaxed font-inter">
-            Une plateforme éducative révolutionnaire qui marie l'intelligence africaine traditionnelle 
-            avec les technologies modernes pour transformer l'apprentissage.
+            {t("solution.subtitle")}
           </p>
 
           {/* Ornements décoratifs */}
@@ -166,7 +169,7 @@ const Solution = () => {
             variants={fadeInVariants}
             className="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-poppins"
           >
-            Fonctionnalités Principales
+            {t("solution.features.title")}
           </motion.h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -222,7 +225,7 @@ const Solution = () => {
                 transition={{ duration: 5, repeat: Infinity }}
                 style={{ backgroundSize: "200% 200%" }}
               >
-                Pourquoi Choisir AKILI ?
+                {t("solution.benefits.title")}
               </motion.h2>
               
               <motion.div 
@@ -260,7 +263,7 @@ const Solution = () => {
             variants={fadeInVariants}
             className="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-poppins"
           >
-            Nos Valeurs
+            {t("solution.values.title")}
           </motion.h2>
           
           <div className="grid md:grid-cols-3 gap-8">
@@ -341,12 +344,11 @@ const Solution = () => {
               }}
               transition={{ duration: 3, repeat: Infinity }}
             >
-              Prêt à révolutionner l'éducation ?
+              {t("solution.cta.title")}
             </motion.h2>
             
             <p className="text-lg md:text-xl text-white/90 mb-10 max-w-3xl mx-auto leading-relaxed font-inter">
-              Rejoignez le mouvement AKILI et donnez à vos apprenants les outils 
-              pour exceller dans le monde numérique tout en honorant leurs racines africaines.
+              {t("solution.cta.subtitle")}
             </p>
             
             <div className="flex justify-center">
@@ -357,7 +359,7 @@ const Solution = () => {
                 >
                   <Button size="lg" className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-10 py-6 text-xl font-semibold rounded-2xl shadow-2xl border-0 relative overflow-hidden group font-poppins">
                     <span className="relative z-10 flex items-center">
-                      Découvrir nos offres
+                      {t("solution.cta.button")}
                       <motion.div
                         animate={{ x: [0, 5, 0] }}
                         transition={{ duration: 1.5, repeat: Infinity }}

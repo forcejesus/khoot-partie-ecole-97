@@ -1,4 +1,3 @@
-
 export const fr = {
   // Navigation
   nav: {
@@ -194,10 +193,75 @@ export const fr = {
     cta: {
       chooseOffer: "Choisir cette offre",
       contactUs: "Nous contacter",
-      ready: "Prêt à transformer votre enseignement ?",
-      discover: "Découvrez comment AKILI peut révolutionner l'apprentissage dans votre établissement",
-      startToday: "Commencer aujourd'hui",
+      ready: "Prêt à commencer votre aventure AKILI ?",
+      discover: "Transformez l'éducation dans votre établissement avec notre plateforme innovante. Commencez dès aujourd'hui et offrez à vos apprenants une expérience unique.",
+      startToday: "Commencer maintenant",
       getQuote: "Obtenir un devis"
+    }
+  },
+
+  // Page solution complète
+  solution: {
+    badge: "Innovation éducative africaine",
+    title: "Notre Solution AKILI",
+    subtitle: "Une plateforme éducative révolutionnaire qui marie l'intelligence africaine traditionnelle avec les technologies modernes pour transformer l'apprentissage.",
+    features: {
+      title: "Fonctionnalités Principales",
+      gamification: {
+        title: "Apprentissage gamifié",
+        description: "Transformez l'éducation en aventure captivante avec nos jeux inspirés des traditions africaines"
+      },
+      management: {
+        title: "Gestion des apprenants",
+        description: "Suivez facilement les progrès de chaque élève avec des outils intuitifs et performants"
+      },
+      analytics: {
+        title: "Analytiques avancées",
+        description: "Obtenez des insights précieux sur les performances avec des tableaux de bord détaillés"
+      },
+      rewards: {
+        title: "Système de récompenses",
+        description: "Motivez vos apprenants avec des badges et certificats inspirés de l'artisanat africain"
+      }
+    },
+    benefits: {
+      title: "Pourquoi Choisir AKILI ?",
+      accessible: {
+        title: "Accessible partout",
+        description: "Plateforme optimisée pour tous les appareils, même avec une connexion limitée"
+      },
+      multilingual: {
+        title: "Multilingue",
+        description: "Interface disponible en français et langues locales africaines"
+      },
+      performance: {
+        title: "Performance optimale",
+        description: "Infrastructure adaptée aux réalités technologiques africaines"
+      },
+      security: {
+        title: "Sécurité garantie",
+        description: "Protection des données conforme aux standards internationaux"
+      }
+    },
+    values: {
+      title: "Nos Valeurs",
+      excellence: {
+        title: "Excellence éducative",
+        description: "Nous croyons que chaque enfant africain mérite une éducation de qualité mondiale"
+      },
+      innovation: {
+        title: "Innovation culturelle",
+        description: "Nous intégrons la richesse culturelle africaine dans nos solutions technologiques"
+      },
+      impact: {
+        title: "Impact social",
+        description: "Notre mission est de contribuer au développement durable de l'Afrique par l'éducation"
+      }
+    },
+    cta: {
+      title: "Prêt à révolutionner l'éducation ?",
+      subtitle: "Rejoignez le mouvement AKILI et donnez à vos apprenants les outils pour exceller dans le monde numérique tout en honorant leurs racines africaines.",
+      button: "Découvrir nos offres"
     }
   },
   

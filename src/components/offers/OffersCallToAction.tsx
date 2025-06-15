@@ -4,8 +4,11 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const OffersCallToAction = () => {
+  const { t } = useLanguage();
+  
   return (
     <motion.div 
       initial={{ opacity: 0, y: 30 }}
@@ -15,7 +18,7 @@ const OffersCallToAction = () => {
       className="text-center bg-gradient-to-br from-violet-600 via-purple-700 to-indigo-800 rounded-3xl p-12 relative overflow-hidden"
     >
       {/* Background pattern */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.1%22%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2220%22%20r%3D%222%22/%3E%3C/g%3E%3C/svg%3E')] opacity-20" />
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.1%22%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2220%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20" />
       
       <motion.div 
         animate={{ 
@@ -49,12 +52,11 @@ const OffersCallToAction = () => {
           }}
           transition={{ duration: 3, repeat: Infinity }}
         >
-          Prêt à commencer votre aventure AKILI ?
+          {t("offers.cta.ready")}
         </motion.h2>
         
         <p className="text-lg md:text-xl text-white/90 mb-10 max-w-3xl mx-auto leading-relaxed font-inter">
-          Transformez l'éducation dans votre établissement avec notre plateforme innovante. 
-          Commencez dès aujourd'hui et offrez à vos apprenants une expérience unique.
+          {t("offers.cta.discover")}
         </p>
         
         <div className="flex justify-center">
@@ -65,7 +67,7 @@ const OffersCallToAction = () => {
             >
               <Button size="lg" className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-10 py-6 text-xl font-semibold rounded-2xl shadow-2xl border-0 relative overflow-hidden group font-poppins">
                 <span className="relative z-10 flex items-center">
-                  Commencer maintenant
+                  {t("offers.cta.startToday")}
                   <motion.div
                     animate={{ x: [0, 5, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
