@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
-  Mail, Phone, Send, MessageCircle, Sparkles, HelpCircle
+  Mail, Phone, MessageCircle, Sparkles, HelpCircle
 } from "lucide-react";
 import { motion } from "framer-motion";
 import {
@@ -15,13 +13,6 @@ import {
 } from "@/components/ui/accordion";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: ""
-  });
-
   const fadeInVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
@@ -39,18 +30,6 @@ const Contact = () => {
         staggerChildren: 0.2
       }
     }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
   };
 
   const contactInfo = [
@@ -159,162 +138,14 @@ const Contact = () => {
           </div>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInVariants}
-          >
-            <Card className="border border-gray-200 bg-white/95 backdrop-blur-sm relative overflow-hidden shadow-2xl rounded-2xl">
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500"></div>
-              
-              <CardHeader className="relative z-10">
-                <CardTitle className="text-2xl md:text-3xl font-bold text-gray-800 font-poppins flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
-                    <Send className="w-6 h-6 text-white" />
-                  </div>
-                  Envoyez-nous un message
-                </CardTitle>
-              </CardHeader>
-              
-              <CardContent className="relative z-10">
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-lg font-medium text-gray-700 mb-3 font-poppins">
-                        Nom complet *
-                      </label>
-                      <Input
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        placeholder="Votre nom"
-                        required
-                        className="h-14 text-lg border-2 border-gray-200 focus:border-orange-400 bg-white rounded-xl font-inter"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-lg font-medium text-gray-700 mb-3 font-poppins">
-                        Email *
-                      </label>
-                      <Input
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        placeholder="votre@email.com"
-                        required
-                        className="h-14 text-lg border-2 border-gray-200 focus:border-orange-400 bg-white rounded-xl font-inter"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <label className="block text-lg font-medium text-gray-700 mb-3 font-poppins">
-                      Sujet *
-                    </label>
-                    <Input
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleInputChange}
-                      placeholder="L'objet de votre message"
-                      required
-                      className="h-14 text-lg border-2 border-gray-200 focus:border-orange-400 bg-white rounded-xl font-inter"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-lg font-medium text-gray-700 mb-3 font-poppins">
-                      Message *
-                    </label>
-                    <Textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      placeholder="Décrivez votre demande en détail..."
-                      required
-                      rows={8}
-                      className="text-lg border-2 border-gray-200 focus:border-orange-400 bg-white resize-none rounded-xl font-inter"
-                    />
-                  </div>
-                  
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <Button 
-                      type="submit"
-                      className="w-full bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white py-6 text-xl font-medium h-16 rounded-xl font-poppins"
-                    >
-                      <Send className="w-6 h-6 mr-3" />
-                      Envoyer le message
-                    </Button>
-                  </motion.div>
-                </form>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          <div className="space-y-8">
-            <motion.div 
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={fadeInVariants}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 font-poppins">
-                Nos coordonnées
-              </h2>
-              
-              <motion.div 
-                variants={staggerContainer}
-                className="space-y-6"
-              >
-                {contactInfo.map((info, index) => (
-                  <motion.div
-                    key={index}
-                    variants={fadeInVariants}
-                    whileHover={{ scale: 1.02, y: -2 }}
-                  >
-                    <Card className="border border-gray-200 bg-white/95 backdrop-blur-sm relative overflow-hidden hover:shadow-xl transition-all duration-300 rounded-2xl">
-                      <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${info.color}`}></div>
-                      
-                      <CardContent className="p-6 relative z-10">
-                        <div className="flex items-start gap-4">
-                          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${info.color} flex items-center justify-center shadow-xl flex-shrink-0`}>
-                            <info.icon className="w-6 h-6 text-white" />
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="text-xl font-bold text-gray-800 mb-3 font-poppins">{info.title}</h3>
-                            <div className="space-y-2">
-                              <div className="flex items-center gap-2">
-                                <Mail className="w-4 h-4 text-gray-500" />
-                                <span className="text-lg text-gray-700 font-inter">{info.email}</span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <Phone className="w-4 h-4 text-gray-500" />
-                                <span className="text-lg text-gray-700 font-inter">{info.phone}</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Section FAQ */}
+        {/* Section FAQ en premier */}
         <motion.div 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeInVariants}
-          className="mt-20 max-w-4xl mx-auto"
+          className="mb-20 max-w-4xl mx-auto"
+          id="faq"
         >
           <div className="text-center mb-12">
             <motion.div 
@@ -349,6 +180,57 @@ const Contact = () => {
               </Accordion>
             </CardContent>
           </Card>
+        </motion.div>
+
+        {/* Section des coordonnées */}
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInVariants}
+          className="max-w-4xl mx-auto"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-12 text-center font-poppins">
+            Nos coordonnées
+          </h2>
+          
+          <motion.div 
+            variants={staggerContainer}
+            className="grid md:grid-cols-3 gap-8"
+          >
+            {contactInfo.map((info, index) => (
+              <motion.div
+                key={index}
+                variants={fadeInVariants}
+                whileHover={{ scale: 1.02, y: -2 }}
+              >
+                <Card className="border border-gray-200 bg-white/95 backdrop-blur-sm relative overflow-hidden hover:shadow-xl transition-all duration-300 rounded-2xl">
+                  <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${info.color}`}></div>
+                  
+                  <CardContent className="p-6 relative z-10">
+                    <div className="flex flex-col items-center text-center gap-4">
+                      <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${info.color} flex items-center justify-center shadow-xl`}>
+                        <info.icon className="w-8 h-8 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-800 mb-4 font-poppins">{info.title}</h3>
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-center gap-2">
+                            <Mail className="w-4 h-4 text-gray-500" />
+                            <span className="text-lg text-gray-700 font-inter">{info.email}</span>
+                          </div>
+                          <div className="flex items-center justify-center gap-2">
+                            <Phone className="w-4 h-4 text-gray-500" />
+                            <span className="text-lg text-gray-700 font-inter">{info.phone}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
         </motion.div>
 
         <motion.div 
