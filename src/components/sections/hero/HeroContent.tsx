@@ -92,7 +92,7 @@ const HeroContent = () => {
           >
             Plutôt que de combattre l'addiction aux écrans, 
             <span className="font-bold text-yellow-300 bg-yellow-300/20 px-2 py-1 rounded-lg ml-2">AKILI la réinvente pour le bien</span>.
-          </p>
+          </motion.p>
         </motion.div>
       </motion.div>
     </motion.div>
