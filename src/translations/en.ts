@@ -1,3 +1,4 @@
+
 export const en = {
   // Navigation
   nav: {
@@ -42,8 +43,6 @@ export const en = {
         quickDesc: "To get started",
         multiDevice: "Multi-device",
         multiDeviceDesc: "Everywhere, all the time",
-        offline: "Offline",
-        offlineDesc: "Even without internet",
         intuitive: "Zero training",
         intuitiveDesc: "Intuitive interface"
       },
@@ -130,9 +129,22 @@ export const en = {
   
   // Offers page
   offers: {
-    badge: "Our plans",
-    title: "Our Offers",
-    subtitle: "Choose the plan that fits your needs and budget. All our offers include personalized support.",
+    badge: "Choose your AKILI plan",
+    title: "Our AKILI Offers",
+    subtitle: "Choose the offer that matches your needs and unlock your institution's educational potential. Transform learning with our innovative solutions.",
+    whyChoose: "Why choose AKILI?",
+    performance: {
+      title: "Optimal Performance",
+      description: "Fast and responsive platform adapted to African connections"
+    },
+    security: {
+      title: "Robust Security",
+      description: "Data protection compliant with international standards"
+    },
+    pedagogy: {
+      title: "Pedagogical Approach",
+      description: "Modern and effective learning methods"
+    },
     discovery: {
       name: "Discovery",
       price: "25,000 FCFA",
@@ -152,6 +164,7 @@ export const en = {
       price: "50,000 FCFA",
       period: "/month",
       description: "The most popular offer for balanced growth",
+      popular: "Popular",
       features: [
         "Up to 200 learners",
         "All educational games",
@@ -177,6 +190,14 @@ export const en = {
         "Complete white-label",
         "Guaranteed SLA"
       ]
+    },
+    cta: {
+      chooseOffer: "Choose this offer",
+      contactUs: "Contact us",
+      ready: "Ready to transform your teaching?",
+      discover: "Discover how AKILI can revolutionize learning in your institution",
+      startToday: "Start today",
+      getQuote: "Get a quote"
     }
   },
   

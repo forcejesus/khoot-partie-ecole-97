@@ -2,8 +2,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Zap, Shield, Target } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const AdditionalFeatures = () => {
+  const { t } = useLanguage();
+  
   const fadeInVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
@@ -26,20 +29,20 @@ const AdditionalFeatures = () => {
   const additionalFeatures = [
     {
       icon: Zap,
-      title: "Performance optimale",
-      description: "Plateforme rapide et réactive adaptée aux connexions africaines",
+      title: t("offers.performance.title"),
+      description: t("offers.performance.description"),
       color: "from-yellow-500 to-orange-500"
     },
     {
       icon: Shield,
-      title: "Sécurité robuste",
-      description: "Protection des données conforme aux standards internationaux",
+      title: t("offers.security.title"),
+      description: t("offers.security.description"),
       color: "from-green-500 to-emerald-500"
     },
     {
       icon: Target,
-      title: "Approche pédagogique",
-      description: "Méthodes d'apprentissage modernes et efficaces",
+      title: t("offers.pedagogy.title"),
+      description: t("offers.pedagogy.description"),
       color: "from-blue-500 to-indigo-500"
     }
   ];
@@ -61,7 +64,7 @@ const AdditionalFeatures = () => {
           transition={{ duration: 5, repeat: Infinity }}
           style={{ backgroundSize: "200% 200%" }}
         >
-          Pourquoi choisir AKILI ?
+          {t("offers.whyChoose")}
         </motion.h2>
         
         <motion.div 

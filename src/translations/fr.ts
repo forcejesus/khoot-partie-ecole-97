@@ -1,3 +1,4 @@
+
 export const fr = {
   // Navigation
   nav: {
@@ -42,8 +43,6 @@ export const fr = {
         quickDesc: "Pour démarrer",
         multiDevice: "Multi-appareils",
         multiDeviceDesc: "Partout, tout le temps",
-        offline: "Hors ligne",
-        offlineDesc: "Même sans internet",
         intuitive: "Zéro formation",
         intuitiveDesc: "Interface intuitive"
       },
@@ -130,9 +129,22 @@ export const fr = {
   
   // Page offres
   offers: {
-    badge: "Nos formules",
-    title: "Nos Offres",
-    subtitle: "Choisissez la formule qui correspond à vos besoins et à votre budget. Toutes nos offres incluent un accompagnement personnalisé.",
+    badge: "Choisissez votre formule AKILI",
+    title: "Nos Offres AKILI",
+    subtitle: "Choisissez l'offre qui correspond à vos besoins et libérez le potentiel éducatif de votre institution. Transformez l'apprentissage avec nos solutions innovantes.",
+    whyChoose: "Pourquoi choisir AKILI ?",
+    performance: {
+      title: "Performance optimale",
+      description: "Plateforme rapide et réactive adaptée aux connexions africaines"
+    },
+    security: {
+      title: "Sécurité robuste", 
+      description: "Protection des données conforme aux standards internationaux"
+    },
+    pedagogy: {
+      title: "Approche pédagogique",
+      description: "Méthodes d'apprentissage modernes et efficaces"
+    },
     discovery: {
       name: "Découverte",
       price: "25 000 FCFA",
@@ -152,6 +164,7 @@ export const fr = {
       price: "50 000 FCFA",
       period: "/mois",
       description: "L'offre la plus populaire pour une croissance équilibrée",
+      popular: "Populaire",
       features: [
         "Jusqu'à 200 apprenants",
         "Tous les jeux éducatifs",
@@ -177,6 +190,14 @@ export const fr = {
         "White-label complet",
         "SLA garantie"
       ]
+    },
+    cta: {
+      chooseOffer: "Choisir cette offre",
+      contactUs: "Nous contacter",
+      ready: "Prêt à transformer votre enseignement ?",
+      discover: "Découvrez comment AKILI peut révolutionner l'apprentissage dans votre établissement",
+      startToday: "Commencer aujourd'hui",
+      getQuote: "Obtenir un devis"
     }
   },
   

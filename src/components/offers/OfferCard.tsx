@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, LucideIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface OfferCardProps {
   name: string;
@@ -33,6 +34,8 @@ const OfferCard = ({
   features,
   index
 }: OfferCardProps) => {
+  const { t } = useLanguage();
+  
   const fadeInVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
@@ -54,7 +57,7 @@ const OfferCard = ({
       <Card className={`relative group hover:shadow-african transition-all duration-500 border-2 ${borderColor} h-full bg-gradient-to-br ${bgGradient} ${isPopular ? 'transform scale-105 shadow-xl' : ''}`}>
         {isPopular && (
           <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-6 py-1 rounded-full text-sm font-semibold">
-            Populaire
+            {t("offers.wisdom.popular")}
           </div>
         )}
         
@@ -87,7 +90,7 @@ const OfferCard = ({
           
           <Link to="/inscription-ecoles">
             <Button className={`w-full bg-gradient-to-r ${color} hover:opacity-90 transition-all text-white font-medium py-3`}>
-              {name === "Excellence" ? "Nous contacter" : "Choisir cette offre"}
+              {name === t("offers.excellence.name") ? t("offers.cta.contactUs") : t("offers.cta.chooseOffer")}
             </Button>
           </Link>
         </CardContent>

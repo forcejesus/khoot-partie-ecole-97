@@ -5,67 +5,45 @@ import OffersHeader from "@/components/offers/OffersHeader";
 import OfferCard from "@/components/offers/OfferCard";
 import AdditionalFeatures from "@/components/offers/AdditionalFeatures";
 import OffersCallToAction from "@/components/offers/OffersCallToAction";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Offres = () => {
+  const { t } = useLanguage();
+  
   const offers = [
     {
-      name: "Découverte",
-      price: "25 000 FCFA",
-      period: "/mois",
-      description: "Pour les écoles qui débutent leur transformation numérique",
+      name: t("offers.discovery.name"),
+      price: t("offers.discovery.price"),
+      period: t("offers.discovery.period"),
+      description: t("offers.discovery.description"),
       icon: Users,
       color: "from-orange-500 to-red-500",
       borderColor: "border-orange-200",
       bgGradient: "from-white to-orange-50",
-      features: [
-        "Jusqu'à 50 apprenants",
-        "5 jeux éducatifs de base",
-        "Tableau de bord simple",
-        "Support par email",
-        "Formation en ligne",
-        "Rapports mensuels"
-      ]
+      features: t("offers.discovery.features") as string[]
     },
     {
-      name: "Sagesse",
-      price: "50 000 FCFA", 
-      period: "/mois",
-      description: "L'offre la plus populaire pour une croissance équilibrée",
+      name: t("offers.wisdom.name"),
+      price: t("offers.wisdom.price"), 
+      period: t("offers.wisdom.period"),
+      description: t("offers.wisdom.description"),
       icon: Star,
       color: "from-yellow-500 to-orange-500",
       borderColor: "border-yellow-400",
       bgGradient: "from-yellow-50 to-orange-50",
       isPopular: true,
-      features: [
-        "Jusqu'à 200 apprenants",
-        "Tous les jeux éducatifs",
-        "Analytiques avancées",
-        "Support prioritaire",
-        "Formation personnalisée",
-        "Rapports en temps réel",
-        "Personnalisation complète",
-        "Intégration API"
-      ]
+      features: t("offers.wisdom.features") as string[]
     },
     {
-      name: "Excellence",
-      price: "Sur mesure",
+      name: t("offers.excellence.name"),
+      price: t("offers.excellence.price"),
       period: "",
-      description: "Solution enterprise pour les grandes institutions",
+      description: t("offers.excellence.description"),
       icon: Crown,
       color: "from-green-500 to-emerald-500",
       borderColor: "border-green-200",
       bgGradient: "from-white to-green-50",
-      features: [
-        "Apprenants illimités",
-        "Jeux personnalisés",
-        "IA prédictive avancée",
-        "Support dédié 24/7",
-        "Formation sur site",
-        "Rapports personnalisés",
-        "White-label complet",
-        "SLA garantie"
-      ]
+      features: t("offers.excellence.features") as string[]
     }
   ];
 
