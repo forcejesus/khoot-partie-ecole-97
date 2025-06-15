@@ -1,4 +1,5 @@
 
+
 export const fr = {
   // Navigation
   nav: {
@@ -263,6 +264,88 @@ export const fr = {
       title: "Prêt à révolutionner l'éducation ?",
       subtitle: "Rejoignez le mouvement AKILI et donnez à vos apprenants les outils pour exceller dans le monde numérique tout en honorant leurs racines africaines.",
       button: "Découvrir nos offres"
+    }
+  },
+
+  // Page d'inscription des écoles
+  schoolRegistration: {
+    badge: "Rejoignez AKILI",
+    title: "Inscription des Écoles",
+    subtitle: "Rejoignez plus de 500 écoles qui font confiance à AKILI pour transformer l'apprentissage de leurs élèves",
+    form: {
+      title: "Informations de votre école",
+      schoolName: "Nom de l'école",
+      schoolNamePlaceholder: "École Primaire...",
+      schoolType: "Type d'établissement",
+      schoolTypeOptions: {
+        primary: "École Primaire",
+        middle: "Collège",
+        high: "Lycée",
+        university: "Université",
+        training: "Institut de formation"
+      },
+      studentsCount: "Nombre d'élèves",
+      studentsCountOptions: {
+        under50: "Moins de 50",
+        between50200: "50 - 200",
+        between200500: "200 - 500",
+        between5001000: "500 - 1000",
+        over1000: "Plus de 1000"
+      },
+      country: "Pays",
+      countryOptions: {
+        senegal: "Sénégal",
+        ivoryCoast: "Côte d'Ivoire",
+        mali: "Mali",
+        burkinaFaso: "Burkina Faso",
+        niger: "Niger",
+        other: "Autre"
+      },
+      address: "Adresse complète",
+      addressPlaceholder: "Adresse de votre école...",
+      directorName: "Nom du directeur",
+      directorNamePlaceholder: "Prénom Nom",
+      email: "Email de contact",
+      emailPlaceholder: "directeur@ecole.com",
+      phone: "Téléphone",
+      phonePlaceholder: "+221 XX XXX XX XX",
+      desiredOffer: "Offre souhaitée",
+      desiredOfferOptions: {
+        discovery: "Découverte - 25 000 FCFA/mois",
+        wisdom: "Sagesse - 50 000 FCFA/mois",
+        excellence: "Excellence - Sur mesure"
+      },
+      submit: "Créer mon compte AKILI"
+    },
+    process: {
+      title: "Comment ça marche ?",
+      subtitle: "Un processus simple et rapide pour démarrer avec AKILI",
+      steps: [
+        {
+          number: "01",
+          title: "Remplissez le formulaire",
+          description: "Fournissez-nous les informations de base sur votre école"
+        },
+        {
+          number: "02",
+          title: "Choisissez votre offre",
+          description: "Sélectionnez l'abonnement qui correspond à vos besoins"
+        },
+        {
+          number: "03",
+          title: "Configuration rapide",
+          description: "Notre équipe configure votre plateforme en moins de 24h"
+        },
+        {
+          number: "04",
+          title: "Formation incluse",
+          description: "Formation gratuite pour vos enseignants et administrateurs"
+        }
+      ]
+    },
+    guarantee: {
+      title: "Garantie satisfaction",
+      description: "Essai gratuit de 30 jours. Aucun engagement à long terme. Support technique inclus et formation gratuite de vos équipes."
     }
   },
   

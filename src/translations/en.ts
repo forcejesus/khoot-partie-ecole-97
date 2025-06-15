@@ -1,4 +1,5 @@
 
+
 export const en = {
   // Navigation
   nav: {
@@ -263,6 +264,88 @@ export const en = {
       title: "Ready to revolutionize education?",
       subtitle: "Join the AKILI movement and give your learners the tools to excel in the digital world while honoring their African roots.",
       button: "Discover our offers"
+    }
+  },
+
+  // School registration page
+  schoolRegistration: {
+    badge: "Join AKILI",
+    title: "School Registration",
+    subtitle: "Join over 500 schools that trust AKILI to transform their students' learning experience",
+    form: {
+      title: "Your school information",
+      schoolName: "School name",
+      schoolNamePlaceholder: "Primary School...",
+      schoolType: "Institution type",
+      schoolTypeOptions: {
+        primary: "Primary School",
+        middle: "Middle School",
+        high: "High School",
+        university: "University",
+        training: "Training Institute"
+      },
+      studentsCount: "Number of students",
+      studentsCountOptions: {
+        under50: "Less than 50",
+        between50200: "50 - 200",
+        between200500: "200 - 500",
+        between5001000: "500 - 1000",
+        over1000: "More than 1000"
+      },
+      country: "Country",
+      countryOptions: {
+        senegal: "Senegal",
+        ivoryCoast: "Ivory Coast",
+        mali: "Mali",
+        burkinaFaso: "Burkina Faso",
+        niger: "Niger",
+        other: "Other"
+      },
+      address: "Complete address",
+      addressPlaceholder: "Your school address...",
+      directorName: "Director's name",
+      directorNamePlaceholder: "First Last",
+      email: "Contact email",
+      emailPlaceholder: "director@school.com",
+      phone: "Phone",
+      phonePlaceholder: "+221 XX XXX XX XX",
+      desiredOffer: "Desired offer",
+      desiredOfferOptions: {
+        discovery: "Discovery - 25,000 FCFA/month",
+        wisdom: "Wisdom - 50,000 FCFA/month",
+        excellence: "Excellence - Custom"
+      },
+      submit: "Create my AKILI account"
+    },
+    process: {
+      title: "How does it work?",
+      subtitle: "A simple and fast process to start with AKILI",
+      steps: [
+        {
+          number: "01",
+          title: "Fill out the form",
+          description: "Provide us with basic information about your school"
+        },
+        {
+          number: "02",
+          title: "Choose your offer",
+          description: "Select the subscription that matches your needs"
+        },
+        {
+          number: "03",
+          title: "Quick setup",
+          description: "Our team sets up your platform in less than 24 hours"
+        },
+        {
+          number: "04",
+          title: "Training included",
+          description: "Free training for your teachers and administrators"
+        }
+      ]
+    },
+    guarantee: {
+      title: "Satisfaction guarantee",
+      description: "30-day free trial. No long-term commitment. Technical support included and free team training."
     }
   },
   
