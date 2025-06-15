@@ -1,7 +1,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { Star, Sparkles } from "lucide-react";
 
 const OffersHeader = () => {
   const fadeInVariants = {
@@ -18,21 +18,49 @@ const OffersHeader = () => {
       initial="hidden"
       animate="visible"
       variants={fadeInVariants}
-      className="mb-16 text-center"
+      className="mb-20 text-center"
     >
-      <div className="flex justify-center mb-6">
-        <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
-          <Star className="w-5 h-5 text-white" />
-        </div>
-      </div>
+      <motion.div 
+        className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-6 py-3 mb-8 border border-orange-200 shadow-lg"
+        whileHover={{ scale: 1.05 }}
+      >
+        <motion.div 
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="w-2 h-2 bg-orange-500 rounded-full"
+        />
+        <span className="text-sm font-medium text-gray-700 font-inter">Choisissez votre formule AKILI</span>
+        <Sparkles className="w-4 h-4 text-orange-500" />
+      </motion.div>
       
-      <h1 className="text-5xl font-bold bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-african mb-4">
-        Nos Offres AKILI
+      <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight tracking-tight font-poppins">
+        <motion.span 
+          className="bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent block mb-2"
+          animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
+          transition={{ duration: 5, repeat: Infinity }}
+          style={{ backgroundSize: "200% 200%" }}
+        >
+          Nos Offres AKILI
+        </motion.span>
       </h1>
       
-      <p className="text-xl text-gray-700 mt-8 max-w-3xl mx-auto font-medium">
-        Choisissez l'offre qui correspond à vos besoins et libérez le potentiel éducatif de votre institution
+      <p className="text-lg md:text-xl text-gray-700 mt-8 max-w-4xl mx-auto font-medium leading-relaxed font-inter">
+        Choisissez l'offre qui correspond à vos besoins et libérez le potentiel éducatif de votre institution. 
+        Transformez l'apprentissage avec nos solutions innovantes.
       </p>
+
+      {/* Ornements décoratifs */}
+      <div className="flex justify-center mt-8">
+        <div className="flex items-center space-x-3">
+          <div className="w-6 h-6 bg-orange-500 rounded-full opacity-20"></div>
+          <div className="w-8 h-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
+          <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
+            <Star className="w-5 h-5 text-white" />
+          </div>
+          <div className="w-8 h-2 bg-gradient-to-l from-orange-500 to-red-500 rounded-full"></div>
+          <div className="w-6 h-6 bg-orange-500 rounded-full opacity-20"></div>
+        </div>
+      </div>
     </motion.div>
   );
 };

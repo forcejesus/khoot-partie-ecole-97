@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
-  Mail, Phone, Send, MessageCircle
+  Mail, Phone, Send, MessageCircle, Sparkles
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -23,6 +23,16 @@ const Contact = () => {
       opacity: 1, 
       y: 0,
       transition: { duration: 0.8, ease: "easeOut" }
+    }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
     }
   };
 
@@ -63,37 +73,58 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50 relative overflow-hidden">
-      <div className="fixed inset-0 opacity-5 bg-kente-stripes pointer-events-none"></div>
+    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-blue-50 to-indigo-50 relative overflow-hidden">
+      {/* Background pattern */}
+      <div className="fixed inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ea580c%22%20fill-opacity%3D%220.05%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%224%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] pointer-events-none opacity-40"></div>
       
-      <div className="container mx-auto py-8 px-4 md:px-6 relative z-10">
+      <div className="container mx-auto py-12 px-4 md:px-6 relative z-10">
         <motion.div 
           initial="hidden"
           animate="visible"
           variants={fadeInVariants}
-          className="mb-16 text-center"
+          className="mb-20 text-center"
         >
-          <div className="flex justify-center mb-6">
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 bg-african-terracotta clip-path-kente-diamond"></div>
-              <div className="w-8 h-2 bg-gradient-to-r from-african-gold to-african-ochre rounded-full"></div>
-              <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
-                <MessageCircle className="w-5 h-5 text-white" />
-              </div>
-              <div className="w-8 h-2 bg-gradient-to-l from-african-gold to-african-ochre rounded-full"></div>
-              <div className="w-6 h-6 bg-african-terracotta clip-path-kente-diamond"></div>
-            </div>
-          </div>
+          <motion.div 
+            className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-6 py-3 mb-8 border border-orange-200 shadow-lg"
+            whileHover={{ scale: 1.05 }}
+          >
+            <motion.div 
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="w-2 h-2 bg-orange-500 rounded-full"
+            />
+            <span className="text-sm font-medium text-gray-700 font-inter">Restons connectés</span>
+            <Sparkles className="w-4 h-4 text-orange-500" />
+          </motion.div>
           
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-african mb-4">
-            Contactez-nous
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight tracking-tight font-poppins">
+            <motion.span 
+              className="bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent block mb-2"
+              animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
+              transition={{ duration: 5, repeat: Infinity }}
+              style={{ backgroundSize: "200% 200%" }}
+            >
+              Contactez-nous
+            </motion.span>
           </h1>
-          <div className="w-32 h-2 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 mx-auto rounded-full shadow-african" />
           
-          <p className="text-xl text-gray-700 mt-8 max-w-3xl mx-auto font-medium">
+          <p className="text-lg md:text-xl text-gray-700 mt-8 max-w-4xl mx-auto font-medium leading-relaxed font-inter">
             Nous sommes là pour vous accompagner dans votre transformation éducative. 
             Partageons ensemble la vision d'une Afrique éduquée et connectée !
           </p>
+
+          {/* Ornements décoratifs */}
+          <div className="flex justify-center mt-8">
+            <div className="flex items-center space-x-3">
+              <div className="w-6 h-6 bg-orange-500 rounded-full opacity-20"></div>
+              <div className="w-8 h-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
+              <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
+                <MessageCircle className="w-5 h-5 text-white" />
+              </div>
+              <div className="w-8 h-2 bg-gradient-to-l from-orange-500 to-red-500 rounded-full"></div>
+              <div className="w-6 h-6 bg-orange-500 rounded-full opacity-20"></div>
+            </div>
+          </div>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
@@ -103,13 +134,14 @@ const Contact = () => {
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeInVariants}
           >
-            <Card className="border-2 border-orange-200 bg-white/95 backdrop-blur-sm relative overflow-hidden shadow-african">
+            <Card className="border border-gray-200 bg-white/95 backdrop-blur-sm relative overflow-hidden shadow-2xl rounded-2xl">
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500"></div>
-              <div className="absolute inset-0 opacity-5 bg-tribal-dots"></div>
               
               <CardHeader className="relative z-10">
-                <CardTitle className="text-2xl font-bold text-gray-800 font-african flex items-center gap-3">
-                  <Send className="w-6 h-6 text-orange-600" />
+                <CardTitle className="text-2xl md:text-3xl font-bold text-gray-800 font-poppins flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
+                    <Send className="w-6 h-6 text-white" />
+                  </div>
                   Envoyez-nous un message
                 </CardTitle>
               </CardHeader>
@@ -118,7 +150,7 @@ const Contact = () => {
                 <form onSubmit={handleSubmit} className="space-y-8">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-lg font-medium text-gray-700 mb-3">
+                      <label className="block text-lg font-medium text-gray-700 mb-3 font-poppins">
                         Nom complet *
                       </label>
                       <Input
@@ -127,11 +159,11 @@ const Contact = () => {
                         onChange={handleInputChange}
                         placeholder="Votre nom"
                         required
-                        className="h-14 text-lg border-2 border-orange-200 focus:border-orange-400 bg-white"
+                        className="h-14 text-lg border-2 border-gray-200 focus:border-orange-400 bg-white rounded-xl font-inter"
                       />
                     </div>
                     <div>
-                      <label className="block text-lg font-medium text-gray-700 mb-3">
+                      <label className="block text-lg font-medium text-gray-700 mb-3 font-poppins">
                         Email *
                       </label>
                       <Input
@@ -141,13 +173,13 @@ const Contact = () => {
                         onChange={handleInputChange}
                         placeholder="votre@email.com"
                         required
-                        className="h-14 text-lg border-2 border-orange-200 focus:border-orange-400 bg-white"
+                        className="h-14 text-lg border-2 border-gray-200 focus:border-orange-400 bg-white rounded-xl font-inter"
                       />
                     </div>
                   </div>
                   
                   <div>
-                    <label className="block text-lg font-medium text-gray-700 mb-3">
+                    <label className="block text-lg font-medium text-gray-700 mb-3 font-poppins">
                       Sujet *
                     </label>
                     <Input
@@ -156,12 +188,12 @@ const Contact = () => {
                       onChange={handleInputChange}
                       placeholder="L'objet de votre message"
                       required
-                      className="h-14 text-lg border-2 border-orange-200 focus:border-orange-400 bg-white"
+                      className="h-14 text-lg border-2 border-gray-200 focus:border-orange-400 bg-white rounded-xl font-inter"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-lg font-medium text-gray-700 mb-3">
+                    <label className="block text-lg font-medium text-gray-700 mb-3 font-poppins">
                       Message *
                     </label>
                     <Textarea
@@ -171,17 +203,22 @@ const Contact = () => {
                       placeholder="Décrivez votre demande en détail..."
                       required
                       rows={8}
-                      className="text-lg border-2 border-orange-200 focus:border-orange-400 bg-white resize-none"
+                      className="text-lg border-2 border-gray-200 focus:border-orange-400 bg-white resize-none rounded-xl font-inter"
                     />
                   </div>
                   
-                  <Button 
-                    type="submit"
-                    className="w-full bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white py-4 text-xl font-medium h-16"
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    <Send className="w-6 h-6 mr-3" />
-                    Envoyer le message
-                  </Button>
+                    <Button 
+                      type="submit"
+                      className="w-full bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white py-6 text-xl font-medium h-16 rounded-xl font-poppins"
+                    >
+                      <Send className="w-6 h-6 mr-3" />
+                      Envoyer le message
+                    </Button>
+                  </motion.div>
                 </form>
               </CardContent>
             </Card>
@@ -194,39 +231,47 @@ const Contact = () => {
               viewport={{ once: true, margin: "-100px" }}
               variants={fadeInVariants}
             >
-              <h2 className="text-3xl font-bold text-gray-800 mb-8 font-african">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 font-poppins">
                 Nos coordonnées
               </h2>
               
-              <div className="space-y-6">
+              <motion.div 
+                variants={staggerContainer}
+                className="space-y-6"
+              >
                 {contactInfo.map((info, index) => (
-                  <Card key={index} className="border-2 border-orange-200 bg-gradient-to-br from-white to-orange-50 relative overflow-hidden hover:shadow-african transition-all duration-300">
-                    <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${info.color}`}></div>
-                    <div className="absolute inset-0 opacity-5 bg-tribal-dots"></div>
-                    
-                    <CardContent className="p-6 relative z-10">
-                      <div className="flex items-start gap-4">
-                        <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${info.color} flex items-center justify-center shadow-card flex-shrink-0`}>
-                          <info.icon className="w-6 h-6 text-white" />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="text-xl font-bold text-gray-800 mb-3 font-african">{info.title}</h3>
-                          <div className="space-y-2">
-                            <div className="flex items-center gap-2">
-                              <Mail className="w-4 h-4 text-gray-500" />
-                              <span className="text-lg text-gray-700">{info.email}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Phone className="w-4 h-4 text-gray-500" />
-                              <span className="text-lg text-gray-700">{info.phone}</span>
+                  <motion.div
+                    key={index}
+                    variants={fadeInVariants}
+                    whileHover={{ scale: 1.02, y: -2 }}
+                  >
+                    <Card className="border border-gray-200 bg-white/95 backdrop-blur-sm relative overflow-hidden hover:shadow-xl transition-all duration-300 rounded-2xl">
+                      <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${info.color}`}></div>
+                      
+                      <CardContent className="p-6 relative z-10">
+                        <div className="flex items-start gap-4">
+                          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${info.color} flex items-center justify-center shadow-xl flex-shrink-0`}>
+                            <info.icon className="w-6 h-6 text-white" />
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="text-xl font-bold text-gray-800 mb-3 font-poppins">{info.title}</h3>
+                            <div className="space-y-2">
+                              <div className="flex items-center gap-2">
+                                <Mail className="w-4 h-4 text-gray-500" />
+                                <span className="text-lg text-gray-700 font-inter">{info.email}</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <Phone className="w-4 h-4 text-gray-500" />
+                                <span className="text-lg text-gray-700 font-inter">{info.phone}</span>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -236,15 +281,39 @@ const Contact = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeInVariants}
-          className="text-center mt-16 bg-gradient-to-br from-orange-600 via-red-600 to-yellow-600 rounded-2xl p-8 relative overflow-hidden"
+          className="text-center mt-20 bg-gradient-to-br from-violet-600 via-purple-700 to-indigo-800 rounded-3xl p-10 relative overflow-hidden"
         >
-          <div className="absolute inset-0 opacity-10 bg-tribal-dots"></div>
+          {/* Background pattern */}
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.1%22%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2220%22%20r%3D%222%22/%3E%3C/g%3E%3C/svg%3E')] opacity-20" />
+          
+          <motion.div 
+            animate={{ 
+              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
+            }}
+            transition={{ 
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
+            style={{ backgroundSize: "200% 100%" }}
+          />
           
           <div className="relative z-10">
-            <p className="text-2xl text-white italic font-medium mb-4">
+            <motion.p 
+              className="text-2xl md:text-3xl text-white italic font-medium mb-4 font-inter"
+              animate={{ 
+                textShadow: [
+                  "0 0 20px rgba(255,255,255,0.5)",
+                  "0 0 30px rgba(255,255,255,0.8)",
+                  "0 0 20px rgba(255,255,255,0.5)"
+                ]
+              }}
+              transition={{ duration: 3, repeat: Infinity }}
+            >
               "Seuls, nous pouvons faire si peu ; ensemble, nous pouvons faire tant."
-            </p>
-            <p className="text-yellow-200 font-medium">
+            </motion.p>
+            <p className="text-yellow-200 font-medium text-lg font-inter">
               - Helen Keller
             </p>
           </div>
