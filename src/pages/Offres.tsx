@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Users, Star, Crown } from "lucide-react";
 import OffersHeader from "@/components/offers/OffersHeader";
@@ -6,17 +5,13 @@ import OfferCard from "@/components/offers/OfferCard";
 import AdditionalFeatures from "@/components/offers/AdditionalFeatures";
 import OffersCallToAction from "@/components/offers/OffersCallToAction";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/translations";
 
 const Offres = () => {
   const { t, language } = useLanguage();
   
   // Get features from translations as arrays
   const getFeatures = (key: string): string[] => {
-    const translations = {
-      fr: require("../translations/fr").fr,
-      en: require("../translations/en").en
-    };
-    
     const keys = key.split('.');
     let value: any = translations[language];
     
