@@ -12,18 +12,22 @@ const HeroSection = () => {
       <HeroBackground />
       
       <div className="container mx-auto px-6 py-20 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          {/* Structure en deux colonnes sur desktop, empilée sur mobile */}
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Colonne gauche - Contenu principal */}
-            <div className="flex flex-col justify-center space-y-8 lg:pr-8">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Disposition en une seule colonne centrée */}
+          <div className="space-y-16">
+            {/* Contenu principal - Titre et slogans */}
+            <div className="space-y-12">
               <HeroContent />
               <HeroButtons />
             </div>
             
-            {/* Colonne droite - Features et Stats */}
-            <div className="flex flex-col space-y-12">
+            {/* Features en ligne sur desktop, empilées sur mobile */}
+            <div className="max-w-3xl mx-auto">
               <HeroFeatures />
+            </div>
+            
+            {/* Stats en grille */}
+            <div className="max-w-2xl mx-auto">
               <HeroStats />
             </div>
           </div>

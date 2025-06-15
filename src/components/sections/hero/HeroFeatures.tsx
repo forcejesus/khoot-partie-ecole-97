@@ -34,21 +34,19 @@ const HeroFeatures = () => {
       initial="hidden"
       animate="visible"
       variants={staggerContainer}
-      className="space-y-4 mb-10"
+      className="grid md:grid-cols-3 gap-6"
     >
       {features.map((feature, index) => (
         <motion.div 
           key={index}
           variants={fadeInVariants}
-          className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20"
+          className="flex flex-col items-center text-center bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
         >
-          <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
-            <feature.icon className="w-5 h-5 text-white" />
+          <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center mb-4">
+            <feature.icon className="w-6 h-6 text-white" />
           </div>
-          <div>
-            <h3 className="font-semibold text-white font-poppins">{feature.title}</h3>
-            <p className="text-sm text-violet-200 font-inter">{feature.description}</p>
-          </div>
+          <h3 className="font-semibold text-white font-poppins mb-2">{feature.title}</h3>
+          <p className="text-sm text-violet-200 font-inter">{feature.description}</p>
         </motion.div>
       ))}
     </motion.div>
