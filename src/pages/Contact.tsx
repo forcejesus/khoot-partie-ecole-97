@@ -188,7 +188,7 @@ const Contact = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeInVariants}
-          className="max-w-4xl mx-auto"
+          className="max-w-3xl mx-auto"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-12 text-center font-poppins">
             Nos coordonnées
@@ -196,7 +196,7 @@ const Contact = () => {
           
           <motion.div 
             variants={staggerContainer}
-            className="grid md:grid-cols-3 gap-8"
+            className="space-y-6"
           >
             {contactInfo.map((info, index) => (
               <motion.div
@@ -208,18 +208,19 @@ const Contact = () => {
                   <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${info.color}`}></div>
                   
                   <CardContent className="p-6 relative z-10">
-                    <div className="flex flex-col items-center text-center gap-4">
-                      <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${info.color} flex items-center justify-center shadow-xl`}>
+                    <div className="flex items-center gap-6">
+                      <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${info.color} flex items-center justify-center shadow-xl flex-shrink-0`}>
                         <info.icon className="w-8 h-8 text-white" />
                       </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-800 mb-4 font-poppins">{info.title}</h3>
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-center gap-2">
+                      
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold text-gray-800 mb-3 font-poppins">{info.title}</h3>
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2">
                             <Mail className="w-4 h-4 text-gray-500" />
                             <span className="text-lg text-gray-700 font-inter">{info.email}</span>
                           </div>
-                          <div className="flex items-center justify-center gap-2">
+                          <div className="flex items-center gap-2">
                             <Phone className="w-4 h-4 text-gray-500" />
                             <span className="text-lg text-gray-700 font-inter">{info.phone}</span>
                           </div>
