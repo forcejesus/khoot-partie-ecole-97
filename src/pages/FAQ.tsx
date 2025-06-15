@@ -156,7 +156,7 @@ const FAQ = () => {
           </motion.p>
         </motion.div>
 
-        {/* FAQ Accordion moderne */}
+        {/* FAQ Accordion moderne avec tailles ajustées */}
         <motion.div 
           initial="hidden"
           whileInView="visible"
@@ -172,10 +172,10 @@ const FAQ = () => {
                     value={`item-${index}`}
                     className="border border-violet-100 rounded-2xl px-6 bg-gradient-to-r from-white to-violet-50/50 hover:from-violet-50 hover:to-purple-50 transition-all duration-300 shadow-sm hover:shadow-lg"
                   >
-                    <AccordionTrigger className="text-left font-semibold text-gray-800 hover:text-violet-600 transition-colors py-6 font-poppins">
+                    <AccordionTrigger className="text-left font-semibold text-gray-800 hover:text-violet-600 transition-colors py-6 font-poppins text-base">
                       {faq.question}
                     </AccordionTrigger>
-                    <AccordionContent className="text-gray-600 leading-relaxed pt-2 pb-6 font-inter">
+                    <AccordionContent className="text-gray-600 leading-relaxed pt-2 pb-6 font-inter text-lg">
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>

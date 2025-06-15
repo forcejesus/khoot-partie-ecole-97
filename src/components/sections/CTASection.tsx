@@ -41,7 +41,7 @@ const CTASection = () => {
           className="text-center max-w-5xl mx-auto"
         >
           <motion.h2 
-            className="text-4xl md:text-7xl font-bold mb-8"
+            className="text-4xl md:text-7xl font-bold mb-8 font-poppins"
             animate={{ 
               textShadow: [
                 "0 0 20px rgba(255,255,255,0.5)",
@@ -51,11 +51,11 @@ const CTASection = () => {
             }}
             transition={{ duration: 3, repeat: Infinity }}
           >
-            Prêt à transformer votre école ?
+            Engagez vos élèves autrement. Adoptez AKILI !
           </motion.h2>
           <motion.p 
             variants={fadeInVariants}
-            className="text-xl md:text-2xl mb-12 text-violet-100 leading-relaxed max-w-4xl mx-auto"
+            className="text-xl md:text-2xl mb-12 text-violet-100 leading-relaxed max-w-4xl mx-auto font-inter"
           >
             Rejoignez plus de 500 écoles qui utilisent déjà AKILI pour créer 
             des expériences d'apprentissage extraordinaires
@@ -69,7 +69,7 @@ const CTASection = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button size="lg" className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-12 py-8 text-2xl font-semibold rounded-2xl shadow-2xl border-0 relative overflow-hidden group">
+                <Button size="lg" className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-12 py-8 text-2xl font-semibold rounded-2xl shadow-2xl border-0 relative overflow-hidden group font-poppins">
                   <span className="relative z-10 flex items-center">
                     Commencer maintenant
                     <motion.div
