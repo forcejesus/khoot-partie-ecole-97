@@ -58,18 +58,18 @@ const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
         </button>
       ))}
       
-      {/* Menu Langues */}
+      {/* Menu Langues - Uniquement les drapeaux */}
       <div className="relative">
         <button
           onClick={() => setIsLanguageOpen(!isLanguageOpen)}
           className={`${linkClasses} flex items-center gap-2`}
         >
-          Langues
+          <span className="text-xl">🇫🇷</span>
           <ChevronDown className={`w-4 h-4 transition-transform ${isLanguageOpen ? 'rotate-180' : ''}`} />
         </button>
         
         {isLanguageOpen && (
-          <div className={`absolute ${isMobile ? 'left-0 top-full mt-2' : 'right-0 top-full mt-2'} bg-white border border-gray-200 rounded-lg shadow-lg py-2 min-w-[150px] z-50`}>
+          <div className={`absolute ${isMobile ? 'left-0 top-full mt-2' : 'right-0 top-full mt-2'} bg-white border border-gray-200 rounded-lg shadow-lg py-2 min-w-[80px] z-50`}>
             {languages.map((language) => (
               <button
                 key={language.code}
@@ -79,10 +79,10 @@ const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
                   setIsLanguageOpen(false);
                   if (isMobile) closeMenu();
                 }}
-                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors flex items-center gap-2"
+                className="w-full text-center px-3 py-2 text-xl hover:bg-orange-50 transition-colors flex items-center justify-center"
+                title={language.label}
               >
-                <span>{language.flag}</span>
-                {language.label}
+                {language.flag}
               </button>
             ))}
           </div>
