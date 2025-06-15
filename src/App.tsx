@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import ScrollToTop from "@/components/ScrollToTop";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -41,72 +42,74 @@ const App: React.FC = () => {
           <ScrollToTop />
           <TooltipProvider>
             <ThemeProvider>
-              <AuthProvider>
-                <Toaster />
-                <Sonner position="top-right" />
-                <Routes>
-                  {/* Routes publiques avec Navbar AKILI et Footer */}
-                  <Route path="/" element={<><Navbar /><Index /><Footer /></>} />
-                  <Route path="/offres" element={<><Navbar /><Offres /><Footer /></>} />
-                  <Route path="/solution" element={<><Navbar /><Solution /><Footer /></>} />
-                  <Route path="/contact" element={<><Navbar /><Contact /><Footer /></>} />
-                  <Route path="/inscription-ecoles" element={<><Navbar /><InscriptionEcoles /><Footer /></>} />
-                  <Route path="/login" element={<><Navbar /><Login /><Footer /></>} />
-                  
-                  {/* Routes protégées avec Dashboard Layout AKILI */}
-                  <Route
-                    path="/dashboard"
-                    element={
-                      <ProtectedRoute>
-                        <DashboardLayout>
-                          <Dashboard />
-                        </DashboardLayout>
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/apprenants"
-                    element={
-                      <ProtectedRoute>
-                        <DashboardLayout>
-                          <Apprenants />
-                        </DashboardLayout>
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/enseignants"
-                    element={
-                      <ProtectedRoute>
-                        <DashboardLayout>
-                          <Enseignants />
-                        </DashboardLayout>
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/jeux"
-                    element={
-                      <ProtectedRoute>
-                        <DashboardLayout>
-                          <Jeux />
-                        </DashboardLayout>
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/settings"
-                    element={
-                      <ProtectedRoute>
-                        <DashboardLayout>
-                          <Settings />
-                        </DashboardLayout>
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route path="*" element={<Navigate to="/" replace />} />
-                </Routes>
-              </AuthProvider>
+              <LanguageProvider>
+                <AuthProvider>
+                  <Toaster />
+                  <Sonner position="top-right" />
+                  <Routes>
+                    {/* Routes publiques avec Navbar AKILI et Footer */}
+                    <Route path="/" element={<><Navbar /><Index /><Footer /></>} />
+                    <Route path="/offres" element={<><Navbar /><Offres /><Footer /></>} />
+                    <Route path="/solution" element={<><Navbar /><Solution /><Footer /></>} />
+                    <Route path="/contact" element={<><Navbar /><Contact /><Footer /></>} />
+                    <Route path="/inscription-ecoles" element={<><Navbar /><InscriptionEcoles /><Footer /></>} />
+                    <Route path="/login" element={<><Navbar /><Login /><Footer /></>} />
+                    
+                    {/* Routes protégées avec Dashboard Layout AKILI */}
+                    <Route
+                      path="/dashboard"
+                      element={
+                        <ProtectedRoute>
+                          <DashboardLayout>
+                            <Dashboard />
+                          </DashboardLayout>
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/apprenants"
+                      element={
+                        <ProtectedRoute>
+                          <DashboardLayout>
+                            <Apprenants />
+                          </DashboardLayout>
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/enseignants"
+                      element={
+                        <ProtectedRoute>
+                          <DashboardLayout>
+                            <Enseignants />
+                          </DashboardLayout>
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/jeux"
+                      element={
+                        <ProtectedRoute>
+                          <DashboardLayout>
+                            <Jeux />
+                          </DashboardLayout>
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/settings"
+                      element={
+                        <ProtectedRoute>
+                          <DashboardLayout>
+                            <Settings />
+                          </DashboardLayout>
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                  </Routes>
+                </AuthProvider>
+              </LanguageProvider>
             </ThemeProvider>
           </TooltipProvider>
         </BrowserRouter>

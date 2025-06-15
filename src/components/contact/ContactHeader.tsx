@@ -2,8 +2,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Sparkles, MessageCircle } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ContactHeader = () => {
+  const { t } = useLanguage();
+  
   const fadeInVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
@@ -29,7 +32,7 @@ const ContactHeader = () => {
           transition={{ duration: 2, repeat: Infinity }}
           className="w-2 h-2 bg-orange-500 rounded-full"
         />
-        <span className="text-sm font-medium text-gray-700 font-inter">Restons connectés</span>
+        <span className="text-sm font-medium text-gray-700 font-inter">{t("contact.badge")}</span>
         <Sparkles className="w-4 h-4 text-orange-500" />
       </motion.div>
       
@@ -40,13 +43,12 @@ const ContactHeader = () => {
           transition={{ duration: 5, repeat: Infinity }}
           style={{ backgroundSize: "200% 200%" }}
         >
-          Contactez-nous
+          {t("contact.title")}
         </motion.span>
       </h1>
       
       <p className="text-lg md:text-xl text-gray-700 mt-8 max-w-4xl mx-auto font-medium leading-relaxed font-inter">
-        Nous sommes là pour vous accompagner dans votre transformation éducative. 
-        Partageons ensemble la vision d'une Afrique éduquée et connectée !
+        {t("contact.subtitle")}
       </p>
 
       {/* Ornements décoratifs */}

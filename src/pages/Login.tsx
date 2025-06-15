@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -12,6 +13,7 @@ const Login = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const { login, isLoading, user } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,17 +50,17 @@ const Login = () => {
           <div className="h-2 bg-gradient-to-r from-primary via-primary-light to-primary-dark" />
           <CardHeader className="space-y-2 text-center pb-2 pt-6">
             <CardTitle className="text-3xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              KHOOT ECES
+              {t("login.title")}
             </CardTitle>
             <CardDescription className="text-muted-foreground">
-              Connectez-vous à votre compte pour accéder à votre espace
+              {t("login.subtitle")}
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-4 pb-8 px-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-700">
-                  Email
+                  {t("login.email")}
                 </label>
                 <div className="relative">
                   <Input
@@ -74,13 +76,13 @@ const Login = () => {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <label className="text-sm font-medium text-gray-700">
-                    Mot de passe
+                    {t("login.password")}
                   </label>
                   <a 
                     href="#" 
                     className="text-xs text-primary hover:text-primary-dark transition-colors"
                   >
-                    Mot de passe oublié?
+                    {t("login.forgotPassword")}
                   </a>
                 </div>
                 <div className="relative">
@@ -101,12 +103,12 @@ const Login = () => {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Connexion en cours...
+                    {t("login.loggingIn")}
                   </>
                 ) : (
                   <>
                     <LogIn className="mr-2 h-4 w-4" />
-                    Se connecter
+                    {t("login.loginButton")}
                   </>
                 )}
               </Button>
@@ -115,12 +117,12 @@ const Login = () => {
         </Card>
         <div className="mt-4 text-center text-sm text-gray-500">
           <p>
-            Pas encore de compte? {" "}
+            {t("login.noAccount")} {" "}
             <a 
               href="#" 
               className="font-medium text-primary hover:text-primary-dark transition-colors"
             >
-              Contactez votre administrateur
+              {t("login.contactAdmin")}
             </a>
           </p>
         </div>

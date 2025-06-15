@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useLanguage } from "@/contexts/LanguageContext";
 import Logo from "./navbar/Logo";
 import NavLinks from "./navbar/NavLinks";
 import MobileMenu from "./navbar/MobileMenu";
@@ -19,6 +20,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const isMobile = useIsMobile();
+  const { t } = useLanguage();
   
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -76,7 +78,7 @@ const Navbar = () => {
                 className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 px-6 py-2 text-sm font-semibold rounded-full border-0"
                 size="sm"
               >
-                Se connecter
+                {t("nav.login")}
               </Button>
             </Link>
           </div>
@@ -102,7 +104,7 @@ const Navbar = () => {
                     className="w-full bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white shadow-lg text-lg py-6 relative overflow-hidden group"
                   >
                     <span className="relative z-10 font-bold">
-                      Se connecter à AKILI
+                      {t("nav.login")} AKILI
                     </span>
                   </Button>
                 </Link>

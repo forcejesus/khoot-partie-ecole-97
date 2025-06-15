@@ -2,9 +2,11 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, Gamepad2 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { JeuxList } from "@/components/JeuxList";
 
 const Jeux = () => {
+  const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
@@ -28,12 +30,12 @@ const Jeux = () => {
           </div>
           
           <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-african mb-4">
-            Jeux Éducatifs AKILI
+            {t("games.title")}
           </h1>
           <div className="w-32 h-2 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 mx-auto rounded-full shadow-african" />
           
           <p className="text-xl text-gray-700 mt-6 font-medium">
-            L'apprentissage par le jeu, tradition africaine millénaire
+            {t("games.subtitle")}
           </p>
         </div>
 
@@ -45,7 +47,7 @@ const Jeux = () => {
           <div className="relative max-w-md mx-auto z-10">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
             <Input
-              placeholder="Rechercher un jeu éducatif..."
+              placeholder={t("games.search")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-12 border-2 border-orange-200 focus:border-orange-400 bg-white/90 text-lg py-3"

@@ -3,8 +3,11 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ContactInfo = () => {
+  const { t } = useLanguage();
+  
   const fadeInVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
@@ -27,21 +30,21 @@ const ContactInfo = () => {
   const contactInfo = [
     {
       icon: Mail,
-      title: "Support technique",
+      title: t("contact.support"),
       email: "support@akili-education.cg",
       phone: "+242 06 956 53 90",
       color: "from-blue-500 to-cyan-500"
     },
     {
       icon: Mail,
-      title: "Partenariats",
+      title: t("contact.partnerships"),
       email: "partenaires@akili-education.cg", 
       phone: "+242 06 956 53 91",
       color: "from-green-500 to-emerald-500"
     },
     {
       icon: Mail,
-      title: "Formations",
+      title: t("contact.training"),
       email: "formations@akili-education.cg",
       phone: "+242 06 956 53 92",
       color: "from-orange-500 to-red-500"
@@ -57,7 +60,7 @@ const ContactInfo = () => {
       className="max-w-3xl mx-auto"
     >
       <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-12 text-center font-poppins">
-        Nos coordonnées
+        {t("contact.coordinates")}
       </h2>
       
       <motion.div 

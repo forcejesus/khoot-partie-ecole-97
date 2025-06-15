@@ -1,36 +1,38 @@
 
 import React from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, BookOpen, Trophy, TrendingUp } from "lucide-react";
 
 const Dashboard = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
 
   const stats = [
     {
-      title: "Apprenants actifs",
+      title: t("dashboard.stats.activeStudents"),
       value: "245",
       icon: Users,
       color: "from-orange-500 to-red-500",
       bgPattern: "bg-tribal-dots"
     },
     {
-      title: "Jeux disponibles", 
+      title: t("dashboard.stats.availableGames"), 
       value: "12",
       icon: BookOpen,
       color: "from-african-gold to-african-ochre",
       bgPattern: "bg-kente-stripes"
     },
     {
-      title: "Taux de réussite",
+      title: t("dashboard.stats.successRate"),
       value: "87%", 
       icon: Trophy,
       color: "from-african-terracotta to-african-sunset",
       bgPattern: "bg-mask-texture"
     },
     {
-      title: "Progression moyenne",
+      title: t("dashboard.stats.averageProgress"),
       value: "+12%",
       icon: TrendingUp,
       color: "from-green-500 to-african-savanna",
@@ -59,13 +61,13 @@ const Dashboard = () => {
           </div>
           
           <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-african mb-4">
-            Tableau de bord AKILI
+            {t("dashboard.title")}
           </h1>
           <div className="w-32 h-2 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 mx-auto rounded-full shadow-african" />
           
           {user && (
             <p className="text-xl text-gray-700 mt-6 font-medium">
-              Bienvenue, <span className="text-orange-600 font-bold">{user.name}</span> !
+              {t("dashboard.welcome")}, <span className="text-orange-600 font-bold">{user.name}</span> !
             </p>
           )}
         </div>
@@ -113,12 +115,12 @@ const Dashboard = () => {
                 <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
                   <Users className="h-4 w-4 text-white" />
                 </div>
-                Activité récente
+                {t("dashboard.recentActivity")}
               </CardTitle>
             </CardHeader>
             <CardContent className="relative z-10">
               <p className="text-gray-600">
-                Visualisez l'activité de vos apprenants avec la sagesse numérique AKILI.
+                {t("dashboard.recentActivityDesc")}
               </p>
               
               {/* Motifs décoratifs */}
@@ -141,12 +143,12 @@ const Dashboard = () => {
                 <div className="w-8 h-8 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center">
                   <Trophy className="h-4 w-4 text-white" />
                 </div>
-                Performances
+                {t("dashboard.performance")}
               </CardTitle>
             </CardHeader>
             <CardContent className="relative z-10">
               <p className="text-gray-600">
-                Suivez les progrès avec l'intelligence africaine traditionnelle.
+                {t("dashboard.performanceDesc")}
               </p>
               
               {/* Motifs décoratifs */}

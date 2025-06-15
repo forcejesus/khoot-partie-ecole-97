@@ -1,8 +1,11 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ContactQuote = () => {
+  const { t } = useLanguage();
+  
   const fadeInVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
@@ -48,10 +51,10 @@ const ContactQuote = () => {
           }}
           transition={{ duration: 3, repeat: Infinity }}
         >
-          "Seuls, nous pouvons faire si peu ; ensemble, nous pouvons faire tant."
+          "{t("contact.quote")}"
         </motion.p>
         <p className="text-yellow-200 font-medium text-lg font-inter">
-          - Helen Keller
+          - {t("contact.quoteAuthor")}
         </p>
       </div>
     </motion.div>

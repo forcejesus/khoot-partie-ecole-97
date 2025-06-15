@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface NavLinksProps {
   isActive: (path: string) => boolean;
@@ -11,6 +12,7 @@ interface NavLinksProps {
 
 const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
   const navigate = useNavigate();
+  const { language, setLanguage, t } = useLanguage();
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
 
   const handleNavigation = (path: string) => {
@@ -35,16 +37,18 @@ const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
     : "font-semibold text-base lg:text-lg text-orange-600 px-4 py-2 bg-gradient-to-r from-orange-100 to-red-100 rounded-lg border border-orange-200";
 
   const navigationItems = [
-    { path: "/", label: "Accueil" },
-    { path: "/offres", label: "Nos offres" },
-    { path: "/solution", label: "Notre Solution" },
-    { path: "/contact", label: "Contactez-nous" }
+    { path: "/", label: t("nav.home") },
+    { path: "/offres", label: t("nav.offers") },
+    { path: "/solution", label: t("nav.solution") },
+    { path: "/contact", label: t("nav.contact") }
   ];
 
   const languages = [
-    { code: "fr", label: "Français", flag: "🇫🇷" },
-    { code: "en", label: "English", flag: "🇬🇧" }
+    { code: "fr" as const, label: "Français", flag: "🇫🇷" },
+    { code: "en" as const, label: "English", flag: "🇬🇧" }
   ];
+
+  const currentFlag = language === "fr" ? "🇫🇷" : "🇬🇧";
 
   return (
     <>
@@ -64,25 +68,26 @@ const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
           onClick={() => setIsLanguageOpen(!isLanguageOpen)}
           className={`${linkClasses} flex items-center gap-2`}
         >
-          <span className="text-xl">🇫🇷</span>
+          <span className="text-xl">{currentFlag}</span>
           <ChevronDown className={`w-4 h-4 transition-transform ${isLanguageOpen ? 'rotate-180' : ''}`} />
         </button>
         
         {isLanguageOpen && (
           <div className={`absolute ${isMobile ? 'left-0 top-full mt-2' : 'right-0 top-full mt-2'} bg-white border border-gray-200 rounded-lg shadow-lg py-2 min-w-[80px] z-50`}>
-            {languages.map((language) => (
+            {languages.map((lang) => (
               <button
-                key={language.code}
+                key={lang.code}
                 onClick={() => {
-                  // Ici vous pouvez ajouter la logique de changement de langue
-                  console.log(`Changement vers ${language.label}`);
+                  setLanguage(lang.code);
                   setIsLanguageOpen(false);
                   if (isMobile) closeMenu();
                 }}
-                className="w-full text-center px-3 py-2 text-xl hover:bg-orange-50 transition-colors flex items-center justify-center"
-                title={language.label}
+                className={`w-full text-center px-3 py-2 text-xl hover:bg-orange-50 transition-colors flex items-center justify-center ${
+                  language === lang.code ? 'bg-orange-100' : ''
+                }`}
+                title={lang.label}
               >
-                {language.flag}
+                {lang.flag}
               </button>
             ))}
           </div>

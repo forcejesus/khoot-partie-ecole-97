@@ -1,8 +1,11 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const HeroContent = () => {
+  const { t } = useLanguage();
+  
   const fadeInVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
@@ -53,7 +56,7 @@ const HeroContent = () => {
             }}
             style={{ backgroundSize: "200% 200%" }}
           >
-            AKILI
+            {t("home.title")}
           </motion.span>
         </motion.h1>
       </motion.div>
@@ -71,7 +74,7 @@ const HeroContent = () => {
           }}
           transition={{ duration: 4, repeat: Infinity }}
         >
-          La rencontre entre le jeu et le savoir
+          {t("home.subtitle")}
         </motion.h2>
         
         {/* Slogans */}
@@ -83,15 +86,14 @@ const HeroContent = () => {
             variants={fadeInVariants}
             className="text-lg md:text-xl lg:text-2xl text-violet-100 leading-relaxed font-light font-inter"
           >
-            Une application conçue pour <span className="font-bold text-orange-300 bg-orange-300/20 px-2 py-1 rounded-lg">faire aimer l'apprentissage</span> aux jeunes.
+            {t("home.description1")}
           </motion.p>
           
           <motion.p 
             variants={fadeInVariants}
             className="text-lg md:text-xl lg:text-2xl text-violet-100 leading-relaxed font-light font-inter"
           >
-            Plutôt que de combattre l'addiction aux écrans, 
-            <span className="font-bold text-yellow-300 bg-yellow-300/20 px-2 py-1 rounded-lg ml-2">AKILI la réinvente pour le bien</span>.
+            {t("home.description2")}
           </motion.p>
         </motion.div>
       </motion.div>

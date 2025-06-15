@@ -1,12 +1,15 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Plus, Upload, Users } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { AddApprenantDialog } from "@/components/AddApprenantDialog";
 import BulkImportModal from "@/components/BulkImportModal";
 import { ApprenantsList } from "@/components/ApprenantsList";
 
 const Apprenants = () => {
+  const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState("");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isBulkImportOpen, setIsBulkImportOpen] = useState(false);
@@ -37,12 +40,12 @@ const Apprenants = () => {
           </div>
           
           <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-african mb-4">
-            Gestion des Apprenants AKILI
+            {t("students.title")}
           </h1>
           <div className="w-32 h-2 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 mx-auto rounded-full shadow-african" />
           
           <p className="text-xl text-gray-700 mt-6 font-medium">
-            Cultivez l'intelligence de vos jeunes pousses africaines
+            {t("students.subtitle")}
           </p>
         </div>
 
@@ -55,7 +58,7 @@ const Apprenants = () => {
             <div className="relative flex-1 max-w-md">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <Input
-                placeholder="Rechercher un apprenant par nom ou classe..."
+                placeholder={t("students.search")}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10 border-2 border-orange-200 focus:border-orange-400 bg-white/90"
@@ -69,7 +72,7 @@ const Apprenants = () => {
                 className="border-2 border-orange-300 text-orange-600 hover:bg-orange-50 font-medium"
               >
                 <Upload className="mr-2 h-4 w-4" />
-                Import CSV
+                {t("students.importCsv")}
               </Button>
               
               <Button
@@ -77,7 +80,7 @@ const Apprenants = () => {
                 className="bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 hover:from-orange-600 hover:via-red-600 hover:to-yellow-600 text-white border-2 border-orange-300/40 shadow-african transition-all duration-300 font-medium"
               >
                 <Plus className="mr-2 h-4 w-4" />
-                Ajouter un apprenant
+                {t("students.addStudent")}
               </Button>
             </div>
           </div>

@@ -9,8 +9,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ContactFAQ = () => {
+  const { t } = useLanguage();
+  
   const fadeInVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
@@ -22,28 +25,28 @@ const ContactFAQ = () => {
 
   const faqData = [
     {
-      question: "Qu'est-ce qu'AKILI ?",
-      answer: "AKILI est une plateforme d'apprentissage interactif qui transforme l'éducation en Afrique grâce à des quiz et jeux éducatifs innovants. Notre mission est de faire aimer l'apprentissage aux jeunes en réinventant l'usage des écrans pour le bien."
+      question: t("contact.faqQuestions.q1"),
+      answer: t("contact.faqQuestions.a1")
     },
     {
-      question: "Comment fonctionne la plateforme AKILI ?",
-      answer: "AKILI propose des contenus éducatifs gamifiés adaptés aux programmes scolaires africains. Les enseignants peuvent créer des quiz interactifs, suivre les progrès des élèves et utiliser des outils pédagogiques modernes pour enrichir leurs cours."
+      question: t("contact.faqQuestions.q2"),
+      answer: t("contact.faqQuestions.a2")
     },
     {
-      question: "Quels sont les tarifs d'AKILI ?",
-      answer: "Nous proposons plusieurs formules adaptées aux besoins des établissements : une offre Essentiels à partir de 15 000 FCFA/mois, une offre Avancée à 25 000 FCFA/mois, et une offre Premium à 40 000 FCFA/mois. Contactez-nous pour un devis personnalisé."
+      question: t("contact.faqQuestions.q3"),
+      answer: t("contact.faqQuestions.a3")
     },
     {
-      question: "AKILI est-il disponible hors ligne ?",
-      answer: "Oui, AKILI propose des fonctionnalités hors ligne pour garantir la continuité pédagogique même dans les zones avec une connectivité limitée. Les contenus peuvent être synchronisés dès que la connexion est rétablie."
+      question: t("contact.faqQuestions.q4"),
+      answer: t("contact.faqQuestions.a4")
     },
     {
-      question: "Comment puis-je former mes enseignants à AKILI ?",
-      answer: "Nous proposons des formations complètes pour accompagner vos équipes pédagogiques. Nos formateurs certifiés assurent la prise en main de la plateforme et partagent les meilleures pratiques d'enseignement numérique."
+      question: t("contact.faqQuestions.q5"),
+      answer: t("contact.faqQuestions.a5")
     },
     {
-      question: "Dans quels pays AKILI est-il disponible ?",
-      answer: "AKILI est actuellement déployé dans plusieurs pays d'Afrique subsaharienne. Nous nous adaptons aux programmes scolaires locaux et aux langues d'enseignement de chaque région."
+      question: t("contact.faqQuestions.q6"),
+      answer: t("contact.faqQuestions.a6")
     }
   ];
 
@@ -62,14 +65,14 @@ const ContactFAQ = () => {
           whileHover={{ scale: 1.05 }}
         >
           <HelpCircle className="w-5 h-5 text-blue-500" />
-          <span className="text-sm font-medium text-gray-700 font-inter">Questions fréquentes</span>
+          <span className="text-sm font-medium text-gray-700 font-inter">{t("contact.faqQuestions")}</span>
         </motion.div>
         
         <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 font-poppins">
-          FAQ
+          {t("contact.faq")}
         </h2>
         <p className="text-lg text-gray-600 font-inter">
-          Trouvez rapidement les réponses à vos questions les plus courantes
+          {t("contact.faqSubtitle")}
         </p>
       </div>
 
