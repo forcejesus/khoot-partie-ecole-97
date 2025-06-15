@@ -3,7 +3,6 @@ import React from "react";
 import HeroContent from "./hero/HeroContent";
 import HeroFeatures from "./hero/HeroFeatures";
 import HeroButtons from "./hero/HeroButtons";
-import HeroStats from "./hero/HeroStats";
 import HeroBackground from "./hero/HeroBackground";
 
 const HeroSection = () => {
@@ -13,9 +12,8 @@ const HeroSection = () => {
       
       <div className="container mx-auto px-6 py-20 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Disposition en une seule colonne centrée */}
           <div className="space-y-16">
-            {/* Contenu principal - Titre et slogans */}
+            {/* Contenu principal centré - Titre et slogans */}
             <div className="space-y-12">
               <HeroContent />
               <HeroButtons />
@@ -24,11 +22,6 @@ const HeroSection = () => {
             {/* Features en ligne sur desktop, empilées sur mobile */}
             <div className="max-w-3xl mx-auto">
               <HeroFeatures />
-            </div>
-            
-            {/* Stats en grille */}
-            <div className="max-w-2xl mx-auto">
-              <HeroStats />
             </div>
           </div>
         </div>

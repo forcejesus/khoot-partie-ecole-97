@@ -1,7 +1,6 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
 
 const HeroContent = () => {
   const fadeInVariants = {
@@ -28,23 +27,9 @@ const HeroContent = () => {
       initial="hidden"
       animate="visible"
       variants={staggerContainer}
-      className="text-left lg:text-left"
+      className="text-center"
     >
-      {/* Badge de présentation */}
-      <motion.div 
-        variants={fadeInVariants}
-        className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-6 py-3 mb-8 border border-white/20 shadow-lg"
-      >
-        <motion.div 
-          animate={{ scale: [1, 1.2, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-2 h-2 bg-green-400 rounded-full"
-        />
-        <span className="text-sm font-medium text-white/90 font-inter">Révolutionnez l'éducation en Afrique</span>
-        <Sparkles className="w-4 h-4 text-yellow-300" />
-      </motion.div>
-
-      {/* Titre AKILI - Plus compact et impactant */}
+      {/* Titre AKILI centré */}
       <motion.div
         variants={fadeInVariants}
         className="mb-8"
@@ -73,7 +58,7 @@ const HeroContent = () => {
         </motion.h1>
       </motion.div>
 
-      {/* Slogan principal compact */}
+      {/* Slogan principal centré */}
       <motion.div
         variants={staggerContainer}
         className="space-y-6"
