@@ -76,8 +76,8 @@ const Footer = () => {
                 { to: "/", label: "Accueil" },
                 { to: "/offres", label: "Nos offres" },
                 { to: "/solution", label: "Notre Solution" },
-                { to: "/faq", label: "FAQ" },
-                { to: "/contact", label: "Contact" }
+                { to: "/contact", label: "Contact" },
+                { to: "/contact#faq", label: "FAQ" }
               ].map(({ to, label }) => (
                 <li key={to}>
                   <Link 
