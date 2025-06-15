@@ -18,6 +18,30 @@ const InscriptionEcoles = () => {
     }
   };
 
+  // Get the steps array from translations
+  const processSteps = [
+    {
+      number: "01",
+      title: t("schoolRegistration.process.steps.0.title"),
+      description: t("schoolRegistration.process.steps.0.description")
+    },
+    {
+      number: "02", 
+      title: t("schoolRegistration.process.steps.1.title"),
+      description: t("schoolRegistration.process.steps.1.description")
+    },
+    {
+      number: "03",
+      title: t("schoolRegistration.process.steps.2.title"),
+      description: t("schoolRegistration.process.steps.2.description")
+    },
+    {
+      number: "04",
+      title: t("schoolRegistration.process.steps.3.title"),
+      description: t("schoolRegistration.process.steps.3.description")
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50 relative overflow-hidden">
       <div className="fixed inset-0 opacity-5 bg-kente-stripes pointer-events-none"></div>
@@ -223,7 +247,7 @@ const InscriptionEcoles = () => {
             </Card>
 
             <div className="space-y-6">
-              {t("schoolRegistration.process.steps").map((step: any, index: number) => (
+              {processSteps.map((step, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: 30 }}

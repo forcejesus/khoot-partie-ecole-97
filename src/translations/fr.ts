@@ -1,5 +1,3 @@
-
-
 export const fr = {
   // Navigation
   nav: {
@@ -234,7 +232,7 @@ export const fr = {
       },
       multilingual: {
         title: "Bilingue",
-        description: "Interface disponible en français et en anglais"
+        description: "Interface disponible en français et en anglais seulement"
       },
       performance: {
         title: "Performance optimale",
