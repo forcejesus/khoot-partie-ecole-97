@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -299,7 +298,7 @@ const Solution = () => {
           </div>
         </motion.section>
 
-        {/* Call to action amélioré */}
+        {/* Call to action modifié - sans le bouton démo */}
         <motion.div 
           initial="hidden"
           whileInView="visible"
@@ -308,7 +307,7 @@ const Solution = () => {
           className="text-center bg-gradient-to-br from-violet-600 via-purple-700 to-indigo-800 rounded-3xl p-12 relative overflow-hidden"
         >
           {/* Background pattern */}
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.1%22%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2220%22%20r%3D%222%22/%3E%3C/g%3E%3C/svg%3E')] opacity-20" />
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.1%22%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2220%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20" />
           
           <motion.div 
             animate={{ 
@@ -350,7 +349,7 @@ const Solution = () => {
               pour exceller dans le monde numérique tout en honorant leurs racines africaines.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <div className="flex justify-center">
               <Link to="/offres">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -367,16 +366,6 @@ const Solution = () => {
                       </motion.div>
                     </span>
                     <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </Button>
-                </motion.div>
-              </Link>
-              
-              <Link to="/contact">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <Button variant="outline" size="lg" className="border-2 border-white text-white hover:bg-white/10 px-8 py-6 text-lg rounded-2xl backdrop-blur-sm font-poppins">
-                    Demander une démo
                   </Button>
                 </motion.div>
               </Link>
