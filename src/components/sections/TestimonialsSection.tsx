@@ -2,8 +2,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Star, TrendingUp } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const TestimonialsSection = () => {
+  const { t } = useLanguage();
+  
   const fadeInVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
@@ -25,24 +28,24 @@ const TestimonialsSection = () => {
 
   const testimonials = [
     {
-      name: "Dr. Amadou Diallo",
-      role: "Directeur, École Internationale de Dakar",
+      name: t("home.testimonials.testimonial1.name"),
+      role: t("home.testimonials.testimonial1.role"),
       image: "👨🏿‍🏫",
-      quote: "AKILI a révolutionné notre approche pédagogique. Les élèves sont plus engagés et nos résultats ont augmenté de 40%.",
+      quote: t("home.testimonials.testimonial1.quote"),
       rating: 5
     },
     {
-      name: "Fatima Nkomo",
-      role: "Enseignante de Mathématiques, Yaoundé",
+      name: t("home.testimonials.testimonial2.name"),
+      role: t("home.testimonials.testimonial2.role"),
       image: "👩🏿‍🏫",
-      quote: "Mes cours sont devenus interactifs et amusants. Les élèves participent comme jamais auparavant !",
+      quote: t("home.testimonials.testimonial2.quote"),
       rating: 5
     },
     {
-      name: "Emmanuel Okafor",
-      role: "Coordinateur IT, Lagos Academy",
+      name: t("home.testimonials.testimonial3.name"),
+      role: t("home.testimonials.testimonial3.role"),
       image: "👨🏿‍💼",
-      quote: "L'interface est intuitive et la plateforme fonctionne parfaitement même avec notre connexion limitée.",
+      quote: t("home.testimonials.testimonial3.quote"),
       rating: 5
     }
   ];
@@ -61,20 +64,38 @@ const TestimonialsSection = () => {
         >
           <motion.div variants={fadeInVariants} className="inline-flex items-center gap-2 bg-violet-100 rounded-full px-6 py-2 mb-8">
             <TrendingUp className="w-5 h-5 text-violet-600" />
-            <span className="text-violet-700 font-semibold">Témoignages</span>
+            <span className="text-violet-700 font-semibold">{t("home.testimonials.badge")}</span>
           </motion.div>
           
           <motion.h2 
             variants={fadeInVariants}
             className="text-4xl md:text-6xl font-bold text-gray-900 mb-8"
           >
-            Rejoignez les <span className="text-transparent bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text">leaders de l'éducation</span>
+            {t("home.testimonials.title").split("leaders").length > 1 ? (
+              <>
+                {t("home.testimonials.title").split("leaders")[0]}
+                <span className="text-transparent bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text">leaders</span>
+                {t("home.testimonials.title").split("leaders")[1]}
+              </>
+            ) : (
+              <>
+                {t("home.testimonials.title").split("leader").length > 1 ? (
+                  <>
+                    {t("home.testimonials.title").split("leader")[0]}
+                    <span className="text-transparent bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text">leader</span>
+                    {t("home.testimonials.title").split("leader")[1]}
+                  </>
+                ) : (
+                  t("home.testimonials.title")
+                )}
+              </>
+            )}
           </motion.h2>
           <motion.p 
             variants={fadeInVariants}
             className="text-xl text-gray-600 max-w-4xl mx-auto"
           >
-            Découvrez comment AKILI transforme l'apprentissage dans les écoles africaines
+            {t("home.testimonials.subtitle")}
           </motion.p>
         </motion.div>
         

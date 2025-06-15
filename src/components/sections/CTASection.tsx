@@ -4,8 +4,11 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const CTASection = () => {
+  const { t } = useLanguage();
+  
   const fadeInVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
@@ -51,14 +54,13 @@ const CTASection = () => {
             }}
             transition={{ duration: 3, repeat: Infinity }}
           >
-            Engagez vos élèves autrement. Adoptez AKILI !
+            {t("home.cta.title")}
           </motion.h2>
           <motion.p 
             variants={fadeInVariants}
             className="text-xl md:text-2xl mb-12 text-violet-100 leading-relaxed max-w-4xl mx-auto font-inter"
           >
-            Rejoignez plus de 500 écoles qui utilisent déjà AKILI pour créer 
-            des expériences d'apprentissage extraordinaires
+            {t("home.cta.subtitle")}
           </motion.p>
           <motion.div 
             variants={fadeInVariants}
@@ -71,7 +73,7 @@ const CTASection = () => {
               >
                 <Button size="lg" className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-12 py-8 text-2xl font-semibold rounded-2xl shadow-2xl border-0 relative overflow-hidden group font-poppins">
                   <span className="relative z-10 flex items-center">
-                    Commencer maintenant
+                    {t("home.cta.button")}
                     <motion.div
                       animate={{ x: [0, 5, 0] }}
                       transition={{ duration: 1.5, repeat: Infinity }}

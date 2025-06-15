@@ -2,8 +2,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { BookOpen } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const FeaturesSection = () => {
+  const { t } = useLanguage();
+  
   const fadeInVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
@@ -27,22 +30,22 @@ const FeaturesSection = () => {
     {
       color: "from-orange-500 to-red-500",
       icon: "🎯",
-      title: "Quiz en temps réel",
-      description: "Créez des quiz interactifs que vos élèves adorent. Questions variées, résultats instantanés.",
+      title: t("home.features.quiz.title"),
+      description: t("home.features.quiz.description"),
       gradient: "hover:from-orange-600 hover:to-red-600"
     },
     {
       color: "from-green-500 to-emerald-500", 
       icon: "📊",
-      title: "Analyses détaillées",
-      description: "Suivez les progrès individuels et collectifs avec des rapports visuels et actionables.",
+      title: t("home.features.analytics.title"),
+      description: t("home.features.analytics.description"),
       gradient: "hover:from-green-600 hover:to-emerald-600"
     },
     {
       color: "from-blue-500 to-indigo-500",
       icon: "🏆", 
-      title: "Gamification",
-      description: "Badges, classements et récompenses pour maintenir la motivation au maximum.",
+      title: t("home.features.gamification.title"),
+      description: t("home.features.gamification.description"),
       gradient: "hover:from-blue-600 hover:to-indigo-600"
     }
   ];
@@ -61,21 +64,39 @@ const FeaturesSection = () => {
         >
           <motion.div variants={fadeInVariants} className="inline-flex items-center gap-2 bg-violet-100 rounded-full px-6 py-2 mb-8">
             <BookOpen className="w-5 h-5 text-violet-600" />
-            <span className="text-violet-700 font-semibold">Fonctionnalités</span>
+            <span className="text-violet-700 font-semibold">{t("home.features.badge")}</span>
           </motion.div>
           
           <motion.h2 
             variants={fadeInVariants}
             className="text-4xl md:text-6xl font-bold text-gray-900 mb-8 leading-tight"
           >
-            Tout ce dont vous avez besoin pour 
-            <span className="text-transparent bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text"> captiver vos élèves</span>
+            {t("home.features.title").split(" captiver vos élèves").length > 1 ? (
+              <>
+                {t("home.features.title").split(" captiver vos élèves")[0]}
+                <span className="text-transparent bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text"> captiver vos élèves</span>
+              </>
+            ) : (
+              <>
+                {t("home.features.title").split(" captivate your students").length > 1 ? (
+                  <>
+                    {t("home.features.title").split(" captivate your students")[0]}
+                    <span className="text-transparent bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text"> captivate your students</span>
+                  </>
+                ) : (
+                  <>
+                    {t("home.features.title").substring(0, t("home.features.title").lastIndexOf(" "))}
+                    <span className="text-transparent bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text"> {t("home.features.title").substring(t("home.features.title").lastIndexOf(" "))}</span>
+                  </>
+                )}
+              </>
+            )}
           </motion.h2>
           <motion.p 
             variants={fadeInVariants}
             className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed"
           >
-            Des outils simples et puissants pour créer des expériences d'apprentissage inoubliables
+            {t("home.features.subtitle")}
           </motion.p>
         </motion.div>
 

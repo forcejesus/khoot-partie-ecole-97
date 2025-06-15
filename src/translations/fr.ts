@@ -1,4 +1,3 @@
-
 export const fr = {
   // Navigation
   nav: {
@@ -15,7 +14,89 @@ export const fr = {
     title: "AKILI",
     subtitle: "La rencontre entre le jeu et le savoir",
     description1: "Une application conçue pour faire aimer l'apprentissage aux jeunes.",
-    description2: "Plutôt que de combattre l'addiction aux écrans, AKILI la réinvente pour le bien."
+    description2: "Plutôt que de combattre l'addiction aux écrans, AKILI la réinvente pour le bien.",
+    getStarted: "Commencer maintenant",
+    learnMore: "En savoir plus",
+    features: {
+      badge: "Fonctionnalités",
+      title: "Tout ce dont vous avez besoin pour captiver vos élèves",
+      subtitle: "Des outils simples et puissants pour créer des expériences d'apprentissage inoubliables",
+      quiz: {
+        title: "Quiz en temps réel",
+        description: "Créez des quiz interactifs que vos élèves adorent. Questions variées, résultats instantanés."
+      },
+      analytics: {
+        title: "Analyses détaillées",
+        description: "Suivez les progrès individuels et collectifs avec des rapports visuels et actionables."
+      },
+      gamification: {
+        title: "Gamification",
+        description: "Badges, classements et récompenses pour maintenir la motivation au maximum."
+      }
+    },
+    solution: {
+      title: "La solution complète pour l'éducation moderne",
+      subtitle: "Tout ce dont vous avez besoin pour transformer vos cours en expériences interactives qui captent l'attention et améliorent les résultats",
+      benefits: {
+        quick: "5 minutes",
+        quickDesc: "Pour démarrer",
+        multiDevice: "Multi-appareils",
+        multiDeviceDesc: "Partout, tout le temps",
+        offline: "Hors ligne",
+        offlineDesc: "Même sans internet",
+        intuitive: "Zéro formation",
+        intuitiveDesc: "Interface intuitive"
+      },
+      features: {
+        interactive: {
+          title: "Quiz interactifs",
+          description: "Créez des quiz captivants en quelques clics avec des questions variées et des résultats en temps réel"
+        },
+        collaboration: {
+          title: "Collaboration",
+          description: "Encouragez le travail d'équipe avec des défis collaboratifs et des activités de groupe dynamiques"
+        },
+        analytics: {
+          title: "Analyses",
+          description: "Obtenez des insights détaillés sur les performances et adaptez votre pédagogie en conséquence"
+        },
+        gamification: {
+          title: "Gamification",
+          description: "Motivez avec des badges, classements et récompenses pour maintenir l'engagement toute l'année"
+        }
+      },
+      cta: {
+        title: "Prêt à révolutionner votre enseignement ?",
+        subtitle: "Découvrez comment AKILI peut transformer l'expérience d'apprentissage dans votre établissement",
+        startFree: "Commencer gratuitement",
+        learnMore: "En savoir plus"
+      }
+    },
+    testimonials: {
+      badge: "Témoignages",
+      title: "Rejoignez les leaders de l'éducation",
+      subtitle: "Découvrez comment AKILI transforme l'apprentissage dans les écoles africaines",
+      testimonial1: {
+        name: "Dr. Amadou Diallo",
+        role: "Directeur, École Internationale de Dakar",
+        quote: "AKILI a révolutionné notre approche pédagogique. Les élèves sont plus engagés et nos résultats ont augmenté de 40%."
+      },
+      testimonial2: {
+        name: "Fatima Nkomo",
+        role: "Enseignante de Mathématiques, Yaoundé",
+        quote: "Mes cours sont devenus interactifs et amusants. Les élèves participent comme jamais auparavant !"
+      },
+      testimonial3: {
+        name: "Emmanuel Okafor",
+        role: "Coordinateur IT, Lagos Academy",
+        quote: "L'interface est intuitive et la plateforme fonctionne parfaitement même avec notre connexion limitée."
+      }
+    },
+    cta: {
+      title: "Engagez vos élèves autrement. Adoptez AKILI !",
+      subtitle: "Rejoignez plus de 500 écoles qui utilisent déjà AKILI pour créer des expériences d'apprentissage extraordinaires",
+      button: "Commencer maintenant"
+    }
   },
   
   // Page contact

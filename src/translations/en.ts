@@ -1,4 +1,3 @@
-
 export const en = {
   // Navigation
   nav: {
@@ -15,7 +14,89 @@ export const en = {
     title: "AKILI",
     subtitle: "Where gaming meets knowledge",
     description1: "An application designed to make young people love learning.",
-    description2: "Rather than fighting screen addiction, AKILI reinvents it for good."
+    description2: "Rather than fighting screen addiction, AKILI reinvents it for good.",
+    getStarted: "Get Started",
+    learnMore: "Learn More",
+    features: {
+      badge: "Features",
+      title: "Everything you need to captivate your students",
+      subtitle: "Simple and powerful tools to create unforgettable learning experiences",
+      quiz: {
+        title: "Real-time Quizzes",
+        description: "Create interactive quizzes with varied questions and instant results that your students love."
+      },
+      analytics: {
+        title: "Detailed Analytics",
+        description: "Track individual and collective progress with visual and actionable reports."
+      },
+      gamification: {
+        title: "Gamification",
+        description: "Badges, leaderboards and rewards to maintain maximum motivation."
+      }
+    },
+    solution: {
+      title: "The complete solution for modern education",
+      subtitle: "Everything you need to transform your classes into interactive experiences that capture attention and improve results",
+      benefits: {
+        quick: "5 minutes",
+        quickDesc: "To get started",
+        multiDevice: "Multi-device",
+        multiDeviceDesc: "Everywhere, all the time",
+        offline: "Offline",
+        offlineDesc: "Even without internet",
+        intuitive: "Zero training",
+        intuitiveDesc: "Intuitive interface"
+      },
+      features: {
+        interactive: {
+          title: "Interactive Quizzes",
+          description: "Create engaging quizzes in just a few clicks with varied questions and real-time results"
+        },
+        collaboration: {
+          title: "Collaboration",
+          description: "Encourage teamwork with collaborative challenges and dynamic group activities"
+        },
+        analytics: {
+          title: "Analytics",
+          description: "Get detailed insights on performance and adapt your teaching accordingly"
+        },
+        gamification: {
+          title: "Gamification",
+          description: "Motivate with badges, rankings and rewards to maintain engagement all year round"
+        }
+      },
+      cta: {
+        title: "Ready to revolutionize your teaching?",
+        subtitle: "Discover how AKILI can transform the learning experience in your institution",
+        startFree: "Start for free",
+        learnMore: "Learn more"
+      }
+    },
+    testimonials: {
+      badge: "Testimonials",
+      title: "Join the education leaders",
+      subtitle: "Discover how AKILI transforms learning in African schools",
+      testimonial1: {
+        name: "Dr. Amadou Diallo",
+        role: "Director, École Internationale de Dakar",
+        quote: "AKILI has revolutionized our pedagogical approach. Students are more engaged and our results have increased by 40%."
+      },
+      testimonial2: {
+        name: "Fatima Nkomo",
+        role: "Mathematics Teacher, Yaoundé",
+        quote: "My classes have become interactive and fun. Students participate like never before!"
+      },
+      testimonial3: {
+        name: "Emmanuel Okafor",
+        role: "IT Coordinator, Lagos Academy",
+        quote: "The interface is intuitive and the platform works perfectly even with our limited connection."
+      }
+    },
+    cta: {
+      title: "Engage your students differently. Adopt AKILI!",
+      subtitle: "Join over 500 schools already using AKILI to create extraordinary learning experiences",
+      button: "Start now"
+    }
   },
   
   // Contact page

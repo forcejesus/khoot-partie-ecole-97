@@ -7,40 +7,43 @@ import {
   Zap, Smartphone, Globe, Sparkles, ArrowRight
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const OffresSection = () => {
+  const { t } = useLanguage();
+  
   const features = [
     {
       icon: "🎮",
-      title: "Quiz interactifs",
-      description: "Créez des quiz captivants en quelques clics avec des questions variées et des résultats en temps réel",
+      title: t("home.solution.features.interactive.title"),
+      description: t("home.solution.features.interactive.description"),
       color: "from-orange-500 to-red-500"
     },
     {
       icon: "👥",
-      title: "Collaboration",
-      description: "Encouragez le travail d'équipe avec des défis collaboratifs et des activités de groupe dynamiques",
+      title: t("home.solution.features.collaboration.title"),
+      description: t("home.solution.features.collaboration.description"),
       color: "from-blue-500 to-cyan-500"
     },
     {
       icon: "📊",
-      title: "Analyses",
-      description: "Obtenez des insights détaillés sur les performances et adaptez votre pédagogie en conséquence",
+      title: t("home.solution.features.analytics.title"),
+      description: t("home.solution.features.analytics.description"),
       color: "from-green-500 to-emerald-500"
     },
     {
       icon: "🏆",
-      title: "Gamification",
-      description: "Motivez avec des badges, classements et récompenses pour maintenir l'engagement toute l'année",
+      title: t("home.solution.features.gamification.title"),
+      description: t("home.solution.features.gamification.description"),
       color: "from-purple-500 to-indigo-500"
     }
   ];
 
   const benefits = [
-    { icon: "⚡", title: "5 minutes", description: "Pour démarrer" },
-    { icon: "📱", title: "Multi-appareils", description: "Partout, tout le temps" },
-    { icon: "🌍", title: "Hors ligne", description: "Même sans internet" },
-    { icon: "✨", title: "Zéro formation", description: "Interface intuitive" }
+    { icon: "⚡", title: t("home.solution.benefits.quick"), description: t("home.solution.benefits.quickDesc") },
+    { icon: "📱", title: t("home.solution.benefits.multiDevice"), description: t("home.solution.benefits.multiDeviceDesc") },
+    { icon: "🌍", title: t("home.solution.benefits.offline"), description: t("home.solution.benefits.offlineDesc") },
+    { icon: "✨", title: t("home.solution.benefits.intuitive"), description: t("home.solution.benefits.intuitiveDesc") }
   ];
 
   return (
@@ -54,13 +57,30 @@ const OffresSection = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-8 leading-tight">
-            La solution complète pour 
-            <span className="text-purple-600"> l'éducation moderne</span>
+            {t("home.solution.title").split(" l'éducation moderne").length > 1 ? (
+              <>
+                {t("home.solution.title").split(" l'éducation moderne")[0]}
+                <span className="text-purple-600"> l'éducation moderne</span>
+              </>
+            ) : (
+              <>
+                {t("home.solution.title").split(" modern education").length > 1 ? (
+                  <>
+                    {t("home.solution.title").split(" modern education")[0]}
+                    <span className="text-purple-600"> modern education</span>
+                  </>
+                ) : (
+                  <>
+                    {t("home.solution.title").substring(0, t("home.solution.title").lastIndexOf(" "))}
+                    <span className="text-purple-600"> {t("home.solution.title").substring(t("home.solution.title").lastIndexOf(" "))}</span>
+                  </>
+                )}
+              </>
+            )}
           </h2>
           
           <p className="text-xl text-gray-600 max-w-4xl mx-auto mb-12 leading-relaxed">
-            Tout ce dont vous avez besoin pour transformer vos cours en expériences 
-            interactives qui captent l'attention et améliorent les résultats
+            {t("home.solution.subtitle")}
           </p>
           
           {/* Benefits Grid */}
@@ -120,18 +140,18 @@ const OffresSection = () => {
         >
           <div className="bg-gradient-to-br from-gray-50 to-purple-50 rounded-3xl p-12 border-2 border-gray-200 max-w-4xl mx-auto">
             <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Prêt à révolutionner votre enseignement ?
+              {t("home.solution.cta.title")}
             </h3>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Découvrez comment AKILI peut transformer l'expérience d'apprentissage dans votre établissement
+              {t("home.solution.cta.subtitle")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-10 py-6 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 border-0">
-                Commencer gratuitement
+                {t("home.solution.cta.startFree")}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button variant="outline" size="lg" className="border-2 border-purple-300 text-purple-700 hover:bg-purple-50 px-10 py-6 text-lg font-semibold rounded-full">
-                En savoir plus
+                {t("home.solution.cta.learnMore")}
               </Button>
             </div>
           </div>
