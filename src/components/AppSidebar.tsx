@@ -1,9 +1,8 @@
 
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -12,16 +11,18 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import { 
   LayoutDashboard, 
   Users, 
   GraduationCap, 
+  GamepadIcon, 
   Settings, 
-  GamepadIcon,
   LogOut,
-  School
+  Bell,
+  Award
 } from "lucide-react";
-import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 
 const menuItems = [
@@ -31,19 +32,24 @@ const menuItems = [
     icon: LayoutDashboard,
   },
   {
-    title: "Apprenants",
+    title: "Apprenants", 
     url: "/apprenants",
     icon: Users,
   },
   {
     title: "Enseignants",
-    url: "/enseignants",
+    url: "/enseignants", 
     icon: GraduationCap,
   },
   {
     title: "Jeux",
     url: "/jeux",
     icon: GamepadIcon,
+  },
+  {
+    title: "Notifications",
+    url: "/notifications",
+    icon: Bell,
   },
   {
     title: "Paramètres",
@@ -53,59 +59,61 @@ const menuItems = [
 ];
 
 export function AppSidebar() {
+  const navigate = useNavigate();
   const location = useLocation();
-  const { logout, user } = useAuth();
+  const { user, logout } = useAuth();
 
-  const isActive = (path: string) => {
-    return location.pathname === path;
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    logout();
+    navigate("/");
   };
 
   return (
-    <Sidebar className="border-r border-orange-200 bg-gradient-to-b from-orange-50 to-white">
-      <SidebarHeader className="p-6 border-b border-orange-200">
+    <Sidebar className="border-r border-orange-200 bg-white">
+      <SidebarHeader className="border-b border-orange-200 p-6 bg-gradient-to-br from-orange-50 to-orange-100">
         <div className="flex flex-col items-center space-y-4">
-          <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
-            <School className="h-8 w-8 text-white" />
+          {/* Logo AKILI */}
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
+              <Award className="h-7 w-7 text-white" />
+            </div>
+            <div className="text-left">
+              <h2 className="text-xl font-bold bg-gradient-to-r from-orange-600 to-orange-800 bg-clip-text text-transparent">
+                AKILI
+              </h2>
+              <p className="text-sm text-orange-600 font-medium">Espace École</p>
+            </div>
           </div>
-          <div className="text-center">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-orange-700 bg-clip-text text-transparent tracking-tight">
-              AKILI
-            </h1>
-            <p className="text-sm font-medium text-orange-600 bg-orange-100 px-3 py-1 rounded-full">
-              Espace Prof
-            </p>
-          </div>
+          
+          {/* École info */}
           {user?.ecole && (
-            <div className="text-center">
-              <p className="text-xs text-gray-600 font-medium">
+            <div className="w-full text-center bg-white/70 rounded-lg py-2 px-3">
+              <p className="text-xs text-orange-700 font-medium truncate">
                 {user.ecole.libelle}
               </p>
             </div>
           )}
         </div>
       </SidebarHeader>
-      
-      <SidebarContent className="px-4 py-6">
+
+      <SidebarContent className="p-4">
         <SidebarGroup>
-          <SidebarGroupLabel className="text-orange-700 font-semibold mb-3">
+          <SidebarGroupLabel className="text-xs font-semibold text-orange-600 mb-4 uppercase tracking-wider px-2">
             Navigation
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-2">
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton 
-                    asChild 
-                    className={`h-12 rounded-xl transition-all duration-200 ${
-                      isActive(item.url)
-                        ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-md hover:from-orange-600 hover:to-orange-700"
-                        : "hover:bg-orange-100 text-gray-700 hover:text-orange-700"
-                    }`}
+                  <SidebarMenuButton
+                    onClick={() => navigate(item.url)}
+                    isActive={location.pathname === item.url}
+                    className="w-full flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-orange-50 hover:text-orange-700 transition-all duration-200 group text-gray-700 data-[active=true]:bg-orange-100 data-[active=true]:text-orange-700 data-[active=true]:font-semibold"
                   >
-                    <Link to={item.url} className="flex items-center space-x-3 px-4">
-                      <item.icon className={`h-6 w-6 ${isActive(item.url) ? "text-white" : "text-orange-600"}`} />
-                      <span className="font-medium">{item.title}</span>
-                    </Link>
+                    <item.icon className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
+                    <span className="font-medium">{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -114,16 +122,16 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <div className="p-4 border-t border-orange-200 mt-auto">
+      <SidebarFooter className="p-4 border-t border-orange-200">
         <Button
-          onClick={logout}
-          variant="outline"
-          className="w-full h-12 border-2 border-orange-300 text-orange-600 hover:bg-orange-50 hover:border-orange-400 rounded-xl"
+          variant="destructive"
+          onClick={handleLogout}
+          className="w-full gap-3 py-3 bg-red-500 hover:bg-red-600 text-white font-medium"
         >
-          <LogOut className="h-5 w-5 mr-2" />
-          Déconnexion
+          <LogOut className="h-5 w-5" />
+          <span>Déconnexion</span>
         </Button>
-      </div>
+      </SidebarFooter>
     </Sidebar>
   );
 }

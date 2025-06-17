@@ -13,7 +13,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 const EnseignantsContent = () => {
   const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState("");
-  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isBulkImportOpen, setIsBulkImportOpen] = useState(false);
 
   const handleRefresh = () => {
@@ -21,18 +20,18 @@ const EnseignantsContent = () => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8">
       {/* En-tête */}
-      <div className="bg-white rounded-2xl p-8 border border-orange-200 shadow-sm">
-        <div className="flex items-center gap-6">
-          <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
-            <GraduationCap className="h-10 w-10 text-white" />
+      <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-6 md:p-8 text-white shadow-lg">
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6">
+          <div className="w-16 h-16 md:w-20 md:h-20 bg-white/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+            <GraduationCap className="h-8 w-8 md:h-10 md:w-10 text-white" />
           </div>
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            <h1 className="text-2xl md:text-4xl font-bold mb-2">
               {t("teachers.title")}
             </h1>
-            <p className="text-xl text-gray-600">
+            <p className="text-orange-100 text-sm md:text-xl">
               {t("teachers.subtitle")}
             </p>
           </div>
@@ -41,11 +40,11 @@ const EnseignantsContent = () => {
 
       {/* Barre d'actions */}
       <Card className="border-orange-200 bg-white">
-        <CardHeader>
-          <CardTitle className="text-xl text-orange-700">Actions</CardTitle>
+        <CardHeader className="pb-4">
+          <CardTitle className="text-lg md:text-xl text-orange-700">Actions</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+          <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:items-center md:justify-between gap-4">
             <div className="relative flex-1 max-w-md">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <Input
@@ -56,11 +55,11 @@ const EnseignantsContent = () => {
               />
             </div>
             
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <Button
                 onClick={() => setIsBulkImportOpen(true)}
                 variant="outline"
-                className="border-orange-300 text-orange-600 hover:bg-orange-50 font-medium"
+                className="border-orange-300 text-orange-600 hover:bg-orange-50 font-medium w-full sm:w-auto"
               >
                 <Upload className="mr-2 h-4 w-4" />
                 {t("teachers.importCsv")}
