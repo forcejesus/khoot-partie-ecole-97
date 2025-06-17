@@ -8,8 +8,8 @@ interface School {
   libelle: string;
   adresse: string;
   ville: string;
-  phone: string;  // Added phone property
-  email: string;  // Added email property
+  phone: string;
+  email: string;
 }
 
 interface User {
@@ -25,7 +25,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   isLoading: boolean;
-  refreshUser: () => Promise<void>; // Added refreshUser function
+  refreshUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -49,7 +49,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
-  // Add refreshUser function to fetch updated user data
   const refreshUser = async () => {
     const token = localStorage.getItem("token");
     const storedUser = localStorage.getItem("user");
@@ -103,11 +102,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           }).join(''));
 
           const decoded = JSON.parse(jsonPayload);
-          console.log("Decoded token:", decoded);
           
-          // Check for required fields based on actual token structure
+          // Check for required fields
           if (!decoded.id || !decoded.email || !decoded.prenom || !decoded.nom) {
-            throw new Error("Invalid token data - missing required fields");
+            throw new Error("Token invalide - données manquantes");
           }
 
           // Vérifier que l'utilisateur a le rôle admin
@@ -115,38 +113,53 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             throw new Error("Accès refusé - Seuls les administrateurs peuvent se connecter");
           }
 
-          // Create user data with the actual token structure
+          // Create user data
           const userData = {
             id: decoded.id,
-            name: `${decoded.prenom} ${decoded.nom}`, // Combine prenom and nom to create name
+            name: `${decoded.prenom} ${decoded.nom}`,
             email: decoded.email,
             role: decoded.role,
-            // ecole will be fetched later if needed
           };
 
           setUser(userData);
           localStorage.setItem("user", JSON.stringify(userData));
           
-          toast.success("Connexion réussie");
+          toast.success("🎉 Connexion réussie ! Bienvenue dans votre espace administrateur.", {
+            duration: 3000,
+          });
           navigate("/dashboard");
         } catch (error) {
           console.error("Error decoding token:", error);
-          toast.error("Erreur lors de la connexion");
+          toast.error("⚠️ Erreur d'authentification. Veuillez réessayer.", {
+            duration: 4000,
+          });
           localStorage.removeItem("token");
         }
       } else {
-        toast.error("Réponse du serveur invalide");
+        toast.error("❌ Identifiants incorrects. Vérifiez votre email et mot de passe.", {
+          duration: 4000,
+        });
       }
     } catch (error: any) {
       console.error("Login error:", error);
-      if (error.response?.data?.message) {
-        toast.error(error.response.data.message);
-      } else if (error.response?.status === 401) {
-        toast.error("Email ou mot de passe incorrect");
-      } else if (error.message.includes("Accès refusé")) {
-        toast.error("Accès refusé - Seuls les administrateurs peuvent se connecter");
+      
+      // Messages d'erreur plus conviviaux
+      if (error.response?.status === 401 || error.response?.status === 400) {
+        toast.error("🔐 Email ou mot de passe incorrect. Veuillez vérifier vos informations.", {
+          duration: 5000,
+        });
+      } else if (error.message?.includes("Accès refusé")) {
+        toast.error("🚫 Accès limité aux administrateurs uniquement.", {
+          duration: 5000,
+        });
+      } else if (error.code === 'NETWORK_ERROR' || !error.response) {
+        toast.error("🌐 Problème de connexion. Vérifiez votre connexion internet et réessayez.", {
+          duration: 5000,
+        });
       } else {
-        toast.error("Erreur lors de la connexion");
+        toast.error("⚠️ Erreur de connexion. Veuillez réessayer dans quelques instants.", {
+          duration: 4000,
+        });
       }
     } finally {
       setIsLoading(false);
@@ -158,7 +171,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem("user");
     setUser(null);
     navigate("/");
-    toast.success("Déconnexion réussie");
+    toast.success("👋 Déconnexion réussie. À bientôt !", {
+      duration: 3000,
+    });
   };
 
   return (
