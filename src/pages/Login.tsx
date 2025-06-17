@@ -50,15 +50,15 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-orange-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-orange-100 flex items-center justify-center p-4">
       {/* Container principal unifié */}
       <div className="w-full max-w-7xl mx-auto">
         <Card className="overflow-hidden shadow-2xl border-0 bg-white backdrop-blur-sm">
-          <div className="h-2 bg-gradient-to-r from-orange-500 via-red-600 to-orange-700" />
+          <div className="h-2 bg-gradient-to-r from-orange-500 via-orange-600 to-yellow-600" />
           
           <div className="flex flex-col lg:flex-row min-h-[700px]">
             {/* Section publicitaire - Gauche */}
-            <div className="flex-1 bg-gradient-to-br from-orange-600 via-red-600 to-orange-700 relative flex items-center justify-center p-6 lg:p-12">
+            <div className="flex-1 bg-gradient-to-br from-orange-500 via-orange-600 to-yellow-600 relative flex items-center justify-center p-6 lg:p-12" style={{ background: 'linear-gradient(135deg, #f97316 0%, #ea580c 50%, #fb923c 100%)' }}>
               {/* Motifs décoratifs */}
               <div className="absolute inset-0">
                 <div className="absolute top-20 left-20 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse"></div>
@@ -115,7 +115,8 @@ const Login = () => {
                   <Button
                     onClick={() => navigate("/offres")}
                     size="lg"
-                    className="bg-white text-orange-600 hover:bg-orange-50 font-bold text-base lg:text-lg px-6 lg:px-8 py-3 lg:py-4 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 w-full lg:w-auto"
+                    className="bg-white hover:bg-orange-50 font-bold text-base lg:text-lg px-6 lg:px-8 py-3 lg:py-4 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 w-full lg:w-auto"
+                    style={{ color: '#f97316' }}
                   >
                     <ArrowRight className="mr-2 h-4 w-4 lg:h-5 lg:w-5" />
                     Découvrir nos offres
@@ -125,16 +126,16 @@ const Login = () => {
             </div>
 
             {/* Section formulaire de connexion - Droite */}
-            <div className="flex-1 flex items-center justify-center p-6 lg:p-12 bg-gradient-to-br from-orange-50 to-red-50">
+            <div className="flex-1 flex items-center justify-center p-6 lg:p-12 bg-gradient-to-br from-orange-50 to-yellow-50">
               <div className="w-full max-w-md">
                 <div className="text-center mb-8">
-                  <h1 className="text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-orange-700 via-red-700 to-orange-800 bg-clip-text text-transparent mb-6">
+                  <h1 className="text-4xl lg:text-5xl font-bold tracking-tight mb-6" style={{ background: 'linear-gradient(135deg, #f97316 0%, #ea580c 50%, #fb923c 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                     AKILI
                   </h1>
                   <p className="text-gray-600 text-sm lg:text-base mb-6">
                     {t("login.subtitle")}
                   </p>
-                  <div className="flex items-center justify-center space-x-2 text-sm text-orange-700 bg-orange-50 p-3 rounded-lg border border-orange-200 mb-6">
+                  <div className="flex items-center justify-center space-x-2 text-sm p-3 rounded-lg border mb-6" style={{ color: '#f97316', backgroundColor: '#fff7ed', borderColor: '#fed7aa' }}>
                     <GraduationCap className="h-4 w-4" />
                     <span className="font-medium">Espace École</span>
                   </div>
@@ -152,7 +153,8 @@ const Login = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        className="h-12 bg-white border-2 border-gray-200 focus:border-orange-500 transition-colors rounded-lg shadow-sm"
+                        className="h-12 bg-white border-2 border-gray-200 transition-colors rounded-lg shadow-sm"
+                        style={{ '--tw-ring-color': '#f97316' } as any}
                       />
                     </div>
                   </div>
@@ -167,8 +169,9 @@ const Login = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        className="pr-12 h-12 bg-white border-2 border-gray-200 focus:border-orange-500 transition-colors rounded-lg shadow-sm"
+                        className="pr-12 h-12 bg-white border-2 border-gray-200 transition-colors rounded-lg shadow-sm"
                         placeholder="••••••••"
+                        style={{ '--tw-ring-color': '#f97316' } as any}
                       />
                       <button
                         type="button"
@@ -182,8 +185,14 @@ const Login = () => {
 
                   <Button
                     type="submit"
-                    className="w-full h-12 font-semibold bg-gradient-to-r from-orange-600 via-red-600 to-orange-700 hover:from-orange-700 hover:via-red-700 hover:to-orange-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+                    className="w-full h-12 font-semibold text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
                     disabled={isLoading}
+                    style={{ 
+                      background: 'linear-gradient(135deg, #f97316 0%, #ea580c 50%, #fb923c 100%)',
+                      ':hover': {
+                        background: 'linear-gradient(135deg, #ea580c 0%, #dc2626 50%, #f97316 100%)'
+                      }
+                    }}
                   >
                     {isLoading ? (
                       <>
@@ -200,7 +209,7 @@ const Login = () => {
                 </form>
 
                 {/* Tips de sécurité */}
-                <div className="mt-6 p-4 bg-orange-50 rounded-lg border border-orange-200">
+                <div className="mt-6 p-4 rounded-lg border" style={{ backgroundColor: '#fff7ed', borderColor: '#fed7aa' }}>
                   <p className="text-xs text-gray-600 text-center">
                     💡 <strong>{t("login.securityTip.title")}:</strong> {t("login.securityTip.description")}
                   </p>

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -14,6 +13,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import { X } from "lucide-react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -108,6 +108,18 @@ const Navbar = () => {
                     </span>
                   </Button>
                 </Link>
+              </div>
+
+              {/* Option Fermer */}
+              <div className="pt-2">
+                <Button 
+                  onClick={closeMenu}
+                  variant="outline"
+                  className="w-full border-orange-300 text-orange-600 hover:bg-orange-50 text-lg py-4 flex items-center justify-center gap-2"
+                >
+                  <X className="h-5 w-5" />
+                  Fermer
+                </Button>
               </div>
             </nav>
           </div>
