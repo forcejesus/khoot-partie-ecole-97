@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -91,6 +93,7 @@
 
   body {
     @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
   }
 
@@ -123,17 +126,23 @@
   }
 }
 
+@layer utilities {
+  .font-inter {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  }
+}
+
 @layer components {
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-card hover:-translate-y-1;
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
   }
   
   .input-focus {
-    @apply focus:ring-2 focus:ring-primary/20 focus:border-primary;
+    @apply focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500;
   }
   
   .btn-gradient {
-    @apply bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary text-white transition-all duration-300;
+    @apply bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white transition-all duration-300;
   }
 
   .glass {

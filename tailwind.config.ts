@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -26,62 +25,38 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#ea580c", // Orange africain
-          light: "#fb923c",
-          dark: "#c2410c",
+          DEFAULT: "#3b82f6", // Blue moderne
+          light: "#60a5fa",
+          dark: "#1d4ed8",
           foreground: "#ffffff",
         },
         secondary: {
-          DEFAULT: "#fef3f2", // Terre africaine claire
-          foreground: "#1f2937",
+          DEFAULT: "#f1f5f9", // Slate clair
+          foreground: "#1e293b",
         },
         destructive: {
-          DEFAULT: "#dc2626",
+          DEFAULT: "#ef4444",
           foreground: "#ffffff",
         },
         muted: {
-          DEFAULT: "#fef3f2",
-          foreground: "#6b7280",
+          DEFAULT: "#f8fafc",
+          foreground: "#64748b",
         },
         accent: {
-          DEFAULT: "#fff7ed",
+          DEFAULT: "#f1f5f9",
           foreground: "#0f172a",
         },
         success: {
-          DEFAULT: "#059669", // Vert forêt africaine
+          DEFAULT: "#10b981", // Emerald moderne
           foreground: "#ffffff",
         },
         warning: {
-          DEFAULT: "#d97706", // Ocre africain
+          DEFAULT: "#f59e0b", // Amber moderne
           foreground: "#ffffff",
         },
         info: {
           DEFAULT: "#0ea5e9",
           foreground: "#ffffff",
-        },
-        // Palette africaine étendue et enrichie
-        african: {
-          terracotta: "#cd6133",
-          ochre: "#cc8400",
-          baobab: "#8b4513",
-          sahara: "#f4a460",
-          sunset: "#ff6b35",
-          earth: "#8b4000",
-          gold: "#ffd700",
-          copper: "#b87333",
-          kente: "#e74c3c",
-          mud: "#8b7355",
-          savanna: "#daa520",
-          tribal: "#cd853f",
-          // Nouvelles couleurs africaines
-          ebony: "#2c1810",
-          ivory: "#fffff0",
-          leopard: "#ffbf00",
-          zebra: "#36454f",
-          acacia: "#c19a6b",
-          mahogany: "#c04000",
-          calabash: "#d2691e",
-          palm: "#228b22",
         },
       },
       borderRadius: {
@@ -91,14 +66,7 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        serif: ['Amiri', 'Playfair Display', 'Georgia', 'serif'],
-        african: ['Scheherazade New', 'Amiri', 'serif'], // Police principale africaine
-        arabic: ['Amiri', 'serif'], // Police arabe/africaine
-        cairo: ['Cairo', 'sans-serif'], // Police moderne africaine
-        markazi: ['Markazi Text', 'serif'], // Police persane/africaine
-        // Nouvelles polices modernes
         inter: ['Inter', 'system-ui', 'sans-serif'],
-        poppins: ['Poppins', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         // Tailles conformes aux normes d'accessibilité WCAG et Material Design
