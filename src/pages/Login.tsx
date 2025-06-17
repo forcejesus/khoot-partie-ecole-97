@@ -58,8 +58,8 @@ const Login = () => {
         <div className="absolute top-1/2 left-1/2 w-40 h-40 bg-yellow-500 rounded-full blur-3xl opacity-10 animate-pulse delay-500"></div>
       </div>
 
-      {/* Section formulaire de connexion */}
-      <div className="flex-1 flex items-center justify-center p-8">
+      {/* Section formulaire de connexion - Collé à droite */}
+      <div className="flex-1 flex items-center justify-end pr-0">
         <div className="w-full max-w-md relative z-10">
           <Card className="overflow-hidden shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
             <div className="h-2 bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500" />
@@ -153,8 +153,8 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Section publicitaire pleine page */}
-      <div className="flex-1 bg-gradient-to-br from-orange-600 via-red-600 to-yellow-600 relative flex items-center justify-center">
+      {/* Section publicitaire pleine page - Collée à gauche */}
+      <div className="flex-1 bg-gradient-to-br from-orange-600 via-red-600 to-yellow-600 relative flex items-center justify-start pl-0">
         {/* Motifs décoratifs pour la bannière */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse"></div>

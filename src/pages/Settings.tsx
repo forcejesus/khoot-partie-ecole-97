@@ -4,7 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SchoolInformationForm from "@/components/settings/SchoolInformationForm";
 import SubscriptionDetails from "@/components/settings/SubscriptionDetails";
-import { Skeleton } from "@/components/ui/skeleton";
+import { EnhancedSkeleton } from "@/components/ui/enhanced-skeleton";
 import { Settings as SettingsIcon, School, CreditCard } from "lucide-react";
 
 const Settings = () => {
@@ -19,7 +19,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="min-h-full bg-gray-50 dark:bg-slate-900">
+    <div className="min-h-full bg-slate-50 dark:bg-slate-900">
       <div className="mb-8">
         <div className="flex items-center gap-6 mb-8">
           <div className="w-16 h-16 bg-gradient-to-r from-slate-600 to-slate-700 rounded-2xl flex items-center justify-center shadow-lg">
@@ -36,8 +36,12 @@ const Settings = () => {
       
       {!user ? (
         <div className="space-y-6">
-          <Skeleton className="h-12 w-48 mb-8" />
-          <Skeleton className="h-[400px] w-full rounded-lg" />
+          <EnhancedSkeleton className="h-12 w-48 mb-8" />
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+            <div className="p-8">
+              <EnhancedSkeleton variant="card" count={3} />
+            </div>
+          </div>
         </div>
       ) : (
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
