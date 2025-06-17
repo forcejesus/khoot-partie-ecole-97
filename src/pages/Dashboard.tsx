@@ -4,19 +4,19 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { 
   Users, 
-  BookOpen, 
-  Trophy, 
-  TrendingUp, 
-  Activity,
-  Calendar,
-  Target,
+  GraduationCap, 
+  GamepadIcon,
+  Plus,
+  Play,
   Star,
+  Clock,
   Award,
-  Zap,
-  BarChart3,
-  PieChart
+  TrendingUp,
+  Calendar,
+  BookOpen
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -25,279 +25,279 @@ const Dashboard = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
 
+  // Données simulées pour les statistiques
   const stats = [
     {
-      title: t("dashboard.stats.activeStudents"),
-      value: "245",
-      change: "+12%",
-      icon: Users,
-      color: "from-blue-500 to-blue-600",
-      bgColor: "bg-blue-50",
-      textColor: "text-blue-600"
-    },
-    {
-      title: t("dashboard.stats.availableGames"), 
+      title: "Jeux disponibles",
       value: "12",
-      change: "+3",
-      icon: BookOpen,
-      color: "from-green-500 to-green-600",
-      bgColor: "bg-green-50",
-      textColor: "text-green-600"
-    },
-    {
-      title: t("dashboard.stats.successRate"),
-      value: "87%", 
-      change: "+5%",
-      icon: Trophy,
-      color: "from-yellow-500 to-orange-500",
-      bgColor: "bg-yellow-50",
-      textColor: "text-yellow-600"
-    },
-    {
-      title: t("dashboard.stats.averageProgress"),
-      value: "+12%",
-      change: "Cette semaine",
-      icon: TrendingUp,
+      icon: GamepadIcon,
       color: "from-purple-500 to-purple-600",
-      bgColor: "bg-purple-50",
-      textColor: "text-purple-600"
-    }
-  ];
-
-  const quickActions = [
+      bgColor: "bg-purple-50 dark:bg-purple-900/20",
+      textColor: "text-purple-600 dark:text-purple-400"
+    },
     {
-      title: "Ajouter des apprenants",
-      description: "Inscrire de nouveaux élèves",
-      icon: Users,
+      title: "Enseignants",
+      value: "8", 
+      icon: GraduationCap,
       color: "from-blue-500 to-blue-600",
-      path: "/apprenants"
+      bgColor: "bg-blue-50 dark:bg-blue-900/20",
+      textColor: "text-blue-600 dark:text-blue-400"
     },
     {
-      title: "Gérer les enseignants",
-      description: "Administrer l'équipe pédagogique",
-      icon: Award,
+      title: "Apprenants",
+      value: "245",
+      icon: Users,
       color: "from-green-500 to-green-600",
-      path: "/enseignants"
-    },
-    {
-      title: "Voir les jeux",
-      description: "Explorer les activités disponibles",
-      icon: Target,
-      color: "from-purple-500 to-purple-600",
-      path: "/jeux"
-    },
-    {
-      title: "Paramètres école",
-      description: "Configurer votre établissement",
-      icon: Activity,
-      color: "from-orange-500 to-red-500",
-      path: "/settings"
+      bgColor: "bg-green-50 dark:bg-green-900/20",
+      textColor: "text-green-600 dark:text-green-400"
     }
   ];
 
-  const recentActivities = [
-    { 
-      action: "Nouvel apprenant inscrit", 
-      user: "Marie Dupont", 
-      time: "Il y a 2h",
-      icon: Users,
-      color: "text-blue-500"
+  // Liste des jeux simulée
+  const games = [
+    {
+      id: 1,
+      name: "Mathématiques CE1",
+      description: "Apprentissage des additions et soustractions",
+      category: "Mathématiques",
+      difficulty: "Facile",
+      players: 45,
+      duration: "15 min",
+      rating: 4.8,
+      color: "bg-gradient-to-br from-blue-500 to-blue-600"
     },
-    { 
-      action: "Jeu complété", 
-      user: "Classe de CM2", 
-      time: "Il y a 4h",
-      icon: Trophy,
-      color: "text-green-500"
+    {
+      id: 2,
+      name: "Français CM1",
+      description: "Conjugaison et grammaire interactive",
+      category: "Français",
+      difficulty: "Moyen",
+      players: 32,
+      duration: "20 min",
+      rating: 4.6,
+      color: "bg-gradient-to-br from-green-500 to-green-600"
     },
-    { 
-      action: "Nouvel enseignant ajouté", 
-      user: "Prof. Martin", 
-      time: "Hier",
-      icon: Award,
-      color: "text-purple-500"
+    {
+      id: 3,
+      name: "Sciences CE2",
+      description: "Découverte du système solaire",
+      category: "Sciences",
+      difficulty: "Facile",
+      players: 28,
+      duration: "25 min",
+      rating: 4.9,
+      color: "bg-gradient-to-br from-purple-500 to-purple-600"
     },
-    { 
-      action: "Performance analysée", 
-      user: "Classe de CE1", 
-      time: "Il y a 2 jours",
-      icon: BarChart3,
-      color: "text-orange-500"
+    {
+      id: 4,
+      name: "Histoire CM2",
+      description: "La révolution française expliquée",
+      category: "Histoire",
+      difficulty: "Difficile",
+      players: 19,
+      duration: "30 min",
+      rating: 4.5,
+      color: "bg-gradient-to-br from-orange-500 to-orange-600"
+    },
+    {
+      id: 5,
+      name: "Géographie CE1",
+      description: "Les continents et océans",
+      category: "Géographie",
+      difficulty: "Facile",
+      players: 38,
+      duration: "18 min",
+      rating: 4.7,
+      color: "bg-gradient-to-br from-teal-500 to-teal-600"
+    },
+    {
+      id: 6,
+      name: "Anglais CM1",
+      description: "Vocabulaire et phrases simples",
+      category: "Langues",
+      difficulty: "Moyen",
+      players: 25,
+      duration: "22 min",
+      rating: 4.4,
+      color: "bg-gradient-to-br from-red-500 to-red-600"
     }
   ];
+
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case "Facile":
+        return "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400";
+      case "Moyen":
+        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400";
+      case "Difficile":
+        return "bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400";
+      default:
+        return "bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400";
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 relative">
-      {/* Motifs de fond décoratifs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-10 left-10 w-40 h-40 bg-blue-200 rounded-full blur-3xl opacity-20 animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-32 h-32 bg-purple-200 rounded-full blur-2xl opacity-20 animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-green-200 rounded-full blur-xl opacity-20 animate-pulse delay-500"></div>
+    <div className="min-h-full bg-background">
+      {/* En-tête avec accueil personnalisé */}
+      <div className="mb-8">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full flex items-center justify-center">
+            <Award className="h-6 w-6 text-white" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold text-foreground">
+              {t("dashboard.title")}
+            </h1>
+            {user && (
+              <p className="text-lg text-muted-foreground">
+                Bonjour <span className="font-semibold text-purple-600">{user.name}</span> ! 👋
+              </p>
+            )}
+          </div>
+        </div>
+        
+        {user?.ecole && (
+          <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/10 dark:to-indigo-900/10 p-4 rounded-lg border">
+            <p className="text-foreground font-medium flex items-center gap-2">
+              <BookOpen className="h-5 w-5 text-purple-600" />
+              {user.ecole.libelle}
+            </p>
+          </div>
+        )}
       </div>
 
-      <div className="relative z-10 p-6 space-y-8">
-        {/* En-tête avec accueil personnalisé */}
-        <div className="text-center space-y-4">
-          <div className="flex justify-center items-center space-x-3 mb-4">
-            <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
-            <div className="w-6 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
-            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 via-purple-500 to-green-500 rounded-full flex items-center justify-center shadow-lg">
-              <Zap className="h-6 w-6 text-white" />
-            </div>
-            <div className="w-6 h-2 bg-gradient-to-l from-blue-500 to-purple-500 rounded-full"></div>
-            <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse delay-500"></div>
-          </div>
-          
-          <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent">
-            {t("dashboard.title")}
-          </h1>
-          
-          {user && (
-            <div className="space-y-2">
-              <p className="text-xl text-gray-600">
-                Bonjour <span className="font-bold text-blue-600">{user.name}</span> ! 👋
-              </p>
-              {user.ecole && (
-                <p className="text-lg text-gray-500 font-medium">
-                  📚 {user.ecole.libelle}
-                </p>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Statistiques améliorées */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((stat, index) => (
-            <Card key={index} className="group relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 bg-white/80 backdrop-blur-sm">
-              <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-5 group-hover:opacity-10 transition-opacity`}></div>
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-current to-transparent opacity-50"></div>
-              
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 relative z-10">
-                <CardTitle className="text-sm font-medium text-gray-600">
-                  {stat.title}
-                </CardTitle>
-                <div className={`p-3 rounded-xl ${stat.bgColor} shadow-sm group-hover:shadow-md transition-shadow`}>
-                  <stat.icon className={`h-5 w-5 ${stat.textColor}`} />
-                </div>
-              </CardHeader>
-              <CardContent className="relative z-10">
-                <div className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</div>
-                <p className={`text-sm font-medium ${stat.textColor} flex items-center gap-1`}>
-                  <TrendingUp className="h-3 w-3" />
-                  {stat.change}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Actions rapides */}
-        <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-3">
-            <Zap className="h-6 w-6 text-blue-500" />
-            Actions rapides
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {quickActions.map((action, index) => (
-              <Card 
-                key={index} 
-                className="group cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 bg-white/90 backdrop-blur-sm overflow-hidden"
-                onClick={() => navigate(action.path)}
-              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${action.color} opacity-5 group-hover:opacity-10 transition-opacity`}></div>
-                <CardContent className="p-6 relative z-10">
-                  <div className={`w-12 h-12 bg-gradient-to-r ${action.color} rounded-xl flex items-center justify-center mb-4 shadow-lg`}>
-                    <action.icon className="h-6 w-6 text-white" />
-                  </div>
-                  <h3 className="font-bold text-gray-900 mb-2">{action.title}</h3>
-                  <p className="text-gray-600 text-sm">{action.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-
-        {/* Section principale avec contenu enrichi */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Activités récentes */}
-          <Card className="lg:col-span-2 border-0 shadow-lg bg-white/90 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="text-xl font-bold text-gray-800 flex items-center gap-3">
-                <Activity className="h-6 w-6 text-blue-500" />
-                Activités récentes
+      {/* Statistiques */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {stats.map((stat, index) => (
+          <Card key={index} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-0 shadow-md">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                {stat.title}
               </CardTitle>
+              <div className={`p-3 rounded-lg ${stat.bgColor} group-hover:scale-110 transition-transform`}>
+                <stat.icon className={`h-5 w-5 ${stat.textColor}`} />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {recentActivities.map((activity, index) => (
-                  <div key={index} className="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                    <div className={`p-2 rounded-lg bg-white shadow-sm`}>
-                      <activity.icon className={`h-4 w-4 ${activity.color}`} />
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-medium text-gray-900">{activity.action}</p>
-                      <p className="text-sm text-gray-600">{activity.user}</p>
-                    </div>
-                    <span className="text-xs text-gray-500 font-medium">{activity.time}</span>
-                  </div>
-                ))}
+              <div className="text-3xl font-bold text-foreground mb-1">{stat.value}</div>
+              <div className={`text-sm font-medium ${stat.textColor} flex items-center gap-1`}>
+                <TrendingUp className="h-3 w-3" />
+                Actif
               </div>
             </CardContent>
           </Card>
+        ))}
+      </div>
 
-          {/* Résumé de performance */}
-          <Card className="border-0 shadow-lg bg-white/90 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="text-xl font-bold text-gray-800 flex items-center gap-3">
-                <PieChart className="h-6 w-6 text-green-500" />
-                Performance
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-green-600 mb-2">87%</div>
-                  <p className="text-gray-600">Taux de réussite moyen</p>
+      {/* Section des jeux */}
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
+            <GamepadIcon className="h-6 w-6 text-purple-600" />
+            Jeux disponibles
+          </h2>
+          <Button 
+            onClick={() => navigate("/jeux")}
+            className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Voir tous les jeux
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {games.map((game) => (
+            <Card key={game.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-0 shadow-md overflow-hidden">
+              <div className={`h-2 ${game.color}`}></div>
+              
+              <CardHeader className="pb-3">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <CardTitle className="text-lg font-bold text-foreground group-hover:text-purple-600 transition-colors">
+                      {game.name}
+                    </CardTitle>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {game.description}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1 text-yellow-500">
+                    <Star className="h-4 w-4 fill-current" />
+                    <span className="text-xs font-medium">{game.rating}</span>
+                  </div>
                 </div>
-                
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Mathématiques</span>
-                    <span className="text-sm font-medium text-blue-600">92%</span>
+              </CardHeader>
+
+              <CardContent className="space-y-4">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <Badge variant="secondary" className="text-xs">
+                    {game.category}
+                  </Badge>
+                  <Badge className={`text-xs ${getDifficultyColor(game.difficulty)}`}>
+                    {game.difficulty}
+                  </Badge>
+                </div>
+
+                <div className="flex items-center justify-between text-sm text-muted-foreground">
+                  <div className="flex items-center gap-1">
+                    <Users className="h-4 w-4" />
+                    <span>{game.players} joueurs</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-blue-500 h-2 rounded-full w-[92%]"></div>
-                  </div>
-                  
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Français</span>
-                    <span className="text-sm font-medium text-green-600">85%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-green-500 h-2 rounded-full w-[85%]"></div>
-                  </div>
-                  
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Sciences</span>
-                    <span className="text-sm font-medium text-purple-600">78%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-purple-500 h-2 rounded-full w-[78%]"></div>
+                  <div className="flex items-center gap-1">
+                    <Clock className="h-4 w-4" />
+                    <span>{game.duration}</span>
                   </div>
                 </div>
 
                 <Button 
-                  className="w-full bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white shadow-lg"
-                  onClick={() => navigate("/analytics")}
+                  className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 group-hover:shadow-md transition-all"
+                  onClick={() => navigate("/jeux")}
                 >
-                  <BarChart3 className="h-4 w-4 mr-2" />
-                  Voir les détails
+                  <Play className="h-4 w-4 mr-2" />
+                  Lancer le jeu
                 </Button>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          ))}
         </div>
+      </div>
+
+      {/* Actions rapides */}
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-0 shadow-md cursor-pointer" onClick={() => navigate("/apprenants")}>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg group-hover:scale-110 transition-transform">
+                <Users className="h-8 w-8 text-green-600 dark:text-green-400" />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg text-foreground group-hover:text-green-600 transition-colors">
+                  Gérer les apprenants
+                </h3>
+                <p className="text-muted-foreground">
+                  Ajouter, modifier ou supprimer des apprenants
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-0 shadow-md cursor-pointer" onClick={() => navigate("/enseignants")}>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg group-hover:scale-110 transition-transform">
+                <GraduationCap className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg text-foreground group-hover:text-blue-600 transition-colors">
+                  Gérer les enseignants
+                </h3>
+                <p className="text-muted-foreground">
+                  Administrer l'équipe pédagogique
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
