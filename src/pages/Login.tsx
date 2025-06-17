@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -185,13 +184,10 @@ const Login = () => {
 
                   <Button
                     type="submit"
-                    className="w-full h-12 font-semibold text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+                    className="w-full h-12 font-semibold text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] hover:from-orange-600 hover:via-orange-700 hover:to-orange-600"
                     disabled={isLoading}
                     style={{ 
-                      background: 'linear-gradient(135deg, #f97316 0%, #ea580c 50%, #fb923c 100%)',
-                      ':hover': {
-                        background: 'linear-gradient(135deg, #ea580c 0%, #dc2626 50%, #f97316 100%)'
-                      }
+                      background: 'linear-gradient(135deg, #f97316 0%, #ea580c 50%, #fb923c 100%)'
                     }}
                   >
                     {isLoading ? (
