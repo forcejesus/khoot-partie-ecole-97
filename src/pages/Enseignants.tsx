@@ -62,7 +62,7 @@ const EnseignantsContent = () => {
                 className="border-orange-300 text-orange-600 hover:bg-orange-50 font-medium w-full sm:w-auto"
               >
                 <Upload className="mr-2 h-4 w-4" />
-                {t("teachers.importCsv")}
+                Importer un fichier Excel
               </Button>
               
               <AddEnseignantDialog onSuccess={handleRefresh} />
@@ -74,7 +74,7 @@ const EnseignantsContent = () => {
       {/* Liste des enseignants */}
       <Card className="border-orange-200 bg-white">
         <CardContent className="p-0">
-          <EnseignantsList />
+          <EnseignantsList searchTerm={searchTerm} />
         </CardContent>
       </Card>
 

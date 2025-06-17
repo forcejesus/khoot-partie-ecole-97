@@ -5,7 +5,8 @@ import {
   Users, 
   GraduationCap, 
   GamepadIcon,
-  TrendingUp
+  TrendingUp,
+  Play
 } from "lucide-react";
 
 const stats = [
@@ -17,6 +18,15 @@ const stats = [
     bgColor: "bg-orange-50",
     textColor: "text-orange-600",
     change: "+2 ce mois"
+  },
+  {
+    title: "Sessions de jeux",
+    value: "1,247",
+    icon: Play,
+    color: "from-purple-500 to-purple-600",
+    bgColor: "bg-purple-50",
+    textColor: "text-purple-600",
+    change: "+156 cette semaine"
   },
   {
     title: "Enseignants",
@@ -40,7 +50,7 @@ const stats = [
 
 export const StatsCards = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
       {stats.map((stat, index) => (
         <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-orange-200 bg-white">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">

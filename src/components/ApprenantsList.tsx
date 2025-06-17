@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import {
   Table,
@@ -12,7 +12,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
-import { AddApprenantDialog } from "./AddApprenantDialog";
 import { Apprenant } from "@/types/apprenant";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -28,14 +27,28 @@ import {
 
 interface ApprenantsListProps {
   onApprenantChange?: () => void;
+  searchTerm?: string;
 }
 
-export const ApprenantsList = ({ onApprenantChange }: ApprenantsListProps) => {
+export const ApprenantsList = ({ onApprenantChange, searchTerm = "" }: ApprenantsListProps) => {
   const [apprenants, setApprenants] = useState<Apprenant[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [apprenantToDelete, setApprenantToDelete] = useState<string | null>(null);
+
+  // Filtrage dynamique des apprenants
+  const filteredApprenants = useMemo(() => {
+    if (!searchTerm) return apprenants;
+    
+    return apprenants.filter(apprenant => 
+      apprenant.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      apprenant.prenom.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      apprenant.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      apprenant.phone.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      apprenant.matricule.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [apprenants, searchTerm]);
 
   const fetchApprenants = async () => {
     try {
@@ -135,15 +148,12 @@ export const ApprenantsList = ({ onApprenantChange }: ApprenantsListProps) => {
   }, []);
 
   return (
-    <div className="container mx-auto py-8">
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-2xl font-bold">Liste des apprenants</h1>
-          <p className="text-gray-600 mt-1">
-            Total: {apprenants.length} apprenant{apprenants.length > 1 ? "s" : ""}
-          </p>
-        </div>
-        <AddApprenantDialog onSuccess={fetchApprenants} />
+    <div className="container mx-auto py-6">
+      <div className="mb-4">
+        <p className="text-gray-600 text-sm">
+          Total: {filteredApprenants.length} apprenant{filteredApprenants.length > 1 ? "s" : ""} 
+          {searchTerm && ` (sur ${apprenants.length})`}
+        </p>
       </div>
       
       <div className="rounded-md border">
@@ -170,8 +180,14 @@ export const ApprenantsList = ({ onApprenantChange }: ApprenantsListProps) => {
                   <TableCell><Skeleton className="h-8 w-8" /></TableCell>
                 </TableRow>
               ))
+            ) : filteredApprenants.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={6} className="text-center py-8 text-gray-500">
+                  {searchTerm ? "Aucun apprenant trouvé pour cette recherche" : "Aucun apprenant enregistré"}
+                </TableCell>
+              </TableRow>
             ) : (
-              apprenants.map((apprenant) => (
+              filteredApprenants.map((apprenant) => (
                 <TableRow key={apprenant._id}>
                   <TableCell>{apprenant.nom}</TableCell>
                   <TableCell>{apprenant.prenom}</TableCell>

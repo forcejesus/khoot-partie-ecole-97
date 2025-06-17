@@ -49,7 +49,7 @@ const JeuxContent = () => {
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500"></div>
         
         <div className="relative z-10">
-          <JeuxList />
+          <JeuxList searchTerm={searchTerm} />
         </div>
       </div>
     </div>
