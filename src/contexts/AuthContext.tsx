@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -86,7 +85,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      const response = await axios.post("http://kahoot.nos-apps.com/api/login", {
+      const response = await axios.post("http://kahoot.nos-apps.com/api/login-admin", {
         email,
         password,
       });
@@ -109,6 +108,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           // Check for required fields based on actual token structure
           if (!decoded.id || !decoded.email || !decoded.prenom || !decoded.nom) {
             throw new Error("Invalid token data - missing required fields");
+          }
+
+          // Vérifier que l'utilisateur a le rôle admin
+          if (decoded.role !== "admin") {
+            throw new Error("Accès refusé - Seuls les administrateurs peuvent se connecter");
           }
 
           // Create user data with the actual token structure
@@ -139,6 +143,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         toast.error(error.response.data.message);
       } else if (error.response?.status === 401) {
         toast.error("Email ou mot de passe incorrect");
+      } else if (error.message.includes("Accès refusé")) {
+        toast.error("Accès refusé - Seuls les administrateurs peuvent se connecter");
       } else {
         toast.error("Erreur lors de la connexion");
       }

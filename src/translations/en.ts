@@ -399,5 +399,23 @@ export const en = {
     loggingIn: "Logging in...",
     noAccount: "Don't have an account yet?",
     contactAdmin: "Contact your administrator"
+  },
+  // Footer
+  footer: {
+    description: "The interactive learning platform that transforms education in Africa. Engage your students with innovative educational quizzes and games.",
+    navigation: {
+      title: "Navigation"
+    },
+    contact: {
+      title: "Contact",
+      email: "Email",
+      phone: "Phone",
+      offices: "Offices",
+      locations: "Dakar, Senegal\nCasablanca, Morocco\nAbidjan, Ivory Coast"
+    },
+    copyright: "© 2024 AKILI. All rights reserved.",
+    mission: "Let's revolutionize education together.",
+    privacy: "Privacy Policy",
+    terms: "Terms of Service"
   }
 };

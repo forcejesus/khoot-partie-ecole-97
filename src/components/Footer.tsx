@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { 
   School, 
   Mail, 
@@ -15,6 +16,8 @@ import {
 } from "lucide-react";
 
 const Footer = () => {
+  const { t } = useLanguage();
+
   return (
     <footer className="relative bg-gradient-to-br from-gray-900 via-slate-900 to-gray-800 text-white overflow-hidden">
       {/* Motifs de fond modernes */}
@@ -41,8 +44,7 @@ const Footer = () => {
               </span>
             </div>
             <p className="text-gray-300 mb-8 text-lg leading-relaxed max-w-md">
-              La plateforme d'apprentissage interactif qui transforme l'éducation en Afrique. 
-              Engagez vos élèves avec des quiz et jeux éducatifs innovants.
+              {t("footer.description")}
             </p>
             
             {/* Réseaux sociaux */}
@@ -69,14 +71,14 @@ const Footer = () => {
           {/* Navigation */}
           <div>
             <h3 className="text-xl font-bold mb-6 text-transparent bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text">
-              Navigation
+              {t("footer.navigation.title")}
             </h3>
             <ul className="space-y-4">
               {[
-                { to: "/", label: "Accueil" },
-                { to: "/offres", label: "Nos offres" },
-                { to: "/solution", label: "Notre Solution" },
-                { to: "/contact", label: "Contact" },
+                { to: "/", label: t("nav.home") },
+                { to: "/offres", label: t("nav.offers") },
+                { to: "/solution", label: t("nav.solution") },
+                { to: "/contact", label: t("nav.contact") },
                 { to: "/contact#faq", label: "FAQ" }
               ].map(({ to, label }) => (
                 <li key={to}>
@@ -97,7 +99,7 @@ const Footer = () => {
           {/* Contact */}
           <div>
             <h3 className="text-xl font-bold mb-6 text-transparent bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text">
-              Contact
+              {t("footer.contact.title")}
             </h3>
             <ul className="space-y-6">
               <li className="flex items-start group">
@@ -105,7 +107,7 @@ const Footer = () => {
                   <Mail className="h-5 w-5 text-orange-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-400 mb-1">Email</p>
+                  <p className="text-sm text-gray-400 mb-1">{t("footer.contact.email")}</p>
                   <span className="text-gray-300 hover:text-orange-400 transition-colors cursor-pointer">
                     contact@akili.education
                   </span>
@@ -116,7 +118,7 @@ const Footer = () => {
                   <Phone className="h-5 w-5 text-orange-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-400 mb-1">Téléphone</p>
+                  <p className="text-sm text-gray-400 mb-1">{t("footer.contact.phone")}</p>
                   <span className="text-gray-300 hover:text-orange-400 transition-colors cursor-pointer">
                     +221 77 123 45 67
                   </span>
@@ -127,11 +129,9 @@ const Footer = () => {
                   <MapPin className="h-5 w-5 text-orange-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-400 mb-1">Bureaux</p>
+                  <p className="text-sm text-gray-400 mb-1">{t("footer.contact.offices")}</p>
                   <span className="text-gray-300 leading-relaxed">
-                    Dakar, Sénégal<br />
-                    Casablanca, Maroc<br />
-                    Abidjan, Côte d'Ivoire
+                    {t("footer.contact.locations")}
                   </span>
                 </div>
               </li>
@@ -144,19 +144,19 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center mb-4 md:mb-0">
               <p className="text-gray-400 text-sm">
-                © 2024 AKILI. Tous droits réservés.
+                {t("footer.copyright")}
               </p>
               <Heart className="h-4 w-4 text-red-500 mx-2 animate-pulse" />
               <p className="text-gray-400 text-sm">
-                Révolutionnons l'éducation ensemble.
+                {t("footer.mission")}
               </p>
             </div>
             <div className="flex items-center space-x-6 text-sm">
               <Link to="/privacy" className="text-gray-400 hover:text-orange-400 transition-colors">
-                Politique de confidentialité
+                {t("footer.privacy")}
               </Link>
               <Link to="/terms" className="text-gray-400 hover:text-orange-400 transition-colors">
-                Conditions d'utilisation
+                {t("footer.terms")}
               </Link>
             </div>
           </div>
