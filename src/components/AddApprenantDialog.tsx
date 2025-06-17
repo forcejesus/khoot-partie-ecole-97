@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
@@ -173,14 +174,14 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>
-          <Plus className="mr-2" />
+        <Button className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg">
+          <Plus className="mr-2 h-4 w-4" />
           Ajouter un apprenant
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[500px] bg-white border-orange-200">
         <DialogHeader>
-          <DialogTitle>Ajouter un nouvel apprenant</DialogTitle>
+          <DialogTitle className="text-xl font-bold text-orange-700">Ajouter un nouvel apprenant</DialogTitle>
         </DialogHeader>
         
         <ManualApprenantForm
@@ -190,7 +191,7 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
           isLoading={isLoading}
         />
 
-        <Separator className="my-4" />
+        <Separator className="my-4 bg-orange-200" />
 
         <CSVImportForm
           onFileUpload={handleFileUpload}
