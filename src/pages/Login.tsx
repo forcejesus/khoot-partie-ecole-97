@@ -6,7 +6,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Loader2, LogIn, Eye, EyeOff, Shield, Star, ArrowRight, Sparkles, Users, Trophy, Target, Home, Award } from "lucide-react";
+import { Loader2, LogIn, Eye, EyeOff, ArrowRight, Sparkles, Trophy, Target, Home, GraduationCap } from "lucide-react";
 import { toast } from "sonner";
 
 const Login = () => {
@@ -50,15 +50,15 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-orange-100 flex items-center justify-center p-4">
       {/* Container principal unifié */}
       <div className="w-full max-w-7xl mx-auto">
         <Card className="overflow-hidden shadow-2xl border-0 bg-white backdrop-blur-sm">
-          <div className="h-2 bg-gradient-to-r from-blue-500 via-indigo-600 to-blue-700" />
+          <div className="h-2 bg-gradient-to-r from-orange-500 via-red-600 to-orange-700" />
           
-          <div className="flex min-h-[700px]">
+          <div className="flex flex-col lg:flex-row min-h-[700px]">
             {/* Section publicitaire - Gauche */}
-            <div className="flex-1 bg-gradient-to-br from-blue-600 via-indigo-600 to-blue-700 relative flex items-center justify-center p-12">
+            <div className="flex-1 bg-gradient-to-br from-orange-600 via-red-600 to-orange-700 relative flex items-center justify-center p-6 lg:p-12">
               {/* Motifs décoratifs */}
               <div className="absolute inset-0">
                 <div className="absolute top-20 left-20 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse"></div>
@@ -71,43 +71,43 @@ const Login = () => {
                 <div className="mb-8">
                   <div className="flex justify-center mb-6">
                     <div className="p-6 bg-white/20 backdrop-blur-sm rounded-full">
-                      <Sparkles className="h-12 w-12 text-white" />
+                      <Sparkles className="h-8 w-8 lg:h-12 lg:w-12 text-white" />
                     </div>
                   </div>
-                  <h2 className="text-4xl font-bold mb-4 leading-tight">
+                  <h2 className="text-2xl lg:text-4xl font-bold mb-4 leading-tight">
                     Plateforme Éducative Innovante
                   </h2>
-                  <p className="text-xl text-white/90 mb-8 leading-relaxed">
+                  <p className="text-lg lg:text-xl text-white/90 mb-8 leading-relaxed">
                     Améliorez le potentiel de vos apprenants en utilisant leur environnement familier pour créer une expérience d'apprentissage magique et transformatrice
                   </p>
                   
                   {/* Liste des avantages avec icônes */}
-                  <div className="space-y-6 mb-8 text-left">
+                  <div className="space-y-4 lg:space-y-6 mb-8 text-left">
                     <div className="flex items-start space-x-4">
-                      <div className="p-3 bg-white/20 rounded-full mt-1">
-                        <Trophy className="h-6 w-6 text-white" />
+                      <div className="p-2 lg:p-3 bg-white/20 rounded-full mt-1 flex-shrink-0">
+                        <Trophy className="h-4 w-4 lg:h-6 lg:w-6 text-white" />
                       </div>
                       <div>
-                        <h4 className="text-white font-semibold mb-1">Créez des jeux captivants</h4>
-                        <p className="text-white/80 text-sm">Système de suivi et classement pour éveiller l'esprit compétitif et la motivation naturelle de vos élèves</p>
+                        <h4 className="text-white font-semibold mb-1 text-sm lg:text-base">Créez des jeux captivants</h4>
+                        <p className="text-white/80 text-xs lg:text-sm">Système de suivi et classement pour éveiller l'esprit compétitif et la motivation naturelle de vos élèves</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-4">
-                      <div className="p-3 bg-white/20 rounded-full mt-1">
-                        <Target className="h-6 w-6 text-white" />
+                      <div className="p-2 lg:p-3 bg-white/20 rounded-full mt-1 flex-shrink-0">
+                        <Target className="h-4 w-4 lg:h-6 lg:w-6 text-white" />
                       </div>
                       <div>
-                        <h4 className="text-white font-semibold mb-1">Suivi personnalisé</h4>
-                        <p className="text-white/80 text-sm">Permettez à vos enseignants de comprendre et accompagner chaque apprenant dans son parcours unique</p>
+                        <h4 className="text-white font-semibold mb-1 text-sm lg:text-base">Suivi personnalisé</h4>
+                        <p className="text-white/80 text-xs lg:text-sm">Permettez à vos enseignants de comprendre et accompagner chaque apprenant dans son parcours unique</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-4">
-                      <div className="p-3 bg-white/20 rounded-full mt-1">
-                        <Home className="h-6 w-6 text-white" />
+                      <div className="p-2 lg:p-3 bg-white/20 rounded-full mt-1 flex-shrink-0">
+                        <Home className="h-4 w-4 lg:h-6 lg:w-6 text-white" />
                       </div>
                       <div>
-                        <h4 className="text-white font-semibold mb-1">100% en ligne</h4>
-                        <p className="text-white/80 text-sm">L'apprentissage continue à la maison, créant un pont naturel entre l'école et le foyer familial</p>
+                        <h4 className="text-white font-semibold mb-1 text-sm lg:text-base">100% en ligne</h4>
+                        <p className="text-white/80 text-xs lg:text-sm">L'apprentissage continue à la maison, créant un pont naturel entre l'école et le foyer familial</p>
                       </div>
                     </div>
                   </div>
@@ -115,9 +115,9 @@ const Login = () => {
                   <Button
                     onClick={() => navigate("/offres")}
                     size="lg"
-                    className="bg-white text-blue-600 hover:bg-blue-50 font-bold text-lg px-8 py-4 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                    className="bg-white text-orange-600 hover:bg-orange-50 font-bold text-base lg:text-lg px-6 lg:px-8 py-3 lg:py-4 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 w-full lg:w-auto"
                   >
-                    <ArrowRight className="mr-2 h-5 w-5" />
+                    <ArrowRight className="mr-2 h-4 w-4 lg:h-5 lg:w-5" />
                     Découvrir nos offres
                   </Button>
                 </div>
@@ -125,23 +125,18 @@ const Login = () => {
             </div>
 
             {/* Section formulaire de connexion - Droite */}
-            <div className="flex-1 flex items-center justify-center p-12 bg-gradient-to-br from-blue-50 to-indigo-50">
+            <div className="flex-1 flex items-center justify-center p-6 lg:p-12 bg-gradient-to-br from-orange-50 to-red-50">
               <div className="w-full max-w-md">
                 <div className="text-center mb-8">
-                  <div className="flex justify-center mb-6">
-                    <div className="p-4 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full shadow-lg">
-                      <Shield className="h-8 w-8 text-white" />
-                    </div>
-                  </div>
-                  <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-800 bg-clip-text text-transparent mb-4">
+                  <h1 className="text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-orange-700 via-red-700 to-orange-800 bg-clip-text text-transparent mb-6">
                     AKILI
                   </h1>
-                  <p className="text-gray-600 text-base mb-6">
+                  <p className="text-gray-600 text-sm lg:text-base mb-6">
                     {t("login.subtitle")}
                   </p>
-                  <div className="flex items-center justify-center space-x-2 text-sm text-blue-700 bg-blue-50 p-3 rounded-lg border border-blue-200">
-                    <Shield className="h-4 w-4" />
-                    <span className="font-medium">{t("login.adminAccess")}</span>
+                  <div className="flex items-center justify-center space-x-2 text-sm text-orange-700 bg-orange-50 p-3 rounded-lg border border-orange-200 mb-6">
+                    <GraduationCap className="h-4 w-4" />
+                    <span className="font-medium">Espace École</span>
                   </div>
                 </div>
 
@@ -157,7 +152,7 @@ const Login = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        className="h-12 bg-white border-2 border-gray-200 focus:border-blue-500 transition-colors rounded-lg shadow-sm"
+                        className="h-12 bg-white border-2 border-gray-200 focus:border-orange-500 transition-colors rounded-lg shadow-sm"
                       />
                     </div>
                   </div>
@@ -172,7 +167,7 @@ const Login = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        className="pr-12 h-12 bg-white border-2 border-gray-200 focus:border-blue-500 transition-colors rounded-lg shadow-sm"
+                        className="pr-12 h-12 bg-white border-2 border-gray-200 focus:border-orange-500 transition-colors rounded-lg shadow-sm"
                         placeholder="••••••••"
                       />
                       <button
@@ -187,7 +182,7 @@ const Login = () => {
 
                   <Button
                     type="submit"
-                    className="w-full h-12 font-semibold bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:via-indigo-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+                    className="w-full h-12 font-semibold bg-gradient-to-r from-orange-600 via-red-600 to-orange-700 hover:from-orange-700 hover:via-red-700 hover:to-orange-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -205,7 +200,7 @@ const Login = () => {
                 </form>
 
                 {/* Tips de sécurité */}
-                <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="mt-6 p-4 bg-orange-50 rounded-lg border border-orange-200">
                   <p className="text-xs text-gray-600 text-center">
                     💡 <strong>{t("login.securityTip.title")}:</strong> {t("login.securityTip.description")}
                   </p>
