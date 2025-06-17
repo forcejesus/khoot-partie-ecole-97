@@ -388,17 +388,30 @@ export const fr = {
     search: "Rechercher un jeu éducatif..."
   },
   
-  // Login
+  // Login avec nouvelles traductions
   login: {
     title: "KHOOT ECES",
     subtitle: "Connectez-vous à votre compte pour accéder à votre espace",
     email: "Email",
     password: "Mot de passe",
-    forgotPassword: "Mot de passe oublié ?",
     loginButton: "Se Connecter",
     loggingIn: "Connexion en cours...",
+    adminAccess: "Accès réservé aux administrateurs",
+    validation: {
+      emailRequired: "Veuillez saisir votre adresse email",
+      passwordRequired: "Veuillez saisir votre mot de passe"
+    },
+    securityTip: {
+      title: "Conseil",
+      description: "Utilisez un mot de passe fort contenant des lettres, chiffres et symboles"
+    },
     noAccount: "Pas encore de compte ?",
-    contactAdmin: "Contactez votre administrateur"
+    discoverOffers: "Découvrez nos offres",
+    promotion: {
+      title: "🎓 Transformez votre école !",
+      description: "Découvrez nos solutions éducatives innovantes et rejoignez plus de 500 écoles satisfaites.",
+      button: "Voir nos offres"
+    }
   },
 
   // Footer

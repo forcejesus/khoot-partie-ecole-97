@@ -388,18 +388,32 @@ export const en = {
     search: "Search for an educational game..."
   },
   
-  // Login
+  // Login avec nouvelles traductions
   login: {
     title: "KHOOT ECES",
     subtitle: "Log in to your account to access your space",
     email: "Email",
     password: "Password",
-    forgotPassword: "Forgot password?",
     loginButton: "Log In",
     loggingIn: "Logging in...",
+    adminAccess: "Access reserved for administrators",
+    validation: {
+      emailRequired: "Please enter your email address",
+      passwordRequired: "Please enter your password"
+    },
+    securityTip: {
+      title: "Tip",
+      description: "Use a strong password containing letters, numbers and symbols"
+    },
     noAccount: "Don't have an account yet?",
-    contactAdmin: "Contact your administrator"
+    discoverOffers: "Discover our offers",
+    promotion: {
+      title: "🎓 Transform your school!",
+      description: "Discover our innovative educational solutions and join over 500 satisfied schools.",
+      button: "View our offers"
+    }
   },
+
   // Footer
   footer: {
     description: "The interactive learning platform that transforms education in Africa. Engage your students with innovative educational quizzes and games.",

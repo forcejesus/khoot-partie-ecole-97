@@ -6,7 +6,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Loader2, LogIn, Eye, EyeOff, Shield } from "lucide-react";
+import { Loader2, LogIn, Eye, EyeOff, Shield, Star, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 
 const Login = () => {
@@ -29,21 +29,14 @@ const Login = () => {
     e.preventDefault();
     
     if (!email.trim()) {
-      toast.error("📧 Veuillez saisir votre adresse email", {
+      toast.error(`📧 ${t("login.validation.emailRequired")}`, {
         duration: 3000,
       });
       return;
     }
     
     if (!password.trim()) {
-      toast.error("🔒 Veuillez saisir votre mot de passe", {
-        duration: 3000,
-      });
-      return;
-    }
-
-    if (password.length < 6) {
-      toast.error("🔑 Le mot de passe doit contenir au moins 6 caractères", {
+      toast.error(`🔒 ${t("login.validation.passwordRequired")}`, {
         duration: 3000,
       });
       return;
@@ -83,7 +76,7 @@ const Login = () => {
             </CardDescription>
             <div className="flex items-center justify-center space-x-2 text-sm text-orange-600 bg-orange-50 p-3 rounded-lg">
               <Shield className="h-4 w-4" />
-              <span className="font-medium">Accès réservé aux administrateurs</span>
+              <span className="font-medium">{t("login.adminAccess")}</span>
             </div>
           </CardHeader>
 
@@ -106,18 +99,9 @@ const Login = () => {
               </div>
 
               <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                    🔒 {t("login.password")}
-                  </label>
-                  <button 
-                    type="button"
-                    className="text-xs text-orange-600 hover:text-orange-700 transition-colors font-medium"
-                    onClick={() => toast.info("Contactez l'administrateur système pour réinitialiser votre mot de passe", { duration: 4000 })}
-                  >
-                    {t("login.forgotPassword")}
-                  </button>
-                </div>
+                <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                  🔒 {t("login.password")}
+                </label>
                 <div className="relative">
                   <Input
                     type={showPassword ? "text" : "password"}
@@ -145,7 +129,7 @@ const Login = () => {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    Connexion en cours...
+                    {t("login.loggingIn")}
                   </>
                 ) : (
                   <>
@@ -159,22 +143,44 @@ const Login = () => {
             {/* Tips de sécurité */}
             <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
               <p className="text-xs text-gray-600 text-center">
-                💡 <strong>Conseil :</strong> Utilisez un mot de passe fort contenant des lettres, chiffres et symboles
+                💡 <strong>{t("login.securityTip.title")}:</strong> {t("login.securityTip.description")}
               </p>
             </div>
           </CardContent>
         </Card>
 
-        <div className="mt-6 text-center text-sm text-gray-600">
-          <p className="bg-white/80 backdrop-blur-sm p-3 rounded-lg shadow-sm">
-            {t("login.noAccount")} {" "}
-            <button 
-              onClick={() => toast.info("Contactez votre responsable informatique pour obtenir un accès administrateur", { duration: 5000 })}
-              className="font-semibold text-orange-600 hover:text-orange-700 transition-colors underline"
-            >
-              {t("login.contactAdmin")}
-            </button>
-          </p>
+        {/* Section publicitaire pour les abonnements */}
+        <div className="mt-6 space-y-4">
+          <div className="text-center text-sm text-gray-600">
+            <p className="bg-white/80 backdrop-blur-sm p-3 rounded-lg shadow-sm">
+              {t("login.noAccount")} {" "}
+              <button 
+                onClick={() => navigate("/offres")}
+                className="font-semibold text-orange-600 hover:text-orange-700 transition-colors underline inline-flex items-center gap-1"
+              >
+                {t("login.discoverOffers")}
+                <ArrowRight className="h-3 w-3" />
+              </button>
+            </p>
+          </div>
+
+          {/* Carte publicitaire attractive */}
+          <Card className="bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 border-0 shadow-lg">
+            <CardContent className="p-6 text-center text-white">
+              <div className="flex justify-center mb-3">
+                <Star className="h-6 w-6 text-yellow-200" />
+              </div>
+              <h3 className="font-bold text-lg mb-2">{t("login.promotion.title")}</h3>
+              <p className="text-sm text-white/90 mb-4">{t("login.promotion.description")}</p>
+              <Button
+                onClick={() => navigate("/offres")}
+                variant="secondary"
+                className="bg-white text-orange-600 hover:bg-gray-100 font-semibold"
+              >
+                {t("login.promotion.button")}
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
