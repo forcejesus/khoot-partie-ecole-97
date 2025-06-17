@@ -17,7 +17,8 @@ interface User {
   id: string;
   name: string;
   email: string;
-  ecole: School;
+  role: string;
+  ecole?: School;
 }
 
 interface AuthContextType {
@@ -103,16 +104,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           }).join(''));
 
           const decoded = JSON.parse(jsonPayload);
+          console.log("Decoded token:", decoded);
           
-          if (!decoded.id || !decoded.name || !decoded.email || !decoded.ecole) {
-            throw new Error("Invalid token data");
+          // Check for required fields based on actual token structure
+          if (!decoded.id || !decoded.email || !decoded.prenom || !decoded.nom) {
+            throw new Error("Invalid token data - missing required fields");
           }
 
+          // Create user data with the actual token structure
           const userData = {
             id: decoded.id,
-            name: decoded.name,
+            name: `${decoded.prenom} ${decoded.nom}`, // Combine prenom and nom to create name
             email: decoded.email,
-            ecole: decoded.ecole,
+            role: decoded.role,
+            // ecole will be fetched later if needed
           };
 
           setUser(userData);
