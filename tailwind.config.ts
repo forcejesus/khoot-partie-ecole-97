@@ -25,9 +25,9 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#3b82f6", // Blue moderne
-          light: "#60a5fa",
-          dark: "#1d4ed8",
+          DEFAULT: "#ea580c", // Orange primary color
+          light: "#fb923c",
+          dark: "#c2410c",
           foreground: "#ffffff",
         },
         secondary: {
@@ -65,34 +65,35 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['Poppins', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
         inter: ['Inter', 'system-ui', 'sans-serif'],
+        poppins: ['Poppins', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         // Tailles conformes aux normes d'accessibilité WCAG et Material Design
         'xs': ['0.75rem', { lineHeight: '1rem' }],     // 12px
         'sm': ['0.875rem', { lineHeight: '1.25rem' }], // 14px
-        'base': ['1rem', { lineHeight: '1.5rem' }],    // 16px - Taille de base recommandée
-        'lg': ['1.125rem', { lineHeight: '1.75rem' }], // 18px
-        'xl': ['1.25rem', { lineHeight: '1.75rem' }],  // 20px
-        '2xl': ['1.5rem', { lineHeight: '2rem' }],     // 24px
-        '3xl': ['1.875rem', { lineHeight: '2.25rem' }], // 30px
-        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],  // 36px
-        '5xl': ['3rem', { lineHeight: '1' }],          // 48px
-        '6xl': ['3.75rem', { lineHeight: '1' }],       // 60px
-        '7xl': ['4.5rem', { lineHeight: '1' }],        // 72px
-        '8xl': ['6rem', { lineHeight: '1' }],          // 96px
-        '9xl': ['8rem', { lineHeight: '1' }],          // 128px
+        'base': ['1.125rem', { lineHeight: '1.75rem' }], // 18px - Taille de base augmentée
+        'lg': ['1.25rem', { lineHeight: '1.875rem' }], // 20px
+        'xl': ['1.375rem', { lineHeight: '1.875rem' }],  // 22px
+        '2xl': ['1.625rem', { lineHeight: '2rem' }],     // 26px
+        '3xl': ['2rem', { lineHeight: '2.25rem' }], // 32px
+        '4xl': ['2.5rem', { lineHeight: '2.75rem' }],  // 40px
+        '5xl': ['3.25rem', { lineHeight: '1' }],          // 52px
+        '6xl': ['4rem', { lineHeight: '1' }],       // 64px
+        '7xl': ['4.75rem', { lineHeight: '1' }],        // 76px
+        '8xl': ['6.25rem', { lineHeight: '1' }],          // 100px
+        '9xl': ['8.25rem', { lineHeight: '1' }],          // 132px
         // Tailles spécifiques mobiles (conformes aux normes iOS/Android)
         'mobile-xs': ['0.75rem', { lineHeight: '1.125rem' }], // 12px avec line-height optimisé mobile
         'mobile-sm': ['0.875rem', { lineHeight: '1.375rem' }], // 14px
-        'mobile-base': ['1rem', { lineHeight: '1.625rem' }],   // 16px - Taille minimum recommandée pour mobile
-        'mobile-lg': ['1.125rem', { lineHeight: '1.75rem' }], // 18px
-        'mobile-xl': ['1.25rem', { lineHeight: '1.875rem' }], // 20px
-        'mobile-2xl': ['1.5rem', { lineHeight: '2.125rem' }], // 24px
+        'mobile-base': ['1.125rem', { lineHeight: '1.75rem' }], // 18px - Taille minimum recommandée pour mobile
+        'mobile-lg': ['1.25rem', { lineHeight: '1.875rem' }], // 20px
+        'mobile-xl': ['1.375rem', { lineHeight: '2rem' }], // 22px
+        'mobile-2xl': ['1.625rem', { lineHeight: '2.25rem' }], // 26px
         // Tailles pour tablette
-        'tablet-base': ['1.0625rem', { lineHeight: '1.625rem' }], // 17px - Optimal pour tablette
-        'tablet-lg': ['1.1875rem', { lineHeight: '1.8125rem' }], // 19px
+        'tablet-base': ['1.1875rem', { lineHeight: '1.75rem' }], // 19px - Optimal pour tablette
+        'tablet-lg': ['1.3125rem', { lineHeight: '1.9375rem' }], // 21px
       },
       keyframes: {
         "accordion-down": {

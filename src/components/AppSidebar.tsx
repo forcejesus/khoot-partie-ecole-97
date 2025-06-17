@@ -20,8 +20,7 @@ import {
   GamepadIcon, 
   Settings, 
   LogOut,
-  Bell,
-  Award
+  Bell
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -74,23 +73,18 @@ export function AppSidebar() {
     <Sidebar className="border-r border-orange-200 bg-white">
       <SidebarHeader className="border-b border-orange-200 p-6 bg-gradient-to-br from-orange-50 to-orange-100">
         <div className="flex flex-col items-center space-y-4">
-          {/* Logo AKILI */}
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
-              <Award className="h-7 w-7 text-white" />
-            </div>
-            <div className="text-left">
-              <h2 className="text-xl font-bold bg-gradient-to-r from-orange-600 to-orange-800 bg-clip-text text-transparent">
-                AKILI
-              </h2>
-              <p className="text-sm text-orange-600 font-medium">Espace École</p>
-            </div>
+          {/* Logo AKILI - Plus grand et plus visible */}
+          <div className="text-center">
+            <h1 className="text-3xl font-black bg-gradient-to-r from-orange-600 to-orange-800 bg-clip-text text-transparent tracking-wide">
+              AKILI
+            </h1>
+            <p className="text-base text-orange-600 font-semibold mt-1">Espace École</p>
           </div>
           
           {/* École info */}
           {user?.ecole && (
             <div className="w-full text-center bg-white/70 rounded-lg py-2 px-3">
-              <p className="text-xs text-orange-700 font-medium truncate">
+              <p className="text-sm text-orange-700 font-medium truncate">
                 {user.ecole.libelle}
               </p>
             </div>
@@ -110,10 +104,10 @@ export function AppSidebar() {
                   <SidebarMenuButton
                     onClick={() => navigate(item.url)}
                     isActive={location.pathname === item.url}
-                    className="w-full flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-orange-50 hover:text-orange-700 transition-all duration-200 group text-gray-700 data-[active=true]:bg-orange-100 data-[active=true]:text-orange-700 data-[active=true]:font-semibold"
+                    className="w-full flex items-center gap-4 px-4 py-4 rounded-xl hover:bg-orange-50 hover:text-orange-700 transition-all duration-200 group text-gray-700 data-[active=true]:bg-orange-100 data-[active=true]:text-orange-700 data-[active=true]:font-semibold"
                   >
-                    <item.icon className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
-                    <span className="font-medium">{item.title}</span>
+                    <item.icon className="h-12 w-12 group-hover:scale-110 transition-transform duration-200" />
+                    <span className="font-medium text-lg">{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
