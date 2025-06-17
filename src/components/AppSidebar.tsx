@@ -74,7 +74,7 @@ export function AppSidebar() {
       <SidebarHeader className="border-b border-orange-200 p-4 bg-gradient-to-br from-orange-50 to-orange-100">
         <div className="flex flex-col items-center space-y-3">
           <div className="text-center">
-            <h1 className="text-4xl font-black bg-gradient-to-r from-orange-600 to-orange-800 bg-clip-text text-transparent tracking-wide">
+            <h1 className="text-5xl font-black bg-gradient-to-r from-orange-600 to-orange-800 bg-clip-text text-transparent tracking-wide">
               AKILI
             </h1>
             <p className="text-sm text-orange-600 font-semibold mt-1">Espace École</p>
@@ -96,7 +96,7 @@ export function AppSidebar() {
             Navigation
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-1">
+            <SidebarMenu className="space-y-2">
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
@@ -104,8 +104,8 @@ export function AppSidebar() {
                     isActive={location.pathname === item.url}
                     className="w-full flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-orange-50 hover:text-orange-700 transition-all duration-200 group text-gray-700 data-[active=true]:bg-orange-100 data-[active=true]:text-orange-700 data-[active=true]:font-semibold"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center group-hover:bg-orange-200 group-data-[active=true]:bg-orange-200 transition-colors">
-                      <item.icon className="h-6 w-6 text-orange-600" />
+                    <div className="w-12 h-12 rounded-lg bg-orange-100 flex items-center justify-center group-hover:bg-orange-200 group-data-[active=true]:bg-orange-200 transition-colors">
+                      <item.icon className="h-8 w-8 text-orange-600" />
                     </div>
                     <span className="font-medium text-sm">{item.title}</span>
                   </SidebarMenuButton>

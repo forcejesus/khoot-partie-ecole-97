@@ -45,14 +45,18 @@ const EnseignantsContent = () => {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:items-center md:justify-between gap-4">
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-              <Input
-                placeholder={t("teachers.search")}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 border-orange-200 focus:border-orange-400 bg-white"
-              />
+            <div className="flex flex-col sm:flex-row gap-3 flex-1">
+              <div className="relative flex-1 max-w-md">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input
+                  placeholder={t("teachers.search")}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 border-orange-200 focus:border-orange-400 bg-white"
+                />
+              </div>
+              
+              <AddEnseignantDialog onSuccess={handleRefresh} />
             </div>
             
             <div className="flex flex-col sm:flex-row gap-3">
@@ -64,8 +68,6 @@ const EnseignantsContent = () => {
                 <Upload className="mr-2 h-4 w-4" />
                 Importer un fichier Excel
               </Button>
-              
-              <AddEnseignantDialog onSuccess={handleRefresh} />
             </div>
           </div>
         </CardContent>
