@@ -29,12 +29,12 @@ const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
   };
 
   const linkClasses = isMobile
-    ? "block py-4 px-4 text-mobile-lg md:text-tablet-lg font-medium text-gray-700 hover:text-orange-600 transition-colors duration-300 rounded-lg hover:bg-orange-50"
-    : "font-medium text-base lg:text-lg text-gray-700 hover:text-orange-600 transition-colors duration-300 px-4 py-2 rounded-lg hover:bg-orange-50/50";
+    ? "block py-4 px-4 text-mobile-lg md:text-tablet-lg font-medium text-gray-700 hover:text-orange-600 transition-all duration-300 rounded-lg hover:bg-orange-50 relative group"
+    : "font-medium text-base lg:text-lg text-gray-700 hover:text-orange-600 transition-all duration-300 px-4 py-2 rounded-lg hover:bg-orange-50/50 relative group position-relative";
 
   const activeLinkClasses = isMobile
-    ? "block py-4 px-4 text-mobile-lg md:text-tablet-lg font-semibold text-orange-600 bg-gradient-to-r from-orange-50 to-red-50 border-l-4 border-orange-500 rounded-lg"
-    : "font-semibold text-base lg:text-lg text-orange-600 px-4 py-2 bg-gradient-to-r from-orange-100 to-red-100 rounded-lg border border-orange-200";
+    ? "block py-4 px-4 text-mobile-lg md:text-tablet-lg font-bold text-white bg-gradient-to-r from-orange-500 to-red-500 rounded-xl shadow-lg transform scale-105 border-2 border-orange-300"
+    : "font-bold text-base lg:text-lg text-white px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl shadow-lg transform scale-105 border-2 border-orange-300 relative";
 
   const navigationItems = [
     { path: "/", label: t("nav.home") },
@@ -56,7 +56,11 @@ const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
         <button 
           key={path}
           onClick={() => handleNavigation(path)}
-          className={isActive(path) ? activeLinkClasses : linkClasses}
+          className={`${isActive(path) ? activeLinkClasses : linkClasses} ${
+            isActive(path) && !isMobile 
+              ? "after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:transform after:-translate-x-1/2 after:w-2 after:h-2 after:bg-white after:rounded-full after:shadow-md" 
+              : ""
+          }`}
         >
           {label}
         </button>

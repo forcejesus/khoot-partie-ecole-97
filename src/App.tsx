@@ -9,6 +9,7 @@ import {
 import { AuthProvider } from "./contexts/AuthContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import ScrollToTop from "./components/ScrollToTop";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Apprenants from "./pages/Apprenants";
@@ -37,6 +38,7 @@ function App() {
       <AuthProvider>
         <LanguageProvider>
           <ThemeProvider>
+            <ScrollToTop />
             <Routes>
               {/* Routes publiques */}
               <Route path="/" element={<Index />} />

@@ -1,6 +1,7 @@
 
 import React from "react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import HeroSection from "@/components/sections/HeroSection";
 import FeaturesSection from "@/components/sections/FeaturesSection";
 import OffresSection from "@/components/OffresSection";
@@ -16,6 +17,7 @@ const Index = () => {
       <OffresSection />
       <TestimonialsSection />
       <CTASection />
+      <Footer />
     </div>
   );
 };
