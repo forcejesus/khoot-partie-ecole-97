@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { 
   Accordion, 
@@ -10,8 +9,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { HelpCircle, Mail, Phone, MessageCircle, ArrowRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const FAQ = () => {
+  
   const fadeInVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
@@ -92,6 +94,8 @@ const FAQ = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-purple-50 relative overflow-hidden font-inter">
+      <Navbar />
+      
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div 
@@ -244,7 +248,7 @@ const FAQ = () => {
           className="relative"
         >
           <div className="bg-gradient-to-br from-violet-600 via-purple-700 to-indigo-800 rounded-3xl p-12 relative overflow-hidden shadow-2xl">
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.1%22%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2220%22%20r%3D%222%22/%3E%3C/g%3E%3C/svg%3E')] opacity-20" />
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.1%22%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2220%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20" />
             
             <div className="relative z-10 text-center">
               <motion.div
@@ -265,6 +269,8 @@ const FAQ = () => {
           </div>
         </motion.div>
       </div>
+      
+      <Footer />
     </div>
   );
 };

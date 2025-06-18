@@ -1,10 +1,11 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { School, CheckCircle2, Sparkles, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const InscriptionEcoles = () => {
   const { t } = useLanguage();
@@ -44,6 +45,8 @@ const InscriptionEcoles = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50 relative overflow-hidden">
+      <Navbar />
+      
       <div className="fixed inset-0 opacity-5 bg-kente-stripes pointer-events-none"></div>
       
       <div className="container mx-auto py-8 px-4 md:px-6 relative z-10">
@@ -285,6 +288,8 @@ const InscriptionEcoles = () => {
           </motion.div>
         </div>
       </div>
+      
+      <Footer />
     </div>
   );
 };
