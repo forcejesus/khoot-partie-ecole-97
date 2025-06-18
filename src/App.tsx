@@ -16,6 +16,12 @@ import Enseignants from "./pages/Enseignants";
 import Jeux from "./pages/Jeux";
 import Settings from "./pages/Settings";
 import Notifications from "@/pages/Notifications";
+import Index from "@/pages/Index";
+import Offres from "@/pages/Offres";
+import Solution from "@/pages/Solution";
+import Contact from "@/pages/Contact";
+import FAQ from "@/pages/FAQ";
+import InscriptionEcoles from "@/pages/InscriptionEcoles";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const token = localStorage.getItem("token");
@@ -32,7 +38,16 @@ function App() {
         <LanguageProvider>
           <ThemeProvider>
             <Routes>
+              {/* Routes publiques */}
+              <Route path="/" element={<Index />} />
+              <Route path="/offres" element={<Offres />} />
+              <Route path="/solution" element={<Solution />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/inscription-ecoles" element={<InscriptionEcoles />} />
               <Route path="/login" element={<Login />} />
+              
+              {/* Routes protégées */}
               <Route
                 path="/dashboard"
                 element={
@@ -81,7 +96,6 @@ function App() {
                   </ProtectedRoute>
                 } 
               />
-              <Route path="/" element={<Navigate to="/login" />} />
             </Routes>
           </ThemeProvider>
         </LanguageProvider>
