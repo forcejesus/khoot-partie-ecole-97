@@ -2,8 +2,8 @@ export const en = {
   // Navigation
   nav: {
     home: "Home",
-    offers: "Our Offers",
-    solution: "Our Solution",
+    offers: "Plan Pricing",
+    solution: "AKILI",
     contact: "Contact Us",
     login: "Log In",
     language: "English"

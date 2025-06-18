@@ -9,11 +9,9 @@ interface LogoProps {
 const Logo = ({ closeMenu }: LogoProps) => {
   return (
     <Link to="/" className="flex items-center group" onClick={closeMenu}>
-      <div className="relative">
-        <span className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent tracking-tight group-hover:scale-105 transition-transform duration-300">
-          AKILI
-        </span>
-      </div>
+      <span className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent tracking-tight group-hover:scale-105 transition-transform duration-300">
+        AKILI
+      </span>
     </Link>
   );
 };
