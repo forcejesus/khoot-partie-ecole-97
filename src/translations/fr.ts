@@ -91,12 +91,12 @@ export const fr = {
       }
     },
     cta: {
-      title: "Engagez vos élèves différemment. Adoptez AKILI !",
+      title: "Transformez vos cours avec AKILI !",
       subtitle: "Rejoignez plus de 500 écoles utilisant déjà AKILI pour créer des expériences d'apprentissage extraordinaires",
       button: "Commencer maintenant"
     }
   },
-  
+
   // Contact page
   contact: {
     badge: "Restez connecté",
@@ -204,24 +204,24 @@ export const fr = {
   solution: {
     badge: "L'innovation éducative africaine",
     title: "Notre Solution AKILI",
-    subtitle: "Une plateforme éducative révolutionnaire qui combine l'intelligence traditionnelle africaine avec les technologies modernes pour transformer l'apprentissage.",
+    subtitle: "AKILI est une solution pédagogique innovante qui vise à révéler le plein potentiel des apprenants et à accompagner les enseignants avec des outils performants pour l'enseignement, l'évaluation et le suivi des progrès.",
     features: {
       title: "Fonctionnalités Principales",
       gamification: {
-        title: "Apprentissage Gamifié",
-        description: "Transformez l'éducation en une aventure captivante avec nos jeux inspirés des traditions africaines"
+        title: "🎮 Apprentissage Gamifié",
+        description: "Transformez chaque leçon en un moment fun et interactif grâce à des quiz, défis et jeux dynamiques qui captivent vos élèves."
       },
       management: {
-        title: "Gestion des Élèves",
-        description: "Suivez facilement les progrès de chaque élève avec des outils intuitifs et puissants"
+        title: "👨‍🏫 Gestion des Élèves Simplifiée",
+        description: "Gardez le contrôle en un clin d'œil : suivez les progrès, identifiez les points forts et intervenez rapidement grâce à une interface claire et intuitive."
       },
       analytics: {
-        title: "Analyses Avancées",
-        description: "Obtenez des informations précieuses sur les performances avec des tableaux de bord détaillés"
+        title: "📊 Analyses Avancées",
+        description: "Prenez de meilleures décisions pédagogiques avec des tableaux de bord détaillés et des statistiques en temps réel."
       },
       rewards: {
-        title: "Système de Récompenses",
-        description: "Motivez vos apprenants avec des badges et des certificats inspirés de l'artisanat africain"
+        title: "🏅 Système de Récompenses",
+        description: "Motivez et valorisez les efforts des élèves grâce à des badges, niveaux et certificats à débloquer tout au long de leur parcours."
       }
     },
     benefits: {
@@ -257,11 +257,6 @@ export const fr = {
         title: "Impact Social",
         description: "Notre mission est de contribuer au développement durable de l'Afrique par l'éducation"
       }
-    },
-    cta: {
-      title: "Prêt à révolutionner l'éducation ?",
-      subtitle: "Rejoignez le mouvement AKILI et donnez à vos apprenants les outils pour exceller dans le monde numérique tout en honorant leurs racines africaines.",
-      button: "Découvrez nos offres"
     }
   },
 

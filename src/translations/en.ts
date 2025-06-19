@@ -91,7 +91,7 @@ export const en = {
       }
     },
     cta: {
-      title: "Engage your students differently. Adopt AKILI!",
+      title: "Transform your classes with AKILI!",
       subtitle: "Join over 500 schools already using AKILI to create extraordinary learning experiences",
       button: "Start now"
     }
@@ -204,24 +204,24 @@ export const en = {
   solution: {
     badge: "African educational innovation",
     title: "Our AKILI Solution",
-    subtitle: "A revolutionary educational platform that combines traditional African intelligence with modern technologies to transform learning.",
+    subtitle: "AKILI is an innovative educational solution that aims to reveal the full potential of learners and support teachers with powerful tools for teaching, assessment and progress tracking.",
     features: {
       title: "Main Features",
       gamification: {
-        title: "Gamified Learning",
-        description: "Transform education into a captivating adventure with our games inspired by African traditions"
+        title: "🎮 Gamified Learning",
+        description: "Transform each lesson into a fun and interactive moment thanks to quizzes, challenges and dynamic games that captivate your students."
       },
       management: {
-        title: "Student Management",
-        description: "Easily track each student's progress with intuitive and powerful tools"
+        title: "👨‍🏫 Simplified Student Management",
+        description: "Keep control at a glance: track progress, identify strengths and intervene quickly thanks to a clear and intuitive interface."
       },
       analytics: {
-        title: "Advanced Analytics",
-        description: "Get valuable insights on performance with detailed dashboards"
+        title: "📊 Advanced Analytics",
+        description: "Make better educational decisions with detailed dashboards and real-time statistics."
       },
       rewards: {
-        title: "Reward System",
-        description: "Motivate your learners with badges and certificates inspired by African craftsmanship"
+        title: "🏅 Reward System",
+        description: "Motivate and value students' efforts with badges, levels and certificates to unlock throughout their journey."
       }
     },
     benefits: {

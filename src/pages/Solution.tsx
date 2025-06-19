@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -37,25 +38,25 @@ const Solution = () => {
 
   const features = [
     {
-      icon: BookOpen,
+      icon: "🎮",
       title: t("solution.features.gamification.title"),
       description: t("solution.features.gamification.description"),
       color: "from-orange-500 to-red-500"
     },
     {
-      icon: Users,
+      icon: "👨‍🏫",
       title: t("solution.features.management.title"),
       description: t("solution.features.management.description"),
       color: "from-blue-500 to-indigo-500"
     },
     {
-      icon: BarChart,
+      icon: "📊",
       title: t("solution.features.analytics.title"),
       description: t("solution.features.analytics.description"),
       color: "from-green-500 to-emerald-500"
     },
     {
-      icon: Award,
+      icon: "🏅",
       title: t("solution.features.rewards.title"),
       description: t("solution.features.rewards.description"),
       color: "from-purple-500 to-indigo-500"
@@ -160,7 +161,7 @@ const Solution = () => {
           </div>
         </motion.div>
 
-        {/* Fonctionnalités principales */}
+        {/* Fonctionnalités principales améliorées */}
         <motion.section 
           initial="hidden"
           whileInView="visible"
@@ -175,32 +176,40 @@ const Solution = () => {
             {t("solution.features.title")}
           </motion.h2>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
                 variants={fadeInVariants}
-                whileHover={{ scale: 1.05, y: -5 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="group"
               >
-                <Card className="group hover:shadow-2xl transition-all duration-500 border-0 bg-white/95 backdrop-blur-sm relative overflow-hidden h-full rounded-2xl">
+                <Card className="hover:shadow-2xl transition-all duration-500 border-0 bg-white/95 backdrop-blur-sm relative overflow-hidden h-full rounded-2xl">
                   <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${feature.color}`}></div>
                   
-                  <CardHeader className="text-center relative z-10 pb-4">
-                    <div className={`mx-auto w-16 h-16 mb-4 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center shadow-xl`}>
-                      <feature.icon className="h-8 w-8 text-white" />
+                  <CardHeader className="relative z-10 pb-4">
+                    {/* Layout horizontal avec icône et titre */}
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className={`flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center text-3xl shadow-xl`}>
+                        {feature.icon}
+                      </div>
+                      <CardTitle className="text-xl font-bold text-gray-800 font-poppins flex-1">
+                        {feature.title}
+                      </CardTitle>
                     </div>
-                    <CardTitle className="text-xl font-bold text-gray-800 font-poppins">{feature.title}</CardTitle>
                   </CardHeader>
                   
                   <CardContent className="relative z-10 pt-0">
-                    <p className="text-gray-600 text-center leading-relaxed font-inter">{feature.description}</p>
+                    <p className="text-gray-600 leading-relaxed font-inter text-base">
+                      {feature.description}
+                    </p>
                     
                     {/* Ornement décoratif */}
-                    <div className="flex justify-center mt-4">
-                      <div className="flex items-center space-x-1">
-                        <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                        <div className="w-3 h-1 bg-orange-400 rounded-full"></div>
-                        <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                    <div className="flex justify-start mt-6">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
+                        <div className="w-4 h-1 bg-red-500 rounded-full"></div>
+                        <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                       </div>
                     </div>
                   </CardContent>
@@ -303,80 +312,6 @@ const Solution = () => {
             ))}
           </div>
         </motion.section>
-
-        {/* Call to action modifié - sans le bouton démo */}
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeInVariants}
-          className="text-center bg-gradient-to-br from-violet-600 via-purple-700 to-indigo-800 rounded-3xl p-12 relative overflow-hidden"
-        >
-          {/* Background pattern */}
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.1%22%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2220%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20" />
-          
-          <motion.div 
-            animate={{ 
-              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
-            }}
-            transition={{ 
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
-            style={{ backgroundSize: "200% 100%" }}
-          />
-
-          <div className="relative z-10">
-            <motion.div
-              animate={{ rotate: [0, 360] }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            >
-              <Star className="w-16 h-16 text-yellow-300 mx-auto mb-6" />
-            </motion.div>
-            
-            <motion.h2 
-              className="text-3xl md:text-5xl font-bold text-white mb-6 font-poppins"
-              animate={{ 
-                textShadow: [
-                  "0 0 20px rgba(255,255,255,0.5)",
-                  "0 0 30px rgba(255,255,255,0.8)",
-                  "0 0 20px rgba(255,255,255,0.5)"
-                ]
-              }}
-              transition={{ duration: 3, repeat: Infinity }}
-            >
-              {t("solution.cta.title")}
-            </motion.h2>
-            
-            <p className="text-lg md:text-xl text-white/90 mb-10 max-w-3xl mx-auto leading-relaxed font-inter">
-              {t("solution.cta.subtitle")}
-            </p>
-            
-            <div className="flex justify-center">
-              <Link to="/offres">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button size="lg" className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-10 py-6 text-xl font-semibold rounded-2xl shadow-2xl border-0 relative overflow-hidden group font-poppins">
-                    <span className="relative z-10 flex items-center">
-                      {t("solution.cta.button")}
-                      <motion.div
-                        animate={{ x: [0, 5, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                      >
-                        <ArrowRight className="ml-3 h-6 w-6" />
-                      </motion.div>
-                    </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </Button>
-                </motion.div>
-              </Link>
-            </div>
-          </div>
-        </motion.div>
       </div>
       
       <Footer />
