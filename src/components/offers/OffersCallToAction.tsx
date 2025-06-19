@@ -1,12 +1,12 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { useNavigage } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Mail, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const OffersCallToAction = () => {
-  const navigate = useNavigage();
+  const navigate = useNavigate();
   const { t } = useLanguage();
 
   return (
