@@ -26,17 +26,20 @@ const HeroFeatures = () => {
     { 
       icon: "📚", 
       title: "Des contenus adaptés à chaque élève", 
-      description: "Les élèves progressent à leur rythme avec des ressources personnalisées." 
+      description: "Les élèves progressent à leur rythme avec des ressources personnalisées.",
+      gradient: "from-blue-500 to-cyan-500"
     },
     { 
       icon: "👨‍🏫", 
       title: "Les enseignants créent, l'école valorise", 
-      description: "Les profs conçoivent les contenus, l'école suit et valorise les résultats." 
+      description: "Les profs conçoivent les contenus, l'école suit et valorise les résultats.",
+      gradient: "from-purple-500 to-pink-500"
     },
     { 
       icon: "📈", 
       title: "Un suivi simple et intelligent", 
-      description: "Des tableaux de bord clairs pour piloter les progrès en temps réel." 
+      description: "Des tableaux de bord clairs pour piloter les progrès en temps réel.",
+      gradient: "from-green-500 to-emerald-500"
     }
   ];
 
@@ -45,19 +48,39 @@ const HeroFeatures = () => {
       initial="hidden"
       animate="visible"
       variants={staggerContainer}
-      className="grid md:grid-cols-3 gap-6"
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto"
     >
       {features.map((feature, index) => (
         <motion.div 
           key={index}
           variants={fadeInVariants}
-          className="flex flex-col items-center text-center bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
+          whileHover={{ y: -8, scale: 1.02 }}
+          className="group relative bg-white/15 backdrop-blur-md rounded-2xl p-8 border border-white/30 hover:border-white/50 transition-all duration-500 text-center shadow-xl hover:shadow-2xl"
         >
-          <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center mb-4 text-2xl">
+          {/* Gradient overlay on hover */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+          
+          {/* Icon container */}
+          <motion.div 
+            className={`relative w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center text-3xl lg:text-4xl mb-6 mx-auto shadow-lg group-hover:shadow-xl transition-shadow duration-500`}
+            whileHover={{ rotate: [0, -5, 5, 0], scale: 1.1 }}
+            transition={{ duration: 0.6 }}
+          >
             {feature.icon}
+          </motion.div>
+          
+          {/* Content */}
+          <div className="relative z-10">
+            <h3 className="font-bold text-white font-poppins mb-4 text-lg lg:text-xl leading-tight group-hover:text-yellow-200 transition-colors duration-300">
+              {feature.title}
+            </h3>
+            <p className="text-violet-200 group-hover:text-white font-inter leading-relaxed text-sm lg:text-base transition-colors duration-300">
+              {feature.description}
+            </p>
           </div>
-          <h3 className="font-semibold text-white font-poppins mb-2">{feature.title}</h3>
-          <p className="text-sm text-violet-200 font-inter">{feature.description}</p>
+          
+          {/* Subtle glow effect */}
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         </motion.div>
       ))}
     </motion.div>
