@@ -111,16 +111,16 @@ const Solution = () => {
       {/* Background pattern */}
       <div className="fixed inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ea580c%22%20fill-opacity%3D%220.05%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%224%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] pointer-events-none opacity-40"></div>
       
-      <div className="container mx-auto py-12 px-4 md:px-6 relative z-10">
-        {/* En-tête amélioré */}
+      <div className="container mx-auto py-8 sm:py-12 px-4 sm:px-6 relative z-10">
+        {/* En-tête responsive */}
         <motion.div 
           initial="hidden"
           animate="visible"
           variants={fadeInVariants}
-          className="mb-20 text-center"
+          className="mb-12 sm:mb-16 md:mb-20 text-center"
         >
           <motion.div 
-            className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-6 py-3 mb-8 border border-orange-200 shadow-lg"
+            className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-3 sm:px-4 md:px-6 py-2 sm:py-3 mb-6 sm:mb-8 border border-orange-200 shadow-lg"
             whileHover={{ scale: 1.05 }}
           >
             <motion.div 
@@ -128,13 +128,13 @@ const Solution = () => {
               transition={{ duration: 2, repeat: Infinity }}
               className="w-2 h-2 bg-orange-500 rounded-full"
             />
-            <span className="text-sm font-medium text-gray-700 font-inter">{t("solution.badge")}</span>
-            <Sparkles className="w-4 h-4 text-orange-500" />
+            <span className="text-xs sm:text-sm font-medium text-gray-700 font-inter">{t("solution.badge")}</span>
+            <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-orange-500" />
           </motion.div>
           
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight tracking-tight font-poppins">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6 leading-tight tracking-tight font-poppins px-2">
             <motion.span 
-              className="bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent block mb-2"
+              className="bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent block"
               animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
               transition={{ duration: 5, repeat: Infinity }}
               style={{ backgroundSize: "200% 200%" }}
@@ -143,40 +143,40 @@ const Solution = () => {
             </motion.span>
           </h1>
           
-          <p className="text-lg md:text-xl text-gray-700 mt-8 max-w-4xl mx-auto font-medium leading-relaxed font-inter">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 mt-6 sm:mt-8 max-w-4xl mx-auto font-medium leading-relaxed font-inter px-4">
             {t("solution.subtitle")}
           </p>
 
-          {/* Ornements décoratifs */}
-          <div className="flex justify-center mt-8">
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 bg-orange-500 rounded-full opacity-20"></div>
-              <div className="w-8 h-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
-              <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
-                <Lightbulb className="w-5 h-5 text-white" />
+          {/* Ornements décoratifs responsive */}
+          <div className="flex justify-center mt-6 sm:mt-8">
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              <div className="w-4 h-4 sm:w-6 sm:h-6 bg-orange-500 rounded-full opacity-20"></div>
+              <div className="w-6 h-1 sm:w-8 sm:h-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
+              <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
+                <Lightbulb className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" />
               </div>
-              <div className="w-8 h-2 bg-gradient-to-l from-orange-500 to-red-500 rounded-full"></div>
-              <div className="w-6 h-6 bg-orange-500 rounded-full opacity-20"></div>
+              <div className="w-6 h-1 sm:w-8 sm:h-2 bg-gradient-to-l from-orange-500 to-red-500 rounded-full"></div>
+              <div className="w-4 h-4 sm:w-6 sm:h-6 bg-orange-500 rounded-full opacity-20"></div>
             </div>
           </div>
         </motion.div>
 
-        {/* Fonctionnalités principales améliorées */}
+        {/* Fonctionnalités principales - Layout responsive */}
         <motion.section 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
-          className="mb-20"
+          className="mb-12 sm:mb-16 md:mb-20"
         >
           <motion.h2 
             variants={fadeInVariants}
-            className="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-poppins"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-poppins px-4"
           >
             {t("solution.features.title")}
           </motion.h2>
           
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
@@ -184,32 +184,34 @@ const Solution = () => {
                 whileHover={{ scale: 1.02, y: -5 }}
                 className="group"
               >
-                <Card className="hover:shadow-2xl transition-all duration-500 border-0 bg-white/95 backdrop-blur-sm relative overflow-hidden h-full rounded-2xl">
-                  <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${feature.color}`}></div>
+                <Card className="hover:shadow-2xl transition-all duration-500 border-0 bg-white/95 backdrop-blur-sm relative overflow-hidden h-full rounded-xl sm:rounded-2xl">
+                  <div className={`absolute top-0 left-0 w-full h-1 sm:h-2 bg-gradient-to-r ${feature.color}`}></div>
                   
-                  <CardHeader className="relative z-10 pb-4">
+                  <CardHeader className="relative z-10 p-4 sm:p-6">
                     {/* Layout horizontal avec icône et titre */}
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className={`flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center text-3xl shadow-xl`}>
+                    <div className="flex items-start gap-3 sm:gap-4">
+                      <div className={`flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center text-lg sm:text-xl md:text-2xl shadow-lg`}>
                         {feature.icon}
                       </div>
-                      <CardTitle className="text-xl font-bold text-gray-800 font-poppins flex-1">
-                        {feature.title}
-                      </CardTitle>
+                      <div className="flex-1 min-w-0">
+                        <CardTitle className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-gray-800 font-poppins leading-tight">
+                          {feature.title}
+                        </CardTitle>
+                      </div>
                     </div>
                   </CardHeader>
                   
-                  <CardContent className="relative z-10 pt-0">
-                    <p className="text-gray-600 leading-relaxed font-inter text-base">
+                  <CardContent className="relative z-10 p-4 sm:p-6 pt-0">
+                    <p className="text-gray-600 leading-relaxed font-inter text-xs sm:text-sm md:text-base">
                       {feature.description}
                     </p>
                     
                     {/* Ornement décoratif */}
-                    <div className="flex justify-start mt-6">
+                    <div className="flex justify-start mt-4 sm:mt-6">
                       <div className="flex items-center space-x-2">
-                        <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-                        <div className="w-4 h-1 bg-red-500 rounded-full"></div>
-                        <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        <div className="w-2 h-2 sm:w-3 sm:h-3 bg-orange-500 rounded-full"></div>
+                        <div className="w-3 h-0.5 sm:w-4 sm:h-1 bg-red-500 rounded-full"></div>
+                        <div className="w-2 h-2 sm:w-3 sm:h-3 bg-yellow-500 rounded-full"></div>
                       </div>
                     </div>
                   </CardContent>
@@ -219,20 +221,20 @@ const Solution = () => {
           </div>
         </motion.section>
 
-        {/* Avantages */}
+        {/* Avantages - Layout responsive */}
         <motion.section 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeInVariants}
-          className="mb-20"
+          className="mb-12 sm:mb-16 md:mb-20"
         >
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-10 shadow-2xl border border-gray-200 relative overflow-hidden">
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl border border-gray-200 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50 opacity-50"></div>
             
             <div className="relative z-10">
               <motion.h2 
-                className="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-poppins"
+                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-poppins px-4"
                 animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
                 transition={{ duration: 5, repeat: Infinity }}
                 style={{ backgroundSize: "200% 200%" }}
@@ -242,7 +244,7 @@ const Solution = () => {
               
               <motion.div 
                 variants={staggerContainer}
-                className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8"
               >
                 {benefits.map((benefit, index) => (
                   <motion.div 
@@ -251,11 +253,11 @@ const Solution = () => {
                     whileHover={{ scale: 1.05, y: -5 }}
                     className="text-center group"
                   >
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300">
-                      <benefit.icon className="h-8 w-8 text-white" />
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mx-auto mb-3 sm:mb-4 rounded-lg sm:rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300">
+                      <benefit.icon className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-white" />
                     </div>
-                    <h3 className="text-lg font-bold text-gray-800 mb-2 font-poppins">{benefit.title}</h3>
-                    <p className="text-gray-600 text-sm leading-relaxed font-inter">{benefit.description}</p>
+                    <h3 className="text-sm sm:text-base md:text-lg font-bold text-gray-800 mb-2 font-poppins">{benefit.title}</h3>
+                    <p className="text-gray-600 text-xs sm:text-sm leading-relaxed font-inter">{benefit.description}</p>
                   </motion.div>
                 ))}
               </motion.div>
@@ -263,47 +265,47 @@ const Solution = () => {
           </div>
         </motion.section>
 
-        {/* Nos valeurs */}
+        {/* Nos valeurs - Layout responsive */}
         <motion.section 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
-          className="mb-20"
+          className="mb-12 sm:mb-16 md:mb-20"
         >
           <motion.h2 
             variants={fadeInVariants}
-            className="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-poppins"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12 bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 bg-clip-text text-transparent font-poppins px-4"
           >
             {t("solution.values.title")}
           </motion.h2>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {values.map((value, index) => (
               <motion.div
                 key={index}
                 variants={fadeInVariants}
                 whileHover={{ scale: 1.05, y: -5 }}
               >
-                <Card className="group hover:shadow-2xl transition-all duration-500 border border-gray-200 bg-white/95 backdrop-blur-sm relative overflow-hidden rounded-2xl">
-                  <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500"></div>
+                <Card className="group hover:shadow-2xl transition-all duration-500 border border-gray-200 bg-white/95 backdrop-blur-sm relative overflow-hidden rounded-xl sm:rounded-2xl h-full">
+                  <div className="absolute top-0 left-0 w-full h-1 sm:h-2 bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500"></div>
                   
-                  <CardHeader className="text-center relative z-10">
-                    <div className="mx-auto w-20 h-20 mb-4 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center shadow-xl">
-                      <value.icon className="h-10 w-10 text-white" />
+                  <CardHeader className="text-center relative z-10 p-4 sm:p-6">
+                    <div className="mx-auto w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 mb-3 sm:mb-4 rounded-xl sm:rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center shadow-xl">
+                      <value.icon className="h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 text-white" />
                     </div>
-                    <CardTitle className="text-2xl font-bold text-gray-800 font-poppins">{value.title}</CardTitle>
+                    <CardTitle className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-800 font-poppins">{value.title}</CardTitle>
                   </CardHeader>
                   
-                  <CardContent className="relative z-10">
-                    <p className="text-gray-600 text-center leading-relaxed font-inter">{value.description}</p>
+                  <CardContent className="relative z-10 p-4 sm:p-6 pt-0">
+                    <p className="text-gray-600 text-center leading-relaxed font-inter text-xs sm:text-sm md:text-base">{value.description}</p>
                     
                     {/* Ornement décoratif */}
-                    <div className="flex justify-center mt-6">
+                    <div className="flex justify-center mt-4 sm:mt-6">
                       <div className="flex items-center space-x-2">
-                        <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-                        <div className="w-4 h-1 bg-red-500 rounded-full"></div>
-                        <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        <div className="w-2 h-2 sm:w-3 sm:h-3 bg-orange-500 rounded-full"></div>
+                        <div className="w-3 h-0.5 sm:w-4 sm:h-1 bg-red-500 rounded-full"></div>
+                        <div className="w-2 h-2 sm:w-3 sm:h-3 bg-yellow-500 rounded-full"></div>
                       </div>
                     </div>
                   </CardContent>

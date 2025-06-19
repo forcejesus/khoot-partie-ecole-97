@@ -29,12 +29,12 @@ const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
   };
 
   const linkClasses = isMobile
-    ? "block py-4 px-4 text-mobile-lg md:text-tablet-lg font-medium text-gray-700 hover:text-orange-600 transition-all duration-300 rounded-lg hover:bg-orange-50 relative group"
-    : "font-medium text-base lg:text-lg text-gray-700 hover:text-orange-600 transition-all duration-300 px-4 py-2 rounded-lg hover:bg-orange-50/50 relative group position-relative";
+    ? "block py-3 sm:py-4 px-3 sm:px-4 text-sm sm:text-mobile-lg md:text-tablet-lg font-medium text-gray-700 hover:text-orange-600 transition-all duration-300 rounded-lg hover:bg-orange-50 relative group"
+    : "font-medium text-sm lg:text-base xl:text-lg text-gray-700 hover:text-orange-600 transition-all duration-300 px-2 sm:px-3 lg:px-4 py-2 rounded-lg hover:bg-orange-50/50 relative group";
 
   const activeLinkClasses = isMobile
-    ? "block py-4 px-4 text-mobile-lg md:text-tablet-lg font-bold text-white bg-gradient-to-r from-orange-500 to-red-500 rounded-xl shadow-lg transform scale-105 border-2 border-orange-300"
-    : "font-bold text-base lg:text-lg text-white px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl shadow-lg transform scale-105 border-2 border-orange-300 relative";
+    ? "block py-3 sm:py-4 px-3 sm:px-4 text-sm sm:text-mobile-lg md:text-tablet-lg font-bold text-white bg-gradient-to-r from-orange-500 to-red-500 rounded-xl shadow-lg transform scale-105 border-2 border-orange-300"
+    : "font-bold text-sm lg:text-base xl:text-lg text-white px-2 sm:px-3 lg:px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl shadow-lg transform scale-105 border-2 border-orange-300 relative";
 
   const navigationItems = [
     { path: "/", label: t("nav.home") },
@@ -62,22 +62,22 @@ const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
               : ""
           }`}
         >
-          {label}
+          <span className="truncate">{label}</span>
         </button>
       ))}
       
-      {/* Menu Langues - Uniquement les drapeaux */}
+      {/* Menu Langues responsive */}
       <div className="relative">
         <button
           onClick={() => setIsLanguageOpen(!isLanguageOpen)}
-          className={`${linkClasses} flex items-center gap-2`}
+          className={`${linkClasses} flex items-center gap-1 sm:gap-2 min-w-0`}
         >
-          <span className="text-xl">{currentFlag}</span>
-          <ChevronDown className={`w-4 h-4 transition-transform ${isLanguageOpen ? 'rotate-180' : ''}`} />
+          <span className="text-lg sm:text-xl flex-shrink-0">{currentFlag}</span>
+          <ChevronDown className={`w-3 h-3 sm:w-4 sm:h-4 transition-transform flex-shrink-0 ${isLanguageOpen ? 'rotate-180' : ''}`} />
         </button>
         
         {isLanguageOpen && (
-          <div className={`absolute ${isMobile ? 'left-0 top-full mt-2' : 'right-0 top-full mt-2'} bg-white border border-gray-200 rounded-lg shadow-lg py-2 min-w-[80px] z-50`}>
+          <div className={`absolute ${isMobile ? 'left-0 top-full mt-2' : 'right-0 top-full mt-2'} bg-white border border-gray-200 rounded-lg shadow-lg py-2 min-w-[60px] sm:min-w-[80px] z-50`}>
             {languages.map((lang) => (
               <button
                 key={lang.code}
@@ -86,7 +86,7 @@ const NavLinks = ({ isActive, isMobile, closeMenu }: NavLinksProps) => {
                   setIsLanguageOpen(false);
                   if (isMobile) closeMenu();
                 }}
-                className={`w-full text-center px-3 py-2 text-xl hover:bg-orange-50 transition-colors flex items-center justify-center ${
+                className={`w-full text-center px-2 sm:px-3 py-2 text-lg sm:text-xl hover:bg-orange-50 transition-colors flex items-center justify-center ${
                   language === lang.code ? 'bg-orange-100' : ''
                 }`}
                 title={lang.label}

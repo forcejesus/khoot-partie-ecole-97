@@ -30,15 +30,15 @@ const HeroContent = () => {
       initial="hidden"
       animate="visible"
       variants={staggerContainer}
-      className="text-center"
+      className="text-center px-4 sm:px-6"
     >
-      {/* Titre AKILI centré - Taille agrandie avec responsive */}
+      {/* Titre AKILI centré - Taille responsive */}
       <motion.div
         variants={fadeInVariants}
-        className="mb-8"
+        className="mb-6 sm:mb-8"
       >
         <motion.h1 
-          className="text-7xl md:text-8xl lg:text-9xl xl:text-[12rem] font-black mb-6 leading-none tracking-tighter font-poppins"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-black mb-4 sm:mb-6 leading-none tracking-tighter font-poppins"
         >
           <motion.span 
             className="bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 bg-clip-text text-transparent block drop-shadow-2xl"
@@ -61,14 +61,14 @@ const HeroContent = () => {
         </motion.h1>
       </motion.div>
 
-      {/* Slogan principal centré */}
+      {/* Slogan principal centré - Responsive */}
       <motion.div
         variants={staggerContainer}
-        className="space-y-6"
+        className="space-y-4 sm:space-y-6 max-w-4xl mx-auto"
       >
         <motion.h2 
           variants={fadeInVariants}
-          className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 font-poppins leading-tight"
+          className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-4 sm:mb-6 font-poppins leading-tight"
           animate={{ 
             color: ["#ffffff", "#fbbf24", "#ffffff"],
           }}
@@ -77,21 +77,21 @@ const HeroContent = () => {
           {t("home.subtitle")}
         </motion.h2>
         
-        {/* Slogans */}
+        {/* Slogans - Responsive */}
         <motion.div 
           variants={staggerContainer}
-          className="space-y-4"
+          className="space-y-3 sm:space-y-4"
         >
           <motion.p 
             variants={fadeInVariants}
-            className="text-lg md:text-xl lg:text-2xl text-violet-100 leading-relaxed font-light font-inter"
+            className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-violet-100 leading-relaxed font-light font-inter"
           >
             {t("home.description1")}
           </motion.p>
           
           <motion.p 
             variants={fadeInVariants}
-            className="text-lg md:text-xl lg:text-2xl text-violet-100 leading-relaxed font-light font-inter"
+            className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-violet-100 leading-relaxed font-light font-inter"
           >
             {t("home.description2")}
           </motion.p>
