@@ -67,21 +67,21 @@ const HeroStats = () => {
       initial="hidden" 
       animate="visible" 
       variants={staggerContainer} 
-      className="grid grid-cols-2 gap-4"
+      className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 px-4"
     >
       {stats.map((stat, index) => (
         <motion.div
           key={index}
           variants={fadeInVariants}
-          className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 text-center"
+          className="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl p-3 sm:p-4 border border-white/20 text-center"
         >
           <div className="flex justify-center mb-2">
-            <stat.icon className={`w-6 h-6 ${stat.color}`} />
+            <stat.icon className={`w-5 h-5 sm:w-6 sm:h-6 ${stat.color}`} />
           </div>
-          <div className="text-2xl font-bold text-white font-poppins">
+          <div className="text-lg sm:text-xl md:text-2xl font-bold text-white font-poppins">
             {stat.value}
           </div>
-          <div className="text-sm text-violet-200 font-inter">
+          <div className="text-xs sm:text-sm text-violet-200 font-inter">
             {stat.description}
           </div>
         </motion.div>

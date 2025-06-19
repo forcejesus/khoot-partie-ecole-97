@@ -7,7 +7,7 @@ import { QuickActions } from "@/components/dashboard/QuickActions";
 
 const DashboardContent = () => {
   return (
-    <div className="space-y-6 md:space-y-8">
+    <div className="space-y-4 sm:space-y-6 md:space-y-8">
       <DashboardHeader />
       <StatsCards />
       <QuickActions />
