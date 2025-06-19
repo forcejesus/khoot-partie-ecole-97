@@ -58,18 +58,18 @@ const HeroContent = () => {
         </motion.div>
       </motion.div>
 
-      {/* Titre AKILI avec animation lettre par lettre */}
+      {/* Titre AKILI avec animation lettre par lettre - taille augmentée, ombres réduites */}
       <motion.div
         variants={fadeInVariants}
         className="mb-8 sm:mb-12 relative"
       >
         <motion.h1 
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-black mb-6 sm:mb-8 leading-none tracking-tighter font-poppins"
+          className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] 2xl:text-[12rem] font-black mb-6 sm:mb-8 leading-none tracking-tighter font-poppins"
         >
           <motion.div className="relative inline-block">
-            {/* Effet de lueur derrière le texte */}
+            {/* Effet de lueur derrière le texte - réduit */}
             <motion.div
-              className="absolute inset-0 blur-2xl opacity-50"
+              className="absolute inset-0 blur-xl opacity-30"
               animate={{
                 background: [
                   "linear-gradient(45deg, #f97316, #ef4444, #fbbf24)",
@@ -85,9 +85,9 @@ const HeroContent = () => {
               animate={{ 
                 backgroundPosition: ["0%", "100%", "0%"],
                 filter: [
-                  "drop-shadow(0 0 20px rgba(251, 146, 60, 0.8))",
-                  "drop-shadow(0 0 40px rgba(251, 146, 60, 1))",
-                  "drop-shadow(0 0 20px rgba(251, 146, 60, 0.8))"
+                  "drop-shadow(0 0 10px rgba(251, 146, 60, 0.4))",
+                  "drop-shadow(0 0 20px rgba(251, 146, 60, 0.6))",
+                  "drop-shadow(0 0 10px rgba(251, 146, 60, 0.4))"
                 ]
               }}
               transition={{ 
@@ -96,7 +96,7 @@ const HeroContent = () => {
               }}
               style={{ 
                 backgroundSize: "300% 300%",
-                textShadow: "0 0 80px rgba(251, 146, 60, 0.5)"
+                textShadow: "0 0 40px rgba(251, 146, 60, 0.3)"
               }}
             >
               {t("home.title").split('').map((letter, index) => (
@@ -119,7 +119,7 @@ const HeroContent = () => {
         </motion.h1>
       </motion.div>
 
-      {/* Slogan principal avec effet de machine à écrire */}
+      {/* Descriptions améliorées avec nouveau contenu */}
       <motion.div
         variants={staggerContainer}
         className="space-y-6 sm:space-y-8 max-w-5xl mx-auto"
@@ -135,10 +135,8 @@ const HeroContent = () => {
             }}
             transition={{ duration: 6, repeat: Infinity }}
           >
-            <motion.span
-              className="relative z-10"
-            >
-              {t("home.subtitle")}
+            <motion.span className="relative z-10">
+              Libérez le potentiel de chaque apprenant
             </motion.span>
             
             {/* Effet de surbrillance */}
@@ -164,7 +162,7 @@ const HeroContent = () => {
             <motion.span 
               className="relative z-10 group-hover:text-white transition-colors duration-300"
             >
-              {t("home.description1")}
+              Une application conçue pour révéler les talents cachés de chaque élève et transformer l'apprentissage en une aventure passionnante.
             </motion.span>
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-orange-500/0 via-orange-500/10 to-orange-500/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -180,55 +178,12 @@ const HeroContent = () => {
             <motion.span 
               className="relative z-10 group-hover:text-white transition-colors duration-300"
             >
-              {t("home.description2")}
+              Plutôt que de combattre l'attraction des écrans, AKILI la transforme en un puissant moteur d'apprentissage au service de l'éducation.
             </motion.span>
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-red-500/0 via-red-500/10 to-red-500/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             />
           </motion.p>
-        </motion.div>
-
-        {/* Stats rapides avec animations */}
-        <motion.div
-          variants={fadeInVariants}
-          className="mt-12 sm:mt-16"
-        >
-          <motion.div 
-            className="flex flex-wrap justify-center gap-6 sm:gap-8 md:gap-12"
-            variants={staggerContainer}
-          >
-            {[
-              { number: "10K+", label: "Élèves actifs", icon: "👥" },
-              { number: "500+", label: "Écoles partenaires", icon: "🏫" },
-              { number: "98%", label: "Satisfaction", icon: "⭐" },
-            ].map((stat, index) => (
-              <motion.div
-                key={index}
-                variants={fadeInVariants}
-                className="text-center group cursor-pointer"
-                whileHover={{ scale: 1.1, y: -5 }}
-                transition={{ duration: 0.3 }}
-              >
-                <motion.div 
-                  className="text-2xl sm:text-3xl md:text-4xl mb-2"
-                  animate={{ rotate: [0, 10, -10, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, delay: index * 0.5 }}
-                >
-                  {stat.icon}
-                </motion.div>
-                <motion.div 
-                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1 group-hover:text-yellow-300 transition-colors duration-300"
-                  animate={{ scale: [1, 1.05, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
-                >
-                  {stat.number}
-                </motion.div>
-                <div className="text-sm sm:text-base text-violet-200 group-hover:text-white transition-colors duration-300">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
         </motion.div>
       </motion.div>
     </motion.div>

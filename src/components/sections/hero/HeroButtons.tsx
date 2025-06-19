@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ArrowRight, Play, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -32,9 +32,9 @@ const HeroButtons = () => {
       initial="hidden"
       animate="visible"
       variants={fadeInVariants}
-      className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 mt-12 sm:mt-16 px-4"
+      className="flex justify-center items-center mt-12 sm:mt-16 px-4"
     >
-      {/* Bouton principal */}
+      {/* Bouton principal uniquement */}
       <Link to="/inscription-ecoles">
         <motion.div
           variants={buttonVariants}
@@ -84,25 +84,6 @@ const HeroButtons = () => {
           </Button>
         </motion.div>
       </Link>
-
-      {/* Bouton secondaire */}
-      <motion.div
-        variants={buttonVariants}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="group"
-      >
-        <Button 
-          variant="outline"
-          size="lg"
-          className="bg-white/10 backdrop-blur-md border-2 border-white/30 hover:bg-white/20 hover:border-white/50 text-white px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg font-semibold rounded-2xl transition-all duration-300 font-poppins min-w-[200px] sm:min-w-[240px]"
-        >
-          <span className="flex items-center justify-center gap-2 group-hover:gap-3 transition-all duration-300">
-            <Play className="h-4 w-4 sm:h-5 sm:w-5 group-hover:scale-110 transition-transform duration-300" />
-            Voir la démo
-          </span>
-        </Button>
-      </motion.div>
     </motion.div>
   );
 };
