@@ -1,7 +1,6 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { BookOpen, Gamepad2, Trophy } from "lucide-react";
 
 const HeroFeatures = () => {
   const fadeInVariants = {
@@ -24,9 +23,21 @@ const HeroFeatures = () => {
   };
 
   const features = [
-    { icon: BookOpen, title: "Contenus adaptatifs", description: "Personnalisés selon le niveau" },
-    { icon: Gamepad2, title: "Gamification", description: "Apprentissage ludique et motivant" },
-    { icon: Trophy, title: "Suivi en temps réel", description: "Tableaux de bord intelligents" }
+    { 
+      icon: "📚", 
+      title: "Des contenus adaptés à chaque élève", 
+      description: "Les élèves progressent à leur rythme avec des ressources personnalisées." 
+    },
+    { 
+      icon: "👨‍🏫", 
+      title: "Les enseignants créent, l'école valorise", 
+      description: "Les profs conçoivent les contenus, l'école suit et valorise les résultats." 
+    },
+    { 
+      icon: "📈", 
+      title: "Un suivi simple et intelligent", 
+      description: "Des tableaux de bord clairs pour piloter les progrès en temps réel." 
+    }
   ];
 
   return (
@@ -42,8 +53,8 @@ const HeroFeatures = () => {
           variants={fadeInVariants}
           className="flex flex-col items-center text-center bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
         >
-          <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center mb-4">
-            <feature.icon className="w-6 h-6 text-white" />
+          <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center mb-4 text-2xl">
+            {feature.icon}
           </div>
           <h3 className="font-semibold text-white font-poppins mb-2">{feature.title}</h3>
           <p className="text-sm text-violet-200 font-inter">{feature.description}</p>
