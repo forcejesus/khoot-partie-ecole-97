@@ -48,14 +48,14 @@ const HeroFeatures = () => {
       initial="hidden"
       animate="visible"
       variants={staggerContainer}
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto"
+      className="flex flex-col gap-6 w-full max-w-4xl mx-auto"
     >
       {features.map((feature, index) => (
         <motion.div 
           key={index}
           variants={fadeInVariants}
           whileHover={{ y: -8, scale: 1.02 }}
-          className="group relative bg-white/15 backdrop-blur-md rounded-2xl p-8 border border-white/30 hover:border-white/50 transition-all duration-500 text-center shadow-xl hover:shadow-2xl"
+          className="group relative bg-white/15 backdrop-blur-md rounded-2xl p-8 border border-white/30 hover:border-white/50 transition-all duration-500 text-center shadow-xl hover:shadow-2xl w-full"
         >
           {/* Gradient overlay on hover */}
           <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
