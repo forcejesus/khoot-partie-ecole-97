@@ -88,9 +88,9 @@ const OfferCard = ({
             ))}
           </ul>
           
-          <Link to="/inscription-ecoles">
+          <Link to="/contact">
             <Button className={`w-full bg-gradient-to-r ${color} hover:opacity-90 transition-all text-white font-medium py-3`}>
-              {name === t("offers.excellence.name") ? t("offers.cta.contactUs") : t("offers.cta.chooseOffer")}
+              Contactez-nous
             </Button>
           </Link>
         </CardContent>
