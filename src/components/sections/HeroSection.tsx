@@ -10,17 +10,17 @@ const HeroSection = () => {
     <section className="relative bg-gradient-to-br from-violet-600 via-violet-700 to-indigo-800 text-white overflow-hidden min-h-screen flex items-center">
       <HeroBackground />
       
-      <div className="container mx-auto px-6 py-20 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="space-y-16">
+      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20 relative z-10">
+        <div className="max-w-5xl mx-auto text-center">
+          <div className="space-y-8 sm:space-y-12 md:space-y-16">
             {/* Contenu principal centré - Titre et slogans */}
-            <div className="space-y-12">
+            <div className="space-y-8 sm:space-y-10 md:space-y-12">
               <HeroContent />
               <HeroButtons />
             </div>
             
-            {/* Features en ligne sur desktop, empilées sur mobile */}
-            <div className="max-w-3xl mx-auto">
+            {/* Features responsives */}
+            <div className="max-w-4xl mx-auto">
               <HeroFeatures />
             </div>
           </div>
