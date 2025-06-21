@@ -1,4 +1,3 @@
-
 export const fr = {
   // Navigation
   nav: {
@@ -18,6 +17,25 @@ export const fr = {
     description2: "Libérez le potentiel illimité grâce à des expériences d'apprentissage amusantes et intelligentes.",
     getStarted: "Commencer",
     learnMore: "En savoir plus",
+    badge: "✨ Transformez l'apprentissage en jeu captivant !",
+    slogan: "📚⚡ Éveillez la curiosité, libérez le potentiel, et faites briller chaque apprenant grâce à un apprentissage intelligent et ludique.",
+    gamifiedCourses: "🎲 Cours gamifiés et captivants",
+    funExperiences: "⚡ Expériences d'apprentissage amusantes",
+    whyChoose: "Pourquoi choisir AKILI ?",
+    whyChooseDescription: "Rejoignez les écoles qui révolutionnent l'éducation avec AKILI. Notre plateforme offre tous les outils nécessaires pour maximiser le potentiel de vos apprenants.",
+    subscriptionIncludes: "Un abonnement AKILI inclut :",
+    subscriptionFeatures: {
+      personalizedTracking: "Suivi personnalisé de chaque apprenant",
+      advancedTools: "Outils pédagogiques avancés",
+      gamifiedLearning: "Apprentissage gamifié et interactif",
+      detailedAnalytics: "Analyses détaillées des progrès",
+      support247: "Support technique 24/7",
+      teacherTraining: "Formation continue des enseignants"
+    },
+    readyToTransform: "Prêt à transformer votre école ?",
+    readyToTransformDescription: "Contactez-nous dès aujourd'hui pour découvrir nos offres d'abonnement personnalisées.",
+    contactUs: "Nous contacter",
+    consultationBadge: "✨ Consultation gratuite • Devis personnalisé • Support dédié",
     heroFeatures: {
       title: "✨ AKILI est conçu pour ces acteurs ✨",
       schools: {
@@ -113,7 +131,6 @@ export const fr = {
     }
   },
   
-  // Contact page
   contact: {
     badge: "Restons connectés",
     title: "Nous Contacter",
@@ -142,7 +159,6 @@ export const fr = {
     }
   },
   
-  // Offers page
   offers: {
     badge: "Choisissez votre plan AKILI",
     title: "Nos Offres AKILI",
@@ -216,7 +232,6 @@ export const fr = {
     }
   },
 
-  // Complete solution page
   solution: {
     badge: "Innovation éducative africaine",
     title: "Notre Solution AKILI",
@@ -281,7 +296,6 @@ export const fr = {
     }
   },
 
-  // School registration page
   schoolRegistration: {
     badge: "Rejoignez AKILI",
     title: "Inscription École",
@@ -363,7 +377,6 @@ export const fr = {
     }
   },
   
-  // Dashboard
   dashboard: {
     title: "Tableau de Bord AKILI",
     welcome: "Bienvenue",
@@ -379,7 +392,6 @@ export const fr = {
     performanceDesc: "Suivez les progrès avec l'intelligence traditionnelle africaine."
   },
   
-  // Students
   students: {
     title: "Gestion des Apprenants AKILI",
     subtitle: "Cultivez l'intelligence de vos jeunes talents africains", 
@@ -388,7 +400,6 @@ export const fr = {
     addStudent: "Ajouter un apprenant"
   },
   
-  // Teachers
   teachers: {
     title: "Gestion des Enseignants AKILI",
     subtitle: "Honorez les gardiens de la sagesse africaine",
@@ -397,14 +408,12 @@ export const fr = {
     addTeacher: "Ajouter un enseignant"
   },
   
-  // Games
   games: {
     title: "Jeux Éducatifs AKILI",
     subtitle: "Apprendre en jouant, une tradition africaine ancestrale",
     search: "Rechercher un jeu éducatif..."
   },
   
-  // Login
   login: {
     title: "KHOOT ECES",
     subtitle: "Connectez-vous à votre compte pour accéder à votre espace",
@@ -430,7 +439,6 @@ export const fr = {
     }
   },
 
-  // Footer
   footer: {
     description: "La plateforme d'apprentissage interactive qui transforme l'éducation en Afrique. Engagez vos apprenants avec des quiz et jeux éducatifs innovants.",
     navigation: {

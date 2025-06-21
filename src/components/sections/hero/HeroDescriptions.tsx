@@ -1,8 +1,11 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const HeroDescriptions = () => {
+  const { t } = useLanguage();
+  
   const fadeInVariants = {
     hidden: { opacity: 0, y: 40 },
     visible: { 
@@ -35,7 +38,7 @@ const HeroDescriptions = () => {
         <motion.span 
           className="relative z-10 group-hover:text-white transition-colors duration-300 text-center"
         >
-          Cours gamifiés et captivants
+          {t('home.gamifiedCourses')}
         </motion.span>
         <motion.div className="absolute inset-0 bg-gradient-to-r from-orange-500/0 via-orange-500/10 to-orange-500/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </motion.p>
@@ -50,7 +53,7 @@ const HeroDescriptions = () => {
         <motion.span 
           className="relative z-10 group-hover:text-white transition-colors duration-300 text-center"
         >
-          Expériences d'apprentissage amusantes
+          {t('home.funExperiences')}
         </motion.span>
         <motion.div className="absolute inset-0 bg-gradient-to-r from-green-500/0 via-green-500/10 to-green-500/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </motion.p>

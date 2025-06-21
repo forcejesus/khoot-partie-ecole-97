@@ -1,8 +1,11 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const HeroBadge = () => {
+  const { t } = useLanguage();
+  
   const fadeInVariants = {
     hidden: { opacity: 0, y: 40 },
     visible: { 
@@ -20,7 +23,7 @@ const HeroBadge = () => {
         transition={{ duration: 0.2 }}
       >
         <span className="text-lg sm:text-xl md:text-2xl mr-2 sm:mr-3 animate-bounce">🎮</span>
-        <span className="hidden sm:inline">✨ Transformez l'apprentissage en jeu captivant !</span>
+        <span className="hidden sm:inline">{t('home.badge')}</span>
         <span className="sm:hidden">✨ Apprentissage gamifié !</span>
       </motion.div>
     </motion.div>
