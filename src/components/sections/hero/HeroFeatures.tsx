@@ -1,7 +1,6 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { School, Users, GraduationCap } from "lucide-react";
 
 const HeroFeatures = () => {
   const fadeInVariants = {
@@ -26,7 +25,6 @@ const HeroFeatures = () => {
 
   const userActors = [
     {
-      icon: School,
       label: "Écoles partenaires",
       description: "AKILI accompagne les établissements dans leur transformation numérique",
       color: "from-blue-500 to-cyan-500",
@@ -34,7 +32,6 @@ const HeroFeatures = () => {
       hoverColor: "from-blue-600 to-cyan-600"
     },
     {
-      icon: Users,
       label: "Enseignants",
       description: "AKILI offre aux éducateurs des outils modernes et efficaces",
       color: "from-purple-500 to-pink-500",
@@ -42,7 +39,6 @@ const HeroFeatures = () => {
       hoverColor: "from-purple-600 to-pink-600"
     },
     {
-      icon: GraduationCap,
       label: "Apprenants",
       description: "AKILI révèle le potentiel de chaque apprenant avec des jeux captivants",
       color: "from-orange-500 to-red-500",
@@ -56,81 +52,144 @@ const HeroFeatures = () => {
       initial="hidden"
       animate="visible"
       variants={staggerContainer}
-      className="w-full max-w-7xl mx-auto px-4 sm:px-6"
+      className="w-full max-w-6xl mx-auto px-4 sm:px-6"
     >
+      {/* Titre d'accroche */}
+      <motion.div
+        variants={fadeInVariants}
+        className="text-center mb-6 sm:mb-8 md:mb-12"
+      >
+        <motion.h3 
+          className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 sm:mb-4 font-poppins"
+          whileHover={{ scale: 1.02 }}
+        >
+          ✨ AKILI est conçu pour ces acteurs ✨
+        </motion.h3>
+      </motion.div>
+
+      {/* Layout en format ListTile : 2 sur première ligne, 1 sur la seconde */}
       <motion.div 
         variants={staggerContainer}
-        className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
+        className="space-y-4 sm:space-y-6"
       >
-        {userActors.map((actor, index) => (
-          <motion.div
-            key={index}
-            variants={fadeInVariants}
-            className="relative bg-white/10 backdrop-blur-md rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 group overflow-hidden"
-            whileHover={{ 
-              scale: 1.05,
-              rotateY: 5,
-              z: 50
-            }}
-            transition={{ duration: 0.4 }}
-          >
-            {/* Gradient background effect animé */}
-            <motion.div 
-              className={`absolute inset-0 bg-gradient-to-br ${actor.color} rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-500`}
-              animate={{
-                backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"]
+        {/* Première ligne : 2 cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          {userActors.slice(0, 2).map((actor, index) => (
+            <motion.div
+              key={index}
+              variants={fadeInVariants}
+              className="relative bg-white/10 backdrop-blur-md rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 group overflow-hidden"
+              whileHover={{ 
+                scale: 1.02,
+                y: -4
               }}
-              transition={{ duration: 8, repeat: Infinity }}
-              style={{ backgroundSize: "200% 200%" }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Gradient background effect */}
+              <motion.div 
+                className={`absolute inset-0 bg-gradient-to-br ${actor.color} rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500`}
+              />
+              
+              <div className="relative z-10 flex items-center gap-4 sm:gap-6">
+                {/* Image/Icône à gauche */}
+                <motion.div
+                  className="text-4xl sm:text-5xl md:text-6xl flex-shrink-0"
+                  animate={{ 
+                    y: [0, -4, 0],
+                    rotate: [0, 2, -2, 0]
+                  }}
+                  transition={{ 
+                    duration: 3,
+                    repeat: Infinity,
+                    delay: index * 0.5
+                  }}
+                >
+                  {actor.image}
+                </motion.div>
+                
+                {/* Contenu à droite */}
+                <div className="flex-1 text-left">
+                  <motion.h4 
+                    className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 sm:mb-3 font-poppins"
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    {actor.label}
+                  </motion.h4>
+                  
+                  <motion.p 
+                    className="text-violet-200 text-sm sm:text-base md:text-lg font-medium opacity-90 group-hover:opacity-100 transition-opacity duration-300 leading-relaxed"
+                  >
+                    {actor.description}
+                  </motion.p>
+                </div>
+              </div>
+
+              {/* Effet de lueur au survol */}
+              <motion.div
+                className={`absolute -inset-1 sm:-inset-2 bg-gradient-to-r ${actor.color} rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-15 blur-xl transition-opacity duration-500`}
+                style={{ zIndex: -1 }}
+              />
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Seconde ligne : 1 card centrée */}
+        <div className="flex justify-center">
+          <motion.div
+            variants={fadeInVariants}
+            className="relative bg-white/10 backdrop-blur-md rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 group overflow-hidden w-full max-w-md md:max-w-lg"
+            whileHover={{ 
+              scale: 1.02,
+              y: -4
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            {/* Gradient background effect */}
+            <motion.div 
+              className={`absolute inset-0 bg-gradient-to-br ${userActors[2].color} rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500`}
             />
             
-            <div className="relative z-10 text-center">
-              {/* Image principale */}
+            <div className="relative z-10 flex items-center gap-4 sm:gap-6">
+              {/* Image/Icône à gauche */}
               <motion.div
-                className="text-3xl sm:text-4xl md:text-5xl mb-3 sm:mb-4 md:mb-6"
+                className="text-4xl sm:text-5xl md:text-6xl flex-shrink-0"
                 animate={{ 
-                  y: [0, -8, 0],
-                  rotate: [0, 3, -3, 0]
+                  y: [0, -4, 0],
+                  rotate: [0, 2, -2, 0]
                 }}
                 transition={{ 
                   duration: 3,
                   repeat: Infinity,
-                  delay: index * 0.5
+                  delay: 1
                 }}
               >
-                {actor.image}
+                {userActors[2].image}
               </motion.div>
               
-              {/* Label principal */}
-              <motion.div 
-                className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 sm:mb-3 md:mb-4 font-poppins"
-                whileHover={{ scale: 1.05 }}
-              >
-                {actor.label}
-              </motion.div>
-
-              {/* Description */}
-              <motion.div 
-                className="text-violet-200 text-xs sm:text-sm md:text-base font-medium opacity-90 group-hover:opacity-100 transition-opacity duration-300 leading-relaxed px-1 sm:px-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.9 }}
-                whileHover={{ opacity: 1 }}
-              >
-                {actor.description}
-              </motion.div>
+              {/* Contenu à droite */}
+              <div className="flex-1 text-left">
+                <motion.h4 
+                  className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 sm:mb-3 font-poppins"
+                  whileHover={{ scale: 1.02 }}
+                >
+                  {userActors[2].label}
+                </motion.h4>
+                
+                <motion.p 
+                  className="text-violet-200 text-sm sm:text-base md:text-lg font-medium opacity-90 group-hover:opacity-100 transition-opacity duration-300 leading-relaxed"
+                >
+                  {userActors[2].description}
+                </motion.p>
+              </div>
             </div>
 
             {/* Effet de lueur au survol */}
             <motion.div
-              className={`absolute -inset-1 sm:-inset-2 bg-gradient-to-r ${actor.color} rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500`}
+              className={`absolute -inset-1 sm:-inset-2 bg-gradient-to-r ${userActors[2].color} rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-15 blur-xl transition-opacity duration-500`}
               style={{ zIndex: -1 }}
             />
-
-            {/* Particules décoratives */}
-            <div className="absolute top-2 sm:top-4 right-2 sm:right-4 w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 w-1 sm:w-1 h-1 sm:h-1 bg-white/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </motion.div>
-        ))}
+        </div>
       </motion.div>
     </motion.div>
   );
