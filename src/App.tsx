@@ -6,9 +6,9 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
+import { ThemeProvider } from "next-themes";
 import { AuthProvider } from "./contexts/AuthContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
-import { ThemeProvider } from "./contexts/ThemeContext";
 import ScrollToTop from "./components/ScrollToTop";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -37,7 +37,7 @@ function App() {
     <Router>
       <AuthProvider>
         <LanguageProvider>
-          <ThemeProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <ScrollToTop />
             <Routes>
               {/* Routes publiques */}
