@@ -18,12 +18,12 @@ const TestimonialsSection = () => {
   };
 
   const benefits = [
-    "Suivi personnalisé de chaque élève",
-    "Outils pédagogiques avancés",
-    "Apprentissage gamifié et interactif",
-    "Analyses détaillées des progrès",
-    "Support technique 24/7",
-    "Formation continue des enseignants"
+    t('home.subscriptionFeatures.personalizedTracking'),
+    t('home.subscriptionFeatures.advancedTools'),
+    t('home.subscriptionFeatures.gamifiedLearning'),
+    t('home.subscriptionFeatures.detailedAnalytics'),
+    t('home.subscriptionFeatures.support247'),
+    t('home.subscriptionFeatures.teacherTraining')
   ];
 
   return (
@@ -60,11 +60,11 @@ const TestimonialsSection = () => {
           </motion.div>
           
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-yellow-200 to-orange-200 bg-clip-text text-transparent font-poppins leading-tight">
-            Pourquoi choisir AKILI ?
+            {t('home.whyChoose')}
           </h2>
           
           <p className="text-base sm:text-lg md:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed font-inter px-4 mb-8">
-            Rejoignez les écoles qui révolutionnent l'éducation avec AKILI. Notre plateforme offre tous les outils nécessaires pour maximiser le potentiel de vos élèves.
+            {t('home.whyChooseDescription')}
           </p>
         </motion.div>
 
@@ -80,7 +80,7 @@ const TestimonialsSection = () => {
               {/* Left side - Benefits */}
               <div>
                 <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-6 font-poppins">
-                  Un abonnement AKILI inclut :
+                  {t('home.subscriptionIncludes')}
                 </h3>
                 <div className="space-y-4">
                   {benefits.map((benefit, index) => (
@@ -108,10 +108,10 @@ const TestimonialsSection = () => {
                 >
                   <Star className="w-12 h-12 sm:w-16 sm:h-16 text-white mx-auto mb-4" />
                   <h4 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-4 font-poppins">
-                    Prêt à transformer votre école ?
+                    {t('home.readyToTransform')}
                   </h4>
                   <p className="text-white/90 text-sm sm:text-base mb-6 font-inter">
-                    Contactez-nous dès aujourd'hui pour découvrir nos offres d'abonnement personnalisées.
+                    {t('home.readyToTransformDescription')}
                   </p>
                   
                   <Link to="/contact">
@@ -120,7 +120,7 @@ const TestimonialsSection = () => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      Nous contacter
+                      {t('home.contactUs')}
                       <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                     </motion.button>
                   </Link>
@@ -133,7 +133,7 @@ const TestimonialsSection = () => {
                   viewport={{ once: true }}
                   transition={{ delay: 0.5 }}
                 >
-                  ✨ Consultation gratuite • Devis personnalisé • Support dédié
+                  {t('home.consultationBadge')}
                 </motion.p>
               </div>
             </div>
