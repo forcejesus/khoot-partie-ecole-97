@@ -12,9 +12,9 @@ export const en = {
   // Home page
   home: {
     title: "AKILI",
-    subtitle: "Where gaming meets knowledge",
-    description1: "An application designed to make young people love learning.",
-    description2: "Rather than fighting screen addiction, AKILI reinvents it for good.",
+    subtitle: "Where gaming meets brilliant minds!",
+    description1: "Turn every lesson into an epic adventure with interactive games that captivate students.",
+    description2: "Unlock unlimited potential through fun, engaging, and smart learning experiences.",
     getStarted: "Get Started",
     learnMore: "Learn More",
     features: {
