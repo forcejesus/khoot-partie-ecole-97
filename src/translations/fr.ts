@@ -1,3 +1,4 @@
+
 export const fr = {
   // Navigation
   nav: {
@@ -13,17 +14,32 @@ export const fr = {
   home: {
     title: "AKILI",
     subtitle: "Là où le jeu révèle les génies !",
-    description1: "Transformez chaque cours en aventure épique avec des jeux interactifs qui captivent les élèves.",
+    description1: "Transformez chaque cours en aventure épique avec des jeux interactifs qui captivent les apprenants.",
     description2: "Libérez le potentiel illimité grâce à des expériences d'apprentissage amusantes et intelligentes.",
     getStarted: "Commencer",
     learnMore: "En savoir plus",
+    heroFeatures: {
+      title: "✨ AKILI est conçu pour ces acteurs ✨",
+      schools: {
+        label: "Écoles partenaires",
+        description: "AKILI accompagne les établissements dans leur transformation numérique"
+      },
+      teachers: {
+        label: "Enseignants",
+        description: "AKILI offre aux éducateurs des outils modernes et efficaces"
+      },
+      learners: {
+        label: "Apprenants",
+        description: "AKILI révèle le potentiel de chaque apprenant avec des jeux captivants"
+      }
+    },
     features: {
       badge: "Fonctionnalités",
-      title: "Tout ce qu'il faut pour captiver vos élèves",
+      title: "Tout ce qu'il faut pour captiver vos apprenants",
       subtitle: "Des outils simples et puissants pour créer des expériences d'apprentissage inoubliables",
       quiz: {
         title: "Quiz en temps réel",
-        description: "Créez des quiz interactifs avec des questions variées et des résultats instantanés que vos élèves adorent."
+        description: "Créez des quiz interactifs avec des questions variées et des résultats instantanés que vos apprenants adorent."
       },
       analytics: {
         title: "Analytics détaillées",
@@ -77,12 +93,12 @@ export const fr = {
       testimonial1: {
         name: "Dr. Amadou Diallo",
         role: "Directeur, École Internationale de Dakar",
-        quote: "AKILI a révolutionné notre approche pédagogique. Les élèves sont plus engagés et nos résultats ont augmenté de 40%."
+        quote: "AKILI a révolutionné notre approche pédagogique. Les apprenants sont plus engagés et nos résultats ont augmenté de 40%."
       },
       testimonial2: {
         name: "Fatima Nkomo", 
         role: "Professeure de Mathématiques, Yaoundé",
-        quote: "Mes cours sont devenus interactifs et amusants. Les élèves participent comme jamais auparavant !"
+        quote: "Mes cours sont devenus interactifs et amusants. Les apprenants participent comme jamais auparavant !"
       },
       testimonial3: {
         name: "Emmanuel Okafor",
@@ -114,7 +130,7 @@ export const fr = {
       q1: "Qu'est-ce qu'AKILI ?",
       a1: "AKILI est une plateforme d'apprentissage interactive qui transforme l'éducation en Afrique grâce à des quiz et jeux éducatifs innovants. Notre mission est de faire aimer l'apprentissage aux jeunes en réinventant l'usage des écrans pour le bien.",
       q2: "Comment fonctionne la plateforme AKILI ?",
-      a2: "AKILI propose des contenus éducatifs gamifiés adaptés aux programmes scolaires africains. Les enseignants peuvent créer des quiz interactifs, suivre les progrès des élèves et utiliser des outils pédagogiques modernes pour enrichir leurs cours.",
+      a2: "AKILI propose des contenus éducatifs gamifiés adaptés aux programmes scolaires africains. Les enseignants peuvent créer des quiz interactifs, suivre les progrès des apprenants et utiliser des outils pédagogiques modernes pour enrichir leurs cours.",
       q3: "Quels sont les plans tarifaires d'AKILI ?",
       a3: "Nous proposons plusieurs formules adaptées aux besoins institutionnels : une offre Essentiels à partir de 15 000 FCFA/mois, une offre Avancée à 25 000 FCFA/mois, et une offre Premium à 40 000 FCFA/mois. Contactez-nous pour un devis personnalisé.",
       q4: "AKILI est-il disponible hors ligne ?",
@@ -209,10 +225,10 @@ export const fr = {
       title: "Fonctionnalités Principales",
       gamification: {
         title: "🎮 Apprentissage Gamifié",
-        description: "Transformez chaque leçon en moment ludique et interactif grâce aux quiz, défis et jeux dynamiques qui captivent vos élèves."
+        description: "Transformez chaque leçon en moment ludique et interactif grâce aux quiz, défis et jeux dynamiques qui captivent vos apprenants."
       },
       management: {
-        title: "👨‍🏫 Gestion Simplifiée des Élèves",
+        title: "👨‍🏫 Gestion Simplifiée des Apprenants",
         description: "Gardez le contrôle d'un coup d'œil : suivez les progrès, identifiez les forces et intervenez rapidement grâce à une interface claire et intuitive."
       },
       analytics: {
@@ -221,7 +237,7 @@ export const fr = {
       },
       rewards: {
         title: "🏅 Système de Récompenses",
-        description: "Motivez et valorisez les efforts des élèves avec des badges, niveaux et certificats à débloquer tout au long de leur parcours."
+        description: "Motivez et valorisez les efforts des apprenants avec des badges, niveaux et certificats à débloquer tout au long de leur parcours."
       }
     },
     benefits: {
@@ -269,7 +285,7 @@ export const fr = {
   schoolRegistration: {
     badge: "Rejoignez AKILI",
     title: "Inscription École",
-    subtitle: "Rejoignez plus de 500 écoles qui font confiance à AKILI pour transformer l'expérience d'apprentissage de leurs élèves",
+    subtitle: "Rejoignez plus de 500 écoles qui font confiance à AKILI pour transformer l'expérience d'apprentissage de leurs apprenants",
     form: {
       title: "Informations de votre école",
       schoolName: "Nom de l'école",
@@ -282,7 +298,7 @@ export const fr = {
         university: "Université",
         training: "Institut de Formation"
       },
-      studentsCount: "Nombre d'élèves",
+      studentsCount: "Nombre d'apprenants",
       studentsCountOptions: {
         under50: "Moins de 50",
         between50200: "50 - 200",
@@ -352,13 +368,13 @@ export const fr = {
     title: "Tableau de Bord AKILI",
     welcome: "Bienvenue",
     stats: {
-      activeStudents: "Élèves Actifs",
+      activeStudents: "Apprenants Actifs",
       availableGames: "Jeux Disponibles",
       successRate: "Taux de Réussite",
       averageProgress: "Progrès Moyen"
     },
     recentActivity: "Activité Récente",
-    recentActivityDesc: "Visualisez l'activité de vos élèves avec la sagesse numérique AKILI.",
+    recentActivityDesc: "Visualisez l'activité de vos apprenants avec la sagesse numérique AKILI.",
     performance: "Performance",
     performanceDesc: "Suivez les progrès avec l'intelligence traditionnelle africaine."
   },
@@ -367,9 +383,9 @@ export const fr = {
   students: {
     title: "Gestion des Apprenants AKILI",
     subtitle: "Cultivez l'intelligence de vos jeunes talents africains", 
-    search: "Rechercher un élève par nom ou classe...",
+    search: "Rechercher un apprenant par nom ou classe...",
     importCsv: "Importer CSV",
-    addStudent: "Ajouter un élève"
+    addStudent: "Ajouter un apprenant"
   },
   
   // Teachers
@@ -416,7 +432,7 @@ export const fr = {
 
   // Footer
   footer: {
-    description: "La plateforme d'apprentissage interactive qui transforme l'éducation en Afrique. Engagez vos élèves avec des quiz et jeux éducatifs innovants.",
+    description: "La plateforme d'apprentissage interactive qui transforme l'éducation en Afrique. Engagez vos apprenants avec des quiz et jeux éducatifs innovants.",
     navigation: {
       title: "Navigation"
     },
