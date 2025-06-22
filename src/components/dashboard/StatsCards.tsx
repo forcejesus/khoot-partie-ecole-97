@@ -1,99 +1,11 @@
+
 import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { 
-  Users, 
-  GraduationCap, 
-  GamepadIcon,
-  TrendingUp,
-  Calendar
-} from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { config } from "@/config/hosts";
-
-interface StatsData {
-  total_apprenants: number;
-  total_enseignants: number;
-  total_jeux: number;
-  total_planifications: number;
-}
-
-const fetchStats = async (): Promise<StatsData> => {
-  console.log("=== DEBUT fetchStats ===");
-  const token = localStorage.getItem("token");
-  console.log("Token trouvé:", !!token);
-  console.log("URL API:", `${config.api.baseUrl}/api/mon-ecole/statistiques`);
-  
-  if (!token) {
-    console.error("Aucun token trouvé dans localStorage");
-    throw new Error("No token found");
-  }
-  
-  try {
-    console.log("Envoi de la requête API...");
-    const response = await axios.get(`${config.api.baseUrl}/api/mon-ecole/statistiques`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-    });
-    
-    console.log("Réponse complète de l'API:", response);
-    console.log("Status de la réponse:", response.status);
-    console.log("Données de la réponse:", response.data);
-    
-    // Accéder aux statistiques selon le format exact de l'API
-    const apiData = response.data?.data?.statistiques;
-    console.log("Statistiques extraites:", apiData);
-    
-    if (!apiData) {
-      console.error("Aucune donnée de statistiques trouvée dans la réponse");
-      throw new Error("No statistics data found in response");
-    }
-    
-    // Créer un objet sûr avec des valeurs par défaut
-    const safeStats: StatsData = {
-      total_apprenants: Number(apiData.total_apprenants) || 0,
-      total_enseignants: Number(apiData.total_enseignants) || 0,
-      total_jeux: Number(apiData.total_jeux) || 0,
-      total_planifications: Number(apiData.total_planifications) || 0
-    };
-    
-    console.log("Statistiques finales:", safeStats);
-    console.log("=== FIN fetchStats SUCCESS ===");
-    
-    return safeStats;
-  } catch (error) {
-    console.error("=== ERREUR dans fetchStats ===");
-    console.error("Type d'erreur:", error);
-    
-    if (axios.isAxiosError(error)) {
-      console.error("Erreur Axios:", {
-        status: error.response?.status,
-        statusText: error.response?.statusText,
-        data: error.response?.data,
-        headers: error.response?.headers
-      });
-    }
-    
-    console.error("=== FIN fetchStats ERROR ===");
-    throw error;
-  }
-};
-
-const StatCardSkeleton = () => (
-  <Card className="border-orange-200 bg-white">
-    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-      <Skeleton className="h-4 w-24" />
-      <Skeleton className="h-12 w-12 rounded-xl" />
-    </CardHeader>
-    <CardContent>
-      <Skeleton className="h-8 w-16 mb-2" />
-      <Skeleton className="h-4 w-20" />
-    </CardContent>
-  </Card>
-);
+import { fetchStats } from "@/services/statisticsService";
+import { createStatsConfig } from "@/config/statsConfig";
+import { StatCard } from "./StatCard";
+import { StatCardSkeleton } from "./StatCardSkeleton";
+import { StatsData } from "@/types/statistics";
 
 export const StatsCards = () => {
   console.log("=== RENDU StatsCards ===");
@@ -135,50 +47,8 @@ export const StatsCards = () => {
   } : defaultStats;
   
   console.log("Données utilisées pour l'affichage:", statsData);
-  console.log("Vérification des propriétés:", {
-    total_jeux_exists: 'total_jeux' in statsData,
-    total_jeux_value: statsData.total_jeux,
-    total_jeux_type: typeof statsData.total_jeux
-  });
-
-  const statsConfig = [
-    {
-      title: "Jeux disponibles",
-      value: String(statsData.total_jeux),
-      icon: GamepadIcon,
-      color: "from-orange-500 to-orange-600",
-      bgColor: "bg-orange-50",
-      textColor: "text-orange-600",
-      change: "Disponibles"
-    },
-    {
-      title: "Planifications",
-      value: String(statsData.total_planifications),
-      icon: Calendar,
-      color: "from-purple-500 to-purple-600",
-      bgColor: "bg-purple-50",
-      textColor: "text-purple-600",
-      change: "Sessions programmées"
-    },
-    {
-      title: "Enseignants",
-      value: String(statsData.total_enseignants),
-      icon: GraduationCap,
-      color: "from-blue-500 to-blue-600",
-      bgColor: "bg-blue-50",
-      textColor: "text-blue-600",
-      change: "Actifs"
-    },
-    {
-      title: "Apprenants",
-      value: String(statsData.total_apprenants),
-      icon: Users,
-      color: "from-green-500 to-green-600",
-      bgColor: "bg-green-50",
-      textColor: "text-green-600",
-      change: "Inscrits"
-    }
-  ];
+  
+  const statsConfig = createStatsConfig(statsData);
 
   // Afficher les skeletons pendant le chargement
   if (isLoading) {
@@ -203,25 +73,7 @@ export const StatsCards = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
       {statsConfig.map((stat, index) => (
-        <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-orange-200 bg-white">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-medium text-gray-600">
-              {stat.title}
-            </CardTitle>
-            <div className={`p-3 md:p-4 rounded-xl ${stat.bgColor} group-hover:scale-110 transition-transform`}>
-              <stat.icon className={`h-5 w-5 md:h-6 md:w-6 ${stat.textColor}`} />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-              {stat.value}
-            </div>
-            <div className={`text-xs md:text-sm font-medium ${stat.textColor} flex items-center gap-2`}>
-              <TrendingUp className="h-3 w-3 md:h-4 md:w-4" />
-              {stat.change}
-            </div>
-          </CardContent>
-        </Card>
+        <StatCard key={index} stat={stat} />
       ))}
     </div>
   );
