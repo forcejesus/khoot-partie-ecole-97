@@ -45,22 +45,34 @@ const fetchStats = async (): Promise<StatsData> => {
     console.log("Headers de la réponse:", response.headers);
     console.log("Données de la réponse:", response.data);
     
-    // Vérifier si les données sont dans response.data directement ou dans response.data.data
-    let statsData = response.data;
-    if (response.data && response.data.data) {
+    // Analyser la structure des données reçues
+    let rawData = response.data;
+    
+    // Vérifier différentes structures possibles
+    if (response.data?.data) {
       console.log("Données trouvées dans response.data.data");
-      statsData = response.data.data;
+      rawData = response.data.data;
+    } else if (response.data?.statistiques) {
+      console.log("Données trouvées dans response.data.statistiques");
+      rawData = response.data.statistiques;
     }
     
-    console.log("Données finales des statistiques:", statsData);
+    console.log("Données brutes extraites:", rawData);
+    console.log("Type des données:", typeof rawData);
+    console.log("Clés disponibles:", Object.keys(rawData || {}));
+    
+    // Créer un objet sûr avec des valeurs par défaut
+    const safeStats: StatsData = {
+      total_apprenants: Number(rawData?.total_apprenants || rawData?.apprenants || rawData?.students || 0),
+      total_enseignants: Number(rawData?.total_enseignants || rawData?.enseignants || rawData?.teachers || 0),
+      total_jeux: Number(rawData?.total_jeux || rawData?.jeux || rawData?.games || 0),
+      total_planifications: Number(rawData?.total_planifications || rawData?.planifications || rawData?.schedules || 0)
+    };
+    
+    console.log("Statistiques finales:", safeStats);
     console.log("=== FIN fetchStats SUCCESS ===");
     
-    return {
-      total_apprenants: statsData.total_apprenants || 0,
-      total_enseignants: statsData.total_enseignants || 0,
-      total_jeux: statsData.total_jeux || 0,
-      total_planifications: statsData.total_planifications || 0
-    };
+    return safeStats;
   } catch (error) {
     console.error("=== ERREUR dans fetchStats ===");
     console.error("Type d'erreur:", error);
@@ -100,12 +112,12 @@ export const StatsCards = () => {
     queryFn: fetchStats,
     retry: (failureCount, error) => {
       console.log(`Tentative ${failureCount} échouée:`, error);
-      return failureCount < 2; // 2 tentatives maximum
+      return failureCount < 2;
     },
-    retryDelay: 1000, // 1 seconde entre les tentatives
+    retryDelay: 1000,
     refetchOnWindowFocus: false,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    gcTime: 10 * 60 * 1000, // 10 minutes
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 
   console.log("État de la requête:", {
@@ -115,22 +127,33 @@ export const StatsCards = () => {
     error: error?.message || error
   });
 
-  // Valeurs par défaut pour éviter les erreurs
-  const defaultStats = {
+  // Valeurs par défaut garanties
+  const defaultStats: StatsData = {
     total_apprenants: 0,
     total_enseignants: 0,
     total_jeux: 0,
     total_planifications: 0
   };
 
-  // Utiliser les données ou les valeurs par défaut
-  const statsData = stats || defaultStats;
+  // S'assurer que les données sont valides
+  const statsData: StatsData = stats ? {
+    total_apprenants: Number(stats.total_apprenants) || 0,
+    total_enseignants: Number(stats.total_enseignants) || 0,
+    total_jeux: Number(stats.total_jeux) || 0,
+    total_planifications: Number(stats.total_planifications) || 0
+  } : defaultStats;
+  
   console.log("Données utilisées pour l'affichage:", statsData);
+  console.log("Vérification des propriétés:", {
+    total_jeux_exists: 'total_jeux' in statsData,
+    total_jeux_value: statsData.total_jeux,
+    total_jeux_type: typeof statsData.total_jeux
+  });
 
   const statsConfig = [
     {
       title: "Jeux disponibles",
-      value: statsData.total_jeux?.toString() || "0",
+      value: String(statsData.total_jeux),
       icon: GamepadIcon,
       color: "from-orange-500 to-orange-600",
       bgColor: "bg-orange-50",
@@ -139,7 +162,7 @@ export const StatsCards = () => {
     },
     {
       title: "Planifications",
-      value: statsData.total_planifications?.toString() || "0",
+      value: String(statsData.total_planifications),
       icon: Calendar,
       color: "from-purple-500 to-purple-600",
       bgColor: "bg-purple-50",
@@ -148,7 +171,7 @@ export const StatsCards = () => {
     },
     {
       title: "Enseignants",
-      value: statsData.total_enseignants?.toString() || "0", 
+      value: String(statsData.total_enseignants),
       icon: GraduationCap,
       color: "from-blue-500 to-blue-600",
       bgColor: "bg-blue-50",
@@ -157,7 +180,7 @@ export const StatsCards = () => {
     },
     {
       title: "Apprenants",
-      value: statsData.total_apprenants?.toString() || "0",
+      value: String(statsData.total_apprenants),
       icon: Users,
       color: "from-green-500 to-green-600",
       bgColor: "bg-green-50",
