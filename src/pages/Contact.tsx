@@ -17,8 +17,17 @@ const Contact = () => {
       
       <div className="container mx-auto py-8 sm:py-12 px-4 sm:px-6 md:px-8 relative z-10">
         <ContactHeader />
-        <ContactInfo />
-        <ContactFAQ />
+        
+        {/* Informations de contact avec plus d'espacement */}
+        <div className="mb-32">
+          <ContactInfo />
+        </div>
+        
+        {/* FAQ avec plus d'espacement */}
+        <div className="mb-24">
+          <ContactFAQ />
+        </div>
+        
         <ContactQuote />
       </div>
       

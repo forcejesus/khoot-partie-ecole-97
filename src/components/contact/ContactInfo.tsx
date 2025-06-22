@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { config } from "@/config/hosts";
 
 const ContactInfo = () => {
   const { t } = useLanguage();
@@ -27,26 +28,27 @@ const ContactInfo = () => {
     }
   };
 
+  // Réorganisation : partenaires en premier
   const contactInfo = [
     {
       icon: Mail,
-      title: t("contact.support"),
-      email: "support@akili-education.cg",
-      phone: "+242 06 956 53 90",
-      color: "from-blue-500 to-cyan-500"
-    },
-    {
-      icon: Mail,
       title: t("contact.partnerships"),
-      email: "partenaires@akili-education.cg", 
-      phone: "+242 06 956 53 91",
+      email: config.contact.emails.partnerships,
+      phone: config.contact.phones.partnerships,
       color: "from-green-500 to-emerald-500"
     },
     {
       icon: Mail,
+      title: t("contact.support"),
+      email: config.contact.emails.support,
+      phone: config.contact.phones.support,
+      color: "from-blue-500 to-cyan-500"
+    },
+    {
+      icon: Mail,
       title: t("contact.training"),
-      email: "formations@akili-education.cg",
-      phone: "+242 06 956 53 92",
+      email: config.contact.emails.training,
+      phone: config.contact.phones.training,
       color: "from-orange-500 to-red-500"
     }
   ];
@@ -65,7 +67,7 @@ const ContactInfo = () => {
       
       <motion.div 
         variants={staggerContainer}
-        className="space-y-6"
+        className="space-y-8"
       >
         {contactInfo.map((info, index) => (
           <motion.div
@@ -76,21 +78,21 @@ const ContactInfo = () => {
             <Card className="border border-gray-200 bg-white/95 backdrop-blur-sm relative overflow-hidden hover:shadow-xl transition-all duration-300 rounded-2xl">
               <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${info.color}`}></div>
               
-              <CardContent className="p-6 relative z-10">
+              <CardContent className="p-8 relative z-10">
                 <div className="flex items-center gap-6">
                   <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${info.color} flex items-center justify-center shadow-xl flex-shrink-0`}>
                     <info.icon className="w-8 h-8 text-white" />
                   </div>
                   
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3 font-poppins">{info.title}</h3>
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2">
-                        <Mail className="w-4 h-4 text-gray-500" />
+                    <h3 className="text-xl font-bold text-gray-800 mb-4 font-poppins">{info.title}</h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3">
+                        <Mail className="w-5 h-5 text-gray-500 flex-shrink-0" />
                         <span className="text-lg text-gray-700 font-inter">{info.email}</span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <Phone className="w-4 h-4 text-gray-500" />
+                      <div className="flex items-center gap-3">
+                        <Phone className="w-5 h-5 text-gray-500 flex-shrink-0" />
                         <span className="text-lg text-gray-700 font-inter">{info.phone}</span>
                       </div>
                     </div>
