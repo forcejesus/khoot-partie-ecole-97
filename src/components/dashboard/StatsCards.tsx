@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { 
   Users, 
   GraduationCap, 
@@ -37,6 +38,19 @@ const fetchStats = async (): Promise<StatsData> => {
   return response.data;
 };
 
+const StatCardSkeleton = () => (
+  <Card className="border-orange-200 bg-white">
+    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+      <Skeleton className="h-4 w-24" />
+      <Skeleton className="h-12 w-12 rounded-xl" />
+    </CardHeader>
+    <CardContent>
+      <Skeleton className="h-8 w-16 mb-2" />
+      <Skeleton className="h-4 w-20" />
+    </CardContent>
+  </Card>
+);
+
 export const StatsCards = () => {
   console.log("StatsCards rendering...");
   
@@ -47,7 +61,18 @@ export const StatsCards = () => {
 
   console.log("Query state - data:", stats, "isLoading:", isLoading, "error:", error);
 
-  // Default values while loading or on error
+  // Show skeleton loaders while loading
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <StatCardSkeleton key={index} />
+        ))}
+      </div>
+    );
+  }
+
+  // Default values on error
   const statsData = stats || {
     total_apprenants: 0,
     total_enseignants: 0,
@@ -112,7 +137,7 @@ export const StatsCards = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-              {isLoading ? "..." : stat.value}
+              {stat.value}
             </div>
             <div className={`text-xs md:text-sm font-medium ${stat.textColor} flex items-center gap-2`}>
               <TrendingUp className="h-3 w-3 md:h-4 md:w-4" />
