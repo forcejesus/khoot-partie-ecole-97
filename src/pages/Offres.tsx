@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Users, Star, Crown } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
@@ -184,8 +183,8 @@ const Offres = () => {
     );
   }
 
-  // Transformer les données de l'API en format compatible avec OfferCard
-  const offers = abonnementsData?.data?.slice(0, 6).map((abonnement, index) => {
+  // Transformer les données de l'API en format compatible avec OfferCard - AFFICHER TOUS LES ABONNEMENTS
+  const offers = abonnementsData?.data?.map((abonnement, index) => {
     const colorScheme = getColorScheme(index);
     const isPopular = index === 1; // Le deuxième abonnement est marqué comme populaire
     
@@ -211,8 +210,8 @@ const Offres = () => {
       <div className="container mx-auto py-8 sm:py-12 px-4 sm:px-6 relative z-10">
         <OffersHeader />
 
-        {/* Grille des offres responsive */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-7xl mx-auto mb-12 sm:mb-16 md:mb-20">
+        {/* Grille des offres responsive - Affichage de toutes les offres */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 max-w-7xl mx-auto mb-12 sm:mb-16 md:mb-20">
           {offers.map((offer, index) => (
             <OfferCard
               key={index}

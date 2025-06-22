@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   Dialog,
@@ -146,8 +145,8 @@ const OffersUpgradeDialog = ({ open, onOpenChange }: OffersUpgradeDialogProps) =
     }
   ];
 
-  // Transformer les données de l'API ou utiliser les fallback
-  const offers = abonnementsData?.data?.slice(0, 3).map((abonnement, index) => {
+  // Transformer les données de l'API ou utiliser les fallback - AFFICHER TOUS LES ABONNEMENTS
+  const offers = abonnementsData?.data?.map((abonnement, index) => {
     const colorScheme = getColorScheme(index);
     const isPopular = index === 1;
     
@@ -185,15 +184,15 @@ const OffersUpgradeDialog = ({ open, onOpenChange }: OffersUpgradeDialogProps) =
             </DialogHeader>
 
             {isLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                {[1, 2, 3].map((i) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                {[1, 2, 3, 4, 5, 6].map((i) => (
                   <div key={i} className="h-96">
                     <Skeleton className="w-full h-full rounded-3xl" />
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
                 {offers.map((offer, index) => (
                   <motion.div
                     key={index}
@@ -209,26 +208,26 @@ const OffersUpgradeDialog = ({ open, onOpenChange }: OffersUpgradeDialogProps) =
                         </div>
                       )}
                       
-                      <div className="p-8">
-                        <div className="text-center mb-6">
-                          <div className={`mx-auto w-16 h-16 mb-4 rounded-2xl bg-gradient-to-br ${offer.color} flex items-center justify-center shadow-lg`}>
-                            <offer.icon className="h-8 w-8 text-white" />
+                      <div className="p-6">
+                        <div className="text-center mb-4">
+                          <div className={`mx-auto w-12 h-12 mb-3 rounded-2xl bg-gradient-to-br ${offer.color} flex items-center justify-center shadow-lg`}>
+                            <offer.icon className="h-6 w-6 text-white" />
                           </div>
-                          <h3 className="text-2xl font-bold text-gray-900 mb-2">{offer.name}</h3>
-                          <p className="text-gray-600">{offer.description}</p>
+                          <h3 className="text-lg font-bold text-gray-900 mb-1">{offer.name}</h3>
+                          <p className="text-sm text-gray-600">{offer.description}</p>
                         </div>
                         
-                        <div className="text-center mb-8">
-                          <div className={`text-4xl font-bold bg-gradient-to-r ${offer.color} bg-clip-text text-transparent`}>
+                        <div className="text-center mb-6">
+                          <div className={`text-2xl font-bold bg-gradient-to-r ${offer.color} bg-clip-text text-transparent`}>
                             {offer.price}
                           </div>
-                          <span className="text-gray-500 font-medium">{offer.period}</span>
+                          <span className="text-sm text-gray-500 font-medium">{offer.period}</span>
                         </div>
                         
-                        <ul className="space-y-4 mb-8">
-                          {offer.features.map((feature, featureIndex) => (
-                            <li key={featureIndex} className="flex items-center text-gray-700">
-                              <Check className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
+                        <ul className="space-y-2 mb-6">
+                          {offer.features.slice(0, 4).map((feature, featureIndex) => (
+                            <li key={featureIndex} className="flex items-center text-sm text-gray-700">
+                              <Check className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
                               <span className="font-medium">{feature}</span>
                             </li>
                           ))}
@@ -236,7 +235,7 @@ const OffersUpgradeDialog = ({ open, onOpenChange }: OffersUpgradeDialogProps) =
                         
                         <Link to="/contact">
                           <Button 
-                            className={`w-full bg-gradient-to-r ${offer.color} hover:opacity-90 transition-all text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02]`}
+                            className={`w-full bg-gradient-to-r ${offer.color} hover:opacity-90 transition-all text-white font-semibold py-2 text-sm rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02]`}
                             onClick={() => onOpenChange(false)}
                           >
                             Choisir cette offre
