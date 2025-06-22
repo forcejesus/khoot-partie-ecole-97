@@ -31,19 +31,27 @@ const queryClient = new QueryClient({
     queries: {
       retry: 1,
       refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000, // 5 minutes
     },
   },
 });
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const token = localStorage.getItem("token");
+  console.log("ProtectedRoute - token exists:", !!token);
+  
   if (!token) {
-    return <Navigate to="/login" />;
+    console.log("No token found, redirecting to login");
+    return <Navigate to="/login" replace />;
   }
+  
+  console.log("Token found, rendering protected content");
   return <>{children}</>;
 };
 
 function App() {
+  console.log("App component rendering...");
+  
   return (
     <QueryClientProvider client={queryClient}>
       <Router>

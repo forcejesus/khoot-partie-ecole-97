@@ -29,13 +29,18 @@ const fetchStats = async (): Promise<StatsData> => {
     throw new Error("No token found");
   }
   
-  const response = await axios.get(`${config.api.baseUrl}/api/mon-ecole/statistiques`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  console.log("Stats API response:", response.data);
-  return response.data;
+  try {
+    const response = await axios.get(`${config.api.baseUrl}/api/mon-ecole/statistiques`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log("Stats API response:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching stats:", error);
+    throw error;
+  }
 };
 
 const StatCardSkeleton = () => (
@@ -57,12 +62,15 @@ export const StatsCards = () => {
   const { data: stats, isLoading, error } = useQuery({
     queryKey: ['school-stats'],
     queryFn: fetchStats,
+    retry: 1,
+    refetchOnWindowFocus: false,
   });
 
   console.log("Query state - data:", stats, "isLoading:", isLoading, "error:", error);
 
   // Show skeleton loaders while loading
   if (isLoading) {
+    console.log("Showing loading skeletons");
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {Array.from({ length: 4 }).map((_, index) => (
@@ -72,13 +80,15 @@ export const StatsCards = () => {
     );
   }
 
-  // Default values on error
+  // Default values on error or missing data
   const statsData = stats || {
     total_apprenants: 0,
     total_enseignants: 0,
     total_jeux: 0,
     total_planifications: 0
   };
+
+  console.log("Using stats data:", statsData);
 
   const statsConfig = [
     {

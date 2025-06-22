@@ -20,11 +20,23 @@ const DashboardContent = () => {
 const Dashboard = () => {
   console.log("Dashboard component rendering...");
   
-  return (
-    <DashboardLayoutWithSidebar>
-      <DashboardContent />
-    </DashboardLayoutWithSidebar>
-  );
+  try {
+    return (
+      <DashboardLayoutWithSidebar>
+        <DashboardContent />
+      </DashboardLayoutWithSidebar>
+    );
+  } catch (error) {
+    console.error("Error in Dashboard component:", error);
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Erreur de chargement</h1>
+          <p className="text-gray-600">Une erreur s'est produite lors du chargement du tableau de bord.</p>
+        </div>
+      </div>
+    );
+  }
 };
 
 export default Dashboard;
