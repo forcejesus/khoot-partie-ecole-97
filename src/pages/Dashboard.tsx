@@ -4,15 +4,24 @@ import { DashboardLayoutWithSidebar } from "@/layouts/DashboardLayoutWithSidebar
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
 import { StatsCards } from "@/components/dashboard/StatsCards";
 import { QuickActions } from "@/components/dashboard/QuickActions";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 const DashboardContent = () => {
   console.log("DashboardContent rendering...");
   
   return (
     <div className="space-y-4 sm:space-y-6 md:space-y-8">
-      <DashboardHeader />
-      <StatsCards />
-      <QuickActions />
+      <ErrorBoundary>
+        <DashboardHeader />
+      </ErrorBoundary>
+      
+      <ErrorBoundary>
+        <StatsCards />
+      </ErrorBoundary>
+      
+      <ErrorBoundary>
+        <QuickActions />
+      </ErrorBoundary>
     </div>
   );
 };

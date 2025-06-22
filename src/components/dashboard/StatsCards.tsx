@@ -9,7 +9,7 @@ import {
   TrendingUp,
   Calendar
 } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { config } from "@/config/hosts";
 
@@ -58,6 +58,21 @@ const StatCardSkeleton = () => (
 
 export const StatsCards = () => {
   console.log("StatsCards rendering...");
+  
+  // Vérifier que QueryClient est disponible
+  const queryClient = useQueryClient();
+  console.log("QueryClient available:", !!queryClient);
+  
+  if (!queryClient) {
+    console.error("QueryClient not found!");
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <StatCardSkeleton key={index} />
+        ))}
+      </div>
+    );
+  }
   
   const { data: stats, isLoading, error } = useQuery({
     queryKey: ['school-stats'],
