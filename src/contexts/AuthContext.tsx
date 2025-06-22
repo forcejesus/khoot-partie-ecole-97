@@ -91,12 +91,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         password,
       });
 
-      if (response.data && response.data.token) {
+      console.log("Login response:", response.data);
+
+      if (response.data && response.data.token && response.data.statut === 200) {
+        // Vérifier que le rôle est "admin"
+        if (response.data.role !== "admin") {
+          toast.error("🚫 Aucune école trouvée avec ces informations.", {
+            duration: 5000,
+          });
+          return;
+        }
+
         const token = response.data.token;
         localStorage.setItem("token", token);
         
         try {
-          // Decode JWT token
+          // Decode JWT token pour obtenir les informations utilisateur
           const base64Url = token.split('.')[1];
           const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
           const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
@@ -104,18 +114,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           }).join(''));
 
           const decoded = JSON.parse(jsonPayload);
+          console.log("Decoded token:", decoded);
           
-          // Check for required fields
+          // Vérifier les champs requis
           if (!decoded.id || !decoded.email || !decoded.prenom || !decoded.nom) {
             throw new Error("Token invalide - données manquantes");
           }
 
-          // Create user data
+          // Créer les données utilisateur
           const userData = {
             id: decoded.id,
             name: `${decoded.prenom} ${decoded.nom}`,
             email: decoded.email,
             role: decoded.role || 'admin',
+            ecole: decoded.ecole
           };
 
           setUser(userData);
@@ -133,7 +145,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           localStorage.removeItem("token");
         }
       } else {
-        toast.error("❌ Identifiants incorrects. Vérifiez votre email et mot de passe.", {
+        toast.error("🚫 Aucune école trouvée avec ces informations.", {
           duration: 4000,
         });
       }
@@ -142,7 +154,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       // Messages d'erreur plus conviviaux
       if (error.response?.status === 401 || error.response?.status === 400) {
-        toast.error("🔐 Email ou mot de passe incorrect. Veuillez vérifier vos informations.", {
+        toast.error("🚫 Aucune école trouvée avec ces informations.", {
           duration: 5000,
         });
       } else if (error.code === 'NETWORK_ERROR' || !error.response) {
