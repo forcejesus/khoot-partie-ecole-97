@@ -5,6 +5,8 @@ import { useAuth } from "@/contexts/AuthContext";
 
 export const DashboardHeader = () => {
   const { user } = useAuth();
+  
+  console.log("DashboardHeader rendering, user:", user);
 
   return (
     <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-6 md:p-8 text-white shadow-lg">

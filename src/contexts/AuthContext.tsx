@@ -38,11 +38,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("AuthProvider useEffect - checking stored token and user");
     const token = localStorage.getItem("token");
     const userData = localStorage.getItem("user");
+    console.log("Stored token exists:", !!token);
+    console.log("Stored user data:", userData);
+    
     if (token && userData) {
       try {
-        setUser(JSON.parse(userData));
+        const parsedUser = JSON.parse(userData);
+        console.log("Parsed user data:", parsedUser);
+        setUser(parsedUser);
       } catch (error) {
         console.error("Error parsing user data:", error);
         localStorage.removeItem("token");
@@ -84,6 +90,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const login = async (email: string, password: string) => {
+    console.log("Login attempt for:", email);
     setIsLoading(true);
     try {
       const response = await axios.post(`${config.api.baseUrl}/api/login`, {
@@ -96,6 +103,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (response.data && response.data.token && response.data.statut === 200) {
         // Vérifier que le rôle est "admin"
         if (response.data.role !== "admin") {
+          console.log("User role is not admin:", response.data.role);
           toast.error("🚫 Aucune école trouvée avec ces informations.", {
             duration: 5000,
           });
@@ -130,6 +138,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             ecole: decoded.ecole
           };
 
+          console.log("Setting user data:", userData);
           setUser(userData);
           localStorage.setItem("user", JSON.stringify(userData));
           
@@ -180,6 +189,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       duration: 3000,
     });
   };
+
+  console.log("AuthProvider rendering, current user:", user);
 
   return (
     <AuthContext.Provider value={{ user, login, logout, isLoading, refreshUser }}>
