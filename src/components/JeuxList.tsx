@@ -6,15 +6,33 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { Gamepad2, Users, Clock, Star } from "lucide-react";
+import { config } from "@/config/hosts";
+
+interface Ecole {
+  _id: string;
+  libelle: string;
+  adresse: string;
+  ville: string;
+  telephone: string;
+  email: string;
+  fichier: string;
+  pays: string;
+  apprenants: any[];
+  abonnementActuel: string;
+  abonnementHistorique: any[];
+  __v: number;
+}
 
 interface Jeu {
   _id: string;
-  nom: string;
-  description: string;
-  difficulte: string;
-  duree: number;
-  participants: number;
-  statut: string;
+  titre: string;
+  image: string | null;
+  createdBy: any | null;
+  planification: any[];
+  questions: any[];
+  ecole: Ecole;
+  date: string;
+  __v: number;
 }
 
 interface JeuxListProps {
@@ -31,9 +49,9 @@ export const JeuxList = ({ searchTerm = "" }: JeuxListProps) => {
     if (!searchTerm) return jeux;
     
     return jeux.filter(jeu => 
-      jeu.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      jeu.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      jeu.difficulte.toLowerCase().includes(searchTerm.toLowerCase())
+      jeu.titre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      jeu.ecole.libelle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      jeu.ecole.ville.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [jeux, searchTerm]);
 
@@ -51,38 +69,22 @@ export const JeuxList = ({ searchTerm = "" }: JeuxListProps) => {
         return;
       }
 
-      // Mock data for now since we don't have the API endpoint
-      const mockJeux: Jeu[] = [
-        {
-          _id: "1",
-          nom: "Quiz Mathématiques",
-          description: "Jeu de quiz pour améliorer les compétences en mathématiques",
-          difficulte: "Facile",
-          duree: 15,
-          participants: 25,
-          statut: "Actif"
+      console.log("Récupération des jeux depuis:", `${config.api.baseUrl}/api/jeux`);
+      
+      const response = await axios.get(`${config.api.baseUrl}/api/jeux`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
         },
-        {
-          _id: "2",
-          nom: "Puzzle Logique",
-          description: "Résolvez des puzzles pour développer la logique",
-          difficulte: "Moyen",
-          duree: 30,
-          participants: 18,
-          statut: "Actif"
-        },
-        {
-          _id: "3",
-          nom: "Course aux Mots",
-          description: "Jeu de vocabulaire et d'orthographe",
-          difficulte: "Difficile",
-          duree: 20,
-          participants: 12,
-          statut: "Inactif"
-        }
-      ];
+      });
 
-      setJeux(mockJeux);
+      console.log("Réponse API jeux:", response.data);
+
+      if (response.data.success) {
+        setJeux(response.data.data);
+      } else {
+        throw new Error(response.data.message || "Erreur lors de la récupération des jeux");
+      }
     } catch (error) {
       console.error("Erreur lors de la récupération des jeux:", error);
       toast({
@@ -99,21 +101,25 @@ export const JeuxList = ({ searchTerm = "" }: JeuxListProps) => {
     fetchJeux();
   }, []);
 
-  const getDifficultyColor = (difficulte: string) => {
-    switch (difficulte.toLowerCase()) {
-      case "facile":
-        return "bg-green-100 text-green-800";
-      case "moyen":
-        return "bg-yellow-100 text-yellow-800";
-      case "difficile":
-        return "bg-red-100 text-red-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('fr-FR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
   };
 
-  const getStatutColor = (statut: string) => {
-    return statut === "Actif" ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-800";
+  const getStatutColor = (jeu: Jeu) => {
+    const hasPlanification = jeu.planification && jeu.planification.length > 0;
+    return hasPlanification ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-800";
+  };
+
+  const getStatutText = (jeu: Jeu) => {
+    const hasPlanification = jeu.planification && jeu.planification.length > 0;
+    return hasPlanification ? "Planifié" : "Non planifié";
   };
 
   return (
@@ -158,37 +164,37 @@ export const JeuxList = ({ searchTerm = "" }: JeuxListProps) => {
                 <div className="flex items-start justify-between">
                   <CardTitle className="text-lg font-bold text-orange-700 flex items-center gap-2">
                     <Gamepad2 className="h-5 w-5" />
-                    {jeu.nom}
+                    {jeu.titre}
                   </CardTitle>
-                  <Badge className={getStatutColor(jeu.statut)}>
-                    {jeu.statut}
+                  <Badge className={getStatutColor(jeu)}>
+                    {getStatutText(jeu)}
                   </Badge>
                 </div>
-                <p className="text-sm text-gray-600 line-clamp-2">{jeu.description}</p>
+                <p className="text-sm text-gray-600">
+                  École: {jeu.ecole.libelle} - {jeu.ecole.ville}
+                </p>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500">Difficulté:</span>
-                    <Badge className={getDifficultyColor(jeu.difficulte)}>
-                      {jeu.difficulte}
-                    </Badge>
+                    <span className="text-sm text-gray-500 flex items-center gap-1">
+                      <Users className="h-4 w-4" />
+                      Questions:
+                    </span>
+                    <span className="text-sm font-medium">{jeu.questions?.length || 0}</span>
                   </div>
                   
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-500 flex items-center gap-1">
                       <Clock className="h-4 w-4" />
-                      Durée:
+                      Planifications:
                     </span>
-                    <span className="text-sm font-medium">{jeu.duree} min</span>
+                    <span className="text-sm font-medium">{jeu.planification?.length || 0}</span>
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500 flex items-center gap-1">
-                      <Users className="h-4 w-4" />
-                      Participants:
-                    </span>
-                    <span className="text-sm font-medium">{jeu.participants}</span>
+                    <span className="text-sm text-gray-500">Créé le:</span>
+                    <span className="text-sm font-medium">{formatDate(jeu.date)}</span>
                   </div>
                 </div>
               </CardContent>

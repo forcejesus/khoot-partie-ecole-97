@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useToast } from "@/hooks/use-toast";
@@ -32,23 +31,33 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { config } from "@/config/hosts";
 
-interface CreatedBy {
+interface Ecole {
   _id: string;
-  name: string;
+  libelle: string;
+  adresse: string;
+  ville: string;
+  telephone: string;
   email: string;
+  fichier: string;
+  pays: string;
+  apprenants: any[];
+  abonnementActuel: string;
+  abonnementHistorique: any[];
+  __v: number;
 }
 
 interface Jeu {
   _id: string;
   titre: string;
-  description: string;
-  createdAt: string;
-  updatedAt: string;
-  createdBy: CreatedBy;
-  questions: any[];
+  image: string | null;
+  createdBy: any | null;
   planification: any[];
+  questions: any[];
+  ecole: Ecole;
   date: string;
+  __v: number;
 }
 
 export const JeuxCards = () => {
@@ -73,14 +82,12 @@ export const JeuxCards = () => {
         return;
       }
 
-      const response = await axios.get(
-        "http://kahoot.nos-apps.com/api/jeux",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${config.api.baseUrl}/api/jeux`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+      });
 
       if (response.data.success) {
         setJeux(response.data.data);
@@ -249,12 +256,12 @@ export const JeuxCards = () => {
                   <CardContent className="pt-6">
                     <CardTitle className="text-lg line-clamp-1">{jeu.titre}</CardTitle>
                     <CardDescription className="line-clamp-2 h-10">
-                      {jeu.description || "Aucune description disponible"}
+                      {jeu.ecole.libelle} - {jeu.ecole.ville}
                     </CardDescription>
                     <div className="flex flex-wrap gap-2 mt-3">
                       <Badge variant="secondary" className="flex items-center gap-1">
                         <Users className="h-3 w-3" />
-                        {jeu.createdBy?.name?.split(' ')[0] || "Anonyme"}
+                        {jeu.ecole.libelle.split(' ')[0]}
                       </Badge>
                       <Badge variant="outline" className="flex items-center gap-1">
                         {jeu.questions?.length || 0} questions
@@ -289,7 +296,7 @@ export const JeuxCards = () => {
               <thead className="bg-muted/50">
                 <tr>
                   <th className="text-left p-4 font-medium text-sm">Titre</th>
-                  <th className="text-left p-4 font-medium text-sm">Créé par</th>
+                  <th className="text-left p-4 font-medium text-sm">École</th>
                   <th className="text-left p-4 font-medium text-sm">Questions</th>
                   <th className="text-left p-4 font-medium text-sm">Planification</th>
                   <th className="text-left p-4 font-medium text-sm">Date</th>
@@ -299,7 +306,7 @@ export const JeuxCards = () => {
                 {filteredJeux.map((jeu, i) => (
                   <tr key={jeu._id} className={i % 2 === 0 ? "bg-background" : "bg-muted/20"}>
                     <td className="p-4 font-medium">{jeu.titre}</td>
-                    <td className="p-4">{jeu.createdBy?.name || "Non spécifié"}</td>
+                    <td className="p-4">{jeu.ecole.libelle}</td>
                     <td className="p-4">{jeu.questions?.length || 0} questions</td>
                     <td className="p-4">
                       {jeu.planification?.length > 0 ? (
