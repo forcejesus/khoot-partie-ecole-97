@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -42,31 +41,23 @@ const fetchStats = async (): Promise<StatsData> => {
     
     console.log("Réponse complète de l'API:", response);
     console.log("Status de la réponse:", response.status);
-    console.log("Headers de la réponse:", response.headers);
     console.log("Données de la réponse:", response.data);
     
-    // Analyser la structure des données reçues
-    let rawData = response.data;
+    // Accéder aux statistiques selon le format exact de l'API
+    const apiData = response.data?.data?.statistiques;
+    console.log("Statistiques extraites:", apiData);
     
-    // Vérifier différentes structures possibles
-    if (response.data?.data) {
-      console.log("Données trouvées dans response.data.data");
-      rawData = response.data.data;
-    } else if (response.data?.statistiques) {
-      console.log("Données trouvées dans response.data.statistiques");
-      rawData = response.data.statistiques;
+    if (!apiData) {
+      console.error("Aucune donnée de statistiques trouvée dans la réponse");
+      throw new Error("No statistics data found in response");
     }
-    
-    console.log("Données brutes extraites:", rawData);
-    console.log("Type des données:", typeof rawData);
-    console.log("Clés disponibles:", Object.keys(rawData || {}));
     
     // Créer un objet sûr avec des valeurs par défaut
     const safeStats: StatsData = {
-      total_apprenants: Number(rawData?.total_apprenants || rawData?.apprenants || rawData?.students || 0),
-      total_enseignants: Number(rawData?.total_enseignants || rawData?.enseignants || rawData?.teachers || 0),
-      total_jeux: Number(rawData?.total_jeux || rawData?.jeux || rawData?.games || 0),
-      total_planifications: Number(rawData?.total_planifications || rawData?.planifications || rawData?.schedules || 0)
+      total_apprenants: Number(apiData.total_apprenants) || 0,
+      total_enseignants: Number(apiData.total_enseignants) || 0,
+      total_jeux: Number(apiData.total_jeux) || 0,
+      total_planifications: Number(apiData.total_planifications) || 0
     };
     
     console.log("Statistiques finales:", safeStats);
