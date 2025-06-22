@@ -25,7 +25,7 @@ import Contact from "@/pages/Contact";
 import FAQ from "@/pages/FAQ";
 import InscriptionEcoles from "@/pages/InscriptionEcoles";
 
-// Créer une instance de QueryClient
+// Créer une instance unique de QueryClient
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

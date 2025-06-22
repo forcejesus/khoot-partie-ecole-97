@@ -20,20 +20,32 @@ interface StatsData {
 }
 
 const fetchStats = async (): Promise<StatsData> => {
+  console.log("fetchStats called");
   const token = localStorage.getItem("token");
+  console.log("Token found:", !!token);
+  
+  if (!token) {
+    throw new Error("No token found");
+  }
+  
   const response = await axios.get(`${config.api.baseUrl}/api/mon-ecole/statistiques`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
+  console.log("Stats API response:", response.data);
   return response.data;
 };
 
 export const StatsCards = () => {
+  console.log("StatsCards rendering...");
+  
   const { data: stats, isLoading, error } = useQuery({
     queryKey: ['school-stats'],
     queryFn: fetchStats,
   });
+
+  console.log("Query state - data:", stats, "isLoading:", isLoading, "error:", error);
 
   // Default values while loading or on error
   const statsData = stats || {
