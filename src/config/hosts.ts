@@ -2,13 +2,13 @@
 // Configuration des URLs et hosts de l'application AKILI
 export const config = {
   // URLs de base
-  baseUrl: process.env.NODE_ENV === 'production' 
+  baseUrl: import.meta.env.PROD 
     ? 'https://akili-education.cg' 
     : 'http://localhost:5173',
   
   // API endpoints
   api: {
-    baseUrl: process.env.NODE_ENV === 'production'
+    baseUrl: import.meta.env.PROD
       ? 'https://api.akili-education.cg'
       : 'http://localhost:3000/api',
     
@@ -27,8 +27,8 @@ export const config = {
   // Services externes
   external: {
     supabase: {
-      url: process.env.REACT_APP_SUPABASE_URL || '',
-      anonKey: process.env.REACT_APP_SUPABASE_ANON_KEY || ''
+      url: import.meta.env.VITE_SUPABASE_URL || '',
+      anonKey: import.meta.env.VITE_SUPABASE_ANON_KEY || ''
     },
     
     // URLs de support
