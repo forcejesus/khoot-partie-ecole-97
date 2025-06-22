@@ -90,7 +90,7 @@ const Login = () => {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           required
-                          className="h-10 lg:h-12 bg-white border-2 border-gray-200 transition-colors rounded-lg shadow-sm text-sm lg:text-base"
+                          className="h-10 lg:h-12 bg-white border-2 border-gray-200 transition-colors rounded-lg shadow-sm text-sm lg:text-base text-gray-900 placeholder:text-gray-500"
                           style={{ '--tw-ring-color': '#f97316' } as any}
                         />
                       </div>
@@ -106,7 +106,7 @@ const Login = () => {
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           required
-                          className="pr-12 h-10 lg:h-12 bg-white border-2 border-gray-200 transition-colors rounded-lg shadow-sm text-sm lg:text-base"
+                          className="pr-12 h-10 lg:h-12 bg-white border-2 border-gray-200 transition-colors rounded-lg shadow-sm text-sm lg:text-base text-gray-900 placeholder:text-gray-500"
                           placeholder="••••••••"
                           style={{ '--tw-ring-color': '#f97316' } as any}
                         />
@@ -141,13 +141,6 @@ const Login = () => {
                       )}
                     </Button>
                   </form>
-
-                  {/* Tips de sécurité */}
-                  <div className="mt-4 lg:mt-6 p-3 lg:p-4 rounded-lg border" style={{ backgroundColor: '#fff7ed', borderColor: '#fed7aa' }}>
-                    <p className="text-xs text-gray-600 text-center">
-                      💡 <strong>{t("login.securityTip.title")}:</strong> {t("login.securityTip.description")}
-                    </p>
-                  </div>
                 </div>
               </div>
 

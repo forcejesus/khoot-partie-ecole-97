@@ -1,7 +1,9 @@
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
+import { config } from "@/config/hosts";
 
 interface School {
   _id: string;
@@ -60,7 +62,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const userData = JSON.parse(storedUser);
       const response = await axios.get(
-        `http://kahoot.nos-apps.com/api/users/${userData.id}`,
+        `${config.api.baseUrl}/api/users/${userData.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -84,7 +86,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      const response = await axios.post("http://kahoot.nos-apps.com/api/login-admin", {
+      const response = await axios.post(`${config.api.baseUrl}/api/login`, {
         email,
         password,
       });
@@ -108,17 +110,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             throw new Error("Token invalide - données manquantes");
           }
 
-          // Vérifier que l'utilisateur a le rôle admin
-          if (decoded.role !== "admin") {
-            throw new Error("Accès refusé - Seuls les administrateurs peuvent se connecter");
-          }
-
           // Create user data
           const userData = {
             id: decoded.id,
             name: `${decoded.prenom} ${decoded.nom}`,
             email: decoded.email,
-            role: decoded.role,
+            role: decoded.role || 'admin',
           };
 
           setUser(userData);
@@ -146,10 +143,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Messages d'erreur plus conviviaux
       if (error.response?.status === 401 || error.response?.status === 400) {
         toast.error("🔐 Email ou mot de passe incorrect. Veuillez vérifier vos informations.", {
-          duration: 5000,
-        });
-      } else if (error.message?.includes("Accès refusé")) {
-        toast.error("🚫 Accès limité aux administrateurs uniquement.", {
           duration: 5000,
         });
       } else if (error.code === 'NETWORK_ERROR' || !error.response) {
