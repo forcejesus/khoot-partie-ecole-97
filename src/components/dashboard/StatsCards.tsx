@@ -9,7 +9,7 @@ import {
   TrendingUp,
   Calendar
 } from "lucide-react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { config } from "@/config/hosts";
 
@@ -59,31 +59,70 @@ const StatCardSkeleton = () => (
 export const StatsCards = () => {
   console.log("StatsCards rendering...");
   
-  // Vérifier que QueryClient est disponible
-  const queryClient = useQueryClient();
-  console.log("QueryClient available:", !!queryClient);
-  
-  if (!queryClient) {
-    console.error("QueryClient not found!");
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-        {Array.from({ length: 4 }).map((_, index) => (
-          <StatCardSkeleton key={index} />
-        ))}
-      </div>
-    );
-  }
-  
-  const { data: stats, isLoading, error } = useQuery({
+  const { data: stats, isLoading, error, isError } = useQuery({
     queryKey: ['school-stats'],
     queryFn: fetchStats,
-    retry: 1,
+    retry: 2,
     refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 10 * 60 * 1000, // 10 minutes
   });
 
   console.log("Query state - data:", stats, "isLoading:", isLoading, "error:", error);
 
-  // Show skeleton loaders while loading
+  // Valeurs par défaut pour éviter les erreurs
+  const defaultStats = {
+    total_apprenants: 0,
+    total_enseignants: 0,
+    total_jeux: 0,
+    total_planifications: 0
+  };
+
+  // Utiliser les données ou les valeurs par défaut
+  const statsData = stats || defaultStats;
+
+  console.log("Using stats data:", statsData);
+
+  const statsConfig = [
+    {
+      title: "Jeux disponibles",
+      value: statsData.total_jeux?.toString() || "0",
+      icon: GamepadIcon,
+      color: "from-orange-500 to-orange-600",
+      bgColor: "bg-orange-50",
+      textColor: "text-orange-600",
+      change: "Disponibles"
+    },
+    {
+      title: "Planifications",
+      value: statsData.total_planifications?.toString() || "0",
+      icon: Calendar,
+      color: "from-purple-500 to-purple-600",
+      bgColor: "bg-purple-50",
+      textColor: "text-purple-600",
+      change: "Sessions programmées"
+    },
+    {
+      title: "Enseignants",
+      value: statsData.total_enseignants?.toString() || "0", 
+      icon: GraduationCap,
+      color: "from-blue-500 to-blue-600",
+      bgColor: "bg-blue-50",
+      textColor: "text-blue-600",
+      change: "Actifs"
+    },
+    {
+      title: "Apprenants",
+      value: statsData.total_apprenants?.toString() || "0",
+      icon: Users,
+      color: "from-green-500 to-green-600",
+      bgColor: "bg-green-50",
+      textColor: "text-green-600",
+      change: "Inscrits"
+    }
+  ];
+
+  // Afficher les skeletons pendant le chargement
   if (isLoading) {
     console.log("Showing loading skeletons");
     return (
@@ -95,57 +134,10 @@ export const StatsCards = () => {
     );
   }
 
-  // Default values on error or missing data
-  const statsData = stats || {
-    total_apprenants: 0,
-    total_enseignants: 0,
-    total_jeux: 0,
-    total_planifications: 0
-  };
-
-  console.log("Using stats data:", statsData);
-
-  const statsConfig = [
-    {
-      title: "Jeux disponibles",
-      value: statsData.total_jeux.toString(),
-      icon: GamepadIcon,
-      color: "from-orange-500 to-orange-600",
-      bgColor: "bg-orange-50",
-      textColor: "text-orange-600",
-      change: "Disponibles"
-    },
-    {
-      title: "Planifications",
-      value: statsData.total_planifications.toString(),
-      icon: Calendar,
-      color: "from-purple-500 to-purple-600",
-      bgColor: "bg-purple-50",
-      textColor: "text-purple-600",
-      change: "Sessions programmées"
-    },
-    {
-      title: "Enseignants",
-      value: statsData.total_enseignants.toString(), 
-      icon: GraduationCap,
-      color: "from-blue-500 to-blue-600",
-      bgColor: "bg-blue-50",
-      textColor: "text-blue-600",
-      change: "Actifs"
-    },
-    {
-      title: "Apprenants",
-      value: statsData.total_apprenants.toString(),
-      icon: Users,
-      color: "from-green-500 to-green-600",
-      bgColor: "bg-green-50",
-      textColor: "text-green-600",
-      change: "Inscrits"
-    }
-  ];
-
-  if (error) {
+  // Afficher un message d'erreur si nécessaire (optionnel)
+  if (isError) {
     console.error("Erreur lors du chargement des statistiques:", error);
+    // Continuer à afficher les cartes avec des valeurs par défaut
   }
 
   return (
