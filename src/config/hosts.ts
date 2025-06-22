@@ -3,14 +3,14 @@
 export const config = {
   // URLs de base
   baseUrl: import.meta.env.PROD 
-    ? 'https://akili-education.cg' 
-    : 'http://localhost:5173',
+    ? 'http://kahoot.nos-apps.com' 
+    : 'http://localhost:3000',
   
   // API endpoints
   api: {
     baseUrl: import.meta.env.PROD
-      ? 'https://api.akili-education.cg'
-      : 'http://localhost:3000/api',
+      ? 'http://kahoot.nos-apps.com'
+      : 'http://localhost:3000',
     
     endpoints: {
       auth: '/auth',
@@ -29,13 +29,6 @@ export const config = {
     supabase: {
       url: import.meta.env.VITE_SUPABASE_URL || '',
       anonKey: import.meta.env.VITE_SUPABASE_ANON_KEY || ''
-    },
-    
-    // URLs de support
-    support: {
-      documentation: 'https://docs.akili-education.cg',
-      community: 'https://community.akili-education.cg',
-      status: 'https://status.akili-education.cg'
     }
   },
   
