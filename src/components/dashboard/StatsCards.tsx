@@ -21,24 +21,60 @@ interface StatsData {
 }
 
 const fetchStats = async (): Promise<StatsData> => {
-  console.log("fetchStats called");
+  console.log("=== DEBUT fetchStats ===");
   const token = localStorage.getItem("token");
-  console.log("Token found:", !!token);
+  console.log("Token trouvé:", !!token);
+  console.log("URL API:", `${config.api.baseUrl}/api/mon-ecole/statistiques`);
   
   if (!token) {
+    console.error("Aucun token trouvé dans localStorage");
     throw new Error("No token found");
   }
   
   try {
+    console.log("Envoi de la requête API...");
     const response = await axios.get(`${config.api.baseUrl}/api/mon-ecole/statistiques`, {
       headers: {
         Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
       },
     });
-    console.log("Stats API response:", response.data);
-    return response.data;
+    
+    console.log("Réponse complète de l'API:", response);
+    console.log("Status de la réponse:", response.status);
+    console.log("Headers de la réponse:", response.headers);
+    console.log("Données de la réponse:", response.data);
+    
+    // Vérifier si les données sont dans response.data directement ou dans response.data.data
+    let statsData = response.data;
+    if (response.data && response.data.data) {
+      console.log("Données trouvées dans response.data.data");
+      statsData = response.data.data;
+    }
+    
+    console.log("Données finales des statistiques:", statsData);
+    console.log("=== FIN fetchStats SUCCESS ===");
+    
+    return {
+      total_apprenants: statsData.total_apprenants || 0,
+      total_enseignants: statsData.total_enseignants || 0,
+      total_jeux: statsData.total_jeux || 0,
+      total_planifications: statsData.total_planifications || 0
+    };
   } catch (error) {
-    console.error("Error fetching stats:", error);
+    console.error("=== ERREUR dans fetchStats ===");
+    console.error("Type d'erreur:", error);
+    
+    if (axios.isAxiosError(error)) {
+      console.error("Erreur Axios:", {
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        data: error.response?.data,
+        headers: error.response?.headers
+      });
+    }
+    
+    console.error("=== FIN fetchStats ERROR ===");
     throw error;
   }
 };
@@ -57,18 +93,27 @@ const StatCardSkeleton = () => (
 );
 
 export const StatsCards = () => {
-  console.log("StatsCards rendering...");
+  console.log("=== RENDU StatsCards ===");
   
   const { data: stats, isLoading, error, isError } = useQuery({
     queryKey: ['school-stats'],
     queryFn: fetchStats,
-    retry: 2,
+    retry: (failureCount, error) => {
+      console.log(`Tentative ${failureCount} échouée:`, error);
+      return failureCount < 2; // 2 tentatives maximum
+    },
+    retryDelay: 1000, // 1 seconde entre les tentatives
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000, // 5 minutes
     gcTime: 10 * 60 * 1000, // 10 minutes
   });
 
-  console.log("Query state - data:", stats, "isLoading:", isLoading, "error:", error);
+  console.log("État de la requête:", {
+    data: stats,
+    isLoading,
+    isError,
+    error: error?.message || error
+  });
 
   // Valeurs par défaut pour éviter les erreurs
   const defaultStats = {
@@ -80,8 +125,7 @@ export const StatsCards = () => {
 
   // Utiliser les données ou les valeurs par défaut
   const statsData = stats || defaultStats;
-
-  console.log("Using stats data:", statsData);
+  console.log("Données utilisées pour l'affichage:", statsData);
 
   const statsConfig = [
     {
@@ -124,7 +168,7 @@ export const StatsCards = () => {
 
   // Afficher les skeletons pendant le chargement
   if (isLoading) {
-    console.log("Showing loading skeletons");
+    console.log("Affichage des skeletons de chargement");
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {Array.from({ length: 4 }).map((_, index) => (
@@ -134,11 +178,13 @@ export const StatsCards = () => {
     );
   }
 
-  // Afficher un message d'erreur si nécessaire (optionnel)
+  // Afficher un message d'erreur si nécessaire
   if (isError) {
     console.error("Erreur lors du chargement des statistiques:", error);
     // Continuer à afficher les cartes avec des valeurs par défaut
   }
+
+  console.log("Rendu des cartes de statistiques avec les données:", statsConfig.map(c => ({ title: c.title, value: c.value })));
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
