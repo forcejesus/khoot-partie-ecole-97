@@ -82,21 +82,26 @@ const SchoolInformationForm = ({ initialData }: SchoolInformationFormProps) => {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex items-center gap-2">
-          <School className="h-5 w-5 text-muted-foreground" />
-          <CardTitle>Informations de l'École</CardTitle>
+    <div className="bg-gradient-to-br from-white to-orange-50 rounded-3xl p-8 shadow-lg border border-orange-200">
+      <div className="mb-8">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
+            <School className="h-7 w-7 text-white" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">Informations de l'École</h2>
+            <p className="text-gray-600 font-medium">
+              Gérez les informations de votre établissement scolaire
+            </p>
+          </div>
         </div>
-        <CardDescription>
-          Gérez les informations de votre établissement scolaire
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
+      </div>
+
+      <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <label htmlFor="libelle" className="text-sm font-medium flex items-center gap-2">
-              <Building className="h-4 w-4 text-muted-foreground" />
+          <div className="space-y-3">
+            <label htmlFor="libelle" className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+              <Building className="h-4 w-4 text-orange-600" />
               Nom de l'école
             </label>
             <Input
@@ -105,11 +110,13 @@ const SchoolInformationForm = ({ initialData }: SchoolInformationFormProps) => {
               placeholder="Nom de l'école"
               value={ecoleData.libelle}
               onChange={handleInputChange}
+              className="border-2 border-gray-200 focus:border-orange-400 bg-white/80 backdrop-blur-sm rounded-xl py-3 px-4 text-gray-900 font-medium placeholder:text-gray-400 transition-all duration-200 hover:bg-white focus:bg-white"
             />
           </div>
-          <div className="space-y-2">
-            <label htmlFor="adresse" className="text-sm font-medium flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-muted-foreground" />
+          
+          <div className="space-y-3">
+            <label htmlFor="adresse" className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+              <MapPin className="h-4 w-4 text-orange-600" />
               Adresse
             </label>
             <Input
@@ -118,11 +125,13 @@ const SchoolInformationForm = ({ initialData }: SchoolInformationFormProps) => {
               placeholder="Adresse"
               value={ecoleData.adresse}
               onChange={handleInputChange}
+              className="border-2 border-gray-200 focus:border-orange-400 bg-white/80 backdrop-blur-sm rounded-xl py-3 px-4 text-gray-900 font-medium placeholder:text-gray-400 transition-all duration-200 hover:bg-white focus:bg-white"
             />
           </div>
-          <div className="space-y-2">
-            <label htmlFor="ville" className="text-sm font-medium flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-muted-foreground" />
+          
+          <div className="space-y-3">
+            <label htmlFor="ville" className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+              <MapPin className="h-4 w-4 text-orange-600" />
               Ville
             </label>
             <Input
@@ -131,11 +140,13 @@ const SchoolInformationForm = ({ initialData }: SchoolInformationFormProps) => {
               placeholder="Ville"
               value={ecoleData.ville}
               onChange={handleInputChange}
+              className="border-2 border-gray-200 focus:border-orange-400 bg-white/80 backdrop-blur-sm rounded-xl py-3 px-4 text-gray-900 font-medium placeholder:text-gray-400 transition-all duration-200 hover:bg-white focus:bg-white"
             />
           </div>
-          <div className="space-y-2">
-            <label htmlFor="phone" className="text-sm font-medium flex items-center gap-2">
-              <Phone className="h-4 w-4 text-muted-foreground" />
+          
+          <div className="space-y-3">
+            <label htmlFor="phone" className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+              <Phone className="h-4 w-4 text-orange-600" />
               Téléphone
             </label>
             <Input
@@ -144,11 +155,13 @@ const SchoolInformationForm = ({ initialData }: SchoolInformationFormProps) => {
               placeholder="Téléphone"
               value={ecoleData.phone}
               onChange={handleInputChange}
+              className="border-2 border-gray-200 focus:border-orange-400 bg-white/80 backdrop-blur-sm rounded-xl py-3 px-4 text-gray-900 font-medium placeholder:text-gray-400 transition-all duration-200 hover:bg-white focus:bg-white"
             />
           </div>
-          <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium flex items-center gap-2">
-              <Mail className="h-4 w-4 text-muted-foreground" />
+          
+          <div className="space-y-3 md:col-span-2">
+            <label htmlFor="email" className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+              <Mail className="h-4 w-4 text-orange-600" />
               Email
             </label>
             <Input
@@ -157,20 +170,22 @@ const SchoolInformationForm = ({ initialData }: SchoolInformationFormProps) => {
               placeholder="Email"
               value={ecoleData.email}
               onChange={handleInputChange}
+              className="border-2 border-gray-200 focus:border-orange-400 bg-white/80 backdrop-blur-sm rounded-xl py-3 px-4 text-gray-900 font-medium placeholder:text-gray-400 transition-all duration-200 hover:bg-white focus:bg-white"
             />
           </div>
         </div>
-      </CardContent>
-      <CardFooter>
-        <Button 
-          onClick={handleUpdateSchool} 
-          disabled={isLoading}
-          className="ml-auto"
-        >
-          {isLoading ? "Enregistrement..." : "Enregistrer les modifications"}
-        </Button>
-      </CardFooter>
-    </Card>
+
+        <div className="flex justify-end pt-6 border-t border-orange-200">
+          <Button 
+            onClick={handleUpdateSchool} 
+            disabled={isLoading}
+            className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02]"
+          >
+            {isLoading ? "Enregistrement..." : "Enregistrer les modifications"}
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 };
 
