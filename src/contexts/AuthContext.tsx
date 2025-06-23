@@ -1,34 +1,10 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast } from "sonner";
-import { config } from "@/config/hosts";
-
-interface School {
-  _id: string;
-  libelle: string;
-  adresse: string;
-  ville: string;
-  phone: string;
-  email: string;
-}
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  ecole?: School;
-}
-
-interface AuthContextType {
-  user: User | null;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
-  isLoading: boolean;
-  refreshUser: () => Promise<void>;
-}
+import { User, AuthContextType } from "@/types/auth";
+import { AuthService } from "@/services/authService";
+import { decodeJWTToken, createUserFromToken } from "@/utils/jwtUtils";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -39,47 +15,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     console.log("AuthProvider useEffect - checking stored token and user");
-    const token = localStorage.getItem("token");
-    const userData = localStorage.getItem("user");
+    const token = AuthService.getTokenFromStorage();
+    const userData = AuthService.getUserFromStorage();
     console.log("Stored token exists:", !!token);
     console.log("Stored user data:", userData);
     
     if (token && userData) {
-      try {
-        const parsedUser = JSON.parse(userData);
-        console.log("Parsed user data:", parsedUser);
-        setUser(parsedUser);
-      } catch (error) {
-        console.error("Error parsing user data:", error);
-        localStorage.removeItem("token");
-        localStorage.removeUser("user");
-      }
+      console.log("Setting user from storage:", userData);
+      setUser(userData);
     }
   }, []);
 
   const refreshUser = async () => {
-    const token = localStorage.getItem("token");
-    const storedUser = localStorage.getItem("user");
+    const token = AuthService.getTokenFromStorage();
+    const storedUser = AuthService.getUserFromStorage();
     
     if (!token || !storedUser) {
       return;
     }
     
     try {
-      const userData = JSON.parse(storedUser);
-      const response = await axios.get(
-        `${config.api.baseUrl}/api/users/${userData.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await AuthService.refreshUserData(storedUser.id);
       
-      if (response.data && response.data.success) {
+      if (response && response.success) {
         const updatedUser = {
-          ...userData,
-          ecole: response.data.data.ecole
+          ...storedUser,
+          ecole: response.data.ecole
         };
         setUser(updatedUser);
         localStorage.setItem("user", JSON.stringify(updatedUser));
@@ -94,55 +55,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(true);
     
     try {
-      console.log("Making login request to:", `${config.api.baseUrl}/api/login`);
-      const response = await axios.post(`${config.api.baseUrl}/api/login`, {
-        email,
-        password,
-      });
+      const responseData = await AuthService.loginUser(email, password);
 
-      console.log("Login response:", response.data);
-
-      if (response.data && response.data.token && response.data.statut === 200) {
+      if (responseData && responseData.token && responseData.statut === 200) {
         // Vérifier que le rôle est "admin"
-        if (response.data.role !== "admin") {
-          console.log("User role is not admin:", response.data.role);
+        if (!AuthService.validateAdminRole(responseData.role)) {
+          console.log("User role is not admin:", responseData.role);
           toast.error("🚫 Accès refusé. Seuls les administrateurs peuvent se connecter.", {
             duration: 5000,
           });
           return;
         }
 
-        const token = response.data.token;
-        localStorage.setItem("token", token);
+        const token = responseData.token;
         
         try {
-          // Decode JWT token pour obtenir les informations utilisateur
-          const base64Url = token.split('.')[1];
-          const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-          const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-          }).join(''));
-
-          const decoded = JSON.parse(jsonPayload);
+          const decoded = decodeJWTToken(token);
           console.log("Decoded token:", decoded);
           
-          // Vérifier les champs requis
-          if (!decoded.id || !decoded.email || !decoded.prenom || !decoded.nom) {
-            throw new Error("Token invalide - données manquantes");
-          }
-
-          // Créer les données utilisateur
-          const userData = {
-            id: decoded.id,
-            name: `${decoded.prenom} ${decoded.nom}`,
-            email: decoded.email,
-            role: decoded.role || 'admin',
-            ecole: decoded.ecole
-          };
-
+          const userData = createUserFromToken(decoded);
           console.log("Setting user data:", userData);
+          
           setUser(userData);
-          localStorage.setItem("user", JSON.stringify(userData));
+          AuthService.storeUserData(userData, token);
           
           toast.success("🎉 Connexion réussie ! Bienvenue dans votre espace administrateur.", {
             duration: 3000,
@@ -153,10 +88,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           toast.error("⚠️ Erreur d'authentification. Token invalide.", {
             duration: 4000,
           });
-          localStorage.removeItem("token");
+          AuthService.clearStorage();
         }
       } else {
-        console.log("Login failed - invalid response:", response.data);
+        console.log("Login failed - invalid response:", responseData);
         toast.error("🚫 Identifiants incorrects. Vérifiez vos informations de connexion.", {
           duration: 4000,
         });
@@ -188,8 +123,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    AuthService.clearStorage();
     setUser(null);
     navigate("/");
     toast.success("👋 Déconnexion réussie. À bientôt !", {
