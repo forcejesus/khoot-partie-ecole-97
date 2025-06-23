@@ -1,10 +1,9 @@
-
 import React from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Trash2, Mail, Phone, GameController2, Calendar } from "lucide-react";
+import { Trash2, Mail, Phone, Gamepad2, Calendar } from "lucide-react";
 import { Enseignant } from "@/types/enseignant";
 
 interface EnseignantRowProps {
@@ -62,7 +61,7 @@ export const EnseignantRow = ({ enseignant, onDelete }: EnseignantRowProps) => {
       </TableCell>
       <TableCell className="text-center">
         <div className="flex items-center justify-center space-x-2">
-          <GameController2 className="h-4 w-4 text-blue-500" />
+          <Gamepad2 className="h-4 w-4 text-blue-500" />
           <span className="font-semibold text-blue-600">{enseignant.statistiques.nombreJeux}</span>
         </div>
       </TableCell>
