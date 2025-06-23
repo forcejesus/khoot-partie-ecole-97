@@ -227,8 +227,6 @@ export const en = {
       contactUs: "Contact us",
       ready: "Ready to start your AKILI adventure?",
       discover: "Transform education in your institution with our innovative platform. Start today and offer your learners a unique experience.",
-      title: "Ready to revolutionize education?",
-      description: "Join over 500 schools that trust AKILI to transform their students' learning experience.",
       startToday: "Start now",
       getQuote: "Get a quote"
     }
