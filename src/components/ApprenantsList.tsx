@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
+import { Trash2, Mail, Phone, GraduationCap, Calendar, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Apprenant } from "@/types/apprenant";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -24,6 +24,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 interface ApprenantsListProps {
   onApprenantChange?: () => void;
@@ -89,65 +91,154 @@ export const ApprenantsList = ({ onApprenantChange, searchTerm = "" }: Apprenant
     setDeleteDialogOpen(false);
   };
 
+  const getInitials = (nom: string, prenom: string) => {
+    return `${nom.charAt(0)}${prenom.charAt(0)}`.toUpperCase();
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('fr-FR', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    });
+  };
+
   useEffect(() => {
     fetchApprenants();
   }, []);
 
   return (
-    <div className="container mx-auto py-6">
-      <div className="mb-4">
-        <p className="text-gray-600 text-sm">
-          Total: {filteredApprenants.length} apprenant{filteredApprenants.length > 1 ? "s" : ""} 
-          {searchTerm && ` (sur ${apprenants.length})`}
-        </p>
+    <div className="space-y-6">
+      {/* En-tête avec statistiques */}
+      <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl p-6 border border-orange-200">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-lg font-semibold text-orange-800 mb-2">Liste des apprenants</h3>
+            <p className="text-orange-600 text-sm">
+              {isLoading ? (
+                "Chargement..."
+              ) : (
+                <>
+                  {filteredApprenants.length} apprenant{filteredApprenants.length > 1 ? "s" : ""} 
+                  {searchTerm && ` trouvé${filteredApprenants.length > 1 ? "s" : ""} sur ${apprenants.length}`}
+                </>
+              )}
+            </p>
+          </div>
+          <div className="w-12 h-12 bg-orange-200 rounded-lg flex items-center justify-center">
+            <User className="h-6 w-6 text-orange-600" />
+          </div>
+        </div>
       </div>
-      
-      <div className="rounded-md border">
+
+      {/* Tableau moderne */}
+      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow>
-              <TableHead>Nom</TableHead>
-              <TableHead>Prénom</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Téléphone</TableHead>
-              <TableHead>Matricule</TableHead>
-              <TableHead>École</TableHead>
-              <TableHead>Actions</TableHead>
+            <TableRow className="bg-gray-50 hover:bg-gray-50">
+              <TableHead className="font-semibold text-gray-700 px-6 py-4">Apprenant</TableHead>
+              <TableHead className="font-semibold text-gray-700">Contact</TableHead>
+              <TableHead className="font-semibold text-gray-700">Matricule</TableHead>
+              <TableHead className="font-semibold text-gray-700">École</TableHead>
+              <TableHead className="font-semibold text-gray-700">Date d'inscription</TableHead>
+              <TableHead className="font-semibold text-gray-700 text-center">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {isLoading ? (
               [...Array(3)].map((_, index) => (
                 <TableRow key={index}>
-                  <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
-                  <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
-                  <TableCell><Skeleton className="h-4 w-[150px]" /></TableCell>
+                  <TableCell className="px-6 py-4">
+                    <div className="flex items-center space-x-3">
+                      <Skeleton className="h-10 w-10 rounded-full" />
+                      <div className="space-y-2">
+                        <Skeleton className="h-4 w-[120px]" />
+                        <Skeleton className="h-3 w-[80px]" />
+                      </div>
+                    </div>
+                  </TableCell>
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[120px]" /></TableCell>
-                  <TableCell><Skeleton className="h-8 w-8" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[80px]" /></TableCell>
+                  <TableCell><Skeleton className="h-8 w-8 mx-auto" /></TableCell>
                 </TableRow>
               ))
             ) : filteredApprenants.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={7} className="text-center py-8 text-gray-500">
-                  {searchTerm ? "Aucun apprenant trouvé pour cette recherche" : "Aucun apprenant enregistré"}
+                <TableCell colSpan={6} className="text-center py-12">
+                  <div className="flex flex-col items-center space-y-3">
+                    <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
+                      <User className="h-8 w-8 text-gray-400" />
+                    </div>
+                    <h3 className="text-lg font-medium text-gray-700">
+                      {searchTerm ? "Aucun apprenant trouvé" : "Aucun apprenant enregistré"}
+                    </h3>
+                    <p className="text-gray-500 text-sm">
+                      {searchTerm 
+                        ? "Essayez avec d'autres termes de recherche" 
+                        : "Commencez par ajouter votre premier apprenant"
+                      }
+                    </p>
+                  </div>
                 </TableCell>
               </TableRow>
             ) : (
               filteredApprenants.map((apprenant) => (
-                <TableRow key={apprenant._id}>
-                  <TableCell>{apprenant.nom}</TableCell>
-                  <TableCell>{apprenant.prenom}</TableCell>
-                  <TableCell>{apprenant.email}</TableCell>
-                  <TableCell>{apprenant.phone}</TableCell>
-                  <TableCell>{apprenant.matricule}</TableCell>
-                  <TableCell>{apprenant.ecole.libelle}</TableCell>
+                <TableRow key={apprenant._id} className="hover:bg-gray-50 transition-colors">
+                  <TableCell className="px-6 py-4">
+                    <div className="flex items-center space-x-3">
+                      <Avatar className="h-10 w-10">
+                        <AvatarFallback className="bg-orange-100 text-orange-600 font-semibold">
+                          {getInitials(apprenant.nom, apprenant.prenom)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="font-medium text-gray-900">
+                          {apprenant.prenom} {apprenant.nom}
+                        </p>
+                        <p className="text-sm text-gray-500">Apprenant</p>
+                      </div>
+                    </div>
+                  </TableCell>
                   <TableCell>
+                    <div className="space-y-1">
+                      <div className="flex items-center space-x-2 text-sm">
+                        <Mail className="h-3 w-3 text-gray-400" />
+                        <span className="text-gray-600">{apprenant.email}</span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-sm">
+                        <Phone className="h-3 w-3 text-gray-400" />
+                        <span className="text-gray-600">{apprenant.phone}</span>
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <Badge variant="secondary" className="bg-blue-100 text-blue-700 hover:bg-blue-100">
+                      {apprenant.matricule}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center space-x-2">
+                      <GraduationCap className="h-4 w-4 text-gray-400" />
+                      <div>
+                        <p className="font-medium text-gray-900">{apprenant.ecole.libelle}</p>
+                        <p className="text-sm text-gray-500">{apprenant.ecole.ville}</p>
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center space-x-2 text-sm text-gray-600">
+                      <Calendar className="h-3 w-3 text-gray-400" />
+                      <span>{formatDate(apprenant.date)}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-center">
                     <Button
-                      variant="destructive"
+                      variant="ghost"
                       size="icon"
                       onClick={() => confirmDelete(apprenant._id)}
+                      className="text-red-500 hover:text-red-700 hover:bg-red-50"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>

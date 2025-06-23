@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
+import { Trash2, Mail, Phone, Calendar, GraduationCap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Enseignant } from "@/types/enseignant";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -24,6 +24,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 interface EnseignantsListProps {
   onEnseignantChange?: () => void;
@@ -145,59 +147,153 @@ export const EnseignantsList = ({ onEnseignantChange, searchTerm = "" }: Enseign
     }
   };
 
+  const getInitials = (name: string) => {
+    return name.split(' ').map(n => n.charAt(0)).join('').toUpperCase().slice(0, 2);
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('fr-FR', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    });
+  };
+
+  const getStatusColor = (statut: string) => {
+    switch (statut.toLowerCase()) {
+      case 'actif':
+      case 'enseignant':
+        return 'bg-green-100 text-green-700 hover:bg-green-100';
+      case 'inactif':
+        return 'bg-red-100 text-red-700 hover:bg-red-100';
+      default:
+        return 'bg-gray-100 text-gray-700 hover:bg-gray-100';
+    }
+  };
+
   useEffect(() => {
     fetchEnseignants();
   }, []);
 
   return (
-    <div className="container mx-auto py-6">
-      <div className="mb-4">
-        <p className="text-gray-600 text-sm">
-          Total: {filteredEnseignants.length} enseignant{filteredEnseignants.length > 1 ? "s" : ""} 
-          {searchTerm && ` (sur ${enseignants.length})`}
-        </p>
+    <div className="space-y-6">
+      {/* En-tête avec statistiques */}
+      <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl p-6 border border-orange-200">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-lg font-semibold text-orange-800 mb-2">Liste des enseignants</h3>
+            <p className="text-orange-600 text-sm">
+              {isLoading ? (
+                "Chargement..."
+              ) : (
+                <>
+                  {filteredEnseignants.length} enseignant{filteredEnseignants.length > 1 ? "s" : ""} 
+                  {searchTerm && ` trouvé${filteredEnseignants.length > 1 ? "s" : ""} sur ${enseignants.length}`}
+                </>
+              )}
+            </p>
+          </div>
+          <div className="w-12 h-12 bg-orange-200 rounded-lg flex items-center justify-center">
+            <GraduationCap className="h-6 w-6 text-orange-600" />
+          </div>
+        </div>
       </div>
-      
-      <div className="rounded-md border">
+
+      {/* Tableau moderne */}
+      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow>
-              <TableHead>Nom</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Téléphone</TableHead>
-              <TableHead>Statut</TableHead>
-              <TableHead>Actions</TableHead>
+            <TableRow className="bg-gray-50 hover:bg-gray-50">
+              <TableHead className="font-semibold text-gray-700 px-6 py-4">Enseignant</TableHead>
+              <TableHead className="font-semibold text-gray-700">Contact</TableHead>
+              <TableHead className="font-semibold text-gray-700">Statut</TableHead>
+              <TableHead className="font-semibold text-gray-700">Date d'inscription</TableHead>
+              <TableHead className="font-semibold text-gray-700 text-center">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {isLoading ? (
               [...Array(3)].map((_, index) => (
                 <TableRow key={index}>
-                  <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
+                  <TableCell className="px-6 py-4">
+                    <div className="flex items-center space-x-3">
+                      <Skeleton className="h-10 w-10 rounded-full" />
+                      <div className="space-y-2">
+                        <Skeleton className="h-4 w-[120px]" />
+                        <Skeleton className="h-3 w-[80px]" />
+                      </div>
+                    </div>
+                  </TableCell>
                   <TableCell><Skeleton className="h-4 w-[150px]" /></TableCell>
-                  <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
-                  <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
-                  <TableCell><Skeleton className="h-8 w-8" /></TableCell>
+                  <TableCell><Skeleton className="h-6 w-[80px]" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[80px]" /></TableCell>
+                  <TableCell><Skeleton className="h-8 w-8 mx-auto" /></TableCell>
                 </TableRow>
               ))
             ) : filteredEnseignants.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={5} className="text-center py-8 text-gray-500">
-                  {searchTerm ? "Aucun enseignant trouvé pour cette recherche" : "Aucun enseignant enregistré"}
+                <TableCell colSpan={5} className="text-center py-12">
+                  <div className="flex flex-col items-center space-y-3">
+                    <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
+                      <GraduationCap className="h-8 w-8 text-gray-400" />
+                    </div>
+                    <h3 className="text-lg font-medium text-gray-700">
+                      {searchTerm ? "Aucun enseignant trouvé" : "Aucun enseignant enregistré"}
+                    </h3>
+                    <p className="text-gray-500 text-sm">
+                      {searchTerm 
+                        ? "Essayez avec d'autres termes de recherche" 
+                        : "Commencez par ajouter votre premier enseignant"
+                      }
+                    </p>
+                  </div>
                 </TableCell>
               </TableRow>
             ) : (
               filteredEnseignants.map((enseignant) => (
-                <TableRow key={enseignant._id}>
-                  <TableCell>{enseignant.name}</TableCell>
-                  <TableCell>{enseignant.email}</TableCell>
-                  <TableCell>{enseignant.phone}</TableCell>
-                  <TableCell>{enseignant.statut}</TableCell>
+                <TableRow key={enseignant._id} className="hover:bg-gray-50 transition-colors">
+                  <TableCell className="px-6 py-4">
+                    <div className="flex items-center space-x-3">
+                      <Avatar className="h-10 w-10">
+                        <AvatarFallback className="bg-orange-100 text-orange-600 font-semibold">
+                          {getInitials(enseignant.name)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="font-medium text-gray-900">{enseignant.name}</p>
+                        <p className="text-sm text-gray-500">Enseignant</p>
+                      </div>
+                    </div>
+                  </TableCell>
                   <TableCell>
+                    <div className="space-y-1">
+                      <div className="flex items-center space-x-2 text-sm">
+                        <Mail className="h-3 w-3 text-gray-400" />
+                        <span className="text-gray-600">{enseignant.email}</span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-sm">
+                        <Phone className="h-3 w-3 text-gray-400" />
+                        <span className="text-gray-600">{enseignant.phone}</span>
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <Badge variant="secondary" className={getStatusColor(enseignant.statut)}>
+                      {enseignant.statut}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center space-x-2 text-sm text-gray-600">
+                      <Calendar className="h-3 w-3 text-gray-400" />
+                      <span>{formatDate(enseignant.date)}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-center">
                     <Button
-                      variant="destructive"
+                      variant="ghost"
                       size="icon"
                       onClick={() => confirmDelete(enseignant._id)}
+                      className="text-red-500 hover:text-red-700 hover:bg-red-50"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -222,7 +318,7 @@ export const EnseignantsList = ({ onEnseignantChange, searchTerm = "" }: Enseign
             <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
               Supprimer
             </AlertDialogAction>
-          </AlertDialogFooter>
+            </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
     </div>
