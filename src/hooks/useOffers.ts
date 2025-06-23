@@ -24,7 +24,7 @@ export const useOffers = () => {
     const transformedOffer = {
       name: abonnement.nom,
       price: formatPrice(abonnement.prix),
-      period: abonnement.dureeEnJours ? `/ ${abonnement.dureeEnJours} jours` : "/ mois",
+      period: "/ abonnement",
       description: abonnement.description || "Abonnement professionnel",
       icon: getIconByName(abonnement.nom),
       ...colorScheme,

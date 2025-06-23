@@ -46,31 +46,25 @@ export const getColorScheme = (index: number) => {
 export const generateFeatures = (abonnement: any) => {
   const features = [];
   
-  // Gestion du nombre d'apprenants
-  if (abonnement.nombreApprenantsMax) {
-    if (abonnement.nombreApprenantsMax >= 1000) {
-      features.push("Apprenants illimités");
-    } else {
-      features.push(`Jusqu'à ${abonnement.nombreApprenantsMax} apprenants`);
-    }
+  // Durée de l'abonnement
+  if (abonnement.dureeEnJours) {
+    features.push(`Durée: ${abonnement.dureeEnJours} jours`);
   }
   
-  // Gestion du nombre d'enseignants
-  if (abonnement.nombreEnseignantsMax) {
-    features.push(`${abonnement.nombreEnseignantsMax} enseignants max`);
-  }
-  
-  // Gestion du nombre de jeux
+  // Nombre total de jeux
   if (abonnement.nombreJeuxMax) {
-    if (abonnement.nombreJeuxMax >= 200) {
-      features.push("Création de jeux illimitée");
-    } else {
-      features.push(`${abonnement.nombreJeuxMax} jeux par mois`);
-    }
+    features.push(`${abonnement.nombreJeuxMax} jeux maximum`);
   }
   
-  // Ajout du support
-  features.push("Support prioritaire");
+  // Nombre total d'apprenants
+  if (abonnement.nombreApprenantsMax) {
+    features.push(`${abonnement.nombreApprenantsMax} apprenants maximum`);
+  }
+  
+  // Nombre total d'enseignants
+  if (abonnement.nombreEnseignantsMax) {
+    features.push(`${abonnement.nombreEnseignantsMax} enseignants maximum`);
+  }
   
   return features;
 };
