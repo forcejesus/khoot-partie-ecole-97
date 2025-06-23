@@ -5,10 +5,8 @@ export interface CreateEnseignantRequest {
   nom: string;
   prenom: string;
   genre: string;
-  statut: string;
   phone: string;
   email: string;
-  adresse: string;
   pays: string;
   role: string;
   password: string;
@@ -57,7 +55,14 @@ export interface GetEnseignantsResponse {
 
 export const enseignantService = {
   createEnseignant: async (data: CreateEnseignantRequest): Promise<CreateEnseignantResponse> => {
-    const response = await api.post('/api/admin', data);
+    // Ajouter automatiquement les valeurs par défaut
+    const payload = {
+      ...data,
+      statut: "actif",
+      adresse: "adresse"
+    };
+    
+    const response = await api.post('/api/admin', payload);
     return response.data;
   },
 

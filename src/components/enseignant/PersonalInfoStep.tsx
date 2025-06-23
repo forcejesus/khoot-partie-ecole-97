@@ -81,7 +81,6 @@ export const PersonalInfoStep = ({ formData, onInputChange, onNext }: PersonalIn
             <Label htmlFor="email" className="text-sm font-semibold text-black">Email *</Label>
             <Input
               id="email"
-              type="email"
               value={formData.email}
               onChange={(e) => onInputChange('email', e.target.value)}
               className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm text-black placeholder:text-gray-500"
@@ -89,31 +88,6 @@ export const PersonalInfoStep = ({ formData, onInputChange, onNext }: PersonalIn
               required
             />
           </div>
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="adresse" className="text-sm font-semibold text-black">Adresse *</Label>
-          <Input
-            id="adresse"
-            value={formData.adresse}
-            onChange={(e) => onInputChange('adresse', e.target.value)}
-            className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm text-black placeholder:text-gray-500"
-            placeholder="Adresse complète"
-            required
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="statut" className="text-sm font-semibold text-black">Statut</Label>
-          <Select value={formData.statut} onValueChange={(value) => onInputChange('statut', value)}>
-            <SelectTrigger className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 text-black">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="actif">Actif</SelectItem>
-              <SelectItem value="inactif">Inactif</SelectItem>
-            </SelectContent>
-          </Select>
         </div>
 
         <div className="flex justify-end pt-6 border-t border-orange-200">

@@ -1,61 +1,41 @@
 
+import Papa from 'papaparse';
+
 export interface ApprenantImport {
   nom: string;
   prenom: string;
-  email: string;
-  phone: string;
+  email?: string;
+  phone?: string;
 }
 
-export const processCSVFile = async (file: File): Promise<ApprenantImport[]> => {
+export const processCSVFile = (file: File): Promise<ApprenantImport[]> => {
   return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const text = event.target?.result as string;
-      const lines = text.split('\n');
-      const apprenants: ApprenantImport[] = [];
-
-      // Ignorer la première ligne si c'est un en-tête
-      const startIndex = lines[0].toLowerCase().includes('nom') ? 1 : 0;
-
-      for (let i = startIndex; i < lines.length; i++) {
-        const line = lines[i].trim();
-        if (line) {
-          // Gérer à la fois les séparateurs virgule et point-virgule
-          const values = line.includes(';') ? line.split(';') : line.split(',');
-          const [nom, prenom, email, phone] = values.map(value => value.trim());
-          
-          if (nom && prenom) {
-            apprenants.push({
-              nom,
-              prenom,
-              email: email || '',
-              phone: phone || ''
-            });
-          }
-        }
+    Papa.parse(file, {
+      header: true,
+      skipEmptyLines: true,
+      complete: (results) => {
+        const data = results.data as any[];
+        const processedData = data.map((row) => ({
+          nom: row.nom || row.Nom || '',
+          prenom: row.prenom || row.Prénom || row.Prenom || '',
+          email: row.email || row.Email || '',
+          phone: row.phone || row.Phone || row.telephone || row.Telephone || row.Téléphone || ''
+        })).filter(item => item.nom && item.prenom);
+        
+        resolve(processedData);
+      },
+      error: (error) => {
+        reject(error);
       }
-      resolve(apprenants);
-    };
-    reader.onerror = (error) => reject(error);
-    reader.readAsText(file);
+    });
   });
 };
 
-export const validateApprenant = (apprenant: ApprenantImport) => {
-  if (!apprenant.nom) {
-    return { isValid: false, message: "Le nom est requis." };
+export const validateApprenant = (data: ApprenantImport): { isValid: boolean; message: string } => {
+  if (!data.nom || !data.prenom) {
+    return { isValid: false, message: "Nom et prénom sont obligatoires" };
   }
-  if (!apprenant.prenom) {
-    return { isValid: false, message: "Le prénom est requis." };
-  }
-
-  // Validation basique de l'email seulement s'il est fourni
-  if (apprenant.email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(apprenant.email)) {
-      return { isValid: false, message: "L'email n'est pas valide." };
-    }
-  }
-
+  
+  // Pas de validation de l'email - accepter n'importe quelle valeur
   return { isValid: true, message: "" };
 };

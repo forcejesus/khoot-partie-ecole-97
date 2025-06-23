@@ -11,10 +11,8 @@ export const useEnseignantForm = (onSuccess: () => void) => {
     nom: "",
     prenom: "",
     genre: "",
-    statut: "actif",
     phone: "",
     email: "",
-    adresse: "",
     pays: "6707bfa699095a5b8d491bf5",
     role: "enseignant",
     password: "",
@@ -27,7 +25,7 @@ export const useEnseignantForm = (onSuccess: () => void) => {
 
   const validateStep1 = () => {
     return formData.nom && formData.prenom && formData.genre && formData.phone && 
-           formData.email && formData.adresse;
+           formData.email;
   };
 
   const validateStep2 = () => {
@@ -93,10 +91,8 @@ export const useEnseignantForm = (onSuccess: () => void) => {
       nom: "",
       prenom: "",
       genre: "",
-      statut: "actif",
       phone: "",
       email: "",
-      adresse: "",
       pays: "6707bfa699095a5b8d491bf5",
       role: "enseignant",
       password: "",
