@@ -8,6 +8,7 @@ import { AddApprenantDialog } from "@/components/AddApprenantDialog";
 import { ApprenantsList } from "@/components/ApprenantsList";
 import { DashboardLayoutWithSidebar } from "@/layouts/DashboardLayoutWithSidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import BulkImportModal from "@/components/BulkImportModal";
 
 const ApprenantsContent = () => {
   const { t } = useLanguage();
@@ -54,7 +55,10 @@ const ApprenantsContent = () => {
                 />
               </div>
               
-              <AddApprenantDialog onSuccess={handleRefresh} />
+              <div className="flex gap-2">
+                <AddApprenantDialog onSuccess={handleRefresh} />
+                <BulkImportModal type="apprenants" onSuccess={handleRefresh} />
+              </div>
             </div>
           </div>
         </CardContent>

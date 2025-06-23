@@ -97,7 +97,7 @@ export const EditApprenantDialog = ({ apprenant, onSuccess }: EditApprenantDialo
               <div className="grid gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="nom" className="text-sm font-semibold text-black">
-                    Nom de famille *
+                    Nom de famille
                   </Label>
                   <Input
                     id="nom"
@@ -105,13 +105,12 @@ export const EditApprenantDialog = ({ apprenant, onSuccess }: EditApprenantDialo
                     onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
                     className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300 text-black placeholder:text-gray-500"
                     placeholder="Entrez le nom de famille"
-                    required
                   />
                 </div>
                 
                 <div className="space-y-2">
                   <Label htmlFor="prenom" className="text-sm font-semibold text-black">
-                    Prénom *
+                    Prénom
                   </Label>
                   <Input
                     id="prenom"
@@ -119,27 +118,25 @@ export const EditApprenantDialog = ({ apprenant, onSuccess }: EditApprenantDialo
                     onChange={(e) => setFormData({ ...formData, prenom: e.target.value })}
                     className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300 text-black placeholder:text-gray-500"
                     placeholder="Entrez le prénom"
-                    required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="matricule" className="text-sm font-semibold text-black">
-                    Matricule *
+                  <Label htmlFor="matricule" className="text-sm font-semibold text-gray-500">
+                    Matricule (non modifiable)
                   </Label>
                   <Input
                     id="matricule"
                     value={formData.matricule}
-                    onChange={(e) => setFormData({ ...formData, matricule: e.target.value })}
-                    className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300 text-black placeholder:text-gray-500"
-                    placeholder="Entrez le matricule"
-                    required
+                    className="h-12 border-2 border-gray-200 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
+                    disabled
+                    readOnly
                   />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="phone" className="text-sm font-semibold text-black">
-                    Téléphone *
+                    Téléphone
                   </Label>
                   <Input
                     id="phone"
@@ -147,13 +144,12 @@ export const EditApprenantDialog = ({ apprenant, onSuccess }: EditApprenantDialo
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300 text-black placeholder:text-gray-500"
                     placeholder="Entrez le numéro de téléphone"
-                    required
                   />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-sm font-semibold text-black">
-                    Email *
+                    Email
                   </Label>
                   <Input
                     id="email"
@@ -162,7 +158,6 @@ export const EditApprenantDialog = ({ apprenant, onSuccess }: EditApprenantDialo
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300 text-black placeholder:text-gray-500"
                     placeholder="Entrez l'adresse email"
-                    required
                   />
                 </div>
               </div>
@@ -173,7 +168,7 @@ export const EditApprenantDialog = ({ apprenant, onSuccess }: EditApprenantDialo
                     type="button" 
                     variant="outline" 
                     onClick={() => setOpen(false)}
-                    className="border-orange-300 text-orange-600 hover:bg-orange-50"
+                    className="border-gray-300 text-gray-600 hover:bg-gray-50"
                   >
                     Annuler
                   </Button>
@@ -185,12 +180,12 @@ export const EditApprenantDialog = ({ apprenant, onSuccess }: EditApprenantDialo
                     {isLoading ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Modification en cours...
+                        Mise à jour en cours...
                       </>
                     ) : (
                       <>
                         <Edit className="mr-2 h-4 w-4" />
-                        Modifier l'apprenant
+                        Mettre à jour
                       </>
                     )}
                   </Button>
