@@ -1,26 +1,66 @@
 
 import React from "react";
-import { useOffers } from "@/hooks/useOffers";
+import { Users, Star, Crown } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import OffersHeader from "@/components/offers/OffersHeader";
 import OfferCard from "@/components/offers/OfferCard";
 import AdditionalFeatures from "@/components/offers/AdditionalFeatures";
 import OffersCallToAction from "@/components/offers/OffersCallToAction";
-import OffersLoading from "@/components/offers/OffersLoading";
-import OffersFallback from "@/components/offers/OffersFallback";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/translations";
 
 const Offres = () => {
-  const { offers, isLoading, error } = useOffers();
-
-  if (isLoading) {
-    return <OffersLoading />;
-  }
-
-  if (error) {
-    console.error('Erreur lors du chargement des abonnements:', error);
-    return <OffersFallback />;
-  }
+  const { t, language } = useLanguage();
+  
+  // Get features from translations as arrays
+  const getFeatures = (key: string): string[] => {
+    const keys = key.split('.');
+    let value: any = translations[language];
+    
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    
+    return Array.isArray(value) ? value : [];
+  };
+  
+  const offers = [
+    {
+      name: t("offers.discovery.name"),
+      price: t("offers.discovery.price"),
+      period: t("offers.discovery.period"),
+      description: t("offers.discovery.description"),
+      icon: Users,
+      color: "from-orange-500 to-red-500",
+      borderColor: "border-orange-200",
+      bgGradient: "from-white to-orange-50",
+      features: getFeatures("offers.discovery.features")
+    },
+    {
+      name: t("offers.wisdom.name"),
+      price: t("offers.wisdom.price"), 
+      period: t("offers.wisdom.period"),
+      description: t("offers.wisdom.description"),
+      icon: Star,
+      color: "from-yellow-500 to-orange-500",
+      borderColor: "border-yellow-400",
+      bgGradient: "from-yellow-50 to-orange-50",
+      isPopular: true,
+      features: getFeatures("offers.wisdom.features")
+    },
+    {
+      name: t("offers.excellence.name"),
+      price: t("offers.excellence.price"),
+      period: "",
+      description: t("offers.excellence.description"),
+      icon: Crown,
+      color: "from-green-500 to-emerald-500",
+      borderColor: "border-green-200",
+      bgGradient: "from-white to-green-50",
+      features: getFeatures("offers.excellence.features")
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-blue-50 to-indigo-50 relative overflow-hidden">
@@ -32,8 +72,8 @@ const Offres = () => {
       <div className="container mx-auto py-8 sm:py-12 px-4 sm:px-6 relative z-10">
         <OffersHeader />
 
-        {/* Grille des offres responsive - Affichage de toutes les offres */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 max-w-7xl mx-auto mb-12 sm:mb-16 md:mb-20">
+        {/* Grille des offres responsive */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-7xl mx-auto mb-12 sm:mb-16 md:mb-20">
           {offers.map((offer, index) => (
             <OfferCard
               key={index}
