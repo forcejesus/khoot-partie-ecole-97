@@ -2,44 +2,44 @@ export const fr = {
   // Navigation
   nav: {
     home: "Accueil",
-    offers: "Tarification",
+    offers: "Tarifs & Abonnements",
     solution: "AKILI",
-    contact: "Contact", 
-    login: "Se connecter",
+    contact: "Contactez-nous",
+    login: "Se Connecter",
     language: "Français"
   },
   
-  // Home page - Améliorée avec des slogans plus fun
+  // Home page
   home: {
     title: "AKILI",
-    subtitle: "Là où le jeu révèle les génies !",
-    description1: "Transformez chaque cours en aventure épique avec des jeux interactifs qui captivent les apprenants.",
-    description2: "Libérez le potentiel illimité grâce à des expériences d'apprentissage amusantes et intelligentes.",
+    subtitle: "Là où le jeu rencontre les esprits brillants !",
+    description1: "Transformez chaque leçon en une aventure épique avec des jeux interactifs qui captivent les apprenants.",
+    description2: "Débloquez un potentiel illimité grâce à des expériences d'apprentissage amusantes, engageantes et intelligentes.",
     getStarted: "Commencer",
     learnMore: "En savoir plus",
-    badge: "✨ Transformez l'apprentissage en jeu captivant !",
-    slogan: "📚⚡ Éveillez la curiosité, libérez le potentiel, et faites briller chaque apprenant grâce à un apprentissage intelligent et ludique.",
-    gamifiedCourses: "🎲 Cours gamifiés et captivants",
+    badge: "✨ Transformez l'apprentissage en jeux captivants !",
+    slogan: "📚⚡ Éveillez la curiosité, libérez le potentiel et faites briller chaque apprenant grâce à un apprentissage intelligent et ludique.",
+    gamifiedCourses: "🎲 Cours ludifiés et captivants",
     funExperiences: "⚡ Expériences d'apprentissage amusantes",
     whyChoose: "Pourquoi choisir AKILI ?",
     whyChooseDescription: "Rejoignez les écoles qui révolutionnent l'éducation avec AKILI. Notre plateforme offre tous les outils nécessaires pour maximiser le potentiel de vos apprenants.",
-    subscriptionIncludes: "Un abonnement AKILI inclut :",
+    subscriptionIncludes: "Un abonnement AKILI comprend :",
     subscriptionFeatures: {
       personalizedTracking: "Suivi personnalisé de chaque apprenant",
       advancedTools: "Outils pédagogiques avancés",
-      gamifiedLearning: "Apprentissage gamifié et interactif",
+      gamifiedLearning: "Apprentissage ludifié et interactif",
       detailedAnalytics: "Analyses détaillées des progrès",
       support247: "Support technique 24/7",
       teacherTraining: "Formation continue des enseignants"
     },
     readyToTransform: "Prêt à transformer votre école ?",
     readyToTransformDescription: "Contactez-nous dès aujourd'hui pour découvrir nos offres d'abonnement personnalisées.",
-    contactUs: "Nous contacter",
+    contactUs: "Contactez-nous",
     consultationBadge: "✨ Consultation gratuite • Devis personnalisé • Support dédié",
-    heroFeatures: {
+     heroFeatures: {
       title: "✨ AKILI est conçu pour ces acteurs ✨",
       schools: {
-        label: "Écoles partenaires",
+        label: "Écoles Partenaires",
         description: "AKILI accompagne les établissements dans leur transformation numérique"
       },
       teachers: {
@@ -53,54 +53,54 @@ export const fr = {
     },
     features: {
       badge: "Fonctionnalités",
-      title: "Tout ce qu'il faut pour captiver vos apprenants",
+      title: "Tout ce dont vous avez besoin pour captiver vos apprenants",
       subtitle: "Des outils simples et puissants pour créer des expériences d'apprentissage inoubliables",
       quiz: {
-        title: "Quiz en temps réel",
-        description: "Créez des quiz interactifs avec des questions variées et des résultats instantanés que vos apprenants adorent."
+        title: "Quizz en temps réel",
+        description: "Créez des quizz interactifs avec des questions variées et des résultats instantanés que vos apprenants adorent."
       },
       analytics: {
-        title: "Analytics détaillées",
+        title: "Analyses Détaillées",
         description: "Suivez les progrès individuels et collectifs avec des rapports visuels et exploitables."
       },
       gamification: {
         title: "Gamification",
-        description: "Badges, classements et récompenses pour maintenir la motivation au maximum."
+        description: "Badges, classements et récompenses pour maintenir une motivation maximale."
       }
     },
     solution: {
       title: "La solution complète pour l'éducation moderne",
-      subtitle: "Tout ce dont vous avez besoin pour transformer vos cours en expériences interactives qui captent l'attention et améliorent les résultats",
+      subtitle: "Tout ce dont vous avez besoin pour transformer vos cours en expériences interactives qui captivent l'attention et améliorent les résultats",
       benefits: {
         quick: "5 minutes",
-        quickDesc: "Pour commencer",
-        multiDevice: "Multi-appareils",
+        quickDesc: "Pour démarrer",
+        multiDevice: "Multi-appareil",
         multiDeviceDesc: "Partout, tout le temps",
         intuitive: "Zéro formation",
         intuitiveDesc: "Interface intuitive"
       },
       features: {
         interactive: {
-          title: "Quiz Interactifs",
-          description: "Créez des quiz captivants en quelques clics avec des questions variées et des résultats en temps réel"
+          title: "Quizz Interactifs",
+          description: "Créez des quizz engageants en quelques clics avec des questions variées et des résultats en temps réel"
         },
         collaboration: {
           title: "Collaboration",
           description: "Encouragez le travail d'équipe avec des défis collaboratifs et des activités de groupe dynamiques"
         },
         analytics: {
-          title: "Analytics",
-          description: "Obtenez des insights détaillés sur les performances et adaptez votre enseignement en conséquence"
+          title: "Analyses",
+          description: "Obtenez des informations détaillées sur les performances et adaptez votre enseignement en conséquence"
         },
         gamification: {
           title: "Gamification",
-          description: "Motivez avec des badges, classements et récompenses pour maintenir l'engagement toute l'année"
+          description: "Motivez avec des badges, des classements et des récompenses pour maintenir l'engagement toute l'année"
         }
       },
       cta: {
         title: "Prêt à révolutionner votre enseignement ?",
         subtitle: "Découvrez comment AKILI peut transformer l'expérience d'apprentissage dans votre établissement",
-        startFree: "Commencer gratuitement",
+        startFree: "Démarrer gratuitement",
         learnMore: "En savoir plus"
       }
     },
@@ -111,65 +111,65 @@ export const fr = {
       testimonial1: {
         name: "Dr. Amadou Diallo",
         role: "Directeur, École Internationale de Dakar",
-        quote: "AKILI a révolutionné notre approche pédagogique. Les apprenants sont plus engagés et nos résultats ont augmenté de 40%."
+        quote: "AKILI a révolutionné notre approche pédagogique. Les apprenants sont plus engagés et nos résultats ont augmenté de 40 %."
       },
       testimonial2: {
-        name: "Fatima Nkomo", 
-        role: "Professeure de Mathématiques, Yaoundé",
+        name: "Fatima Nkomo",
+        role: "Professeur de Mathématiques, Yaoundé",
         quote: "Mes cours sont devenus interactifs et amusants. Les apprenants participent comme jamais auparavant !"
       },
       testimonial3: {
         name: "Emmanuel Okafor",
-        role: "Coordinateur IT, Lagos Academy", 
+        role: "Coordinateur IT, Lagos Academy",
         quote: "L'interface est intuitive et la plateforme fonctionne parfaitement même avec notre connexion limitée."
       }
     },
     cta: {
-      title: "Transformez vos cours avec AKILI !",
-      subtitle: "Rejoignez plus de 500 écoles qui utilisent déjà AKILI pour créer des expériences d'apprentissage extraordinaires",
+      title: "Transformez vos classes avec AKILI !",
+      subtitle: "Rejoignez plus de 500 écoles utilisant déjà AKILI pour créer des expériences d'apprentissage extraordinaires",
       button: "Commencer maintenant"
     }
   },
   
   contact: {
     badge: "Restons connectés",
-    title: "Nous Contacter",
-    subtitle: "Nous sommes là pour vous accompagner dans votre transformation éducative. Partageons ensemble la vision d'une Afrique éduquée et connectée !",
+    title: "Contactez-nous",
+    subtitle: "Nous sommes là pour vous accompagner dans votre transformation éducative. Partageons la vision d'une Afrique éduquée et connectée !",
     coordinates: "Nos Coordonnées",
     faq: "FAQ",
-    faqSubtitle: "Trouvez rapidement les réponses à vos questions les plus courantes",
+    faqSubtitle: "Trouvez rapidement les réponses à vos questions les plus fréquentes",
     support: "Support Technique",
     partnerships: "Partenariats",
-    training: "Formation",
-    quote: "Seuls, nous pouvons faire si peu ; ensemble, nous pouvons faire beaucoup.",
+    training: "Formations",
+    quote: "Seul, on va plus vite ; ensemble, on va plus loin.",
     quoteAuthor: "Helen Keller",
     faqQuestions: {
       q1: "Qu'est-ce qu'AKILI ?",
-      a1: "AKILI est une plateforme d'apprentissage interactive qui transforme l'éducation en Afrique grâce à des quiz et jeux éducatifs innovants. Notre mission est de faire aimer l'apprentissage aux jeunes en réinventant l'usage des écrans pour le bien.",
+      a1: "AKILI est une plateforme d'apprentissage interactif qui transforme l'éducation en Afrique grâce à des quizz et jeux éducatifs innovants. Notre mission est de faire aimer l'apprentissage aux jeunes en réinventant l'usage des écrans pour le bien.",
       q2: "Comment fonctionne la plateforme AKILI ?",
-      a2: "AKILI propose des contenus éducatifs gamifiés adaptés aux programmes scolaires africains. Les enseignants peuvent créer des quiz interactifs, suivre les progrès des apprenants et utiliser des outils pédagogiques modernes pour enrichir leurs cours.",
+      a2: "AKILI propose des contenus éducatifs ludifiés et adaptés aux programmes scolaires africains. Les enseignants peuvent créer des quizz interactifs, suivre les progrès des apprenants et utiliser des outils pédagogiques modernes pour enrichir leurs cours.",
       q3: "Quels sont les plans tarifaires d'AKILI ?",
-      a3: "Nous proposons plusieurs formules adaptées aux besoins institutionnels : une offre Essentiels à partir de 15 000 FCFA/mois, une offre Avancée à 25 000 FCFA/mois, et une offre Premium à 40 000 FCFA/mois. Contactez-nous pour un devis personnalisé.",
+      a3: "Nous proposons plusieurs plans adaptés aux besoins des établissements : une offre Essentiel à partir de 15 000 FCFA/mois, une offre Avancée à 25 000 FCFA/mois, et une offre Premium à 40 000 FCFA/mois. Contactez-nous pour un devis personnalisé.",
       q4: "AKILI est-il disponible hors ligne ?",
-      a4: "Oui, AKILI propose des fonctionnalités hors ligne pour assurer la continuité pédagogique même dans les zones à connectivité limitée. Les contenus peuvent être synchronisés dès que la connexion est rétablie.",
-      q5: "Comment puis-je former mes enseignants sur AKILI ?",
-      a5: "Nous proposons des formations complètes pour accompagner vos équipes pédagogiques. Nos formateurs certifiés assurent l'adoption de la plateforme et partagent les meilleures pratiques de l'enseignement numérique.",
+      a4: "Oui, AKILI offre des fonctionnalités hors ligne pour assurer la continuité pédagogique même dans les zones à connectivité limitée. Les contenus peuvent être synchronisés dès que la connexion est rétablie.",
+      q5: "Comment puis-je former mes enseignants à AKILI ?",
+      a5: "Nous offrons des formations complètes pour accompagner vos équipes pédagogiques. Nos formateurs certifiés assurent l'adoption de la plateforme et partagent les meilleures pratiques en matière d'enseignement numérique.",
       q6: "Dans quels pays AKILI est-il disponible ?",
       a6: "AKILI est actuellement déployé dans plusieurs pays d'Afrique subsaharienne. Nous nous adaptons aux programmes scolaires locaux et aux langues d'enseignement de chaque région."
     }
   },
   
   offers: {
-    badge: "Choisissez votre plan AKILI",
+    badge: "Choisissez votre formule AKILI",
     title: "Nos Offres AKILI",
-    subtitle: "Choisissez l'offre qui correspond à vos besoins et débloquez le potentiel éducatif de votre établissement. Transformez l'apprentissage avec nos solutions innovantes.",
+    subtitle: "Choisissez l'offre qui correspond à vos besoins et libérez le potentiel éducatif de votre institution. Transformez l'apprentissage avec nos solutions innovantes.",
     whyChoose: "Pourquoi choisir AKILI ?",
     performance: {
       title: "Performance Optimale",
       description: "Plateforme rapide et réactive adaptée aux connexions africaines"
     },
     security: {
-      title: "Sécurité Robuste", 
+      title: "Sécurité Robuste",
       description: "Protection des données conforme aux standards internationaux"
     },
     pedagogy: {
@@ -178,7 +178,7 @@ export const fr = {
     },
     discovery: {
       name: "Découverte",
-      price: "25 000 FCFA",
+      price: "25 000 F CFA",
       period: "/mois",
       description: "Pour les écoles qui commencent leur transformation numérique",
       features: [
@@ -192,17 +192,17 @@ export const fr = {
     },
     wisdom: {
       name: "Sagesse",
-      price: "50 000 FCFA",
+      price: "50 000 F CFA", 
       period: "/mois",
       description: "L'offre la plus populaire pour une croissance équilibrée",
       popular: "Populaire",
       features: [
         "Jusqu'à 200 apprenants",
         "Tous les jeux éducatifs",
-        "Analytics avancées",
+        "Analyses avancées",
         "Support prioritaire",
         "Formation personnalisée",
-        "Rapports temps réel",
+        "Rapports en temps réel",
         "Personnalisation complète",
         "Intégration API"
       ]
@@ -213,46 +213,48 @@ export const fr = {
       description: "Solution entreprise pour les grandes institutions",
       features: [
         "Apprenants illimités",
-        "Jeux sur mesure",
+        "Jeux personnalisés",
         "IA prédictive avancée",
         "Support dédié 24/7",
         "Formation sur site",
         "Rapports personnalisés",
-        "White-label complet",
+        "Marque blanche complète",
         "SLA garanti"
       ]
     },
     cta: {
       chooseOffer: "Choisir cette offre",
       contactUs: "Nous contacter",
-      ready: "Prêt à commencer votre aventure AKILI ?",
-      discover: "Transformez l'éducation dans votre établissement avec notre plateforme innovante. Commencez dès aujourd'hui et offrez à vos apprenants une expérience unique.",
+      ready: "Prêt à transformer votre école avec AKILI ?",
+      discover: "Révolutionnez l'éducation dans votre institution avec notre plateforme innovante. Commencez dès aujourd'hui et offrez à vos apprenants une expérience unique.",
+      title: "Prêt à révolutionner l'éducation ?",
+      description: "Rejoignez plus de 500 écoles qui font confiance à AKILI pour transformer l'expérience d'apprentissage de leurs élèves.",
       startToday: "Commencer maintenant",
       getQuote: "Obtenir un devis"
     }
   },
 
   solution: {
-    badge: "Innovation éducative africaine",
+    badge: "L'innovation éducative africaine",
     title: "Notre Solution AKILI",
-    subtitle: "AKILI est une solution éducative innovante qui vise à révéler le plein potentiel des apprenants et à accompagner les enseignants avec des outils puissants d'enseignement, d'évaluation et de suivi des progrès.",
+    subtitle: "AKILI est une solution éducative innovante qui vise à révéler le plein potentiel des apprenants et à accompagner les enseignants avec des outils puissants pour l'enseignement, l'évaluation et le suivi des progrès.",
     features: {
       title: "Fonctionnalités Principales",
       gamification: {
-        title: "🎮 Apprentissage Gamifié",
-        description: "Transformez chaque leçon en moment ludique et interactif grâce aux quiz, défis et jeux dynamiques qui captivent vos apprenants."
+        title: "🎮 Apprentissage Ludifié",
+        description: "Transformez chaque leçon en un moment amusant et interactif grâce à des quizz, des défis et des jeux dynamiques qui captivent vos apprenants."
       },
       management: {
         title: "👨‍🏫 Gestion Simplifiée des Apprenants",
-        description: "Gardez le contrôle d'un coup d'œil : suivez les progrès, identifiez les forces et intervenez rapidement grâce à une interface claire et intuitive."
+        description: "Gardez le contrôle en un coup d'œil : suivez les progrès, identifiez les points forts et intervenez rapidement grâce à une interface claire et intuitive."
       },
       analytics: {
-        title: "📊 Analytics Avancées",
-        description: "Prenez de meilleures décisions éducatives avec des tableaux de bord détaillés et des statistiques en temps réel."
+        title: "📊 Analyses Avancées",
+        description: "Prenez de meilleures décisions pédagogiques grâce à des tableaux de bord détaillés et des statistiques en temps réel."
       },
       rewards: {
         title: "🏅 Système de Récompenses",
-        description: "Motivez et valorisez les efforts des apprenants avec des badges, niveaux et certificats à débloquer tout au long de leur parcours."
+        description: "Motivez et valorisez les efforts des apprenants avec des badges, des niveaux et des certificats à débloquer tout au long de leur parcours."
       }
     },
     benefits: {
@@ -263,7 +265,7 @@ export const fr = {
       },
       multilingual: {
         title: "Bilingue",
-        description: "Interface disponible en français et anglais"
+        description: "Interface disponible en français et en anglais"
       },
       performance: {
         title: "Performance Optimale",
@@ -292,17 +294,17 @@ export const fr = {
     cta: {
       title: "Prêt à révolutionner l'éducation ?",
       subtitle: "Rejoignez le mouvement AKILI et donnez à vos apprenants les outils pour exceller dans le monde numérique tout en honorant leurs racines africaines.",
-      button: "Découvrir nos offres"
+      button: "Découvrez nos offres"
     }
   },
 
   schoolRegistration: {
     badge: "Rejoignez AKILI",
-    title: "Inscription École",
+    title: "Inscription des Écoles",
     subtitle: "Rejoignez plus de 500 écoles qui font confiance à AKILI pour transformer l'expérience d'apprentissage de leurs apprenants",
     form: {
-      title: "Informations de votre école",
-      schoolName: "Nom de l'école",
+      title: "Informations sur votre établissement",
+      schoolName: "Nom de l'établissement",
       schoolNamePlaceholder: "École Primaire...",
       schoolType: "Type d'établissement",
       schoolTypeOptions: {
@@ -330,7 +332,7 @@ export const fr = {
         other: "Autre"
       },
       address: "Adresse complète",
-      addressPlaceholder: "Adresse de votre école...",
+      addressPlaceholder: "Adresse de votre établissement...",
       directorName: "Nom du directeur",
       directorNamePlaceholder: "Prénom Nom",
       email: "Email de contact",
@@ -341,18 +343,18 @@ export const fr = {
       desiredOfferOptions: {
         discovery: "Découverte - 25 000 FCFA/mois",
         wisdom: "Sagesse - 50 000 FCFA/mois",
-        excellence: "Excellence - Sur mesure"
+        excellence: "Excellence - Sur Mesure"
       },
       submit: "Créer mon compte AKILI"
     },
     process: {
       title: "Comment ça marche ?",
-      subtitle: "Un processus simple et rapide pour commencer avec AKILI",
+      subtitle: "Un processus simple et rapide pour démarrer avec AKILI",
       steps: [
         {
           number: "01",
           title: "Remplissez le formulaire",
-          description: "Donnez-nous les informations de base sur votre école"
+          description: "Fournissez-nous des informations de base sur votre établissement"
         },
         {
           number: "02",
@@ -362,7 +364,7 @@ export const fr = {
         {
           number: "03",
           title: "Configuration rapide",
-          description: "Notre équipe configure votre plateforme en moins de 24h"
+          description: "Notre équipe configure votre plateforme en moins de 24 heures"
         },
         {
           number: "04",
@@ -373,7 +375,7 @@ export const fr = {
     },
     guarantee: {
       title: "Garantie de satisfaction",
-      description: "Essai gratuit de 30 jours. Aucun engagement à long terme. Support technique inclus et formation équipe gratuite."
+      description: "Essai gratuit de 30 jours. Pas d'engagement à long terme. Support technique inclus et formation gratuite des équipes."
     }
   },
   
@@ -384,18 +386,18 @@ export const fr = {
       activeStudents: "Apprenants Actifs",
       availableGames: "Jeux Disponibles",
       successRate: "Taux de Réussite",
-      averageProgress: "Progrès Moyen"
+      averageProgress: "Progression Moyenne"
     },
     recentActivity: "Activité Récente",
-    recentActivityDesc: "Visualisez l'activité de vos apprenants avec la sagesse numérique AKILI.",
+    recentActivityDesc: "Visualisez l'activité de vos apprenants avec la sagesse numérique d'AKILI.",
     performance: "Performance",
-    performanceDesc: "Suivez les progrès avec l'intelligence traditionnelle africaine."
+    performanceDesc: "Suivez les progrès avec l'intelligence africaine traditionnelle."
   },
   
   students: {
     title: "Gestion des Apprenants AKILI",
-    subtitle: "Cultivez l'intelligence de vos jeunes talents africains", 
-    search: "Rechercher un apprenant par nom ou classe...",
+    subtitle: "Cultivez l'intelligence de vos jeunes talents africains",
+    search: "Rechercher un apprenant par nom ou par classe...",
     importCsv: "Importer CSV",
     addStudent: "Ajouter un apprenant"
   },
@@ -403,8 +405,8 @@ export const fr = {
   teachers: {
     title: "Gestion des Enseignants AKILI",
     subtitle: "Honorez les gardiens de la sagesse africaine",
-    search: "Rechercher un enseignant par nom ou matière...",
-    importCsv: "Importer CSV", 
+    search: "Rechercher un enseignant par nom ou par matière...",
+    importCsv: "Importer CSV",
     addTeacher: "Ajouter un enseignant"
   },
   
@@ -414,24 +416,24 @@ export const fr = {
     search: "Rechercher un jeu éducatif..."
   },
   
-  login: {
+   login: {
     title: "KHOOT ECES",
     subtitle: "Connectez-vous à votre compte pour accéder à votre espace",
     email: "Email",
     password: "Mot de passe",
-    loginButton: "Se connecter",
-    loggingIn: "Connexion...",
+    loginButton: "Se Connecter",
+    loggingIn: "Connexion en cours...",
     adminAccess: "Accès réservé aux administrateurs",
     validation: {
-      emailRequired: "Veuillez saisir votre adresse email",
-      passwordRequired: "Veuillez saisir votre mot de passe"
+      emailRequired: "Veuillez entrer votre adresse email",
+      passwordRequired: "Veuillez entrer votre mot de passe"
     },
     securityTip: {
       title: "Conseil",
-      description: "Utilisez un mot de passe fort contenant des lettres, chiffres et symboles"
+      description: "Utilisez un mot de passe fort contenant des lettres, des chiffres et des symboles"
     },
-    noAccount: "Vous n'avez pas encore de compte ?",
-    discoverOffers: "Découvrir nos offres",
+    noAccount: "Pas encore de compte ?",
+    discoverOffers: "Découvrez nos offres",
     promotion: {
       title: "🎓 Transformez votre école !",
       description: "Découvrez nos solutions éducatives innovantes et rejoignez plus de 500 écoles satisfaites.",
@@ -440,7 +442,7 @@ export const fr = {
   },
 
   footer: {
-    description: "La plateforme d'apprentissage interactive qui transforme l'éducation en Afrique. Engagez vos apprenants avec des quiz et jeux éducatifs innovants.",
+    description: "La plateforme d'apprentissage interactif qui transforme l'éducation en Afrique. Engagez vos apprenants avec des quizz et jeux éducatifs innovants.",
     navigation: {
       title: "Navigation"
     },
