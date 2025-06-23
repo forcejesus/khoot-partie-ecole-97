@@ -1,4 +1,5 @@
 
+
 import axios from "axios";
 import { config } from "@/config/hosts";
 import { User } from "@/types/auth";
@@ -18,14 +19,17 @@ export class AuthService {
       // Créer une instance axios propre sans intercepteurs potentiels
       const cleanAxios = axios.create();
       
-      const response = await cleanAxios.post(loginUrl, loginData, {
+      // Configuration des headers sans Authorization
+      const requestConfig = {
         headers: {
           'Content-Type': 'application/json',
-          // Supprimer explicitement tout header d'autorisation
-          'Authorization': undefined,
         },
         timeout: 10000, // 10 secondes timeout
-      });
+      };
+
+      console.log("Request config before sending:", requestConfig);
+      
+      const response = await cleanAxios.post(loginUrl, loginData, requestConfig);
 
       console.log("Login response status:", response.status);
       console.log("Login response data:", response.data);
