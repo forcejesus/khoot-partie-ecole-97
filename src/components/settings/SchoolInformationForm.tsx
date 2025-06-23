@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import axios from "axios";
 import { useAuth } from "@/contexts/AuthContext";
@@ -43,7 +42,7 @@ const SchoolInformationForm = ({ initialData }: SchoolInformationFormProps) => {
     try {
       setIsLoading(true);
       const token = localStorage.getItem("token");
-      if (!token || !user?.ecole?._id) {
+      if (!token || !user?.ecoleId) {
         toast({
           variant: "destructive",
           title: "Erreur",
@@ -53,7 +52,7 @@ const SchoolInformationForm = ({ initialData }: SchoolInformationFormProps) => {
       }
 
       const response = await axios.put(
-        `http://kahoot.nos-apps.com/api/ecole/update/${user.ecole._id}`,
+        `http://kahoot.nos-apps.com/api/ecole/update/${user.ecoleId}`,
         ecoleData,
         {
           headers: {
@@ -82,6 +81,7 @@ const SchoolInformationForm = ({ initialData }: SchoolInformationFormProps) => {
   };
 
   return (
+    
     <div className="bg-gradient-to-br from-white to-orange-50 rounded-3xl p-8 shadow-lg border border-orange-200">
       <div className="mb-8">
         <div className="flex items-center gap-4 mb-4">

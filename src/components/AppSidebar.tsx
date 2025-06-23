@@ -85,7 +85,7 @@ export function AppSidebar() {
             <p className="text-sm text-orange-100 font-semibold mt-1">Espace École</p>
           </div>
           
-          {user?.ecole && (
+          {user?.ecole?.libelle && (
             <div className="w-full text-center bg-white/20 backdrop-blur-sm rounded-xl py-2 px-3 border border-white/30">
               <p className="text-xs text-white font-medium truncate">
                 {user.ecole.libelle}

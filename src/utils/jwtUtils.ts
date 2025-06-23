@@ -35,7 +35,7 @@ export const createUserFromToken = (payload: TokenPayload): User => {
     name: `${payload.prenom} ${payload.nom}`,
     email: payload.email,
     role: payload.role,
-    ecole: payload.ecole,
+    ecoleId: payload.ecole, // Stocker l'ID de l'école
     prenom: payload.prenom,
     nom: payload.nom
   };

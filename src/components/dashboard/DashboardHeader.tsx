@@ -23,7 +23,7 @@ export const DashboardHeader = () => {
               Bonjour <span className="font-semibold text-white">{user.name}</span> ! 👋
             </p>
           )}
-          {user?.ecole && (
+          {user?.ecole?.libelle && (
             <p className="text-orange-200 text-xs md:text-sm mt-1">
               {user.ecole.libelle}
             </p>

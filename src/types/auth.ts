@@ -13,7 +13,8 @@ export interface User {
   name: string;
   email: string;
   role: string;
-  ecole?: string;
+  ecoleId?: string; // ID de l'école
+  ecole?: School; // Données complètes de l'école (si récupérées)
   prenom?: string;
   nom?: string;
 }
@@ -22,7 +23,7 @@ export interface TokenPayload {
   id: string;
   email: string;
   role: string;
-  ecole: string;
+  ecole: string; // ID de l'école dans le token
   prenom: string;
   nom: string;
   iat: number;
