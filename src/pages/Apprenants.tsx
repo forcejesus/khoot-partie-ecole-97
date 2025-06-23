@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Search, Plus, Upload, Users } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { AddApprenantDialog } from "@/components/AddApprenantDialog";
-import BulkImportModal from "@/components/BulkImportModal";
 import { ApprenantsList } from "@/components/ApprenantsList";
 import { DashboardLayoutWithSidebar } from "@/layouts/DashboardLayoutWithSidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,7 +12,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 const ApprenantsContent = () => {
   const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState("");
-  const [isBulkImportOpen, setIsBulkImportOpen] = useState(false);
 
   const handleRefresh = () => {
     window.location.reload();
@@ -58,17 +56,6 @@ const ApprenantsContent = () => {
               
               <AddApprenantDialog onSuccess={handleRefresh} />
             </div>
-            
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Button
-                onClick={() => setIsBulkImportOpen(true)}
-                variant="outline"
-                className="border-orange-300 text-orange-600 hover:bg-orange-50 font-medium w-full sm:w-auto"
-              >
-                <Upload className="mr-2 h-4 w-4" />
-                Importer un fichier Excel
-              </Button>
-            </div>
           </div>
         </CardContent>
       </Card>
@@ -79,17 +66,6 @@ const ApprenantsContent = () => {
           <ApprenantsList searchTerm={searchTerm} />
         </CardContent>
       </Card>
-
-      {/* Modales */}
-      {isBulkImportOpen && (
-        <BulkImportModal
-          type="apprenants"
-          onSuccess={() => {
-            setIsBulkImportOpen(false);
-            handleRefresh();
-          }}
-        />
-      )}
     </div>
   );
 };

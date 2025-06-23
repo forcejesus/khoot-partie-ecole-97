@@ -1,3 +1,4 @@
+
 export interface Ecole {
   _id: string;
   libelle: string;
@@ -22,4 +23,15 @@ export interface ApprenantResponse {
   success: boolean;
   message: string;
   data: Apprenant[];
+}
+
+export interface CreateApprenantRequest {
+  nom: string;
+  prenom: string;
+}
+
+export interface CreateApprenantResponse {
+  success: boolean;
+  message: string;
+  data: Apprenant;
 }

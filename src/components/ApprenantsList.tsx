@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect, useMemo } from "react";
-import axios from "axios";
 import {
   Table,
   TableBody,
@@ -11,9 +10,10 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { Apprenant } from "@/types/apprenant";
 import { Skeleton } from "@/components/ui/skeleton";
+import { apprenantService } from "@/services/apprenantService";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -53,34 +53,10 @@ export const ApprenantsList = ({ onApprenantChange, searchTerm = "" }: Apprenant
   const fetchApprenants = async () => {
     try {
       setIsLoading(true);
-      const token = localStorage.getItem("token");
-      const userDataStr = localStorage.getItem("user");
-
-      if (!token || !userDataStr) {
-        toast({
-          variant: "destructive",
-          title: "Erreur",
-          description: "Vous devez être connecté pour voir la liste des apprenants",
-        });
-        return;
-      }
-
-      const userData = JSON.parse(userDataStr);
-
-      const response = await axios.get(
-        "http://kahoot.nos-apps.com/api/apprenant",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.data.success) {
-        const filteredApprenants = response.data.data.filter(
-          (apprenant: Apprenant) => apprenant.ecole._id === userData.ecole._id
-        );
-        setApprenants(filteredApprenants);
+      const response = await apprenantService.getApprenants();
+      
+      if (response.success) {
+        setApprenants(response.data);
         onApprenantChange?.();
       }
     } catch (error) {
@@ -103,44 +79,14 @@ export const ApprenantsList = ({ onApprenantChange, searchTerm = "" }: Apprenant
   const handleDelete = async () => {
     if (!apprenantToDelete) return;
     
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        toast({
-          variant: "destructive",
-          title: "Erreur",
-          description: "Vous devez être connecté pour effectuer cette action",
-        });
-        return;
-      }
-
-      const response = await axios.delete(
-        `http://kahoot.nos-apps.com/api/apprenant/delete/${apprenantToDelete}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.data.success) {
-        toast({
-          title: "Succès",
-          description: "Apprenant supprimé avec succès",
-        });
-        fetchApprenants();
-      }
-    } catch (error) {
-      console.error("Erreur lors de la suppression:", error);
-      toast({
-        variant: "destructive",
-        title: "Erreur",
-        description: "Impossible de supprimer l'apprenant",
-      });
-    } finally {
-      setApprenantToDelete(null);
-      setDeleteDialogOpen(false);
-    }
+    // TODO: Implémenter la suppression quand l'endpoint sera disponible
+    toast({
+      title: "Information",
+      description: "Fonctionnalité de suppression en cours de développement",
+    });
+    
+    setApprenantToDelete(null);
+    setDeleteDialogOpen(false);
   };
 
   useEffect(() => {
@@ -165,6 +111,7 @@ export const ApprenantsList = ({ onApprenantChange, searchTerm = "" }: Apprenant
               <TableHead>Email</TableHead>
               <TableHead>Téléphone</TableHead>
               <TableHead>Matricule</TableHead>
+              <TableHead>École</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -177,12 +124,13 @@ export const ApprenantsList = ({ onApprenantChange, searchTerm = "" }: Apprenant
                   <TableCell><Skeleton className="h-4 w-[150px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[120px]" /></TableCell>
                   <TableCell><Skeleton className="h-8 w-8" /></TableCell>
                 </TableRow>
               ))
             ) : filteredApprenants.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={6} className="text-center py-8 text-gray-500">
+                <TableCell colSpan={7} className="text-center py-8 text-gray-500">
                   {searchTerm ? "Aucun apprenant trouvé pour cette recherche" : "Aucun apprenant enregistré"}
                 </TableCell>
               </TableRow>
@@ -194,6 +142,7 @@ export const ApprenantsList = ({ onApprenantChange, searchTerm = "" }: Apprenant
                   <TableCell>{apprenant.email}</TableCell>
                   <TableCell>{apprenant.phone}</TableCell>
                   <TableCell>{apprenant.matricule}</TableCell>
+                  <TableCell>{apprenant.ecole.libelle}</TableCell>
                   <TableCell>
                     <Button
                       variant="destructive"
