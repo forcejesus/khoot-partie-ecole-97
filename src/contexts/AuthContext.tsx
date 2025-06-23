@@ -52,7 +52,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       } catch (error) {
         console.error("Error parsing user data:", error);
         localStorage.removeItem("token");
-        localStorage.removeItem("user");
+        localStorage.removeUser("user");
       }
     }
   }, []);
@@ -92,7 +92,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (email: string, password: string) => {
     console.log("Login attempt for:", email);
     setIsLoading(true);
+    
     try {
+      console.log("Making login request to:", `${config.api.baseUrl}/api/login`);
       const response = await axios.post(`${config.api.baseUrl}/api/login`, {
         email,
         password,
@@ -104,7 +106,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         // Vérifier que le rôle est "admin"
         if (response.data.role !== "admin") {
           console.log("User role is not admin:", response.data.role);
-          toast.error("🚫 Aucune école trouvée avec ces informations.", {
+          toast.error("🚫 Accès refusé. Seuls les administrateurs peuvent se connecter.", {
             duration: 5000,
           });
           return;
@@ -148,26 +150,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           navigate("/dashboard");
         } catch (error) {
           console.error("Error decoding token:", error);
-          toast.error("⚠️ Erreur d'authentification. Veuillez réessayer.", {
+          toast.error("⚠️ Erreur d'authentification. Token invalide.", {
             duration: 4000,
           });
           localStorage.removeItem("token");
         }
       } else {
-        toast.error("🚫 Aucune école trouvée avec ces informations.", {
+        console.log("Login failed - invalid response:", response.data);
+        toast.error("🚫 Identifiants incorrects. Vérifiez vos informations de connexion.", {
           duration: 4000,
         });
       }
     } catch (error: any) {
       console.error("Login error:", error);
       
-      // Messages d'erreur plus conviviaux
-      if (error.response?.status === 401 || error.response?.status === 400) {
-        toast.error("🚫 Aucune école trouvée avec ces informations.", {
+      // Messages d'erreur plus spécifiques
+      if (error.response?.status === 401) {
+        toast.error("🚫 Identifiants incorrects. Vérifiez votre email et mot de passe.", {
           duration: 5000,
         });
-      } else if (error.code === 'NETWORK_ERROR' || !error.response) {
-        toast.error("🌐 Problème de connexion. Vérifiez votre connexion internet et réessayez.", {
+      } else if (error.response?.status === 400) {
+        toast.error("⚠️ Données de connexion invalides.", {
+          duration: 4000,
+        });
+      } else if (error.code === 'ECONNREFUSED' || error.code === 'NETWORK_ERROR' || !error.response) {
+        toast.error("🌐 Impossible de se connecter au serveur. Vérifiez votre connexion internet.", {
           duration: 5000,
         });
       } else {

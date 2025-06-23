@@ -54,9 +54,9 @@ function App() {
   
   return (
     <QueryClientProvider client={queryClient}>
-      <Router>
-        <AuthProvider>
-          <LanguageProvider>
+      <LanguageProvider>
+        <Router>
+          <AuthProvider>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
               <ScrollToTop />
               <Routes>
@@ -120,9 +120,9 @@ function App() {
                 />
               </Routes>
             </ThemeProvider>
-          </LanguageProvider>
-        </AuthProvider>
-      </Router>
+          </AuthProvider>
+        </Router>
+      </LanguageProvider>
     </QueryClientProvider>
   );
 }
