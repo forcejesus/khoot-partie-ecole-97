@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -57,7 +56,7 @@ const OfferCard = ({
       <Card className={`relative group hover:shadow-african transition-all duration-500 border-2 ${borderColor} h-full bg-gradient-to-br ${bgGradient} ${isPopular ? 'transform scale-105 shadow-xl' : ''}`}>
         {isPopular && (
           <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-6 py-1 rounded-full text-sm font-semibold">
-            {t("offers.wisdom.popular")}
+            Recommandé
           </div>
         )}
         
