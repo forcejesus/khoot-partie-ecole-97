@@ -90,28 +90,28 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="nom" className="text-sm font-semibold text-gray-700">
+                  <Label htmlFor="nom" className="text-sm font-semibold text-black">
                     Nom de famille *
                   </Label>
                   <Input
                     id="nom"
                     value={formData.nom}
                     onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
-                    className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300"
+                    className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300 text-black placeholder:text-gray-500"
                     placeholder="Entrez le nom de famille"
                     required
                   />
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="prenom" className="text-sm font-semibold text-gray-700">
+                  <Label htmlFor="prenom" className="text-sm font-semibold text-black">
                     Prénom *
                   </Label>
                   <Input
                     id="prenom"
                     value={formData.prenom}
                     onChange={(e) => setFormData({ ...formData, prenom: e.target.value })}
-                    className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300"
+                    className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300 text-black placeholder:text-gray-500"
                     placeholder="Entrez le prénom"
                     required
                   />

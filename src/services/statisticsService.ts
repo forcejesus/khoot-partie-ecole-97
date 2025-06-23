@@ -1,27 +1,13 @@
 
-import axios from "axios";
-import { config } from "@/config/hosts";
+import { api } from './apiClient';
 import { StatsData } from "@/types/statistics";
 
 export const fetchStats = async (): Promise<StatsData> => {
   console.log("=== DEBUT fetchStats ===");
-  const token = localStorage.getItem("token");
-  console.log("Token trouvé:", !!token);
-  console.log("URL API:", `${config.api.baseUrl}/api/mon-ecole/statistiques`);
-  
-  if (!token) {
-    console.error("Aucun token trouvé dans localStorage");
-    throw new Error("No token found");
-  }
+  console.log("Envoi de la requête API...");
   
   try {
-    console.log("Envoi de la requête API...");
-    const response = await axios.get(`${config.api.baseUrl}/api/mon-ecole/statistiques`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-    });
+    const response = await api.get('/api/mon-ecole/statistiques');
     
     console.log("Réponse complète de l'API:", response);
     console.log("Status de la réponse:", response.status);
@@ -51,16 +37,6 @@ export const fetchStats = async (): Promise<StatsData> => {
   } catch (error) {
     console.error("=== ERREUR dans fetchStats ===");
     console.error("Type d'erreur:", error);
-    
-    if (axios.isAxiosError(error)) {
-      console.error("Erreur Axios:", {
-        status: error.response?.status,
-        statusText: error.response?.statusText,
-        data: error.response?.data,
-        headers: error.response?.headers
-      });
-    }
-    
     console.error("=== FIN fetchStats ERROR ===");
     throw error;
   }

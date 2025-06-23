@@ -1,25 +1,14 @@
 
-import axios from 'axios';
-import { config } from '@/config/hosts';
+import { api } from './apiClient';
 import { LoginResponse } from '@/types/auth';
-
-// Créer une instance axios propre pour l'authentification
-const authAxios = axios.create({
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json',
-  }
-});
 
 export const loginUser = async (email: string, password: string): Promise<LoginResponse> => {
   console.log('=== LOGIN DEBUG INFO ===');
-  console.log('API Base URL:', config.api.baseUrl);
-  console.log('Full login URL:', `${config.api.baseUrl}/api/login`);
   console.log('Login data:', { email, password });
   console.log('Environment:', import.meta.env.PROD ? 'production' : 'development');
 
   try {
-    const response = await authAxios.post(`${config.api.baseUrl}/api/login`, {
+    const response = await api.post('/api/login', {
       email,
       password,
     });
@@ -34,7 +23,6 @@ export const loginUser = async (email: string, password: string): Promise<LoginR
     console.log('Error status:', error.response?.status);
     console.log('Error data:', error.response?.data);
     console.log('Error headers:', error.response?.headers);
-    console.log('Request config:', error.config);
 
     throw error;
   }

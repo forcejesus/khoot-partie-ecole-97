@@ -1,7 +1,5 @@
 
-import axios from 'axios';
-
-const API_BASE_URL = 'http://kahoot.nos-apps.com';
+import { api } from './apiClient';
 
 export interface CreateEnseignantRequest {
   nom: string;
@@ -24,15 +22,7 @@ export interface CreateEnseignantResponse {
 
 export const enseignantService = {
   createEnseignant: async (data: CreateEnseignantRequest): Promise<CreateEnseignantResponse> => {
-    const token = localStorage.getItem('token');
-    
-    const response = await axios.post(`${API_BASE_URL}/api/admin`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    
+    const response = await api.post('/api/admin', data);
     return response.data;
   },
 };

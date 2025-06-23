@@ -29,23 +29,23 @@ export const PersonalInfoStep = ({ formData, onInputChange, onNext }: PersonalIn
       <CardContent className="px-0 space-y-6">
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="nom" className="text-sm font-semibold text-gray-700">Nom de famille *</Label>
+            <Label htmlFor="nom" className="text-sm font-semibold text-black">Nom de famille *</Label>
             <Input
               id="nom"
               value={formData.nom}
               onChange={(e) => onInputChange('nom', e.target.value)}
-              className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm"
+              className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm text-black placeholder:text-gray-500"
               placeholder="Nom de famille"
               required
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="prenom" className="text-sm font-semibold text-gray-700">Prénom *</Label>
+            <Label htmlFor="prenom" className="text-sm font-semibold text-black">Prénom *</Label>
             <Input
               id="prenom"
               value={formData.prenom}
               onChange={(e) => onInputChange('prenom', e.target.value)}
-              className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm"
+              className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm text-black placeholder:text-gray-500"
               placeholder="Prénom"
               required
             />
@@ -53,9 +53,9 @@ export const PersonalInfoStep = ({ formData, onInputChange, onNext }: PersonalIn
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="genre" className="text-sm font-semibold text-gray-700">Genre *</Label>
+          <Label htmlFor="genre" className="text-sm font-semibold text-black">Genre *</Label>
           <Select value={formData.genre} onValueChange={(value) => onInputChange('genre', value)}>
-            <SelectTrigger className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80">
+            <SelectTrigger className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 text-black">
               <SelectValue placeholder="Sélectionnez le genre" />
             </SelectTrigger>
             <SelectContent>
@@ -67,24 +67,24 @@ export const PersonalInfoStep = ({ formData, onInputChange, onNext }: PersonalIn
 
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="phone" className="text-sm font-semibold text-gray-700">Téléphone *</Label>
+            <Label htmlFor="phone" className="text-sm font-semibold text-black">Téléphone *</Label>
             <Input
               id="phone"
               value={formData.phone}
               onChange={(e) => onInputChange('phone', e.target.value)}
-              className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm"
+              className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm text-black placeholder:text-gray-500"
               placeholder="Numéro de téléphone"
               required
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm font-semibold text-gray-700">Email *</Label>
+            <Label htmlFor="email" className="text-sm font-semibold text-black">Email *</Label>
             <Input
               id="email"
               type="email"
               value={formData.email}
               onChange={(e) => onInputChange('email', e.target.value)}
-              className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm"
+              className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm text-black placeholder:text-gray-500"
               placeholder="Adresse email"
               required
             />
@@ -92,21 +92,21 @@ export const PersonalInfoStep = ({ formData, onInputChange, onNext }: PersonalIn
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="adresse" className="text-sm font-semibold text-gray-700">Adresse *</Label>
+          <Label htmlFor="adresse" className="text-sm font-semibold text-black">Adresse *</Label>
           <Input
             id="adresse"
             value={formData.adresse}
             onChange={(e) => onInputChange('adresse', e.target.value)}
-            className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm"
+            className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm text-black placeholder:text-gray-500"
             placeholder="Adresse complète"
             required
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="statut" className="text-sm font-semibold text-gray-700">Statut</Label>
+          <Label htmlFor="statut" className="text-sm font-semibold text-black">Statut</Label>
           <Select value={formData.statut} onValueChange={(value) => onInputChange('statut', value)}>
-            <SelectTrigger className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80">
+            <SelectTrigger className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 text-black">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

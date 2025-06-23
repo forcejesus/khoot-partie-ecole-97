@@ -35,26 +35,26 @@ export const PasswordStep = ({
       </CardHeader>
       <CardContent className="px-0 space-y-6">
         <div className="space-y-2">
-          <Label htmlFor="password" className="text-sm font-semibold text-gray-700">Mot de passe *</Label>
+          <Label htmlFor="password" className="text-sm font-semibold text-black">Mot de passe *</Label>
           <Input
             id="password"
             type="password"
             value={formData.password}
             onChange={(e) => onInputChange('password', e.target.value)}
-            className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm"
+            className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm text-black placeholder:text-gray-500"
             placeholder="Entrez un mot de passe sécurisé"
             required
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="confirmPassword" className="text-sm font-semibold text-gray-700">Confirmer le mot de passe *</Label>
+          <Label htmlFor="confirmPassword" className="text-sm font-semibold text-black">Confirmer le mot de passe *</Label>
           <Input
             id="confirmPassword"
             type="password"
             value={confirmPassword}
             onChange={(e) => onConfirmPasswordChange(e.target.value)}
-            className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm"
+            className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm text-black placeholder:text-gray-500"
             placeholder="Confirmez le mot de passe"
             required
           />

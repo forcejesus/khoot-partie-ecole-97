@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,31 +27,31 @@ export const ManualApprenantForm = ({
     <form onSubmit={onSubmit} className="space-y-4">
       <div className="grid gap-4 py-4">
         <div className="grid grid-cols-4 items-center gap-4">
-          <Label htmlFor="nom" className="text-right">
+          <Label htmlFor="nom" className="text-right text-black">
             Nom
           </Label>
           <Input
             id="nom"
             value={formData.nom}
             onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
-            className="col-span-3"
+            className="col-span-3 text-black placeholder:text-gray-500"
             required
           />
         </div>
         <div className="grid grid-cols-4 items-center gap-4">
-          <Label htmlFor="prenom" className="text-right">
+          <Label htmlFor="prenom" className="text-right text-black">
             Prénom
           </Label>
           <Input
             id="prenom"
             value={formData.prenom}
             onChange={(e) => setFormData({ ...formData, prenom: e.target.value })}
-            className="col-span-3"
+            className="col-span-3 text-black placeholder:text-gray-500"
             required
           />
         </div>
         <div className="grid grid-cols-4 items-center gap-4">
-          <Label htmlFor="email" className="text-right">
+          <Label htmlFor="email" className="text-right text-black">
             Email
           </Label>
           <Input
@@ -58,19 +59,19 @@ export const ManualApprenantForm = ({
             type="email"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="col-span-3"
+            className="col-span-3 text-black placeholder:text-gray-500"
             required
           />
         </div>
         <div className="grid grid-cols-4 items-center gap-4">
-          <Label htmlFor="phone" className="text-right">
+          <Label htmlFor="phone" className="text-right text-black">
             Téléphone
           </Label>
           <Input
             id="phone"
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-            className="col-span-3"
+            className="col-span-3 text-black placeholder:text-gray-500"
             required
           />
         </div>
