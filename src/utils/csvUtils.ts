@@ -24,11 +24,11 @@ export const processCSVFile = async (file: File): Promise<ApprenantImport[]> => 
           const values = line.includes(';') ? line.split(';') : line.split(',');
           const [nom, prenom, email, phone] = values.map(value => value.trim());
           
-          if (nom && prenom && email) {
+          if (nom && prenom) {
             apprenants.push({
               nom,
               prenom,
-              email,
+              email: email || '',
               phone: phone || ''
             });
           }
@@ -48,14 +48,13 @@ export const validateApprenant = (apprenant: ApprenantImport) => {
   if (!apprenant.prenom) {
     return { isValid: false, message: "Le prénom est requis." };
   }
-  if (!apprenant.email) {
-    return { isValid: false, message: "L'email est requis." };
-  }
 
-  // Validation basique de l'email
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(apprenant.email)) {
-    return { isValid: false, message: "L'email n'est pas valide." };
+  // Validation basique de l'email seulement s'il est fourni
+  if (apprenant.email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(apprenant.email)) {
+      return { isValid: false, message: "L'email n'est pas valide." };
+    }
   }
 
   return { isValid: true, message: "" };

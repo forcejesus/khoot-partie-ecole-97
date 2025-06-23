@@ -16,7 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { FileSpreadsheet, Upload } from "lucide-react";
 import { ApprenantImport } from "@/utils/csvUtils";
-import Papa from "papaparse";
+import * as XLSX from "xlsx";
 
 // Import the new components
 import { FileUploader } from "@/components/bulkImport/FileUploader";
@@ -45,6 +45,49 @@ export default function BulkImportModal({ type, onSuccess }: BulkImportModalProp
   const typeEndpoint = type === "apprenants" ? "apprenant/create" : "users/register";
   const typeSingular = type === "apprenants" ? "apprenant" : "enseignant";
 
+  const processExcelFile = (file: File): Promise<ApprenantImport[]> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = new Uint8Array(e.target?.result as ArrayBuffer);
+          const workbook = XLSX.read(data, { type: 'array' });
+          const firstSheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[firstSheetName];
+          const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+          
+          // Vérifier s'il y a un en-tête
+          const hasHeader = Array.isArray(jsonData[0]) && 
+                           jsonData[0].some((header: any) => 
+                           typeof header === 'string' && 
+                           (header.toLowerCase().includes('nom') || 
+                            header.toLowerCase().includes('prenom') || 
+                            header.toLowerCase().includes('email')));
+          
+          const startRow = hasHeader ? 1 : 0;
+          
+          const processedData = jsonData.slice(startRow).map((row: any) => {
+            if (!Array.isArray(row) || row.length < 2) return null;
+            return {
+              nom: row[0] ? String(row[0]).trim() : '',
+              prenom: row[1] ? String(row[1]).trim() : '',
+              email: row[2] ? String(row[2]).trim() : '',
+              phone: row[3] ? String(row[3]).trim() : ''
+            };
+          }).filter((item): item is ApprenantImport => 
+            !!item && !!item.nom && !!item.prenom
+          );
+          
+          resolve(processedData);
+        } catch (error) {
+          reject(error);
+        }
+      };
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(file);
+    });
+  };
+
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) {
       return;
@@ -53,92 +96,43 @@ export default function BulkImportModal({ type, onSuccess }: BulkImportModalProp
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
     
-    if (selectedFile.type === "text/csv" || selectedFile.name.endsWith(".csv")) {
-      try {
-        const parsedData = await processCSVFile(selectedFile);
-        setParsedData(parsedData);
-        
-        // Validate each record
-        const validationErrors: string[] = [];
-        parsedData.forEach((data, index) => {
-          const { isValid, message } = validateApprenant(data);
-          if (!isValid) {
-            validationErrors.push(`Ligne ${index + 1}: ${message}`);
-          }
-        });
-        
-        setErrors(validationErrors);
-      } catch (error) {
-        console.error("Erreur lors de l'analyse du fichier CSV:", error);
+    try {
+      let parsedData: ApprenantImport[] = [];
+      
+      if (selectedFile.type === "text/csv" || selectedFile.name.endsWith(".csv")) {
+        parsedData = await processCSVFile(selectedFile);
+      } else if (selectedFile.name.endsWith(".xlsx") || selectedFile.name.endsWith(".xls") || 
+                selectedFile.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" || 
+                selectedFile.type === "application/vnd.ms-excel") {
+        parsedData = await processExcelFile(selectedFile);
+      } else {
         toast({
           variant: "destructive",
-          title: "Erreur de fichier",
-          description: "Impossible de lire le fichier CSV. Vérifiez le format.",
+          title: "Format non supporté",
+          description: "Veuillez télécharger un fichier CSV ou Excel (.xlsx, .xls).",
         });
+        return;
       }
-    } else if (selectedFile.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" || 
-              selectedFile.type === "application/vnd.ms-excel") {
-      // Handle Excel files with Papa Parse
-      Papa.parse(selectedFile, {
-        complete: function(results) {
-          // Fix the type issue by ensuring data is an array first 
-          const hasHeader = Array.isArray(results.data) && results.data.length > 0 && 
-                         Array.isArray(results.data[0]) && 
-                         results.data[0].some((header: any) => 
-                         typeof header === 'string' && 
-                         (header.toLowerCase().includes('nom') || 
-                          header.toLowerCase().includes('prenom') || 
-                          header.toLowerCase().includes('email')));
-          
-          const startRow = hasHeader ? 1 : 0;
-          
-          if (!Array.isArray(results.data)) {
-            toast({
-              variant: "destructive",
-              title: "Format non valide",
-              description: "Le fichier ne contient pas de données valides.",
-            });
-            return;
-          }
-          
-          // Process the data
-          const data = results.data.slice(startRow).map((row: any) => {
-            if (!Array.isArray(row)) return null;
-            return {
-              nom: row[0] || '',
-              prenom: row[1] || '',
-              email: row[2] || '',
-              phone: row[3] || ''
-            };
-          }).filter((item): item is ApprenantImport => !!item && !!item.nom && !!item.prenom && !!item.email); // Type guard with filter
-          
-          setParsedData(data);
-          
-          // Validate each record
-          const validationErrors: string[] = [];
-          data.forEach((data: ApprenantImport, index: number) => {
-            const { isValid, message } = validateApprenant(data);
-            if (!isValid) {
-              validationErrors.push(`Ligne ${index + 1}: ${message}`);
-            }
-          });
-          
-          setErrors(validationErrors);
-        },
-        error: function(error) {
-          console.error("Erreur lors de l'analyse du fichier Excel:", error);
-          toast({
-            variant: "destructive",
-            title: "Erreur de fichier",
-            description: "Impossible de lire le fichier Excel. Vérifiez le format.",
-          });
+      
+      setParsedData(parsedData);
+      
+      // Validate each record
+      const validationErrors: string[] = [];
+      parsedData.forEach((data, index) => {
+        const { isValid, message } = validateApprenant(data);
+        if (!isValid) {
+          validationErrors.push(`Ligne ${index + 1}: ${message}`);
         }
       });
-    } else {
+      
+      setErrors(validationErrors);
+      
+    } catch (error) {
+      console.error("Erreur lors de l'analyse du fichier:", error);
       toast({
         variant: "destructive",
-        title: "Format non supporté",
-        description: "Veuillez télécharger un fichier CSV ou Excel.",
+        title: "Erreur de fichier",
+        description: "Impossible de lire le fichier. Vérifiez le format.",
       });
     }
   };
@@ -187,20 +181,21 @@ export default function BulkImportModal({ type, onSuccess }: BulkImportModalProp
           ? {
               nom: item.nom,
               prenom: item.prenom,
-              email: item.email,
-              phone: item.phone,
+              avatar: "Mon avatar",
+              ...(item.email && { email: item.email }),
+              ...(item.phone && { phone: item.phone }),
               ecole: user.ecole._id
             }
           : {
               name: `${item.prenom} ${item.nom}`,
-              email: item.email,
-              password: "password123", // Temporary password
+              email: item.email || `${item.nom.toLowerCase()}.${item.prenom.toLowerCase()}@temp.com`,
+              password: "password123",
               statut: "ENSEIGNANT",
               ecole: user.ecole._id
             };
         
         try {
-          await axios.post(
+          const response = await axios.post(
             `http://kahoot.nos-apps.com/api/${typeEndpoint}`,
             userData,
             {
@@ -209,10 +204,10 @@ export default function BulkImportModal({ type, onSuccess }: BulkImportModalProp
               },
             }
           );
+          console.log(`${typeSingular} ${i+1} créé avec succès:`, response.data);
           successCount++;
-        } catch (error) {
-          console.error(`Erreur lors de l'ajout du ${typeSingular} ${i+1}:`, error);
-          // Continue with other records even if one fails
+        } catch (error: any) {
+          console.error(`Erreur lors de l'ajout du ${typeSingular} ${i+1}:`, error.response?.data || error);
         }
         
         // Update progress
@@ -221,7 +216,7 @@ export default function BulkImportModal({ type, onSuccess }: BulkImportModalProp
 
       toast({
         title: "Importation terminée",
-        description: `${successCount} ${typeLabel} ont été importés avec succès.`,
+        description: `${successCount} ${typeLabel} ont été importés avec succès sur ${totalItems} tentatives.`,
       });
       
       setSuccess(true);
@@ -261,6 +256,7 @@ export default function BulkImportModal({ type, onSuccess }: BulkImportModalProp
           <DialogTitle>Importer plusieurs {typeLabel}</DialogTitle>
           <DialogDescription>
             Téléchargez un fichier CSV ou Excel contenant les {typeLabel} à importer.
+            Format requis: Nom, Prénom, Email (optionnel), Téléphone (optionnel)
           </DialogDescription>
         </DialogHeader>
 

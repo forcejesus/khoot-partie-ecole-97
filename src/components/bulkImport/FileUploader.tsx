@@ -33,7 +33,7 @@ export function FileUploader({ onFileChange, file }: FileUploaderProps) {
         </Button>
       </div>
       <p className="text-xs text-muted-foreground">
-        Format: Nom, Prénom, Email, Téléphone
+        Format: Nom (requis), Prénom (requis), Email (optionnel), Téléphone (optionnel)
       </p>
     </div>
   );
