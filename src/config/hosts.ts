@@ -1,4 +1,3 @@
-
 // Configuration des URLs et hosts de l'application AKILI
 export const config = {
   // URLs de base
@@ -63,6 +62,12 @@ export const config = {
     youtube: 'https://youtube.com/akili-education'
   }
 };
+
+// Ajout de logs de debug pour vérifier la configuration
+console.log("=== CONFIG DEBUG ===");
+console.log("Environment PROD:", import.meta.env.PROD);
+console.log("Config API base URL:", config.api.baseUrl);
+console.log("Full config:", config);
 
 // Helper functions pour construire les URLs
 export const buildApiUrl = (endpoint: string) => {

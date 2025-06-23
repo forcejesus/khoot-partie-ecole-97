@@ -1,19 +1,37 @@
-
 import axios from "axios";
 import { config } from "@/config/hosts";
 import { User } from "@/types/auth";
 
 export class AuthService {
   static async loginUser(email: string, password: string) {
-    console.log("Making login request to:", `${config.api.baseUrl}/api/login`);
+    const loginUrl = `${config.api.baseUrl}/api/login`;
+    const loginData = { email, password };
     
-    const response = await axios.post(`${config.api.baseUrl}/api/login`, {
-      email,
-      password,
-    });
+    console.log("=== LOGIN DEBUG INFO ===");
+    console.log("API Base URL:", config.api.baseUrl);
+    console.log("Full login URL:", loginUrl);
+    console.log("Login data:", loginData);
+    console.log("Environment:", import.meta.env.PROD ? 'production' : 'development');
+    
+    try {
+      const response = await axios.post(loginUrl, loginData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        timeout: 10000, // 10 secondes timeout
+      });
 
-    console.log("Login response:", response.data);
-    return response.data;
+      console.log("Login response status:", response.status);
+      console.log("Login response data:", response.data);
+      return response.data;
+    } catch (error: any) {
+      console.log("=== LOGIN ERROR DEBUG ===");
+      console.log("Error status:", error.response?.status);
+      console.log("Error data:", error.response?.data);
+      console.log("Error headers:", error.response?.headers);
+      console.log("Request config:", error.config);
+      throw error;
+    }
   }
 
   static async refreshUserData(userId: string): Promise<any> {
