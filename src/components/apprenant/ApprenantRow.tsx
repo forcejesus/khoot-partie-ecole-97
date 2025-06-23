@@ -2,7 +2,7 @@
 import React from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Trash2, Mail, Phone, GraduationCap, Calendar } from "lucide-react";
+import { Trash2, Mail, Phone, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { EditApprenantDialog } from "@/components/EditApprenantDialog";
@@ -60,15 +60,6 @@ export const ApprenantRow = ({ apprenant, onEdit, onDelete }: ApprenantRowProps)
         <Badge variant="secondary" className="bg-blue-100 text-blue-700 hover:bg-blue-100">
           {apprenant.matricule}
         </Badge>
-      </TableCell>
-      <TableCell>
-        <div className="flex items-center space-x-2">
-          <GraduationCap className="h-4 w-4 text-gray-400" />
-          <div>
-            <p className="font-medium text-gray-900">{apprenant.ecole.libelle}</p>
-            <p className="text-sm text-gray-500">{apprenant.ecole.ville}</p>
-          </div>
-        </div>
       </TableCell>
       <TableCell>
         <div className="flex items-center space-x-2 text-sm text-gray-600">
