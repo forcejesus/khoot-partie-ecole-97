@@ -17,7 +17,8 @@ export const useOffers = () => {
   const offers = abonnementsData?.data?.map((abonnement, index) => {
     console.log('Transformation abonnement:', abonnement);
     const colorScheme = getColorScheme(index);
-    const isPopular = index === 1; // Le deuxième abonnement est marqué comme populaire
+    // L'offre Premium (index 1) est marquée comme recommandée
+    const isPopular = abonnement.nom.toLowerCase().includes('premium');
     
     const transformedOffer = {
       name: abonnement.nom,
