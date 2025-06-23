@@ -28,8 +28,12 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
     e.preventDefault();
     setIsLoading(true);
     
+    console.log("Submitting apprenant data:", formData);
+    
     try {
       const response = await apprenantService.createApprenant(formData);
+      
+      console.log("API Response:", response);
       
       if (response.success) {
         toast({
@@ -45,10 +49,14 @@ export const AddApprenantDialog = ({ onSuccess }: { onSuccess: () => void }) => 
       }
     } catch (error: any) {
       console.error("Erreur lors de l'ajout:", error);
+      console.error("Error response data:", error.response?.data);
+      console.error("Error status:", error.response?.status);
+      console.error("Error headers:", error.response?.headers);
+      
       toast({
         variant: "destructive",
         title: "Erreur",
-        description: error.response?.data?.message || "Impossible d'ajouter l'apprenant",
+        description: error.response?.data?.message || `Erreur ${error.response?.status}: ${error.message}`,
       });
     } finally {
       setIsLoading(false);
