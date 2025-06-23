@@ -8,12 +8,15 @@ export const formatPrice = (prix: number) => {
 
 // Fonction pour obtenir l'icône basée sur le nom de l'abonnement
 export const getIconByName = (nom: string) => {
-  if (nom.toLowerCase().includes('premium') || nom.toLowerCase().includes('pro')) {
+  const nomLower = nom.toLowerCase();
+  
+  if (nomLower.includes('premium')) {
     return Star;
   }
-  if (nom.toLowerCase().includes('excellence') || nom.toLowerCase().includes('enterprise')) {
+  if (nomLower.includes('ulta') || nomLower.includes('ultra')) {
     return Crown;
   }
+  // Pack Pro et autres utilisent Users
   return Users;
 };
 
@@ -43,6 +46,7 @@ export const getColorScheme = (index: number) => {
 export const generateFeatures = (abonnement: any) => {
   const features = [];
   
+  // Gestion du nombre d'apprenants
   if (abonnement.nombreApprenantsMax) {
     if (abonnement.nombreApprenantsMax >= 1000) {
       features.push("Apprenants illimités");
@@ -51,18 +55,21 @@ export const generateFeatures = (abonnement: any) => {
     }
   }
   
+  // Gestion du nombre d'enseignants
   if (abonnement.nombreEnseignantsMax) {
     features.push(`${abonnement.nombreEnseignantsMax} enseignants max`);
   }
   
+  // Gestion du nombre de jeux
   if (abonnement.nombreJeuxMax) {
-    if (abonnement.nombreJeuxMax >= 50) {
+    if (abonnement.nombreJeuxMax >= 200) {
       features.push("Création de jeux illimitée");
     } else {
       features.push(`${abonnement.nombreJeuxMax} jeux par mois`);
     }
   }
   
+  // Ajout du support
   features.push("Support prioritaire");
   
   return features;
