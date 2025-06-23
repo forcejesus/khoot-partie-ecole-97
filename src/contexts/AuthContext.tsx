@@ -1,10 +1,34 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { toast } from "sonner";
-import { User, AuthContextType } from "@/types/auth";
-import { AuthService } from "@/services/authService";
-import { decodeJWTToken, createUserFromToken } from "@/utils/jwtUtils";
+import { config } from "@/config/hosts";
+
+interface School {
+  _id: string;
+  libelle: string;
+  adresse: string;
+  ville: string;
+  phone: string;
+  email: string;
+}
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  ecole?: School;
+}
+
+interface AuthContextType {
+  user: User | null;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => void;
+  isLoading: boolean;
+  refreshUser: () => Promise<void>;
+}
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -15,32 +39,47 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     console.log("AuthProvider useEffect - checking stored token and user");
-    const token = AuthService.getTokenFromStorage();
-    const userData = AuthService.getUserFromStorage();
+    const token = localStorage.getItem("token");
+    const userData = localStorage.getItem("user");
     console.log("Stored token exists:", !!token);
     console.log("Stored user data:", userData);
     
     if (token && userData) {
-      console.log("Setting user from storage:", userData);
-      setUser(userData);
+      try {
+        const parsedUser = JSON.parse(userData);
+        console.log("Parsed user data:", parsedUser);
+        setUser(parsedUser);
+      } catch (error) {
+        console.error("Error parsing user data:", error);
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+      }
     }
   }, []);
 
   const refreshUser = async () => {
-    const token = AuthService.getTokenFromStorage();
-    const storedUser = AuthService.getUserFromStorage();
+    const token = localStorage.getItem("token");
+    const storedUser = localStorage.getItem("user");
     
     if (!token || !storedUser) {
       return;
     }
     
     try {
-      const response = await AuthService.refreshUserData(storedUser.id);
+      const userData = JSON.parse(storedUser);
+      const response = await axios.get(
+        `${config.api.baseUrl}/api/users/${userData.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       
-      if (response && response.success) {
+      if (response.data && response.data.success) {
         const updatedUser = {
-          ...storedUser,
-          ecole: response.data.ecole
+          ...userData,
+          ecole: response.data.data.ecole
         };
         setUser(updatedUser);
         localStorage.setItem("user", JSON.stringify(updatedUser));
@@ -53,31 +92,55 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (email: string, password: string) => {
     console.log("Login attempt for:", email);
     setIsLoading(true);
-    
     try {
-      const responseData = await AuthService.loginUser(email, password);
+      const response = await axios.post(`${config.api.baseUrl}/api/login`, {
+        email,
+        password,
+      });
 
-      if (responseData && responseData.token && responseData.statut === 200) {
+      console.log("Login response:", response.data);
+
+      if (response.data && response.data.token && response.data.statut === 200) {
         // Vérifier que le rôle est "admin"
-        if (!AuthService.validateAdminRole(responseData.role)) {
-          console.log("User role is not admin:", responseData.role);
-          toast.error("🚫 Accès refusé. Seuls les administrateurs peuvent se connecter.", {
+        if (response.data.role !== "admin") {
+          console.log("User role is not admin:", response.data.role);
+          toast.error("🚫 Aucune école trouvée avec ces informations.", {
             duration: 5000,
           });
           return;
         }
 
-        const token = responseData.token;
+        const token = response.data.token;
+        localStorage.setItem("token", token);
         
         try {
-          const decoded = decodeJWTToken(token);
+          // Decode JWT token pour obtenir les informations utilisateur
+          const base64Url = token.split('.')[1];
+          const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          }).join(''));
+
+          const decoded = JSON.parse(jsonPayload);
           console.log("Decoded token:", decoded);
           
-          const userData = createUserFromToken(decoded);
+          // Vérifier les champs requis
+          if (!decoded.id || !decoded.email || !decoded.prenom || !decoded.nom) {
+            throw new Error("Token invalide - données manquantes");
+          }
+
+          // Créer les données utilisateur
+          const userData = {
+            id: decoded.id,
+            name: `${decoded.prenom} ${decoded.nom}`,
+            email: decoded.email,
+            role: decoded.role || 'admin',
+            ecole: decoded.ecole
+          };
+
           console.log("Setting user data:", userData);
-          
           setUser(userData);
-          AuthService.storeUserData(userData, token);
+          localStorage.setItem("user", JSON.stringify(userData));
           
           toast.success("🎉 Connexion réussie ! Bienvenue dans votre espace administrateur.", {
             duration: 3000,
@@ -85,31 +148,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           navigate("/dashboard");
         } catch (error) {
           console.error("Error decoding token:", error);
-          toast.error("⚠️ Erreur d'authentification. Token invalide.", {
+          toast.error("⚠️ Erreur d'authentification. Veuillez réessayer.", {
             duration: 4000,
           });
-          AuthService.clearStorage();
+          localStorage.removeItem("token");
         }
       } else {
-        console.log("Login failed - invalid response:", responseData);
-        toast.error("🚫 Identifiants incorrects. Vérifiez vos informations de connexion.", {
+        toast.error("🚫 Aucune école trouvée avec ces informations.", {
           duration: 4000,
         });
       }
     } catch (error: any) {
       console.error("Login error:", error);
       
-      // Messages d'erreur plus spécifiques
-      if (error.response?.status === 401) {
-        toast.error("🚫 Identifiants incorrects. Vérifiez votre email et mot de passe.", {
+      // Messages d'erreur plus conviviaux
+      if (error.response?.status === 401 || error.response?.status === 400) {
+        toast.error("🚫 Aucune école trouvée avec ces informations.", {
           duration: 5000,
         });
-      } else if (error.response?.status === 400) {
-        toast.error("⚠️ Données de connexion invalides.", {
-          duration: 4000,
-        });
-      } else if (error.code === 'ECONNREFUSED' || error.code === 'NETWORK_ERROR' || !error.response) {
-        toast.error("🌐 Impossible de se connecter au serveur. Vérifiez votre connexion internet.", {
+      } else if (error.code === 'NETWORK_ERROR' || !error.response) {
+        toast.error("🌐 Problème de connexion. Vérifiez votre connexion internet et réessayez.", {
           duration: 5000,
         });
       } else {
@@ -123,7 +181,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = () => {
-    AuthService.clearStorage();
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setUser(null);
     navigate("/");
     toast.success("👋 Déconnexion réussie. À bientôt !", {
