@@ -35,3 +35,22 @@ export interface CreateApprenantResponse {
   message: string;
   data: Apprenant;
 }
+
+export interface UpdateApprenantRequest {
+  nom: string;
+  prenom: string;
+  matricule: string;
+  phone: string;
+  email: string;
+}
+
+export interface UpdateApprenantResponse {
+  success: boolean;
+  message: string;
+  data: Apprenant;
+}
+
+export interface DeleteApprenantResponse {
+  success: boolean;
+  message: string;
+}

@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Trash2, Mail, Phone, GraduationCap, Calendar, User } from "lucide-react";
+import { Trash2, Mail, Phone, GraduationCap, Calendar, User, Edit } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Apprenant } from "@/types/apprenant";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { EditApprenantDialog } from "@/components/EditApprenantDialog";
 
 interface ApprenantsListProps {
   onApprenantChange?: () => void;
@@ -35,6 +36,7 @@ interface ApprenantsListProps {
 export const ApprenantsList = ({ onApprenantChange, searchTerm = "" }: ApprenantsListProps) => {
   const [apprenants, setApprenants] = useState<Apprenant[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
   const { toast } = useToast();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [apprenantToDelete, setApprenantToDelete] = useState<string | null>(null);
@@ -81,14 +83,33 @@ export const ApprenantsList = ({ onApprenantChange, searchTerm = "" }: Apprenant
   const handleDelete = async () => {
     if (!apprenantToDelete) return;
     
-    // TODO: Implémenter la suppression quand l'endpoint sera disponible
-    toast({
-      title: "Information",
-      description: "Fonctionnalité de suppression en cours de développement",
-    });
-    
-    setApprenantToDelete(null);
-    setDeleteDialogOpen(false);
+    try {
+      setIsDeleting(true);
+      const response = await apprenantService.deleteApprenant(apprenantToDelete);
+      
+      if (response.success) {
+        toast({
+          title: "Succès",
+          description: "Apprenant supprimé avec succès",
+        });
+        fetchApprenants(); // Rafraîchir la liste
+      }
+    } catch (error: any) {
+      console.error("Erreur lors de la suppression:", error);
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: error.response?.data?.message || "Erreur lors de la suppression de l'apprenant",
+      });
+    } finally {
+      setIsDeleting(false);
+      setApprenantToDelete(null);
+      setDeleteDialogOpen(false);
+    }
+  };
+
+  const handleEditSuccess = () => {
+    fetchApprenants();
   };
 
   const getInitials = (nom: string, prenom: string) => {
@@ -234,14 +255,20 @@ export const ApprenantsList = ({ onApprenantChange, searchTerm = "" }: Apprenant
                     </div>
                   </TableCell>
                   <TableCell className="text-center">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => confirmDelete(apprenant._id)}
-                      className="text-red-500 hover:text-red-700 hover:bg-red-50"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                    <div className="flex items-center justify-center space-x-2">
+                      <EditApprenantDialog 
+                        apprenant={apprenant} 
+                        onSuccess={handleEditSuccess}
+                      />
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => confirmDelete(apprenant._id)}
+                        className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))
@@ -259,9 +286,13 @@ export const ApprenantsList = ({ onApprenantChange, searchTerm = "" }: Apprenant
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Annuler</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-              Supprimer
+            <AlertDialogCancel disabled={isDeleting}>Annuler</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={handleDelete} 
+              disabled={isDeleting}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {isDeleting ? "Suppression..." : "Supprimer"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
