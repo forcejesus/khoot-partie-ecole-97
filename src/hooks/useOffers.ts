@@ -15,16 +15,14 @@ export const useOffers = () => {
 
   // Transformer les données de l'API en format compatible avec OfferCard
   const offers = abonnementsData?.data?.map((abonnement, index) => {
-    console.log(`Transformation abonnement ${index + 1}:`, abonnement);
+    console.log('Transformation abonnement:', abonnement);
     const colorScheme = getColorScheme(index);
-    
-    // Marquer Premium comme populaire
-    const isPopular = abonnement.nom.toLowerCase().includes('premium');
+    const isPopular = index === 1; // Le deuxième abonnement est marqué comme populaire
     
     const transformedOffer = {
       name: abonnement.nom,
       price: formatPrice(abonnement.prix),
-      period: "/ abonnement",
+      period: abonnement.dureeEnJours ? `/ ${abonnement.dureeEnJours} jours` : "/ mois",
       description: abonnement.description || "Abonnement professionnel",
       icon: getIconByName(abonnement.nom),
       ...colorScheme,
@@ -32,7 +30,7 @@ export const useOffers = () => {
       features: generateFeatures(abonnement)
     };
 
-    console.log(`Offre ${index + 1} transformée:`, transformedOffer);
+    console.log('Offre transformée:', transformedOffer);
     return transformedOffer;
   }) || [];
 

@@ -6,10 +6,19 @@ import { AbonnementResponse } from '@/types/abonnement';
 export const abonnementService = {
   async getAbonnements(): Promise<AbonnementResponse> {
     try {
-      const url = `${config.api.baseUrl}/api/abonnements`;
+      const url = `${config.api.baseUrl}/api/abonnement`;
       console.log('abonnementService - URL appelée:', url);
       
-      const response = await axios.get(url);
+      // Récupérer le token d'authentification
+      const token = localStorage.getItem('token');
+      console.log('abonnementService - Token trouvé:', !!token);
+      
+      const headers: any = {};
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+      
+      const response = await axios.get(url, { headers });
       console.log('abonnementService - Réponse complète:', response);
       console.log('abonnementService - Données reçues:', response.data);
       

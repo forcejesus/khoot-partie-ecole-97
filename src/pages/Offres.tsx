@@ -22,9 +22,6 @@ const Offres = () => {
     return <OffersFallback />;
   }
 
-  console.log('Page Offres - Nombre d\'offres à afficher:', offers.length);
-  console.log('Page Offres - Offres:', offers);
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-blue-50 to-indigo-50 relative overflow-hidden">
       <Navbar />
@@ -35,11 +32,11 @@ const Offres = () => {
       <div className="container mx-auto py-8 sm:py-12 px-4 sm:px-6 relative z-10">
         <OffersHeader />
 
-        {/* Grille des offres responsive - Optimisée pour 3 offres */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto mb-12 sm:mb-16 md:mb-20">
+        {/* Grille des offres responsive - Affichage de toutes les offres */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 max-w-7xl mx-auto mb-12 sm:mb-16 md:mb-20">
           {offers.map((offer, index) => (
             <OfferCard
-              key={offer.name || index}
+              key={index}
               {...offer}
               index={index}
             />

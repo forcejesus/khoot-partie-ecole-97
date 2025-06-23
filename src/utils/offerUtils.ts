@@ -8,15 +8,12 @@ export const formatPrice = (prix: number) => {
 
 // Fonction pour obtenir l'icône basée sur le nom de l'abonnement
 export const getIconByName = (nom: string) => {
-  const nomLower = nom.toLowerCase();
-  
-  if (nomLower.includes('premium')) {
+  if (nom.toLowerCase().includes('premium') || nom.toLowerCase().includes('pro')) {
     return Star;
   }
-  if (nomLower.includes('ulta') || nomLower.includes('ultra')) {
+  if (nom.toLowerCase().includes('excellence') || nom.toLowerCase().includes('enterprise')) {
     return Crown;
   }
-  // Pack Pro et autres utilisent Users
   return Users;
 };
 
@@ -46,25 +43,27 @@ export const getColorScheme = (index: number) => {
 export const generateFeatures = (abonnement: any) => {
   const features = [];
   
-  // Durée de l'abonnement
-  if (abonnement.dureeEnJours) {
-    features.push(`Durée: ${abonnement.dureeEnJours} jours`);
-  }
-  
-  // Nombre total de jeux
-  if (abonnement.nombreJeuxMax) {
-    features.push(`${abonnement.nombreJeuxMax} jeux maximum`);
-  }
-  
-  // Nombre total d'apprenants
   if (abonnement.nombreApprenantsMax) {
-    features.push(`${abonnement.nombreApprenantsMax} apprenants maximum`);
+    if (abonnement.nombreApprenantsMax >= 1000) {
+      features.push("Apprenants illimités");
+    } else {
+      features.push(`Jusqu'à ${abonnement.nombreApprenantsMax} apprenants`);
+    }
   }
   
-  // Nombre total d'enseignants
   if (abonnement.nombreEnseignantsMax) {
-    features.push(`${abonnement.nombreEnseignantsMax} enseignants maximum`);
+    features.push(`${abonnement.nombreEnseignantsMax} enseignants max`);
   }
+  
+  if (abonnement.nombreJeuxMax) {
+    if (abonnement.nombreJeuxMax >= 50) {
+      features.push("Création de jeux illimitée");
+    } else {
+      features.push(`${abonnement.nombreJeuxMax} jeux par mois`);
+    }
+  }
+  
+  features.push("Support prioritaire");
   
   return features;
 };
