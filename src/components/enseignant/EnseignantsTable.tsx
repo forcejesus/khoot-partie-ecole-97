@@ -37,8 +37,9 @@ export const EnseignantsTable = ({
             </div>
           </div>
         </td>
-        <td><Skeleton className="h-4 w-[150px]" /></td>
-        <td><Skeleton className="h-6 w-[80px]" /></td>
+        <td><Skeleton className="h-4 w-[100px]" /></td>
+        <td><Skeleton className="h-4 w-[120px]" /></td>
+        <td><Skeleton className="h-4 w-[60px]" /></td>
         <td><Skeleton className="h-4 w-[80px]" /></td>
         <td><Skeleton className="h-8 w-8 mx-auto" /></td>
       </TableRow>
@@ -50,10 +51,11 @@ export const EnseignantsTable = ({
       <Table>
         <TableHeader>
           <TableRow className="bg-gray-50 hover:bg-gray-50">
-            <TableHead className="font-semibold text-gray-700 px-6 py-4">Enseignant</TableHead>
+            <TableHead className="font-semibold text-gray-700 px-6 py-4">Nom et Prénom</TableHead>
+            <TableHead className="font-semibold text-gray-700">Matricule</TableHead>
             <TableHead className="font-semibold text-gray-700">Contact</TableHead>
-            <TableHead className="font-semibold text-gray-700">Statut</TableHead>
-            <TableHead className="font-semibold text-gray-700">Date d'inscription</TableHead>
+            <TableHead className="font-semibold text-gray-700 text-center">Total Jeux</TableHead>
+            <TableHead className="font-semibold text-gray-700 text-center">Total Planifications</TableHead>
             <TableHead className="font-semibold text-gray-700 text-center">Actions</TableHead>
           </TableRow>
         </TableHeader>

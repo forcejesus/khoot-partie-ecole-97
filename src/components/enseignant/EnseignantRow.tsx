@@ -4,7 +4,7 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Trash2, Mail, Phone, Calendar } from "lucide-react";
+import { Trash2, Mail, Phone, GameController2, Calendar } from "lucide-react";
 import { Enseignant } from "@/types/enseignant";
 
 interface EnseignantRowProps {
@@ -13,22 +13,13 @@ interface EnseignantRowProps {
 }
 
 export const EnseignantRow = ({ enseignant, onDelete }: EnseignantRowProps) => {
-  const getInitials = (name: string) => {
-    return name.split(' ').map(n => n.charAt(0)).join('').toUpperCase().slice(0, 2);
-  };
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('fr-FR', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric'
-    });
+  const getInitials = (nom: string, prenom: string) => {
+    return `${nom.charAt(0)}${prenom.charAt(0)}`.toUpperCase();
   };
 
   const getStatusColor = (statut: string) => {
     switch (statut.toLowerCase()) {
       case 'actif':
-      case 'enseignant':
         return 'bg-green-100 text-green-700 hover:bg-green-100';
       case 'inactif':
         return 'bg-red-100 text-red-700 hover:bg-red-100';
@@ -43,14 +34,19 @@ export const EnseignantRow = ({ enseignant, onDelete }: EnseignantRowProps) => {
         <div className="flex items-center space-x-3">
           <Avatar className="h-10 w-10">
             <AvatarFallback className="bg-orange-100 text-orange-600 font-semibold">
-              {getInitials(enseignant.name)}
+              {getInitials(enseignant.nom, enseignant.prenom)}
             </AvatarFallback>
           </Avatar>
           <div>
-            <p className="font-medium text-gray-900">{enseignant.name}</p>
-            <p className="text-sm text-gray-500">Enseignant</p>
+            <p className="font-medium text-gray-900">{enseignant.nom} {enseignant.prenom}</p>
+            <Badge variant="secondary" className={getStatusColor(enseignant.statut)}>
+              {enseignant.statut}
+            </Badge>
           </div>
         </div>
+      </TableCell>
+      <TableCell>
+        <span className="font-mono text-sm text-gray-600">{enseignant.matricule}</span>
       </TableCell>
       <TableCell>
         <div className="space-y-1">
@@ -64,15 +60,16 @@ export const EnseignantRow = ({ enseignant, onDelete }: EnseignantRowProps) => {
           </div>
         </div>
       </TableCell>
-      <TableCell>
-        <Badge variant="secondary" className={getStatusColor(enseignant.statut)}>
-          {enseignant.statut}
-        </Badge>
+      <TableCell className="text-center">
+        <div className="flex items-center justify-center space-x-2">
+          <GameController2 className="h-4 w-4 text-blue-500" />
+          <span className="font-semibold text-blue-600">{enseignant.statistiques.nombreJeux}</span>
+        </div>
       </TableCell>
-      <TableCell>
-        <div className="flex items-center space-x-2 text-sm text-gray-600">
-          <Calendar className="h-3 w-3 text-gray-400" />
-          <span>{formatDate(enseignant.date)}</span>
+      <TableCell className="text-center">
+        <div className="flex items-center justify-center space-x-2">
+          <Calendar className="h-4 w-4 text-green-500" />
+          <span className="font-semibold text-green-600">{enseignant.statistiques.nombrePlanifications}</span>
         </div>
       </TableCell>
       <TableCell className="text-center">

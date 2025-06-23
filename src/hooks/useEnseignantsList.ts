@@ -1,8 +1,8 @@
 
 import { useState, useEffect, useMemo } from "react";
-import axios from "axios";
 import { useToast } from "@/hooks/use-toast";
 import { Enseignant } from "@/types/enseignant";
+import { enseignantService } from "@/services/enseignantService";
 
 export const useEnseignantsList = (searchTerm: string = "", onEnseignantChange?: () => void) => {
   const [enseignants, setEnseignants] = useState<Enseignant[]>([]);
@@ -17,6 +17,7 @@ export const useEnseignantsList = (searchTerm: string = "", onEnseignantChange?:
       enseignant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       enseignant.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
       enseignant.phone.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      enseignant.matricule.toLowerCase().includes(searchTerm.toLowerCase()) ||
       enseignant.statut.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [enseignants, searchTerm]);
@@ -25,9 +26,8 @@ export const useEnseignantsList = (searchTerm: string = "", onEnseignantChange?:
     try {
       setIsLoading(true);
       const token = localStorage.getItem("token");
-      const userDataStr = localStorage.getItem("user");
 
-      if (!token || !userDataStr) {
+      if (!token) {
         toast({
           variant: "destructive",
           title: "Erreur",
@@ -36,25 +36,16 @@ export const useEnseignantsList = (searchTerm: string = "", onEnseignantChange?:
         return;
       }
 
-      const userData = JSON.parse(userDataStr);
+      const response = await enseignantService.getEnseignants();
 
-      const response = await axios.get(
-        "http://kahoot.nos-apps.com/api/users",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.data.success) {
-        // Filtrer uniquement les utilisateurs avec le statut "enseignant" ou "Enseignant"
-        const filteredEnseignants = response.data.data.filter(
-          (enseignant: Enseignant) => 
-            enseignant.ecole === userData.ecole._id && 
-            (enseignant.statut.toLowerCase() === "enseignant")
-        );
-        setEnseignants(filteredEnseignants);
+      if (response.success) {
+        // Transformer les données pour ajouter la propriété 'name' pour compatibilité
+        const transformedEnseignants = response.data.map(enseignant => ({
+          ...enseignant,
+          name: `${enseignant.nom} ${enseignant.prenom}`.trim()
+        }));
+        
+        setEnseignants(transformedEnseignants);
         onEnseignantChange?.();
       }
     } catch (error) {
@@ -81,16 +72,9 @@ export const useEnseignantsList = (searchTerm: string = "", onEnseignantChange?:
         return;
       }
 
-      const response = await axios.delete(
-        `http://kahoot.nos-apps.com/api/user/delete/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await enseignantService.deleteEnseignant(id);
 
-      if (response.data.success) {
+      if (response.success) {
         toast({
           title: "Succès",
           description: "Enseignant supprimé avec succès",
