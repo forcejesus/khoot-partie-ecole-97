@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { config } from "@/config/hosts";
 import { User } from "@/types/auth";
@@ -14,9 +15,14 @@ export class AuthService {
     console.log("Environment:", import.meta.env.PROD ? 'production' : 'development');
     
     try {
-      const response = await axios.post(loginUrl, loginData, {
+      // Créer une instance axios propre sans intercepteurs potentiels
+      const cleanAxios = axios.create();
+      
+      const response = await cleanAxios.post(loginUrl, loginData, {
         headers: {
           'Content-Type': 'application/json',
+          // Supprimer explicitement tout header d'autorisation
+          'Authorization': undefined,
         },
         timeout: 10000, // 10 secondes timeout
       });
@@ -30,6 +36,7 @@ export class AuthService {
       console.log("Error data:", error.response?.data);
       console.log("Error headers:", error.response?.headers);
       console.log("Request config:", error.config);
+      console.log("Request headers sent:", error.config?.headers);
       throw error;
     }
   }
