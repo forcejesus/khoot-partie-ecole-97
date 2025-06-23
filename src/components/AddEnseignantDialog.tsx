@@ -1,5 +1,5 @@
+
 import React, { useState } from "react";
-import axios from "axios";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,66 +11,101 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Loader2 } from "lucide-react";
+import { Plus, Loader2, ArrowLeft, ArrowRight } from "lucide-react";
+import { enseignantService, CreateEnseignantRequest } from "@/services/enseignantService";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export const AddEnseignantDialog = ({ onSuccess }: { onSuccess: () => void }) => {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
+  const [currentStep, setCurrentStep] = useState(1);
+  const [formData, setFormData] = useState<CreateEnseignantRequest>({
+    nom: "",
+    prenom: "",
+    genre: "",
+    statut: "actif",
     phone: "",
+    email: "",
+    adresse: "",
+    pays: "6707bfa699095a5b8d491bf5",
+    role: "enseignant",
     password: "",
-    statut: "enseignant",
   });
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  // Gère la soumission du formulaire
+  const handleInputChange = (field: keyof CreateEnseignantRequest, value: string) => {
+    setFormData({ ...formData, [field]: value });
+  };
+
+  const validateStep1 = () => {
+    return formData.nom && formData.prenom && formData.genre && formData.phone && 
+           formData.email && formData.adresse;
+  };
+
+  const validateStep2 = () => {
+    return formData.password && confirmPassword && formData.password === confirmPassword;
+  };
+
+  const handleNextStep = () => {
+    if (validateStep1()) {
+      setCurrentStep(2);
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: "Veuillez remplir tous les champs obligatoires",
+      });
+    }
+  };
+
+  const handlePreviousStep = () => {
+    setCurrentStep(1);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateStep2()) {
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: "Les mots de passe ne correspondent pas",
+      });
+      return;
+    }
+
     setIsLoading(true);
+    
     try {
-      const token = localStorage.getItem("token");
-      const userDataStr = localStorage.getItem("user");
-
-      if (!token || !userDataStr) {
-        toast({
-          variant: "destructive",
-          title: "Erreur",
-          description: "Vous devez être connecté pour effectuer cette action",
-        });
-        return;
-      }
-
-      const userData = JSON.parse(userDataStr);
-      const dataToSend = {
-        ...formData,
-        ecole: userData.ecole._id
-      };
-
-      const response = await axios.post(
-        "http://kahoot.nos-apps.com/api/users",
-        dataToSend,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.data.success) {
+      const response = await enseignantService.createEnseignant(formData);
+      
+      if (response.success) {
         toast({
           title: "Succès",
           description: "Enseignant ajouté avec succès",
         });
         setOpen(false);
+        setCurrentStep(1);
         setFormData({
-          name: "",
-          email: "",
+          nom: "",
+          prenom: "",
+          genre: "",
+          statut: "actif",
           phone: "",
+          email: "",
+          adresse: "",
+          pays: "6707bfa699095a5b8d491bf5",
+          role: "enseignant",
           password: "",
-          statut: "enseignant",
         });
+        setConfirmPassword("");
         onSuccess();
       }
     } catch (error: any) {
@@ -85,84 +120,181 @@ export const AddEnseignantDialog = ({ onSuccess }: { onSuccess: () => void }) =>
     }
   };
 
+  const resetForm = () => {
+    setCurrentStep(1);
+    setFormData({
+      nom: "",
+      prenom: "",
+      genre: "",
+      statut: "actif",
+      phone: "",
+      email: "",
+      adresse: "",
+      pays: "6707bfa699095a5b8d491bf5",
+      role: "enseignant",
+      password: "",
+    });
+    setConfirmPassword("");
+  };
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={(newOpen) => {
+      setOpen(newOpen);
+      if (!newOpen) {
+        resetForm();
+      }
+    }}>
       <DialogTrigger asChild>
-        <Button>
-          <Plus className="mr-2" />
+        <Button className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg">
+          <Plus className="mr-2 h-4 w-4" />
           Ajouter un enseignant
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[500px] bg-white border-orange-200">
         <DialogHeader>
-          <DialogTitle>Ajouter un nouvel enseignant</DialogTitle>
+          <DialogTitle className="text-xl font-bold text-orange-700">
+            Ajouter un nouvel enseignant - Étape {currentStep}/2
+          </DialogTitle>
         </DialogHeader>
         
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Nom
-              </Label>
-              <Input
-                id="name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="col-span-3"
-                required
-              />
+          {currentStep === 1 && (
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="nom">Nom *</Label>
+                  <Input
+                    id="nom"
+                    value={formData.nom}
+                    onChange={(e) => handleInputChange('nom', e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="prenom">Prénom *</Label>
+                  <Input
+                    id="prenom"
+                    value={formData.prenom}
+                    onChange={(e) => handleInputChange('prenom', e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="genre">Genre *</Label>
+                <Select value={formData.genre} onValueChange={(value) => handleInputChange('genre', value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Sélectionnez le genre" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Masculin">Masculin</SelectItem>
+                    <SelectItem value="Féminin">Féminin</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="phone">Téléphone *</Label>
+                  <Input
+                    id="phone"
+                    value={formData.phone}
+                    onChange={(e) => handleInputChange('phone', e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="email">Email *</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="adresse">Adresse *</Label>
+                <Input
+                  id="adresse"
+                  value={formData.adresse}
+                  onChange={(e) => handleInputChange('adresse', e.target.value)}
+                  required
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="statut">Statut</Label>
+                <Select value={formData.statut} onValueChange={(value) => handleInputChange('statut', value)}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="actif">Actif</SelectItem>
+                    <SelectItem value="inactif">Inactif</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex justify-end">
+                <Button type="button" onClick={handleNextStep}>
+                  Suivant
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="email" className="text-right">
-                Email
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="col-span-3"
-                required
-              />
+          )}
+
+          {currentStep === 2 && (
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="password">Mot de passe *</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={formData.password}
+                  onChange={(e) => handleInputChange('password', e.target.value)}
+                  required
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="confirmPassword">Confirmer le mot de passe *</Label>
+                <Input
+                  id="confirmPassword"
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                />
+                {confirmPassword && formData.password !== confirmPassword && (
+                  <p className="text-sm text-red-500 mt-1">
+                    Les mots de passe ne correspondent pas
+                  </p>
+                )}
+              </div>
+
+              <div className="flex justify-between">
+                <Button type="button" variant="outline" onClick={handlePreviousStep}>
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Précédent
+                </Button>
+                <Button type="submit" disabled={isLoading || !validateStep2()}>
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Chargement...
+                    </>
+                  ) : (
+                    'Ajouter'
+                  )}
+                </Button>
+              </div>
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="phone" className="text-right">
-                Téléphone
-              </Label>
-              <Input
-                id="phone"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="col-span-3"
-                required
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="password" className="text-right">
-                Mot de passe
-              </Label>
-              <Input
-                id="password"
-                type="password"
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="col-span-3"
-                required
-              />
-            </div>
-          </div>
-          <div className="flex justify-end">
-            <Button type="submit" disabled={isLoading}>
-              {isLoading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Chargement...
-                </>
-              ) : (
-                'Ajouter'
-              )}
-            </Button>
-          </div>
+          )}
         </form>
       </DialogContent>
     </Dialog>

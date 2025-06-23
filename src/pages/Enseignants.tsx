@@ -1,11 +1,9 @@
 
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, Plus, Upload, GraduationCap } from "lucide-react";
+import { Search, GraduationCap } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { AddEnseignantDialog } from "@/components/AddEnseignantDialog";
-import BulkImportModal from "@/components/BulkImportModal";
 import { EnseignantsList } from "@/components/EnseignantsList";
 import { DashboardLayoutWithSidebar } from "@/layouts/DashboardLayoutWithSidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,7 +11,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 const EnseignantsContent = () => {
   const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState("");
-  const [isBulkImportOpen, setIsBulkImportOpen] = useState(false);
 
   const handleRefresh = () => {
     window.location.reload();
@@ -58,17 +55,6 @@ const EnseignantsContent = () => {
               
               <AddEnseignantDialog onSuccess={handleRefresh} />
             </div>
-            
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Button
-                onClick={() => setIsBulkImportOpen(true)}
-                variant="outline"
-                className="border-orange-300 text-orange-600 hover:bg-orange-50 font-medium w-full sm:w-auto"
-              >
-                <Upload className="mr-2 h-4 w-4" />
-                Importer un fichier Excel
-              </Button>
-            </div>
           </div>
         </CardContent>
       </Card>
@@ -79,17 +65,6 @@ const EnseignantsContent = () => {
           <EnseignantsList searchTerm={searchTerm} />
         </CardContent>
       </Card>
-
-      {/* Modales */}
-      {isBulkImportOpen && (
-        <BulkImportModal
-          type="enseignants"
-          onSuccess={() => {
-            setIsBulkImportOpen(false);
-            handleRefresh();
-          }}
-        />
-      )}
     </div>
   );
 };
