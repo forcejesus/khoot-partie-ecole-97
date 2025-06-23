@@ -7,6 +7,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
+import { AuthProvider } from "./contexts/AuthContext";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Apprenants from "./pages/Apprenants";
@@ -39,67 +40,69 @@ function App() {
   
   return (
     <Router>
-      <ScrollToTop />
-      <Routes>
-        {/* Routes publiques */}
-        <Route path="/" element={<Index />} />
-        <Route path="/offres" element={<Offres />} />
-        <Route path="/solution" element={<Solution />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/inscription-ecoles" element={<InscriptionEcoles />} />
-        <Route path="/login" element={<Login />} />
-        
-        {/* Routes protégées */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/apprenants"
-          element={
-            <ProtectedRoute>
-              <Apprenants />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/enseignants"
-          element={
-            <ProtectedRoute>
-              <Enseignants />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/jeux"
-          element={
-            <ProtectedRoute>
-              <Jeux />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-            <ProtectedRoute>
-              <Settings />
-            </ProtectedRoute>
-          }
-        />
-        <Route 
-          path="/notifications" 
-          element={
-            <ProtectedRoute>
-              <Notifications />
-            </ProtectedRoute>
-          } 
-        />
-      </Routes>
+      <AuthProvider>
+        <ScrollToTop />
+        <Routes>
+          {/* Routes publiques */}
+          <Route path="/" element={<Index />} />
+          <Route path="/offres" element={<Offres />} />
+          <Route path="/solution" element={<Solution />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/inscription-ecoles" element={<InscriptionEcoles />} />
+          <Route path="/login" element={<Login />} />
+          
+          {/* Routes protégées */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/apprenants"
+            element={
+              <ProtectedRoute>
+                <Apprenants />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/enseignants"
+            element={
+              <ProtectedRoute>
+                <Enseignants />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/jeux"
+            element={
+              <ProtectedRoute>
+                <Jeux />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute>
+                <Settings />
+              </ProtectedRoute>
+            }
+          />
+          <Route 
+            path="/notifications" 
+            element={
+              <ProtectedRoute>
+                <Notifications />
+              </ProtectedRoute>
+            } 
+          />
+        </Routes>
+      </AuthProvider>
     </Router>
   );
 }
