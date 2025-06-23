@@ -103,16 +103,18 @@ export function AppSidebar() {
             <div className="flex-1 h-0.5 bg-orange-200 rounded-full"></div>
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-2">
+            <SidebarMenu className="space-y-3">
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     onClick={() => navigate(item.url)}
                     isActive={location.pathname === item.url}
-                    className="w-full flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-orange-50 hover:text-orange-800 text-gray-700 data-[active=true]:bg-orange-100 data-[active=true]:text-orange-800 data-[active=true]:font-semibold border border-transparent hover:border-orange-200 data-[active=true]:border-orange-300"
+                    className="w-full flex items-center gap-4 px-4 py-4 rounded-xl hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-orange-800 transition-all duration-300 group text-gray-700 data-[active=true]:bg-gradient-to-r data-[active=true]:from-orange-100 data-[active=true]:to-orange-200 data-[active=true]:text-orange-800 data-[active=true]:font-bold data-[active=true]:shadow-lg hover:shadow-md border border-transparent hover:border-orange-200 data-[active=true]:border-orange-300"
                   >
-                    <item.icon className="h-5 w-5 text-orange-600 data-[active=true]:text-orange-700" />
-                    <span className="font-medium text-sm">{item.title}</span>
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center group-hover:from-orange-200 group-hover:to-orange-300 group-data-[active=true]:from-orange-200 group-data-[active=true]:to-orange-300 transition-all duration-300 group-hover:scale-110 shadow-sm">
+                      <item.icon className="h-6 w-6 text-orange-600 group-data-[active=true]:text-orange-700" />
+                    </div>
+                    <span className="font-semibold text-sm group-data-[active=true]:text-orange-800">{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -143,7 +145,7 @@ export function AppSidebar() {
         <Button
           variant="destructive"
           onClick={handleLogout}
-          className="w-full gap-3 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold text-sm rounded-xl border border-red-600"
+          className="w-full gap-3 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold text-sm rounded-xl transition-all duration-300 hover:shadow-lg border border-red-600"
         >
           <LogOut className="h-5 w-5" />
           <span>Déconnexion</span>

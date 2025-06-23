@@ -15,9 +15,12 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Calendar,
+  Clock,
   Users,
   Filter,
   GamepadIcon,
+  CheckCircle2,
+  XCircle,
 } from "lucide-react";
 import {
   Select,
@@ -26,43 +29,36 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { config } from "@/config/hosts";
 
-interface Ecole {
+interface CreatedBy {
   _id: string;
-  libelle: string;
-  ville: string;
+  name: string;
+  email: string;
 }
 
 interface Jeu {
   _id: string;
   titre: string;
-  image: string | null;
-  createdBy: any | null;
-  ecole: Ecole;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: CreatedBy;
+  questions: any[];
+  planification: any[];
   date: string;
-}
-
-interface JeuxResponse {
-  success: boolean;
-  message: string;
-  data: Jeu[];
-  total: number;
 }
 
 export const JeuxCards = () => {
   const [jeux, setJeux] = useState<Jeu[]>([]);
   const [filteredJeux, setFilteredJeux] = useState<Jeu[]>([]);
-  const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [filterPlanifie, setFilterPlanifie] = useState<boolean | null>(null);
   const [sortBy, setSortBy] = useState<string>("date");
   const [viewType, setViewType] = useState<"grid" | "list">("grid");
   const { toast } = useToast();
-
-  // Image par défaut pour les jeux
-  const defaultGameImage = "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=300&fit=crop&crop=center";
 
   const fetchJeux = async () => {
     try {
@@ -77,17 +73,18 @@ export const JeuxCards = () => {
         return;
       }
 
-      const response = await axios.get<JeuxResponse>(`${config.api.baseUrl}/api/jeux`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-      });
+      const response = await axios.get(
+        "http://kahoot.nos-apps.com/api/jeux",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.data.success) {
         setJeux(response.data.data);
         setFilteredJeux(response.data.data);
-        setTotal(response.data.total);
       }
     } catch (error) {
       console.error("Erreur lors de la récupération des jeux:", error);
@@ -108,13 +105,22 @@ export const JeuxCards = () => {
   useEffect(() => {
     let result = [...jeux];
 
+    // Filtrer par planification
+    if (filterPlanifie !== null) {
+      result = result.filter(jeu => 
+        filterPlanifie 
+          ? jeu.planification && jeu.planification.length > 0
+          : !jeu.planification || jeu.planification.length === 0
+      );
+    }
+
     // Trier
     result.sort((a, b) => {
       switch (sortBy) {
         case "titre":
           return a.titre.localeCompare(b.titre);
-        case "ecole":
-          return a.ecole.libelle.localeCompare(b.ecole.libelle);
+        case "questions":
+          return (b.questions?.length || 0) - (a.questions?.length || 0);
         case "date":
         default:
           return new Date(b.date).getTime() - new Date(a.date).getTime();
@@ -122,7 +128,7 @@ export const JeuxCards = () => {
     });
 
     setFilteredJeux(result);
-  }, [jeux, sortBy]);
+  }, [jeux, filterPlanifie, sortBy]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -152,35 +158,44 @@ export const JeuxCards = () => {
 
   return (
     <div>
-      {/* En-tête avec total mis en valeur */}
-      <div className="mb-6 bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl p-6 border-2 border-orange-200">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <h1 className="text-2xl font-bold text-orange-800">Liste des jeux</h1>
-            <p className="text-gray-600 mt-1">
-              <span className="font-semibold text-orange-700">{total}</span> jeu{total > 1 ? "x" : ""} au total
-            </p>
-          </div>
-          
-          <div className="bg-orange-500 text-white px-6 py-3 rounded-full">
-            <div className="flex items-center gap-2">
-              <GamepadIcon className="h-5 w-5" />
-              <span className="font-bold text-lg">{filteredJeux.length}</span>
-            </div>
-          </div>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+        <div>
+          <h1 className="text-2xl font-bold">Liste des jeux</h1>
+          <p className="text-gray-600 mt-1">
+            Total: {filteredJeux.length} jeu{filteredJeux.length > 1 ? "x" : ""}
+          </p>
         </div>
-      </div>
-
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">        
+        
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2">
-            <Label htmlFor="affichage" className="text-sm">Affichage:</Label>
+            <Label htmlFor="planification" className="text-sm">Affichage:</Label>
             <Tabs value={viewType} onValueChange={(v) => setViewType(v as "grid" | "list")}>
               <TabsList className="h-8">
                 <TabsTrigger value="grid" className="px-2 h-7">Grille</TabsTrigger>
                 <TabsTrigger value="list" className="px-2 h-7">Liste</TabsTrigger>
               </TabsList>
             </Tabs>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <Label htmlFor="planification" className="text-sm">Planifié:</Label>
+            <Select 
+              value={filterPlanifie === null ? "tous" : filterPlanifie ? "oui" : "non"}
+              onValueChange={(value) => {
+                if (value === "tous") setFilterPlanifie(null);
+                else if (value === "oui") setFilterPlanifie(true);
+                else setFilterPlanifie(false);
+              }}
+            >
+              <SelectTrigger className="w-[100px] h-8">
+                <SelectValue placeholder="Tous" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="tous">Tous</SelectItem>
+                <SelectItem value="oui">Oui</SelectItem>
+                <SelectItem value="non">Non</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           
           <div className="flex items-center gap-2">
@@ -195,7 +210,7 @@ export const JeuxCards = () => {
               <SelectContent>
                 <SelectItem value="date">Date</SelectItem>
                 <SelectItem value="titre">Titre</SelectItem>
-                <SelectItem value="ecole">École</SelectItem>
+                <SelectItem value="questions">Questions</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -207,11 +222,15 @@ export const JeuxCards = () => {
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <Card key={i} className="overflow-hidden">
               <CardHeader className="p-0">
-                <Skeleton className="w-full h-[200px]" />
+                <Skeleton className="w-full h-[120px]" />
               </CardHeader>
               <CardContent className="pt-6">
                 <Skeleton className="h-6 w-[180px] mb-2" />
                 <Skeleton className="h-4 w-[150px] mb-4" />
+                <div className="flex gap-2 mb-2">
+                  <Skeleton className="h-5 w-[100px]" />
+                  <Skeleton className="h-5 w-[80px]" />
+                </div>
                 <Skeleton className="h-4 w-full mt-4" />
               </CardContent>
             </Card>
@@ -220,45 +239,49 @@ export const JeuxCards = () => {
       ) : (
         viewType === "grid" ? (
           <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`}>
-            {filteredJeux.map((jeu) => (
-              <Card key={jeu._id} className="overflow-hidden hover:shadow-md transition-shadow">
-                <CardHeader className="p-0">
-                  <div className="relative h-[200px] overflow-hidden">
-                    <img
-                      src={jeu.image || defaultGameImage}
-                      alt={jeu.titre}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = defaultGameImage;
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="text-white font-bold text-lg line-clamp-2">{jeu.titre}</h3>
+            {filteredJeux.map((jeu) => {
+              const gradient = getRandomGradient();
+              return (
+                <Card key={jeu._id} className="overflow-hidden hover:shadow-md transition-shadow">
+                  <CardHeader className={`p-0 h-[120px] bg-gradient-to-r ${gradient} flex items-center justify-center`}>
+                    <GamepadIcon className="h-12 w-12 text-white/80" />
+                  </CardHeader>
+                  <CardContent className="pt-6">
+                    <CardTitle className="text-lg line-clamp-1">{jeu.titre}</CardTitle>
+                    <CardDescription className="line-clamp-2 h-10">
+                      {jeu.description || "Aucune description disponible"}
+                    </CardDescription>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      <Badge variant="secondary" className="flex items-center gap-1">
+                        <Users className="h-3 w-3" />
+                        {jeu.createdBy?.name?.split(' ')[0] || "Anonyme"}
+                      </Badge>
+                      <Badge variant="outline" className="flex items-center gap-1">
+                        {jeu.questions?.length || 0} questions
+                      </Badge>
+                      {jeu.planification?.length > 0 ? (
+                        <Badge className="flex items-center gap-1 bg-green-600">
+                          <CheckCircle2 className="h-3 w-3" />
+                          Planifié
+                        </Badge>
+                      ) : (
+                        <Badge variant="outline" className="flex items-center gap-1 text-muted-foreground">
+                          <XCircle className="h-3 w-3" />
+                          Non planifié
+                        </Badge>
+                      )}
                     </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <CardDescription className="line-clamp-2 h-10 mb-3">
-                    {jeu.ecole.libelle} - {jeu.ecole.ville}
-                  </CardDescription>
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    <Badge variant="secondary" className="flex items-center gap-1">
-                      <Users className="h-3 w-3" />
-                      {jeu.ecole.libelle.split(' ')[0]}
-                    </Badge>
-                  </div>
-                  <div className="flex items-center gap-1 mt-4 text-xs text-muted-foreground">
-                    <Calendar className="h-3 w-3" />
-                    <span>{formatDate(jeu.date)}</span>
-                  </div>
-                </CardContent>
-                <CardFooter className="pt-0 flex justify-end">
-                  <Button variant="ghost" size="sm">Voir détails</Button>
-                </CardFooter>
-              </Card>
-            ))}
+                    <div className="flex items-center gap-1 mt-4 text-xs text-muted-foreground">
+                      <Calendar className="h-3 w-3" />
+                      <span>{formatDate(jeu.date)}</span>
+                    </div>
+                  </CardContent>
+                  <CardFooter className="pt-0 flex justify-end">
+                    <Button variant="ghost" size="sm">Voir détails</Button>
+                  </CardFooter>
+                </Card>
+              );
+            })}
           </div>
         ) : (
           <div className="rounded-md border">
@@ -266,8 +289,9 @@ export const JeuxCards = () => {
               <thead className="bg-muted/50">
                 <tr>
                   <th className="text-left p-4 font-medium text-sm">Titre</th>
-                  <th className="text-left p-4 font-medium text-sm">École</th>
-                  <th className="text-left p-4 font-medium text-sm">Ville</th>
+                  <th className="text-left p-4 font-medium text-sm">Créé par</th>
+                  <th className="text-left p-4 font-medium text-sm">Questions</th>
+                  <th className="text-left p-4 font-medium text-sm">Planification</th>
                   <th className="text-left p-4 font-medium text-sm">Date</th>
                 </tr>
               </thead>
@@ -275,8 +299,19 @@ export const JeuxCards = () => {
                 {filteredJeux.map((jeu, i) => (
                   <tr key={jeu._id} className={i % 2 === 0 ? "bg-background" : "bg-muted/20"}>
                     <td className="p-4 font-medium">{jeu.titre}</td>
-                    <td className="p-4">{jeu.ecole.libelle}</td>
-                    <td className="p-4">{jeu.ecole.ville}</td>
+                    <td className="p-4">{jeu.createdBy?.name || "Non spécifié"}</td>
+                    <td className="p-4">{jeu.questions?.length || 0} questions</td>
+                    <td className="p-4">
+                      {jeu.planification?.length > 0 ? (
+                        <Badge className="bg-green-600">
+                          Planifié
+                        </Badge>
+                      ) : (
+                        <Badge variant="outline">
+                          Non planifié
+                        </Badge>
+                      )}
+                    </td>
                     <td className="p-4 text-sm text-muted-foreground">{formatDate(jeu.date)}</td>
                   </tr>
                 ))}
