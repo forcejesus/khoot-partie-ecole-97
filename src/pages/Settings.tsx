@@ -11,14 +11,6 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const SettingsContent = () => {
   const { user } = useAuth();
-  
-  const initialSchoolData = {
-    libelle: user?.ecole?.libelle || "",
-    adresse: user?.ecole?.adresse || "",
-    ville: user?.ecole?.ville || "",
-    phone: user?.ecole?.phone || "",
-    email: user?.ecole?.email || "",
-  };
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -69,7 +61,7 @@ const SettingsContent = () => {
             </TabsList>
 
             <TabsContent value="ecole" className="p-4 md:p-8">
-              <SchoolInformationForm initialData={initialSchoolData} />
+              <SchoolInformationForm />
             </TabsContent>
 
             <TabsContent value="abonnement" className="p-4 md:p-8">

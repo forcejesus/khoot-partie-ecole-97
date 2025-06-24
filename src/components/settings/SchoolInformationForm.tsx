@@ -1,21 +1,15 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Building, MapPin, Phone, Mail, School } from "lucide-react";
+import { parametresService, type Ecole } from "@/services/parametresService";
 
 interface SchoolInformationFormProps {
-  initialData: {
+  initialData?: {
     libelle: string;
     adresse: string;
     ville: string;
@@ -28,7 +22,57 @@ const SchoolInformationForm = ({ initialData }: SchoolInformationFormProps) => {
   const { user, refreshUser } = useAuth();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const [ecoleData, setEcoleData] = useState(initialData);
+  const [isLoadingData, setIsLoadingData] = useState(true);
+  const [ecoleData, setEcoleData] = useState({
+    libelle: "",
+    adresse: "",
+    ville: "",
+    telephone: "",
+    email: "",
+  });
+
+  // Récupérer les données de l'école depuis l'API
+  useEffect(() => {
+    const fetchEcoleData = async () => {
+      try {
+        setIsLoadingData(true);
+        const response = await parametresService.getParametres();
+        
+        if (response.success && response.data.ecole) {
+          const { ecole } = response.data;
+          setEcoleData({
+            libelle: ecole.libelle || "",
+            adresse: ecole.adresse || "",
+            ville: ecole.ville || "",
+            telephone: ecole.telephone || "",
+            email: ecole.email || "",
+          });
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération des paramètres:", error);
+        toast({
+          variant: "destructive",
+          title: "Erreur",
+          description: "Impossible de récupérer les informations de l'école",
+        });
+        
+        // Utiliser les données initiales en cas d'erreur
+        if (initialData) {
+          setEcoleData({
+            libelle: initialData.libelle,
+            adresse: initialData.adresse,
+            ville: initialData.ville,
+            telephone: initialData.phone,
+            email: initialData.email,
+          });
+        }
+      } finally {
+        setIsLoadingData(false);
+      }
+    };
+
+    fetchEcoleData();
+  }, [initialData, toast]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -53,7 +97,13 @@ const SchoolInformationForm = ({ initialData }: SchoolInformationFormProps) => {
 
       const response = await axios.put(
         `http://kahoot.nos-apps.com/api/ecole/update/${user.ecoleId}`,
-        ecoleData,
+        {
+          libelle: ecoleData.libelle,
+          adresse: ecoleData.adresse,
+          ville: ecoleData.ville,
+          phone: ecoleData.telephone,
+          email: ecoleData.email,
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -80,8 +130,37 @@ const SchoolInformationForm = ({ initialData }: SchoolInformationFormProps) => {
     }
   };
 
+  if (isLoadingData) {
+    return (
+      <div className="bg-gradient-to-br from-white to-orange-50 rounded-3xl p-8 shadow-lg border border-orange-200">
+        <div className="mb-8">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
+              <School className="h-7 w-7 text-white" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">Informations de l'École</h2>
+              <p className="text-gray-600 font-medium">
+                Chargement des informations...
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="space-y-3">
+                <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
+                <div className="h-12 bg-gray-200 rounded-xl animate-pulse"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    
     <div className="bg-gradient-to-br from-white to-orange-50 rounded-3xl p-8 shadow-lg border border-orange-200">
       <div className="mb-8">
         <div className="flex items-center gap-4 mb-4">
@@ -145,15 +224,15 @@ const SchoolInformationForm = ({ initialData }: SchoolInformationFormProps) => {
           </div>
           
           <div className="space-y-3">
-            <label htmlFor="phone" className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+            <label htmlFor="telephone" className="text-sm font-semibold text-gray-700 flex items-center gap-2">
               <Phone className="h-4 w-4 text-orange-600" />
               Téléphone
             </label>
             <Input
-              id="phone"
-              name="phone"
+              id="telephone"
+              name="telephone"
               placeholder="Téléphone"
-              value={ecoleData.phone}
+              value={ecoleData.telephone}
               onChange={handleInputChange}
               className="border-2 border-gray-200 focus:border-orange-400 bg-white/80 backdrop-blur-sm rounded-xl py-3 px-4 text-gray-900 font-medium placeholder:text-gray-400 transition-all duration-200 hover:bg-white focus:bg-white"
             />
