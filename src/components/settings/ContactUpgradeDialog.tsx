@@ -116,21 +116,13 @@ const ContactUpgradeDialog = ({ open, onOpenChange }: ContactUpgradeDialogProps)
               </div>
             </div>
 
-            {/* Boutons d'action */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            {/* Bouton pour fermer */}
+            <div className="text-center">
               <Button 
-                className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] flex items-center justify-center gap-2"
-                onClick={() => window.open('tel:+24206500114')}
+                className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02]"
+                onClick={() => onOpenChange(false)}
               >
-                <Phone className="h-4 w-4" />
-                Appeler maintenant
-              </Button>
-              <Button 
-                className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] flex items-center justify-center gap-2"
-                onClick={() => window.open('mailto:contact@akili-app.com?subject=Demande de mise à niveau d\'abonnement')}
-              >
-                <Mail className="h-4 w-4" />
-                Envoyer un email
+                D'accord
               </Button>
             </div>
           </div>
