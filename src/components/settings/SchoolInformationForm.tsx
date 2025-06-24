@@ -1,52 +1,28 @@
 
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useAuth } from "@/contexts/AuthContext";
-import { useToast } from "@/hooks/use-toast";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Building, MapPin, Phone, Mail, School } from "lucide-react";
-import { parametresService, type Ecole } from "@/services/parametresService";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { School, User, MapPin, Phone, Mail, Info, Users, Crown } from "lucide-react";
+import { parametresService, type ParametresData } from "@/services/parametresService";
+import { useToast } from "@/hooks/use-toast";
 
-interface SchoolInformationFormProps {
-  initialData?: {
-    libelle: string;
-    adresse: string;
-    ville: string;
-    phone: string;
-    email: string;
-  };
-}
-
-const SchoolInformationForm = ({ initialData }: SchoolInformationFormProps) => {
-  const { user, refreshUser } = useAuth();
+const SchoolInformationForm = () => {
+  const [parametresData, setParametresData] = useState<ParametresData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingData, setIsLoadingData] = useState(true);
-  const [ecoleData, setEcoleData] = useState({
-    libelle: "",
-    adresse: "",
-    ville: "",
-    telephone: "",
-    email: "",
-  });
 
-  // Récupérer les données de l'école depuis l'API
   useEffect(() => {
-    const fetchEcoleData = async () => {
+    const fetchParametres = async () => {
       try {
-        setIsLoadingData(true);
+        setIsLoading(true);
         const response = await parametresService.getParametres();
         
-        if (response.success && response.data.ecole) {
-          const { ecole } = response.data;
-          setEcoleData({
-            libelle: ecole.libelle || "",
-            adresse: ecole.adresse || "",
-            ville: ecole.ville || "",
-            telephone: ecole.telephone || "",
-            email: ecole.email || "",
-          });
+        if (response.success && response.data) {
+          setParametresData(response.data);
         }
       } catch (error) {
         console.error("Erreur lors de la récupération des paramètres:", error);
@@ -55,214 +31,201 @@ const SchoolInformationForm = ({ initialData }: SchoolInformationFormProps) => {
           title: "Erreur",
           description: "Impossible de récupérer les informations de l'école",
         });
-        
-        // Utiliser les données initiales en cas d'erreur
-        if (initialData) {
-          setEcoleData({
-            libelle: initialData.libelle,
-            adresse: initialData.adresse,
-            ville: initialData.ville,
-            telephone: initialData.phone,
-            email: initialData.email,
-          });
-        }
       } finally {
-        setIsLoadingData(false);
+        setIsLoading(false);
       }
     };
 
-    fetchEcoleData();
-  }, [initialData, toast]);
+    fetchParametres();
+  }, [toast]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setEcoleData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleUpdateSchool = async () => {
-    try {
-      setIsLoading(true);
-      const token = localStorage.getItem("token");
-      if (!token || !user?.ecoleId) {
-        toast({
-          variant: "destructive",
-          title: "Erreur",
-          description: "Vous devez être connecté pour effectuer cette action",
-        });
-        return;
-      }
-
-      const response = await axios.put(
-        `http://kahoot.nos-apps.com/api/ecole/update/${user.ecoleId}`,
-        {
-          libelle: ecoleData.libelle,
-          adresse: ecoleData.adresse,
-          ville: ecoleData.ville,
-          phone: ecoleData.telephone,
-          email: ecoleData.email,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.data.success) {
-        toast({
-          title: "Succès",
-          description: "Informations de l'école mises à jour avec succès",
-        });
-        refreshUser();
-      }
-    } catch (error) {
-      console.error("Erreur lors de la mise à jour:", error);
-      toast({
-        variant: "destructive",
-        title: "Erreur",
-        description: "Impossible de mettre à jour les informations de l'école",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  if (isLoadingData) {
+  if (isLoading) {
     return (
-      <div className="bg-gradient-to-br from-white to-orange-50 rounded-3xl p-8 shadow-lg border border-orange-200">
-        <div className="mb-8">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
-              <School className="h-7 w-7 text-white" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900">Informations de l'École</h2>
-              <p className="text-gray-600 font-medium">
-                Chargement des informations...
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className="space-y-3">
-                <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
-                <div className="h-12 bg-gray-200 rounded-xl animate-pulse"></div>
-              </div>
-            ))}
-          </div>
+      <div className="space-y-6">
+        <div className="h-8 bg-gray-200 rounded animate-pulse mb-4"></div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="h-64 bg-gray-200 rounded-2xl animate-pulse"></div>
+          <div className="h-64 bg-gray-200 rounded-2xl animate-pulse"></div>
         </div>
       </div>
     );
   }
 
+  const { ecole, abonnement } = parametresData || {};
+
+  const getStatusBadge = (statut: string) => {
+    if (statut === "actif") {
+      return <Badge className="bg-green-500 text-white px-3 py-1 text-sm">Actif</Badge>;
+    } else if (statut === "expiré") {
+      return <Badge className="bg-red-500 text-white px-3 py-1 text-sm">Expiré</Badge>;
+    } else {
+      return <Badge className="bg-orange-500 text-white px-3 py-1 text-sm">{statut}</Badge>;
+    }
+  };
+
   return (
-    <div className="bg-gradient-to-br from-white to-orange-50 rounded-3xl p-8 shadow-lg border border-orange-200">
-      <div className="mb-8">
-        <div className="flex items-center gap-4 mb-4">
-          <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
-            <School className="h-7 w-7 text-white" />
+    <div className="space-y-8">
+      {/* Information Alert */}
+      <Alert className="border-blue-200 bg-blue-50">
+        <Info className="h-5 w-5 text-blue-600" />
+        <AlertDescription className="text-lg text-blue-800">
+          <strong>Informations d'administration système</strong>
+          <br />
+          Ces informations ont été enregistrées lors de l'obtention de votre abonnement et sont utilisées pour l'administration du système. 
+          Pour toute demande de modification, veuillez contacter le service partenaire AKILI :
+          <br />
+          <div className="mt-3 space-y-2">
+            <div className="flex items-center gap-2">
+              <Phone className="h-4 w-4" />
+              <span className="font-semibold">+242 06 500 11 44</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Mail className="h-4 w-4" />
+              <span className="font-semibold">contact@akili-app.com</span>
+            </div>
           </div>
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900">Informations de l'École</h2>
-            <p className="text-gray-600 font-medium">
-              Gérez les informations de votre établissement scolaire
-            </p>
-          </div>
-        </div>
-      </div>
+        </AlertDescription>
+      </Alert>
 
-      <div className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-3">
-            <label htmlFor="libelle" className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-              <Building className="h-4 w-4 text-orange-600" />
-              Nom de l'école
-            </label>
-            <Input
-              id="libelle"
-              name="libelle"
-              placeholder="Nom de l'école"
-              value={ecoleData.libelle}
-              onChange={handleInputChange}
-              className="border-2 border-gray-200 focus:border-orange-400 bg-white/80 backdrop-blur-sm rounded-xl py-3 px-4 text-gray-900 font-medium placeholder:text-gray-400 transition-all duration-200 hover:bg-white focus:bg-white"
-            />
-          </div>
-          
-          <div className="space-y-3">
-            <label htmlFor="adresse" className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-orange-600" />
-              Adresse
-            </label>
-            <Input
-              id="adresse"
-              name="adresse"
-              placeholder="Adresse"
-              value={ecoleData.adresse}
-              onChange={handleInputChange}
-              className="border-2 border-gray-200 focus:border-orange-400 bg-white/80 backdrop-blur-sm rounded-xl py-3 px-4 text-gray-900 font-medium placeholder:text-gray-400 transition-all duration-200 hover:bg-white focus:bg-white"
-            />
-          </div>
-          
-          <div className="space-y-3">
-            <label htmlFor="ville" className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-orange-600" />
-              Ville
-            </label>
-            <Input
-              id="ville"
-              name="ville"
-              placeholder="Ville"
-              value={ecoleData.ville}
-              onChange={handleInputChange}
-              className="border-2 border-gray-200 focus:border-orange-400 bg-white/80 backdrop-blur-sm rounded-xl py-3 px-4 text-gray-900 font-medium placeholder:text-gray-400 transition-all duration-200 hover:bg-white focus:bg-white"
-            />
-          </div>
-          
-          <div className="space-y-3">
-            <label htmlFor="telephone" className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-              <Phone className="h-4 w-4 text-orange-600" />
-              Téléphone
-            </label>
-            <Input
-              id="telephone"
-              name="telephone"
-              placeholder="Téléphone"
-              value={ecoleData.telephone}
-              onChange={handleInputChange}
-              className="border-2 border-gray-200 focus:border-orange-400 bg-white/80 backdrop-blur-sm rounded-xl py-3 px-4 text-gray-900 font-medium placeholder:text-gray-400 transition-all duration-200 hover:bg-white focus:bg-white"
-            />
-          </div>
-          
-          <div className="space-y-3 md:col-span-2">
-            <label htmlFor="email" className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-              <Mail className="h-4 w-4 text-orange-600" />
-              Email
-            </label>
-            <Input
-              id="email"
-              name="email"
-              placeholder="Email"
-              value={ecoleData.email}
-              onChange={handleInputChange}
-              className="border-2 border-gray-200 focus:border-orange-400 bg-white/80 backdrop-blur-sm rounded-xl py-3 px-4 text-gray-900 font-medium placeholder:text-gray-400 transition-all duration-200 hover:bg-white focus:bg-white"
-            />
-          </div>
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Informations de l'École */}
+        <Card className="border-orange-200">
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-3 text-2xl text-gray-800">
+              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
+                <School className="h-6 w-6 text-white" />
+              </div>
+              Informations de l'École
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div>
+              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Nom de l'établissement</Label>
+              <Input 
+                value={ecole?.libelle || "Non renseigné"} 
+                readOnly 
+                className="text-lg py-3 bg-gray-50 border-gray-200" 
+              />
+            </div>
+            
+            <div>
+              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Adresse</Label>
+              <Input 
+                value={ecole?.adresse || "Non renseigné"} 
+                readOnly 
+                className="text-lg py-3 bg-gray-50 border-gray-200" 
+              />
+            </div>
+            
+            <div>
+              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Ville</Label>
+              <Input 
+                value={ecole?.ville || "Non renseigné"} 
+                readOnly 
+                className="text-lg py-3 bg-gray-50 border-gray-200" 
+              />
+            </div>
+            
+            <div>
+              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Pays</Label>
+              <Input 
+                value={ecole?.pays?.libelle || "Non renseigné"} 
+                readOnly 
+                className="text-lg py-3 bg-gray-50 border-gray-200" 
+              />
+            </div>
+            
+            <div>
+              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Téléphone</Label>
+              <Input 
+                value={ecole?.telephone || "Non renseigné"} 
+                readOnly 
+                className="text-lg py-3 bg-gray-50 border-gray-200" 
+              />
+            </div>
+            
+            <div>
+              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Email</Label>
+              <Input 
+                value={ecole?.email || "Non renseigné"} 
+                readOnly 
+                className="text-lg py-3 bg-gray-50 border-gray-200" 
+              />
+            </div>
+          </CardContent>
+        </Card>
 
-        <div className="flex justify-end pt-6 border-t border-orange-200">
-          <Button 
-            onClick={handleUpdateSchool} 
-            disabled={isLoading}
-            className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02]"
-          >
-            {isLoading ? "Enregistrement..." : "Enregistrer les modifications"}
-          </Button>
-        </div>
+        {/* Informations de l'Administrateur */}
+        <Card className="border-orange-200">
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-3 text-2xl text-gray-800">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                <User className="h-6 w-6 text-white" />
+              </div>
+              Administrateur Principal
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-lg font-semibold text-gray-700">Statut :</span>
+              {ecole?.admin?.statut && getStatusBadge(ecole.admin.statut)}
+            </div>
+
+            <div>
+              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Nom complet</Label>
+              <Input 
+                value={`${ecole?.admin?.prenom || ""} ${ecole?.admin?.nom || ""}`.trim() || "Non renseigné"} 
+                readOnly 
+                className="text-lg py-3 bg-gray-50 border-gray-200" 
+              />
+            </div>
+            
+            <div>
+              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Matricule</Label>
+              <Input 
+                value={ecole?.admin?.matricule || "Non renseigné"} 
+                readOnly 
+                className="text-lg py-3 bg-gray-50 border-gray-200" 
+              />
+            </div>
+            
+            <div>
+              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Genre</Label>
+              <Input 
+                value={ecole?.admin?.genre || "Non renseigné"} 
+                readOnly 
+                className="text-lg py-3 bg-gray-50 border-gray-200" 
+              />
+            </div>
+            
+            <div>
+              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Téléphone</Label>
+              <Input 
+                value={ecole?.admin?.phone || "Non renseigné"} 
+                readOnly 
+                className="text-lg py-3 bg-gray-50 border-gray-200" 
+              />
+            </div>
+            
+            <div>
+              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Email</Label>
+              <Input 
+                value={ecole?.admin?.email || "Non renseigné"} 
+                readOnly 
+                className="text-lg py-3 bg-gray-50 border-gray-200" 
+              />
+            </div>
+            
+            <div>
+              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Adresse</Label>
+              <Input 
+                value={ecole?.admin?.adresse || "Non renseigné"} 
+                readOnly 
+                className="text-lg py-3 bg-gray-50 border-gray-200" 
+              />
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
