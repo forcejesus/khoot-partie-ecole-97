@@ -1,9 +1,6 @@
 
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { School, User, MapPin, Phone, Mail, Info, Users, Crown } from "lucide-react";
@@ -51,7 +48,7 @@ const SchoolInformationForm = () => {
     );
   }
 
-  const { ecole, abonnement } = parametresData || {};
+  const { ecole } = parametresData || {};
 
   const getStatusBadge = (statut: string) => {
     if (statut === "actif") {
@@ -69,10 +66,10 @@ const SchoolInformationForm = () => {
       <Alert className="border-blue-200 bg-blue-50">
         <Info className="h-5 w-5 text-blue-600" />
         <AlertDescription className="text-lg text-blue-800">
-          <strong>Informations d'administration système</strong>
+          <strong>Informations importantes</strong>
           <br />
-          Ces informations ont été enregistrées lors de l'obtention de votre abonnement et sont utilisées pour l'administration du système. 
-          Pour toute demande de modification, veuillez contacter le service partenaire AKILI :
+          Vos informations ont été enregistrées lors de l'obtention de votre abonnement et sont utilisées pour l'administration du système. 
+          Pour tout besoin de modification, veuillez contacter le service partenaire AKILI :
           <br />
           <div className="mt-3 space-y-2">
             <div className="flex items-center gap-2">
@@ -81,7 +78,7 @@ const SchoolInformationForm = () => {
             </div>
             <div className="flex items-center gap-2">
               <Mail className="h-4 w-4" />
-              <span className="font-semibold">contact@akili-app.com</span>
+              <span className="font-semibold">partenaire@akili.guru</span>
             </div>
           </div>
         </AlertDescription>
@@ -99,58 +96,40 @@ const SchoolInformationForm = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div>
-              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Nom de l'établissement</Label>
-              <Input 
-                value={ecole?.libelle || "Non renseigné"} 
-                readOnly 
-                className="text-lg py-3 bg-gray-50 border-gray-200" 
-              />
+            <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+              <div className="flex items-center gap-3 mb-2">
+                <School className="h-5 w-5 text-orange-600" />
+                <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Nom de l'établissement</span>
+              </div>
+              <p className="text-xl font-bold text-gray-900">{ecole?.libelle || "Non renseigné"}</p>
             </div>
             
-            <div>
-              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Adresse</Label>
-              <Input 
-                value={ecole?.adresse || "Non renseigné"} 
-                readOnly 
-                className="text-lg py-3 bg-gray-50 border-gray-200" 
-              />
+            <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+              <div className="flex items-center gap-3 mb-2">
+                <MapPin className="h-5 w-5 text-orange-600" />
+                <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Adresse complète</span>
+              </div>
+              <p className="text-lg font-semibold text-gray-900">{ecole?.adresse || "Non renseigné"}</p>
+              <p className="text-lg text-gray-700">{ecole?.ville || "Non renseigné"}</p>
+              <p className="text-lg text-gray-700">{ecole?.pays?.libelle || "Non renseigné"}</p>
             </div>
             
-            <div>
-              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Ville</Label>
-              <Input 
-                value={ecole?.ville || "Non renseigné"} 
-                readOnly 
-                className="text-lg py-3 bg-gray-50 border-gray-200" 
-              />
-            </div>
-            
-            <div>
-              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Pays</Label>
-              <Input 
-                value={ecole?.pays?.libelle || "Non renseigné"} 
-                readOnly 
-                className="text-lg py-3 bg-gray-50 border-gray-200" 
-              />
-            </div>
-            
-            <div>
-              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Téléphone</Label>
-              <Input 
-                value={ecole?.telephone || "Non renseigné"} 
-                readOnly 
-                className="text-lg py-3 bg-gray-50 border-gray-200" 
-              />
-            </div>
-            
-            <div>
-              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Email</Label>
-              <Input 
-                value={ecole?.email || "Non renseigné"} 
-                readOnly 
-                className="text-lg py-3 bg-gray-50 border-gray-200" 
-              />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                <div className="flex items-center gap-3 mb-2">
+                  <Phone className="h-5 w-5 text-orange-600" />
+                  <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Téléphone</span>
+                </div>
+                <p className="text-lg font-bold text-gray-900">{ecole?.telephone || "Non renseigné"}</p>
+              </div>
+              
+              <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                <div className="flex items-center gap-3 mb-2">
+                  <Mail className="h-5 w-5 text-orange-600" />
+                  <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Email</span>
+                </div>
+                <p className="text-lg font-bold text-gray-900">{ecole?.email || "Non renseigné"}</p>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -166,63 +145,63 @@ const SchoolInformationForm = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center justify-between mb-4">
               <span className="text-lg font-semibold text-gray-700">Statut :</span>
               {ecole?.admin?.statut && getStatusBadge(ecole.admin.statut)}
             </div>
 
-            <div>
-              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Nom complet</Label>
-              <Input 
-                value={`${ecole?.admin?.prenom || ""} ${ecole?.admin?.nom || ""}`.trim() || "Non renseigné"} 
-                readOnly 
-                className="text-lg py-3 bg-gray-50 border-gray-200" 
-              />
+            <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+              <div className="flex items-center gap-3 mb-2">
+                <User className="h-5 w-5 text-blue-600" />
+                <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Nom complet</span>
+              </div>
+              <p className="text-xl font-bold text-gray-900">
+                {`${ecole?.admin?.prenom || ""} ${ecole?.admin?.nom || ""}`.trim() || "Non renseigné"}
+              </p>
             </div>
             
-            <div>
-              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Matricule</Label>
-              <Input 
-                value={ecole?.admin?.matricule || "Non renseigné"} 
-                readOnly 
-                className="text-lg py-3 bg-gray-50 border-gray-200" 
-              />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                <div className="flex items-center gap-3 mb-2">
+                  <Crown className="h-5 w-5 text-blue-600" />
+                  <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Matricule</span>
+                </div>
+                <p className="text-lg font-bold text-gray-900">{ecole?.admin?.matricule || "Non renseigné"}</p>
+              </div>
+              
+              <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                <div className="flex items-center gap-3 mb-2">
+                  <Users className="h-5 w-5 text-blue-600" />
+                  <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Genre</span>
+                </div>
+                <p className="text-lg font-bold text-gray-900">{ecole?.admin?.genre || "Non renseigné"}</p>
+              </div>
             </div>
             
-            <div>
-              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Genre</Label>
-              <Input 
-                value={ecole?.admin?.genre || "Non renseigné"} 
-                readOnly 
-                className="text-lg py-3 bg-gray-50 border-gray-200" 
-              />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                <div className="flex items-center gap-3 mb-2">
+                  <Phone className="h-5 w-5 text-blue-600" />
+                  <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Téléphone</span>
+                </div>
+                <p className="text-lg font-bold text-gray-900">{ecole?.admin?.phone || "Non renseigné"}</p>
+              </div>
+              
+              <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                <div className="flex items-center gap-3 mb-2">
+                  <Mail className="h-5 w-5 text-blue-600" />
+                  <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Email</span>
+                </div>
+                <p className="text-lg font-bold text-gray-900">{ecole?.admin?.email || "Non renseigné"}</p>
+              </div>
             </div>
             
-            <div>
-              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Téléphone</Label>
-              <Input 
-                value={ecole?.admin?.phone || "Non renseigné"} 
-                readOnly 
-                className="text-lg py-3 bg-gray-50 border-gray-200" 
-              />
-            </div>
-            
-            <div>
-              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Email</Label>
-              <Input 
-                value={ecole?.admin?.email || "Non renseigné"} 
-                readOnly 
-                className="text-lg py-3 bg-gray-50 border-gray-200" 
-              />
-            </div>
-            
-            <div>
-              <Label className="text-lg font-semibold text-gray-700 mb-2 block">Adresse</Label>
-              <Input 
-                value={ecole?.admin?.adresse || "Non renseigné"} 
-                readOnly 
-                className="text-lg py-3 bg-gray-50 border-gray-200" 
-              />
+            <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+              <div className="flex items-center gap-3 mb-2">
+                <MapPin className="h-5 w-5 text-blue-600" />
+                <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Adresse</span>
+              </div>
+              <p className="text-lg font-bold text-gray-900">{ecole?.admin?.adresse || "Non renseigné"}</p>
             </div>
           </CardContent>
         </Card>
