@@ -8,7 +8,7 @@ import { AddApprenantDialog } from "@/components/AddApprenantDialog";
 import { ApprenantsList } from "@/components/ApprenantsList";
 import { DashboardLayoutWithSidebar } from "@/layouts/DashboardLayoutWithSidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import BulkImportModal from "@/components/BulkImportModal";
+import { BulkImportModal } from "@/components/BulkImportModal";
 
 const ApprenantsContent = () => {
   const { t } = useLanguage();

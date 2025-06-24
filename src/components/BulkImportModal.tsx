@@ -10,44 +10,38 @@ import { ErrorDisplay } from '@/components/bulkImport/ErrorDisplay';
 import { toast } from 'sonner';
 import * as XLSX from 'xlsx';
 import { apprenantService } from '@/services/apprenantService';
-
-interface ApprenantImport {
-  nom: string;
-  prenom: string;
-  email?: string;
-  phone?: string;
-}
+import { processCSVFile, ApprenantImport } from '@/utils/csvUtils';
 
 interface BulkImportModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  type: 'apprenants';
   onSuccess: () => void;
 }
 
 type ImportStep = 'upload' | 'preview' | 'importing' | 'success' | 'error';
 
-export const BulkImportModal = ({ isOpen, onClose, onSuccess }: BulkImportModalProps) => {
+export const BulkImportModal = ({ type, onSuccess }: BulkImportModalProps) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState<ImportStep>('upload');
   const [file, setFile] = useState<File | null>(null);
-  const [data, setData] = useState<ApprenantImport[]>([]);
-  const [progress, setProgress] = useState(0);
-  const [importResults, setImportResults] = useState<{
-    successful: number;
-    failed: number;
-    errors: string[];
-  }>({ successful: 0, failed: 0, errors: [] });
+  const [parsedData, setParsedData] = useState<ApprenantImport[]>([]);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [errors, setErrors] = useState<string[]>([]);
 
   const resetModal = () => {
     setCurrentStep('upload');
     setFile(null);
-    setData([]);
-    setProgress(0);
-    setImportResults({ successful: 0, failed: 0, errors: [] });
+    setParsedData([]);
+    setUploadProgress(0);
+    setErrors([]);
   };
 
   const handleClose = () => {
     resetModal();
-    onClose();
+    setIsOpen(false);
+  };
+
+  const handleOpen = () => {
+    setIsOpen(true);
   };
 
   const processExcelFile = (file: File): Promise<ApprenantImport[]> => {
@@ -65,10 +59,10 @@ export const BulkImportModal = ({ isOpen, onClose, onSuccess }: BulkImportModalP
             .map((row: any) => ({
               nom: row['Nom'] || row['nom'] || '',
               prenom: row['Prénom'] || row['prenom'] || row['Prenom'] || '',
-              email: row['Email'] || row['email'] || undefined,
-              phone: row['Téléphone'] || row['telephone'] || row['Phone'] || row['phone'] || undefined,
+              email: row['Email'] || row['email'] || '',
+              phone: row['Téléphone'] || row['telephone'] || row['Phone'] || row['phone'] || '',
             }))
-            .filter((item): item is ApprenantImport => 
+            .filter((item: any): item is ApprenantImport => 
               item.nom && item.prenom && typeof item.nom === 'string' && typeof item.prenom === 'string'
             );
 
@@ -82,18 +76,27 @@ export const BulkImportModal = ({ isOpen, onClose, onSuccess }: BulkImportModalP
     });
   };
 
-  const handleFileSelect = async (selectedFile: File) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (!selectedFile) return;
+
     setFile(selectedFile);
     
     try {
-      const processedData = await processExcelFile(selectedFile);
+      let processedData: ApprenantImport[];
+      
+      if (selectedFile.name.endsWith('.csv')) {
+        processedData = await processCSVFile(selectedFile);
+      } else {
+        processedData = await processExcelFile(selectedFile);
+      }
       
       if (processedData.length === 0) {
         toast.error('Aucune donnée valide trouvée dans le fichier');
         return;
       }
 
-      setData(processedData);
+      setParsedData(processedData);
       setCurrentStep('preview');
       toast.success(`${processedData.length} ligne(s) trouvée(s)`);
     } catch (error) {
@@ -104,43 +107,30 @@ export const BulkImportModal = ({ isOpen, onClose, onSuccess }: BulkImportModalP
 
   const handleImport = async () => {
     setCurrentStep('importing');
-    setProgress(0);
-    
-    const results = {
-      successful: 0,
-      failed: 0,
-      errors: [] as string[]
-    };
+    setUploadProgress(0);
+    setErrors([]);
 
-    for (let i = 0; i < data.length; i++) {
-      const apprenant = data[i];
+    const importErrors: string[] = [];
+
+    for (let i = 0; i < parsedData.length; i++) {
+      const apprenant = parsedData[i];
       
       try {
-        await apprenantService.addApprenant({
+        await apprenantService.createApprenant({
           nom: apprenant.nom,
           prenom: apprenant.prenom,
-          email: apprenant.email || '',
-          telephone: apprenant.phone || '',
-          dateNaissance: new Date().toISOString().split('T')[0],
-          adresse: '',
-          nomParent: '',
-          telephoneParent: '',
-          niveau: 'CP1'
         });
-        
-        results.successful++;
       } catch (error) {
-        results.failed++;
-        results.errors.push(`${apprenant.nom} ${apprenant.prenom}: ${error instanceof Error ? error.message : 'Erreur inconnue'}`);
+        importErrors.push(`${apprenant.nom} ${apprenant.prenom}: ${error instanceof Error ? error.message : 'Erreur inconnue'}`);
       }
       
-      setProgress(Math.round(((i + 1) / data.length) * 100));
+      setUploadProgress(Math.round(((i + 1) / parsedData.length) * 100));
     }
 
-    setImportResults(results);
-    setCurrentStep(results.failed > 0 ? 'error' : 'success');
+    setErrors(importErrors);
+    setCurrentStep(importErrors.length > 0 ? 'error' : 'success');
     
-    if (results.successful > 0) {
+    if (importErrors.length < parsedData.length) {
       onSuccess();
     }
   };
@@ -148,31 +138,43 @@ export const BulkImportModal = ({ isOpen, onClose, onSuccess }: BulkImportModalP
   const renderStepContent = () => {
     switch (currentStep) {
       case 'upload':
-        return <FileUploader onFileSelect={handleFileSelect} />;
+        return <FileUploader onFileChange={handleFileChange} file={file} />;
       case 'preview':
         return (
-          <DataPreview 
-            data={data} 
-            onImport={handleImport}
-            onBack={() => setCurrentStep('upload')}
-          />
+          <div className="space-y-4">
+            <DataPreview parsedData={parsedData} />
+            <div className="flex gap-2 justify-end">
+              <Button variant="outline" onClick={() => setCurrentStep('upload')}>
+                Retour
+              </Button>
+              <Button onClick={handleImport}>
+                Importer ({parsedData.length} enregistrement{parsedData.length > 1 ? 's' : ''})
+              </Button>
+            </div>
+          </div>
         );
       case 'importing':
-        return <ImportProgress progress={progress} />;
+        return <ImportProgress uploadProgress={uploadProgress} />;
       case 'success':
         return (
-          <SuccessMessage 
-            results={importResults}
-            onClose={handleClose}
-          />
+          <div className="space-y-4">
+            <SuccessMessage type={type} />
+            <div className="flex justify-end">
+              <Button onClick={handleClose}>Fermer</Button>
+            </div>
+          </div>
         );
       case 'error':
         return (
-          <ErrorDisplay 
-            results={importResults}
-            onClose={handleClose}
-            onRetry={() => setCurrentStep('preview')}
-          />
+          <div className="space-y-4">
+            <ErrorDisplay errors={errors} />
+            <div className="flex gap-2 justify-end">
+              <Button variant="outline" onClick={() => setCurrentStep('preview')}>
+                Réessayer
+              </Button>
+              <Button onClick={handleClose}>Fermer</Button>
+            </div>
+          </div>
         );
       default:
         return null;
@@ -180,16 +182,24 @@ export const BulkImportModal = ({ isOpen, onClose, onSuccess }: BulkImportModalP
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="text-xl font-semibold text-orange-700">
-            Import en masse des apprenants
-          </DialogTitle>
-        </DialogHeader>
-        
-        {renderStepContent()}
-      </DialogContent>
-    </Dialog>
+    <>
+      <Button onClick={handleOpen} variant="outline" size="sm">
+        <span className="hidden sm:inline">Import en masse</span>
+      </Button>
+      
+      <Dialog open={isOpen} onOpenChange={handleClose}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-semibold text-orange-700">
+              Import en masse des apprenants
+            </DialogTitle>
+          </DialogHeader>
+          
+          {renderStepContent()}
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
+
+export default BulkImportModal;
