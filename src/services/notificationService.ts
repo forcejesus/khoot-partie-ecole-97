@@ -39,12 +39,12 @@ export const notificationService = {
   },
 
   markAsRead: async (notificationId: string): Promise<{ success: boolean; message: string }> => {
-    const response = await api.put(`/api/notifications/${notificationId}/mark-read`);
+    const response = await api.put(`/api/notifications/${notificationId}/marquer-lue`);
     return response.data;
   },
 
   markAllAsRead: async (): Promise<{ success: boolean; message: string }> => {
-    const response = await api.put('/api/notifications/mark-all-read');
+    const response = await api.put('/api/notifications/marquer-toutes-lues');
     return response.data;
   },
 };
