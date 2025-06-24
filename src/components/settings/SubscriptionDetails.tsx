@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { CreditCard, ArrowUp, Calendar, DollarSign, Users, Zap } from "lucide-react";
+import { CreditCard, ArrowUp, Calendar, DollarSign, Users, Zap, Phone, Mail, Headphones } from "lucide-react";
 import ContactUpgradeDialog from "./ContactUpgradeDialog";
 import { parametresService, type ParametresData } from "@/services/parametresService";
 import { useToast } from "@/hooks/use-toast";
@@ -206,20 +206,33 @@ const SubscriptionDetails = () => {
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-end">
-          <Button 
-            onClick={() => setShowUpgradeDialog(true)}
-            className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] flex items-center gap-2"
-          >
-            <ArrowUp className="h-4 w-4" />
-            Mettre à niveau
-          </Button>
-          <Button 
-            variant="destructive" 
-            className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
-          >
-            Annuler l'abonnement
-          </Button>
+        {/* Contact Information Section */}
+        <div className="bg-gradient-to-r from-orange-100 to-orange-200 p-8 rounded-2xl border border-orange-300">
+          <div className="text-center mb-6">
+            <div className="mx-auto w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg mb-4">
+              <Headphones className="h-8 w-8 text-white" />
+            </div>
+            <h4 className="text-2xl font-bold text-orange-800 mb-2">AKILI Partenaire</h4>
+            <p className="text-lg text-orange-700 font-medium">Contactez-nous pour plus d'informations</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl border border-orange-200 shadow-sm text-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg mx-auto mb-4">
+                <Phone className="h-6 w-6 text-white" />
+              </div>
+              <h5 className="text-lg font-bold text-gray-900 mb-2">Téléphone</h5>
+              <p className="text-xl font-bold text-blue-600">+242 06 500 11 44</p>
+            </div>
+            
+            <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl border border-orange-200 shadow-sm text-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg mx-auto mb-4">
+                <Mail className="h-6 w-6 text-white" />
+              </div>
+              <h5 className="text-lg font-bold text-gray-900 mb-2">Email</h5>
+              <p className="text-xl font-bold text-green-600">partenaire@akili.guru</p>
+            </div>
+          </div>
         </div>
       </div>
 
