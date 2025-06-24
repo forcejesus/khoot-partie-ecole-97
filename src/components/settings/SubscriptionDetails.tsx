@@ -42,28 +42,6 @@ const SubscriptionDetails = () => {
     return `${prix.toLocaleString('fr-FR')} F CFA`;
   };
 
-  const getStatusBadge = (statut: string) => {
-    if (statut === "actif") {
-      return (
-        <Badge className="bg-gradient-to-r from-green-500 to-green-600 text-white border-0 px-4 py-2 text-sm font-semibold shadow-lg">
-          Actif
-        </Badge>
-      );
-    } else if (statut === "expiré") {
-      return (
-        <Badge className="bg-gradient-to-r from-red-500 to-red-600 text-white border-0 px-4 py-2 text-sm font-semibold shadow-lg">
-          Expiré
-        </Badge>
-      );
-    } else {
-      return (
-        <Badge className="bg-gradient-to-r from-orange-500 to-orange-600 text-white border-0 px-4 py-2 text-sm font-semibold shadow-lg">
-          {statut}
-        </Badge>
-      );
-    }
-  };
-
   const calculateExpirationDate = (dureeEnJours: number) => {
     const today = new Date();
     const expirationDate = new Date(today);
@@ -112,12 +90,9 @@ const SubscriptionDetails = () => {
         </div>
 
         <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl border border-orange-100 shadow-sm mb-8">
-          <div className="flex justify-between items-start mb-6">
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">{abonnement?.nom || "Plan Standard"}</h3>
-              <p className="text-gray-600 font-medium">{abonnement?.description || "Abonnement actuel"}</p>
-            </div>
-            {abonnement?.statut && getStatusBadge(abonnement.statut)}
+          <div className="mb-6">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">{abonnement?.nom || "Plan Standard"}</h3>
+            <p className="text-gray-600 font-medium">{abonnement?.description || "Abonnement actuel"}</p>
           </div>
           
           <Separator className="my-6 bg-orange-200" />

@@ -195,14 +195,6 @@ const SchoolInformationForm = () => {
                 <p className="text-lg font-bold text-gray-900">{ecole?.admin?.email || "Non renseigné"}</p>
               </div>
             </div>
-            
-            <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-              <div className="flex items-center gap-3 mb-2">
-                <MapPin className="h-5 w-5 text-blue-600" />
-                <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Adresse</span>
-              </div>
-              <p className="text-lg font-bold text-gray-900">{ecole?.admin?.adresse || "Non renseigné"}</p>
-            </div>
           </CardContent>
         </Card>
       </div>
