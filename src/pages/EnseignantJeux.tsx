@@ -39,7 +39,19 @@ const EnseignantJeuxContent = () => {
       if (response.success) {
         setJeux(response.data.jeux);
         setEnseignantInfo(response.data.enseignant);
-        setStatistics(response.data.statistiques);
+        
+        // Calculate total planifications count
+        const totalPlanifications = response.data.jeux.reduce((total, jeu) => {
+          return total + (jeu.planification ? jeu.planification.length : 0);
+        }, 0);
+        
+        // Update statistics with total planifications count
+        const updatedStatistics = {
+          ...response.data.statistiques,
+          totalPlanifications
+        };
+        
+        setStatistics(updatedStatistics);
       }
     } catch (error: any) {
       console.error("Erreur lors de la récupération des jeux:", error);

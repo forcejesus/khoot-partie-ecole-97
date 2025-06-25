@@ -112,6 +112,7 @@ export interface GameStatistics {
   totalJeux: number;
   jeuxAvecQuestions: number;
   jeuxAvecPlanifications: number;
+  totalPlanifications?: number; // Total count of all planifications across all games
   dernierJeuCree: string;
 }
 

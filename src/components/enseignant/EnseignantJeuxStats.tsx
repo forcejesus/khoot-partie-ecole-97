@@ -35,9 +35,9 @@ export const EnseignantJeuxStats = ({ statistics }: EnseignantJeuxStatsProps) =>
         <CardContent className="p-4">
           <div className="flex items-center gap-2 mb-2">
             <Calendar className="h-5 w-5 text-purple-600" />
-            <span className="text-sm font-medium text-purple-800">Planifications</span>
+            <span className="text-sm font-medium text-purple-800">Total Planifications</span>
           </div>
-          <p className="text-3xl font-bold text-purple-700">{statistics.jeuxAvecPlanifications}</p>
+          <p className="text-3xl font-bold text-purple-700">{statistics.totalPlanifications || statistics.jeuxAvecPlanifications}</p>
         </CardContent>
       </Card>
       
@@ -47,9 +47,20 @@ export const EnseignantJeuxStats = ({ statistics }: EnseignantJeuxStatsProps) =>
             <Clock className="h-5 w-5 text-orange-600" />
             <span className="text-sm font-medium text-orange-800">Dernier Créé</span>
           </div>
-          <p className="text-sm font-bold text-orange-700">
-            {new Date(statistics.dernierJeuCree).toLocaleDateString('fr-FR')}
-          </p>
+          <div className="bg-orange-200 rounded-lg p-2">
+            <p className="text-lg font-bold text-orange-800">
+              {new Date(statistics.dernierJeuCree).toLocaleDateString('fr-FR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+              })}
+            </p>
+            <p className="text-xs text-orange-600">
+              {new Date(statistics.dernierJeuCree).toLocaleDateString('fr-FR', {
+                weekday: 'long'
+              })}
+            </p>
+          </div>
         </CardContent>
       </Card>
     </div>
