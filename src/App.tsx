@@ -83,6 +83,14 @@ function App() {
               }
             />
             <Route
+              path="/enseignants/:enseignantId/jeux"
+              element={
+                <ProtectedRoute>
+                  <EnseignantJeux />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/jeux"
               element={
                 <ProtectedRoute>
