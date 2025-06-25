@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Search, ArrowLeft, Gamepad2, Calendar, Eye, Users } from "lucide-react";
+import { Search, ArrowLeft, Gamepad2, Calendar, Eye, Users, Clock, HelpCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { enseignantJeuxService, EnseignantJeu, EnseignantJeuxResponse } from "@/services/enseignantJeuxService";
+import { enseignantJeuxService, EnseignantJeu, EnseignantJeuxResponse, EnseignantInfo, GameStatistics } from "@/services/enseignantJeuxService";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const EnseignantJeuxContent = () => {
@@ -18,13 +18,12 @@ const EnseignantJeuxContent = () => {
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   const [jeux, setJeux] = useState<EnseignantJeu[]>([]);
-  const [enseignantInfo, setEnseignantInfo] = useState<any>(null);
+  const [enseignantInfo, setEnseignantInfo] = useState<EnseignantInfo | null>(null);
+  const [statistics, setStatistics] = useState<GameStatistics | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const filteredJeux = jeux.filter(jeu =>
-    jeu.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    jeu.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    jeu.level.toLowerCase().includes(searchTerm.toLowerCase())
+    jeu.titre.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const fetchEnseignantJeux = async () => {
@@ -35,8 +34,9 @@ const EnseignantJeuxContent = () => {
       const response = await enseignantJeuxService.getEnseignantJeux(enseignantId);
       
       if (response.success) {
-        setJeux(response.data);
-        setEnseignantInfo(response.enseignant);
+        setJeux(response.data.jeux);
+        setEnseignantInfo(response.data.enseignant);
+        setStatistics(response.data.statistiques);
       }
     } catch (error: any) {
       console.error("Erreur lors de la récupération des jeux:", error);
@@ -110,12 +110,49 @@ const EnseignantJeuxContent = () => {
                     <p className="text-orange-100">
                       {enseignantInfo.email} • {enseignantInfo.matricule}
                     </p>
+                    <p className="text-orange-100 text-sm">
+                      {enseignantInfo.ecole.libelle} - {enseignantInfo.ecole.ville}
+                    </p>
                   </div>
                 </div>
               )}
             </div>
           </div>
         </div>
+
+        {/* Statistiques */}
+        {statistics && (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+            <div className="bg-white/10 rounded-lg p-4">
+              <div className="flex items-center gap-2">
+                <Gamepad2 className="h-5 w-5" />
+                <span className="text-sm">Total Jeux</span>
+              </div>
+              <p className="text-2xl font-bold">{statistics.totalJeux}</p>
+            </div>
+            <div className="bg-white/10 rounded-lg p-4">
+              <div className="flex items-center gap-2">
+                <HelpCircle className="h-5 w-5" />
+                <span className="text-sm">Avec Questions</span>
+              </div>
+              <p className="text-2xl font-bold">{statistics.jeuxAvecQuestions}</p>
+            </div>
+            <div className="bg-white/10 rounded-lg p-4">
+              <div className="flex items-center gap-2">
+                <Calendar className="h-5 w-5" />
+                <span className="text-sm">Avec Planifications</span>
+              </div>
+              <p className="text-2xl font-bold">{statistics.jeuxAvecPlanifications}</p>
+            </div>
+            <div className="bg-white/10 rounded-lg p-4">
+              <div className="flex items-center gap-2">
+                <Clock className="h-5 w-5" />
+                <span className="text-sm">Dernier Créé</span>
+              </div>
+              <p className="text-xs">{new Date(statistics.dernierJeuCree).toLocaleDateString()}</p>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Barre de recherche */}
@@ -163,10 +200,10 @@ const EnseignantJeuxContent = () => {
                 <Card key={jeu._id} className="border-gray-200 hover:border-orange-300 transition-all duration-300 hover:shadow-lg group">
                   <CardHeader className="space-y-4">
                     <div className="relative h-48 bg-gray-100 rounded-lg overflow-hidden">
-                      {jeu.imageUrl ? (
+                      {jeu.image ? (
                         <img
-                          src={jeu.imageUrl}
-                          alt={jeu.title}
+                          src={jeu.image}
+                          alt={jeu.titre}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       ) : (
@@ -174,64 +211,52 @@ const EnseignantJeuxContent = () => {
                           <Gamepad2 className="h-16 w-16 text-orange-400" />
                         </div>
                       )}
-                      <Badge 
-                        variant={jeu.isActive ? "default" : "secondary"}
-                        className={`absolute top-3 right-3 ${
-                          jeu.isActive 
-                            ? "bg-green-500 hover:bg-green-600" 
-                            : "bg-gray-500 hover:bg-gray-600"
-                        }`}
-                      >
-                        {jeu.isActive ? "Actif" : "Inactif"}
-                      </Badge>
                     </div>
                     
                     <div className="space-y-3">
                       <div>
                         <h3 className="font-semibold text-lg text-gray-900 group-hover:text-orange-600 transition-colors">
-                          {jeu.title}
+                          {jeu.titre}
                         </h3>
-                        <p className="text-sm text-gray-600 line-clamp-2">
-                          {jeu.description}
-                        </p>
-                      </div>
-
-                      <div className="flex flex-wrap gap-2">
-                        <Badge variant="outline" className="text-blue-700 border-blue-200 bg-blue-50">
-                          {jeu.subject}
-                        </Badge>
-                        <Badge variant="outline" className="text-purple-700 border-purple-200 bg-purple-50">
-                          {jeu.level}
-                        </Badge>
                       </div>
 
                       <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
                         <div className="flex items-center gap-2">
                           <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                          <span>{jeu.questions} questions</span>
+                          <span>{jeu.questions.length} questions</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                          <span>{jeu.timeLimit}min</span>
+                          <span>{jeu.planification.length} planification(s)</span>
                         </div>
                       </div>
 
-                      {jeu.planifications && jeu.planifications.length > 0 && (
+                      {jeu.planification && jeu.planification.length > 0 && (
                         <div className="border-t pt-3">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2 text-sm text-gray-600">
-                              <Calendar className="h-4 w-4" />
-                              <span>{jeu.planifications.length} planification(s)</span>
-                            </div>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => navigate(`/jeux/${jeu._id}`)}
-                              className="border-orange-200 text-orange-600 hover:bg-orange-50"
-                            >
-                              <Eye className="h-4 w-4 mr-1" />
-                              Voir
-                            </Button>
+                          <div className="space-y-2">
+                            {jeu.planification.map((plan) => (
+                              <div key={plan._id} className="flex items-center justify-between text-sm">
+                                <div className="flex items-center gap-2">
+                                  <Badge variant="outline" className={`text-xs ${
+                                    plan.statut === 'actif' ? 'bg-green-50 text-green-700 border-green-200' : 
+                                    plan.statut === 'en attente' ? 'bg-yellow-50 text-yellow-700 border-yellow-200' :
+                                    'bg-gray-50 text-gray-700 border-gray-200'
+                                  }`}>
+                                    {plan.statut}
+                                  </Badge>
+                                  <span className="text-gray-600">{plan.participants.length} participants</span>
+                                </div>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => navigate(`/planifications/${plan._id}`)}
+                                  className="border-orange-200 text-orange-600 hover:bg-orange-50 h-7 text-xs px-2"
+                                >
+                                  <Eye className="h-3 w-3 mr-1" />
+                                  Voir
+                                </Button>
+                              </div>
+                            ))}
                           </div>
                         </div>
                       )}

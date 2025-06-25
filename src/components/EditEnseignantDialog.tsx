@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Edit, Loader2, User } from "lucide-react";
-import { enseignantService, UpdateEnseignantRequest } from "@/services/enseignantService";
+import { enseignantService } from "@/services/enseignantService";
 import { Enseignant } from "@/types/enseignant";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -22,21 +22,26 @@ interface EditEnseignantDialogProps {
   onSuccess: () => void;
 }
 
+interface SimpleUpdateEnseignantRequest {
+  nom: string;
+  prenom: string;
+  genre: string;
+  phone: string;
+  email: string;
+  statut: string;
+}
+
 export const EditEnseignantDialog = ({ enseignant, onSuccess }: EditEnseignantDialogProps) => {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState<UpdateEnseignantRequest>({
+  const [formData, setFormData] = useState<SimpleUpdateEnseignantRequest>({
     nom: enseignant.nom,
     prenom: enseignant.prenom,
     genre: enseignant.genre,
     phone: enseignant.phone,
     email: enseignant.email,
-    pays: enseignant.pays?.libelle || "",
-    role: enseignant.role,
-    password: "",
     statut: enseignant.statut,
-    adresse: enseignant.adresse || "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -46,7 +51,16 @@ export const EditEnseignantDialog = ({ enseignant, onSuccess }: EditEnseignantDi
     console.log("Updating enseignant data:", formData);
     
     try {
-      const response = await enseignantService.updateEnseignant(enseignant._id, formData);
+      // Adapter les données pour l'API existante en ajoutant les champs manquants
+      const adaptedData = {
+        ...formData,
+        pays: enseignant.pays?.libelle || "",
+        role: enseignant.role,
+        password: "",
+        adresse: enseignant.adresse || "",
+      };
+
+      const response = await enseignantService.updateEnseignant(enseignant._id, adaptedData);
       
       console.log("API Response:", response);
       
@@ -84,7 +98,7 @@ export const EditEnseignantDialog = ({ enseignant, onSuccess }: EditEnseignantDi
           <Edit className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] bg-gradient-to-br from-white to-orange-50 border-orange-200 shadow-2xl">
+      <DialogContent className="sm:max-w-[500px] bg-gradient-to-br from-white to-orange-50 border-orange-200 shadow-2xl">
         <DialogHeader className="text-center pb-6">
           <div className="mx-auto w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mb-4">
             <User className="h-8 w-8 text-white" />
@@ -100,7 +114,7 @@ export const EditEnseignantDialog = ({ enseignant, onSuccess }: EditEnseignantDi
         <Card className="border-0 shadow-none bg-transparent">
           <CardContent className="p-0">
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="nom" className="text-sm font-semibold text-black">
                     Nom de famille
@@ -111,6 +125,7 @@ export const EditEnseignantDialog = ({ enseignant, onSuccess }: EditEnseignantDi
                     onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
                     className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300 text-black placeholder:text-gray-500"
                     placeholder="Entrez le nom de famille"
+                    required
                   />
                 </div>
                 
@@ -124,6 +139,7 @@ export const EditEnseignantDialog = ({ enseignant, onSuccess }: EditEnseignantDi
                     onChange={(e) => setFormData({ ...formData, prenom: e.target.value })}
                     className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300 text-black placeholder:text-gray-500"
                     placeholder="Entrez le prénom"
+                    required
                   />
                 </div>
 
@@ -136,8 +152,8 @@ export const EditEnseignantDialog = ({ enseignant, onSuccess }: EditEnseignantDi
                       <SelectValue placeholder="Sélectionnez le genre" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="homme">Homme</SelectItem>
-                      <SelectItem value="femme">Femme</SelectItem>
+                      <SelectItem value="Masculin">Masculin</SelectItem>
+                      <SelectItem value="Feminin">Féminin</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -152,10 +168,11 @@ export const EditEnseignantDialog = ({ enseignant, onSuccess }: EditEnseignantDi
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300 text-black placeholder:text-gray-500"
                     placeholder="Entrez le numéro de téléphone"
+                    required
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 col-span-2">
                   <Label htmlFor="email" className="text-sm font-semibold text-black">
                     Email
                   </Label>
@@ -166,38 +183,11 @@ export const EditEnseignantDialog = ({ enseignant, onSuccess }: EditEnseignantDi
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300 text-black placeholder:text-gray-500"
                     placeholder="Entrez l'adresse email"
+                    required
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="pays" className="text-sm font-semibold text-black">
-                    Pays
-                  </Label>
-                  <Input
-                    id="pays"
-                    value={formData.pays}
-                    onChange={(e) => setFormData({ ...formData, pays: e.target.value })}
-                    className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300 text-black placeholder:text-gray-500"
-                    placeholder="Entrez le pays"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="role" className="text-sm font-semibold text-black">
-                    Rôle
-                  </Label>
-                  <Select value={formData.role} onValueChange={(value) => setFormData({ ...formData, role: value })}>
-                    <SelectTrigger className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm">
-                      <SelectValue placeholder="Sélectionnez le rôle" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="enseignant">Enseignant</SelectItem>
-                      <SelectItem value="admin">Administrateur</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
+                <div className="space-y-2 col-span-2">
                   <Label htmlFor="statut" className="text-sm font-semibold text-black">
                     Statut
                   </Label>
@@ -210,33 +200,6 @@ export const EditEnseignantDialog = ({ enseignant, onSuccess }: EditEnseignantDi
                       <SelectItem value="inactif">Inactif</SelectItem>
                     </SelectContent>
                   </Select>
-                </div>
-
-                <div className="space-y-2 col-span-2">
-                  <Label htmlFor="adresse" className="text-sm font-semibold text-black">
-                    Adresse
-                  </Label>
-                  <Input
-                    id="adresse"
-                    value={formData.adresse}
-                    onChange={(e) => setFormData({ ...formData, adresse: e.target.value })}
-                    className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300 text-black placeholder:text-gray-500"
-                    placeholder="Entrez l'adresse"
-                  />
-                </div>
-
-                <div className="space-y-2 col-span-2">
-                  <Label htmlFor="password" className="text-sm font-semibold text-black">
-                    Nouveau mot de passe (optionnel)
-                  </Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    value={formData.password}
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300 text-black placeholder:text-gray-500"
-                    placeholder="Laissez vide pour garder l'ancien"
-                  />
                 </div>
               </div>
               
