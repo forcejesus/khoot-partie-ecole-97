@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { DashboardLayoutWithSidebar } from "@/layouts/DashboardLayoutWithSidebar";
@@ -40,12 +39,12 @@ const EnseignantJeuxContent = () => {
         setJeux(response.data.jeux);
         setEnseignantInfo(response.data.enseignant);
         
-        // Calculate total planifications count
+        // Calculate total planifications count from all games
         const totalPlanifications = response.data.jeux.reduce((total, jeu) => {
-          return total + (jeu.planification ? jeu.planification.length : 0);
+          return total + (jeu.planification?.length || 0);
         }, 0);
         
-        // Update statistics with total planifications count
+        // Update statistics with correct total planifications count
         const updatedStatistics = {
           ...response.data.statistiques,
           totalPlanifications

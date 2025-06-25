@@ -37,7 +37,7 @@ export const EnseignantJeuxStats = ({ statistics }: EnseignantJeuxStatsProps) =>
             <Calendar className="h-5 w-5 text-purple-600" />
             <span className="text-sm font-medium text-purple-800">Total Planifications</span>
           </div>
-          <p className="text-3xl font-bold text-purple-700">{statistics.totalPlanifications || statistics.jeuxAvecPlanifications}</p>
+          <p className="text-3xl font-bold text-purple-700">{statistics.totalPlanifications || 0}</p>
         </CardContent>
       </Card>
       

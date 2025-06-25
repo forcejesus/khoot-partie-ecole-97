@@ -4,7 +4,7 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Trash2, Mail, Phone, Gamepad2, Calendar, Edit, Eye } from "lucide-react";
+import { Trash2, Mail, Phone, Gamepad2, Calendar, Edit, Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Enseignant } from "@/types/enseignant";
 import { EditEnseignantDialog } from "@/components/EditEnseignantDialog";
@@ -33,8 +33,13 @@ export const EnseignantRow = ({ enseignant, onDelete, onSuccess }: EnseignantRow
     }
   };
 
+  // Check if teacher has games or planifications
+  const hasGamesOrPlanifications = enseignant.statistiques.nombreJeux > 0 || enseignant.statistiques.nombrePlanifications > 0;
+
   const handleViewJeux = () => {
-    navigate(`/enseignants/${enseignant._id}/jeux`);
+    if (hasGamesOrPlanifications) {
+      navigate(`/enseignants/${enseignant._id}/jeux`);
+    }
   };
 
   return (
@@ -89,10 +94,18 @@ export const EnseignantRow = ({ enseignant, onDelete, onSuccess }: EnseignantRow
             variant="ghost"
             size="icon"
             onClick={handleViewJeux}
-            className="text-purple-500 hover:text-purple-700 hover:bg-purple-50"
-            title="Voir les jeux"
+            disabled={!hasGamesOrPlanifications}
+            className={hasGamesOrPlanifications 
+              ? "text-purple-500 hover:text-purple-700 hover:bg-purple-50" 
+              : "text-gray-400 cursor-not-allowed"
+            }
+            title={hasGamesOrPlanifications ? "Voir les jeux" : "Aucun jeu ou planification disponible"}
           >
-            <Eye className="h-4 w-4" />
+            {hasGamesOrPlanifications ? (
+              <Eye className="h-4 w-4" />
+            ) : (
+              <EyeOff className="h-4 w-4" />
+            )}
           </Button>
           
           <Button

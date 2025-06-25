@@ -33,6 +33,13 @@ export const EditApprenantDialog = ({ apprenant, onSuccess }: EditApprenantDialo
     email: apprenant.email,
   });
 
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    // Si l'utilisateur tape "aucune", on le transforme automatiquement en "aucune@email.com"
+    const emailValue = value.toLowerCase() === 'aucune' ? 'aucune@email.com' : value;
+    setFormData({ ...formData, email: emailValue });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -155,7 +162,7 @@ export const EditApprenantDialog = ({ apprenant, onSuccess }: EditApprenantDialo
                     id="email"
                     type="email"
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onChange={handleEmailChange}
                     className="h-12 border-2 border-orange-200 focus:border-orange-400 rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300 text-black placeholder:text-gray-500"
                     placeholder="Entrez l'adresse email"
                   />
