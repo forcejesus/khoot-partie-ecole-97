@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { DashboardLayoutWithSidebar } from "@/layouts/DashboardLayoutWithSidebar";
@@ -98,7 +97,7 @@ const JeuDetailsContent = () => {
       setIsLoading(true);
       console.log("Récupération des détails du jeu:", `/api/jeux/${id}`);
       
-      const response = await api.get<JeuDetailsResponse>(`/api/jeux/${id}`);
+      const response = await api.get(`/api/jeux/${id}`);
       
       console.log("Réponse API détails jeu:", response.data);
 
