@@ -20,9 +20,19 @@ export const GameImageWithLoader = ({ src, alt, fallbackSrc, className = "relati
     setHasError(false);
     
     if (src) {
-      // Construire l'URL complète de l'image - enlever 'public/' du chemin
-      const cleanPath = src.startsWith('public/') ? src.substring(7) : src;
-      const imageUrl = `${config.api.baseUrl}/${cleanPath}`;
+      // Construire l'URL complète de l'image
+      let imageUrl = src;
+      
+      // Si l'image commence par "public/", on l'enlève et on ajoute le host
+      if (src.startsWith('public/')) {
+        const cleanPath = src.substring(7); // Enlever "public/"
+        imageUrl = `${config.api.baseUrl}/${cleanPath}`;
+      }
+      // Si l'image ne commence pas par http, on ajoute le host
+      else if (!src.startsWith('http')) {
+        imageUrl = `${config.api.baseUrl}/${src}`;
+      }
+      
       console.log("URL de l'image construite:", imageUrl);
       setImageSrc(imageUrl);
     } else {
@@ -47,8 +57,11 @@ export const GameImageWithLoader = ({ src, alt, fallbackSrc, className = "relati
   return (
     <div className={className}>
       {isLoading && (
-        <div className="absolute inset-0 bg-gray-200 flex items-center justify-center z-10">
-          <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center z-10 rounded-lg">
+          <div className="text-center">
+            <Loader2 className="h-8 w-8 animate-spin text-orange-600 mx-auto mb-2" />
+            <p className="text-xs text-orange-700 font-medium">Chargement...</p>
+          </div>
         </div>
       )}
       
@@ -64,8 +77,8 @@ export const GameImageWithLoader = ({ src, alt, fallbackSrc, className = "relati
           <img
             src={imageSrc}
             alt={alt}
-            className={`w-full h-full object-cover transition-opacity duration-300 ${
-              isLoading ? 'opacity-0' : 'opacity-100'
+            className={`w-full h-full object-cover transition-all duration-500 ${
+              isLoading ? 'opacity-0 scale-110' : 'opacity-100 scale-100'
             }`}
             onLoad={handleImageLoad}
             onError={handleImageError}
