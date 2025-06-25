@@ -25,11 +25,14 @@ export const apprenantService = {
   // Mettre à jour un apprenant
   updateApprenant: async (id: string, data: UpdateApprenantRequest): Promise<UpdateApprenantResponse> => {
     console.log("Updating apprenant with id:", id, "and data:", data);
-    // Ajouter automatiquement l'avatar vide
+    // Ajouter automatiquement l'avatar à "aucune" et traiter l'email
+    const emailValue = data.email.toLowerCase().trim() === 'aucune' ? 'aucune@email.com' : data.email;
     const dataWithAvatar = {
       ...data,
-      avatar: ""
+      email: emailValue,
+      avatar: "aucune"
     };
+    console.log("Final data sent to API:", dataWithAvatar);
     const response = await api.post(`/api/apprenant/update/${id}`, dataWithAvatar);
     return response.data;
   },
