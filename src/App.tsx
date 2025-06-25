@@ -15,6 +15,7 @@ import Apprenants from "./pages/Apprenants";
 import Enseignants from "./pages/Enseignants";
 import Jeux from "./pages/Jeux";
 import JeuDetails from "./pages/JeuDetails";
+import PlanificationDetails from "./pages/PlanificationDetails";
 import Settings from "./pages/Settings";
 import Notifications from "@/pages/Notifications";
 import Index from "@/pages/Index";
@@ -93,6 +94,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <JeuDetails />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/planifications/:id"
+              element={
+                <ProtectedRoute>
+                  <PlanificationDetails />
                 </ProtectedRoute>
               }
             />
