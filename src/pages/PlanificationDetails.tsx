@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { DashboardLayoutWithSidebar } from "@/layouts/DashboardLayoutWithSidebar";
@@ -90,10 +89,15 @@ const PlanificationDetailsContent = () => {
       
       console.log("Réponse API détails planification:", response.data);
 
-      if (response.data.success) {
+      // Amélioration de la gestion de la réponse
+      if (response.data && response.data._id) {
+        // L'API retourne directement l'objet planification sans wrapper success
+        setPlanification(response.data);
+      } else if (response.data.success && response.data.data) {
+        // Cas où l'API retourne avec un wrapper success
         setPlanification(response.data.data);
       } else {
-        throw new Error(response.data.message || "Erreur lors de la récupération de la planification");
+        throw new Error("Données de planification manquantes dans la réponse");
       }
     } catch (error) {
       console.error("Erreur lors de la récupération de la planification:", error);
@@ -373,10 +377,10 @@ const PlanificationDetailsContent = () => {
           )}
         </div>
 
-        {/* Sidebar - 1 colonne */}
+        {/* Sidebar - 1 colonne - SUPPRESSION DU STICKY */}
         <div className="xl:col-span-1 space-y-6">
-          {/* Statistiques */}
-          <Card className="border-orange-200 sticky top-6 shadow-lg">
+          {/* Statistiques - suppression du sticky */}
+          <Card className="border-orange-200 shadow-lg">
             <CardHeader className="bg-gradient-to-r from-orange-50 to-orange-100 border-b border-orange-200">
               <CardTitle className="text-lg text-orange-800 font-bold">Statistiques</CardTitle>
             </CardHeader>

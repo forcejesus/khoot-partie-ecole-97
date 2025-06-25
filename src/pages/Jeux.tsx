@@ -29,16 +29,21 @@ const JeuxContent = () => {
         </div>
       </div>
 
-      {/* Barre de recherche améliorée */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-orange-100">
-        <div className="relative max-w-lg">
-          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-          <Input
-            placeholder="Rechercher un jeu, une école ou une ville..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-12 border-2 border-gray-200 focus:border-orange-400 bg-gray-50 text-base py-3 rounded-xl font-medium"
-          />
+      {/* Barre de recherche améliorée - plus en évidence */}
+      <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-orange-200">
+        <div className="max-w-2xl mx-auto">
+          <div className="relative">
+            <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-500 h-6 w-6" />
+            <Input
+              placeholder="Rechercher un jeu, une école ou une ville..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-16 pr-6 border-3 border-orange-300 focus:border-orange-500 bg-gray-50 text-lg py-4 h-16 rounded-xl font-medium text-black placeholder:text-gray-500 focus:bg-white transition-all"
+            />
+          </div>
+          <p className="text-center text-gray-600 mt-3 text-sm">
+            Tapez pour rechercher parmi tous les jeux disponibles
+          </p>
         </div>
       </div>
 
