@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { DashboardLayoutWithSidebar } from "@/layouts/DashboardLayoutWithSidebar";
@@ -25,6 +24,8 @@ import {
 import { api } from "@/services/apiClient";
 import { GameImageWithLoader } from "@/components/games/GameImageWithLoader";
 import { PlanificationSection } from "@/components/games/PlanificationSection";
+import { EditGameDialog } from "@/components/games/EditGameDialog";
+import { DeleteGameDialog } from "@/components/games/DeleteGameDialog";
 
 interface Reponse {
   _id: string;
@@ -220,6 +221,16 @@ const JeuDetailsContent = () => {
   const getTotalPoints = () => {
     if (!jeu) return 0;
     return jeu.questions.reduce((total, question) => total + (question.point?.valeur || 0), 0);
+  };
+
+  const handleGameUpdate = (updatedData: { titre: string; image: string | null }) => {
+    if (jeu) {
+      setJeu({
+        ...jeu,
+        titre: updatedData.titre,
+        image: updatedData.image,
+      });
+    }
   };
 
   if (isLoading) {
@@ -461,13 +472,12 @@ const JeuDetailsContent = () => {
               <CardTitle className="text-lg text-orange-800 font-bold">Actions</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 p-6">
-              <Button 
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium shadow-md"
-                onClick={() => navigate(`/jeux/${jeu._id}/edit`)}
-              >
-                <Gamepad2 className="h-4 w-4 mr-2" />
-                Modifier le jeu
-              </Button>
+              <EditGameDialog
+                gameId={jeu._id}
+                currentTitle={jeu.titre}
+                currentImage={jeu.image}
+                onUpdate={handleGameUpdate}
+              />
               <Button 
                 variant="outline" 
                 className="w-full border-orange-300 text-orange-700 hover:bg-orange-50 font-medium"
@@ -476,6 +486,10 @@ const JeuDetailsContent = () => {
                 <Calendar className="h-4 w-4 mr-2" />
                 Nouvelle planification
               </Button>
+              <DeleteGameDialog
+                gameId={jeu._id}
+                gameTitle={jeu.titre}
+              />
             </CardContent>
           </Card>
         </div>
