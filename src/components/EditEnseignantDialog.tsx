@@ -32,11 +32,11 @@ export const EditEnseignantDialog = ({ enseignant, onSuccess }: EditEnseignantDi
     genre: enseignant.genre,
     phone: enseignant.phone,
     email: enseignant.email,
-    pays: enseignant.pays.libelle,
+    pays: enseignant.pays?.libelle || "",
     role: enseignant.role,
     password: "",
     statut: enseignant.statut,
-    adresse: enseignant.adresse,
+    adresse: enseignant.adresse || "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
