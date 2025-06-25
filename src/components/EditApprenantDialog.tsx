@@ -35,9 +35,15 @@ export const EditApprenantDialog = ({ apprenant, onSuccess }: EditApprenantDialo
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    // Si l'utilisateur tape "aucune", on le transforme automatiquement en "aucune@email.com"
-    const emailValue = value.toLowerCase() === 'aucune' ? 'aucune@email.com' : value;
-    setFormData({ ...formData, email: emailValue });
+    console.log("Email value entered:", value);
+    
+    // Si l'utilisateur tape exactement "aucune", on le transforme automatiquement en "aucune@email.com"
+    if (value.toLowerCase().trim() === 'aucune') {
+      console.log("Transforming 'aucune' to 'aucune@email.com'");
+      setFormData({ ...formData, email: 'aucune@email.com' });
+    } else {
+      setFormData({ ...formData, email: value });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
