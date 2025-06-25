@@ -109,10 +109,10 @@ export function AppSidebar() {
                   <SidebarMenuButton
                     onClick={() => navigate(item.url)}
                     isActive={location.pathname === item.url}
-                    className="w-full flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-orange-50 hover:text-orange-800 text-gray-700 data-[active=true]:bg-orange-100 data-[active=true]:text-orange-800 data-[active=true]:font-semibold border border-transparent hover:border-orange-200 data-[active=true]:border-orange-300"
+                    className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-orange-50 hover:text-orange-800 text-gray-700 data-[active=true]:bg-orange-100 data-[active=true]:text-orange-800 data-[active=true]:font-semibold border border-transparent hover:border-orange-200 data-[active=true]:border-orange-300"
                   >
-                    <item.icon className="h-5 w-5 text-orange-600 data-[active=true]:text-orange-700" />
-                    <span className="font-medium text-sm">{item.title}</span>
+                    <item.icon className="h-6 w-6 text-orange-600 data-[active=true]:text-orange-700" />
+                    <span className="font-medium text-base">{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
