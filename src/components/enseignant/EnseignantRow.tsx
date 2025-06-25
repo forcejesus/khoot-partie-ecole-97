@@ -4,7 +4,7 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Trash2, Mail, Phone, Gamepad2, Calendar, Edit, Eye, EyeOff } from "lucide-react";
+import { Trash2, Mail, Phone, Gamepad2, Calendar, Edit, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Enseignant } from "@/types/enseignant";
 import { EditEnseignantDialog } from "@/components/EditEnseignantDialog";
@@ -36,9 +36,6 @@ export const EnseignantRow = ({ enseignant, onDelete, onSuccess }: EnseignantRow
   const handleViewJeux = () => {
     navigate(`/enseignants/${enseignant._id}/jeux`);
   };
-
-  // Check if enseignant has games or planifications
-  const hasGamesOrPlanifications = enseignant.statistiques.nombreJeux > 0 || enseignant.statistiques.nombrePlanifications > 0;
 
   return (
     <TableRow className="hover:bg-gray-50 transition-colors">
@@ -88,27 +85,15 @@ export const EnseignantRow = ({ enseignant, onDelete, onSuccess }: EnseignantRow
         <div className="flex items-center justify-center space-x-2">
           <EditEnseignantDialog enseignant={enseignant} onSuccess={onSuccess} />
           
-          {hasGamesOrPlanifications ? (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleViewJeux}
-              className="text-purple-500 hover:text-purple-700 hover:bg-purple-50"
-              title="Voir les jeux"
-            >
-              <Eye className="h-4 w-4" />
-            </Button>
-          ) : (
-            <Button
-              variant="ghost"
-              size="icon"
-              disabled
-              className="text-gray-300 cursor-not-allowed"
-              title="Aucun jeu disponible"
-            >
-              <EyeOff className="h-4 w-4" />
-            </Button>
-          )}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleViewJeux}
+            className="text-purple-500 hover:text-purple-700 hover:bg-purple-50"
+            title="Voir les jeux"
+          >
+            <Eye className="h-4 w-4" />
+          </Button>
           
           <Button
             variant="ghost"
