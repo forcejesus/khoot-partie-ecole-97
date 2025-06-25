@@ -19,8 +19,9 @@ export const GameImageWithLoader = ({ src, alt, fallbackSrc }: GameImageWithLoad
     setHasError(false);
     
     if (src) {
-      // Construire l'URL complète de l'image
-      const imageUrl = `${config.api.baseUrl}/${src}`;
+      // Construire l'URL complète de l'image - enlever 'public/' du chemin
+      const cleanPath = src.startsWith('public/') ? src.substring(7) : src;
+      const imageUrl = `${config.api.baseUrl}/${cleanPath}`;
       setImageSrc(imageUrl);
     } else {
       setImageSrc(fallbackSrc);

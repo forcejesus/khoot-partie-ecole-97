@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { DashboardLayoutWithSidebar } from "@/layouts/DashboardLayoutWithSidebar";
@@ -17,9 +18,12 @@ import {
   HelpCircle,
   CheckCircle2,
   XCircle,
-  Phone
+  Phone,
+  User
 } from "lucide-react";
 import { api } from "@/services/apiClient";
+import { GameImageWithLoader } from "@/components/games/GameImageWithLoader";
+import { PlanificationSection } from "@/components/games/PlanificationSection";
 
 interface Reponse {
   _id: string;
@@ -64,11 +68,55 @@ interface Ecole {
   telephone: string;
 }
 
+interface CreatedBy {
+  _id: string;
+  nom: string;
+  prenom: string;
+  matricule: string;
+  genre: string;
+  statut: string;
+  phone: string;
+  email: string;
+  adresse: string;
+  role: string;
+  pays?: {
+    _id: string;
+    libelle: string;
+  };
+  ecole?: Ecole;
+  date: string;
+}
+
+interface Participant {
+  _id: string;
+  score: number;
+  apprenant: {
+    _id: string;
+    nom: string;
+    prenom: string;
+    matricule: string;
+  };
+}
+
+interface Planification {
+  _id: string;
+  pin: string;
+  statut: string;
+  date_debut: string;
+  date_fin: string;
+  heure_debut: string;
+  heure_fin: string;
+  type: string;
+  limite_participant: number;
+  participants: Participant[];
+}
+
 interface JeuDetails {
   _id: string;
   titre: string;
   image: string | null;
-  createdBy: any | null;
+  createdBy: CreatedBy;
+  planification: Planification[];
   questions: Question[];
   ecole: Ecole;
   date: string;
@@ -146,6 +194,28 @@ const JeuDetailsContent = () => {
     }
   };
 
+  const getRoleBadgeColor = (role: string) => {
+    switch (role) {
+      case 'admin':
+        return 'bg-red-100 text-red-700 border-red-200';
+      case 'enseignant':
+        return 'bg-blue-100 text-blue-700 border-blue-200';
+      default:
+        return 'bg-gray-100 text-gray-700 border-gray-200';
+    }
+  };
+
+  const getRoleLabel = (role: string) => {
+    switch (role) {
+      case 'admin':
+        return 'Admin';
+      case 'enseignant':
+        return 'Enseignant';
+      default:
+        return role;
+    }
+  };
+
   const getTotalPoints = () => {
     if (!jeu) return 0;
     return jeu.questions.reduce((total, question) => total + (question.point?.valeur || 0), 0);
@@ -217,41 +287,60 @@ const JeuDetailsContent = () => {
           {/* Informations du jeu */}
           <Card className="border-orange-200">
             <CardHeader>
-              <div className="relative h-64 rounded-lg overflow-hidden mb-4">
-                <img
-                  src={jeu.image || defaultGameImage}
-                  alt={jeu.titre}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = defaultGameImage;
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-              </div>
+              <GameImageWithLoader 
+                src={jeu.image} 
+                alt={jeu.titre}
+                fallbackSrc={defaultGameImage}
+              />
               
-              <CardTitle className="text-2xl font-bold text-orange-700">
+              <CardTitle className="text-2xl font-bold text-orange-700 mt-4">
                 {jeu.titre}
               </CardTitle>
+              
+              {/* Créateur du jeu mis en valeur */}
+              <div className="mb-4 p-4 bg-orange-50 rounded-lg border border-orange-100">
+                <div className="flex items-center gap-2 mb-2">
+                  <User className="h-4 w-4 text-orange-600" />
+                  <span className="text-sm font-medium text-orange-800">Créé par</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-semibold text-gray-900">
+                      {jeu.createdBy.prenom} {jeu.createdBy.nom}
+                    </p>
+                    <p className="text-xs text-gray-600">{jeu.createdBy.matricule}</p>
+                    <p className="text-xs text-gray-500">{jeu.createdBy.email}</p>
+                  </div>
+                  <Badge variant="outline" className={getRoleBadgeColor(jeu.createdBy.role)}>
+                    {getRoleLabel(jeu.createdBy.role)}
+                  </Badge>
+                </div>
+              </div>
               
               <div className="flex items-center gap-4 text-sm text-gray-600">
                 <div className="flex items-center gap-1">
                   <Users className="h-4 w-4" />
-                  <span>{jeu.ecole.libelle}</span>
+                  <span className="text-gray-900">{jeu.ecole.libelle}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <Calendar className="h-4 w-4" />
-                  <span>{formatDate(jeu.date)}</span>
+                  <span className="text-gray-900">{formatDate(jeu.date)}</span>
                 </div>
               </div>
             </CardHeader>
           </Card>
 
+          {/* Planifications */}
+          <PlanificationSection 
+            planifications={jeu.planification}
+            jeuId={jeu._id}
+          />
+
           {/* Questions */}
           <Card className="border-orange-200">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <HelpCircle className="h-5 w-5 text-orange-600" />
+              <CardTitle className="flex items-center gap-2 text-orange-700">
+                <HelpCircle className="h-5 w-5" />
                 Questions ({jeu.questions.length})
               </CardTitle>
             </CardHeader>
@@ -276,11 +365,11 @@ const JeuDetailsContent = () => {
                       <div className="text-right">
                         <div className="flex items-center gap-1 text-sm text-gray-600 mb-1">
                           <Clock className="h-4 w-4" />
-                          <span>{question.temps}s</span>
+                          <span className="text-gray-900">{question.temps}s</span>
                         </div>
                         <div className="flex items-center gap-1 text-sm text-orange-600">
                           <Trophy className="h-4 w-4" />
-                          <span>{question.point?.valeur || 0} pts</span>
+                          <span className="text-orange-700 font-medium">{question.point?.valeur || 0} pts</span>
                         </div>
                       </div>
                     </div>
@@ -297,7 +386,7 @@ const JeuDetailsContent = () => {
                           ) : (
                             <XCircle className="h-4 w-4 text-red-600" />
                           )}
-                          <span className={reponse.etat ? "text-green-700" : "text-red-700"}>
+                          <span className={reponse.etat ? "text-green-700 font-medium" : "text-red-700"}>
                             {reponse.reponse_texte}
                           </span>
                         </div>
@@ -320,17 +409,21 @@ const JeuDetailsContent = () => {
             <CardContent className="space-y-4">
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-600">Total questions</span>
-                <Badge variant="outline">{jeu.questions.length}</Badge>
+                <Badge variant="outline" className="text-gray-900">{jeu.questions.length}</Badge>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-600">Points totaux</span>
-                <Badge className="bg-orange-100 text-orange-700">
+                <Badge className="bg-orange-100 text-orange-700 border-orange-200">
                   {getTotalPoints()} pts
                 </Badge>
               </div>
               <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600">Planifications</span>
+                <Badge variant="outline" className="text-gray-900">{jeu.planification.length}</Badge>
+              </div>
+              <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-600">Créé le</span>
-                <span className="text-sm font-medium">{formatDate(jeu.date)}</span>
+                <span className="text-sm font-medium text-gray-900">{formatDate(jeu.date)}</span>
               </div>
             </CardContent>
           </Card>
@@ -348,7 +441,7 @@ const JeuDetailsContent = () => {
               {jeu.ecole.telephone && (
                 <div className="flex items-center gap-2 text-sm text-gray-600">
                   <Phone className="h-4 w-4" />
-                  <span>{jeu.ecole.telephone}</span>
+                  <span className="text-gray-900">{jeu.ecole.telephone}</span>
                 </div>
               )}
             </CardContent>
