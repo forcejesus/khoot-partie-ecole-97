@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Apprenants from "./pages/Apprenants";
 import Enseignants from "./pages/Enseignants";
+import EnseignantJeux from "./pages/EnseignantJeux";
 import Jeux from "./pages/Jeux";
 import JeuDetails from "./pages/JeuDetails";
 import PlanificationDetails from "./pages/PlanificationDetails";

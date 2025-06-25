@@ -1,17 +1,23 @@
+
 import React from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Trash2, Mail, Phone, Gamepad2, Calendar } from "lucide-react";
+import { Trash2, Mail, Phone, Gamepad2, Calendar, Edit, Eye } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Enseignant } from "@/types/enseignant";
+import { EditEnseignantDialog } from "@/components/EditEnseignantDialog";
 
 interface EnseignantRowProps {
   enseignant: Enseignant;
   onDelete: (id: string) => void;
+  onSuccess: () => void;
 }
 
-export const EnseignantRow = ({ enseignant, onDelete }: EnseignantRowProps) => {
+export const EnseignantRow = ({ enseignant, onDelete, onSuccess }: EnseignantRowProps) => {
+  const navigate = useNavigate();
+
   const getInitials = (nom: string, prenom: string) => {
     return `${nom.charAt(0)}${prenom.charAt(0)}`.toUpperCase();
   };
@@ -25,6 +31,10 @@ export const EnseignantRow = ({ enseignant, onDelete }: EnseignantRowProps) => {
       default:
         return 'bg-gray-100 text-gray-700 hover:bg-gray-100';
     }
+  };
+
+  const handleViewJeux = () => {
+    navigate(`/enseignants/${enseignant._id}/jeux`);
   };
 
   return (
@@ -72,14 +82,28 @@ export const EnseignantRow = ({ enseignant, onDelete }: EnseignantRowProps) => {
         </div>
       </TableCell>
       <TableCell className="text-center">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => onDelete(enseignant._id)}
-          className="text-red-500 hover:text-red-700 hover:bg-red-50"
-        >
-          <Trash2 className="h-4 w-4" />
-        </Button>
+        <div className="flex items-center justify-center space-x-2">
+          <EditEnseignantDialog enseignant={enseignant} onSuccess={onSuccess} />
+          
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleViewJeux}
+            className="text-purple-500 hover:text-purple-700 hover:bg-purple-50"
+            title="Voir les jeux"
+          >
+            <Eye className="h-4 w-4" />
+          </Button>
+          
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => onDelete(enseignant._id)}
+            className="text-red-500 hover:text-red-700 hover:bg-red-50"
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </div>
       </TableCell>
     </TableRow>
   );

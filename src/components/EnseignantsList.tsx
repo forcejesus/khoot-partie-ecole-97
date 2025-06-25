@@ -28,6 +28,7 @@ export const EnseignantsList = ({ onEnseignantChange, searchTerm = "" }: Enseign
     filteredEnseignants,
     isLoading,
     handleDelete,
+    fetchEnseignants,
   } = useEnseignantsList(searchTerm, onEnseignantChange);
 
   const confirmDelete = (id: string) => {
@@ -57,6 +58,7 @@ export const EnseignantsList = ({ onEnseignantChange, searchTerm = "" }: Enseign
         isLoading={isLoading}
         searchTerm={searchTerm}
         onDelete={confirmDelete}
+        onSuccess={fetchEnseignants}
       />
 
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>

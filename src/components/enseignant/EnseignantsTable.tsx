@@ -17,13 +17,15 @@ interface EnseignantsTableProps {
   isLoading: boolean;
   searchTerm: string;
   onDelete: (id: string) => void;
+  onSuccess: () => void;
 }
 
 export const EnseignantsTable = ({ 
   enseignants, 
   isLoading, 
   searchTerm, 
-  onDelete 
+  onDelete,
+  onSuccess
 }: EnseignantsTableProps) => {
   const LoadingSkeleton = () => (
     [...Array(3)].map((_, index) => (
@@ -69,7 +71,8 @@ export const EnseignantsTable = ({
               <EnseignantRow 
                 key={enseignant._id} 
                 enseignant={enseignant} 
-                onDelete={onDelete} 
+                onDelete={onDelete}
+                onSuccess={onSuccess}
               />
             ))
           )}
