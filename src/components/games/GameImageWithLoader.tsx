@@ -7,9 +7,10 @@ interface GameImageWithLoaderProps {
   src: string | null;
   alt: string;
   fallbackSrc: string;
+  className?: string;
 }
 
-export const GameImageWithLoader = ({ src, alt, fallbackSrc }: GameImageWithLoaderProps) => {
+export const GameImageWithLoader = ({ src, alt, fallbackSrc, className = "relative h-48 rounded-lg overflow-hidden" }: GameImageWithLoaderProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [imageSrc, setImageSrc] = useState<string>("");
@@ -22,6 +23,7 @@ export const GameImageWithLoader = ({ src, alt, fallbackSrc }: GameImageWithLoad
       // Construire l'URL complète de l'image - enlever 'public/' du chemin
       const cleanPath = src.startsWith('public/') ? src.substring(7) : src;
       const imageUrl = `${config.api.baseUrl}/${cleanPath}`;
+      console.log("URL de l'image construite:", imageUrl);
       setImageSrc(imageUrl);
     } else {
       setImageSrc(fallbackSrc);
@@ -30,20 +32,22 @@ export const GameImageWithLoader = ({ src, alt, fallbackSrc }: GameImageWithLoad
   }, [src, fallbackSrc]);
 
   const handleImageLoad = () => {
+    console.log("Image chargée avec succès:", imageSrc);
     setIsLoading(false);
     setHasError(false);
   };
 
   const handleImageError = () => {
+    console.log("Erreur de chargement image:", imageSrc);
     setIsLoading(false);
     setHasError(true);
     setImageSrc(fallbackSrc);
   };
 
   return (
-    <div className="relative h-48 rounded-lg overflow-hidden">
+    <div className={className}>
       {isLoading && (
-        <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
+        <div className="absolute inset-0 bg-gray-200 flex items-center justify-center z-10">
           <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
         </div>
       )}
