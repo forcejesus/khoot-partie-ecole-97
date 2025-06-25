@@ -19,7 +19,9 @@ import {
   XCircle,
   Phone,
   User,
-  MapPin
+  MapPin,
+  Mail,
+  UserCheck
 } from "lucide-react";
 import { api } from "@/services/apiClient";
 import { GameImageWithLoader } from "@/components/games/GameImageWithLoader";
@@ -296,72 +298,23 @@ const JeuDetailsContent = () => {
       <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
         {/* Contenu principal - 3 colonnes */}
         <div className="xl:col-span-3 space-y-6">
-          {/* Informations principales du jeu */}
+          {/* Image du jeu uniquement */}
           <Card className="border-orange-200 shadow-lg">
             <CardContent className="p-6">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Image du jeu */}
-                <div>
-                  <GameImageWithLoader 
-                    src={jeu.image} 
-                    alt={jeu.titre}
-                    fallbackSrc={defaultGameImage}
-                    className="relative h-64 rounded-xl overflow-hidden shadow-md border border-orange-100"
-                  />
+              <div className="space-y-4">
+                <h1 className="text-3xl font-bold text-gray-900">
+                  {jeu.titre}
+                </h1>
+                <div className="flex items-center gap-2 text-sm text-gray-700">
+                  <Calendar className="h-4 w-4 text-orange-500" />
+                  <span className="font-medium">Créé le {formatDate(jeu.date)}</span>
                 </div>
-                
-                {/* Informations du jeu */}
-                <div className="space-y-4">
-                  <div>
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                      {jeu.titre}
-                    </h1>
-                    <div className="flex items-center gap-2 text-sm text-gray-700 mb-4">
-                      <Calendar className="h-4 w-4 text-orange-500" />
-                      <span className="font-medium">Créé le {formatDate(jeu.date)}</span>
-                    </div>
-                  </div>
-                  
-                  {/* Créateur du jeu mis en valeur */}
-                  <div className="p-4 bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl border border-orange-200">
-                    <div className="flex items-center gap-2 mb-3">
-                      <User className="h-5 w-5 text-orange-600" />
-                      <span className="text-sm font-semibold text-orange-800">Créé par</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="font-bold text-gray-900 text-lg">
-                          {jeu.createdBy.prenom} {jeu.createdBy.nom}
-                        </p>
-                        <p className="text-sm text-gray-700 font-mono bg-white px-2 py-1 rounded mt-1 inline-block">
-                          {jeu.createdBy.matricule}
-                        </p>
-                        <p className="text-sm text-gray-600 mt-1">{jeu.createdBy.email}</p>
-                      </div>
-                      <Badge variant="outline" className={getRoleBadgeColor(jeu.createdBy.role)}>
-                        {getRoleLabel(jeu.createdBy.role)}
-                      </Badge>
-                    </div>
-                  </div>
-                  
-                  {/* Informations de l'école */}
-                  <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
-                    <div className="flex items-center gap-2 mb-2">
-                      <MapPin className="h-4 w-4 text-gray-600" />
-                      <span className="text-sm font-semibold text-gray-800">École</span>
-                    </div>
-                    <div>
-                      <p className="font-bold text-gray-900">{jeu.ecole.libelle}</p>
-                      <p className="text-sm text-gray-700 font-medium">{jeu.ecole.ville}</p>
-                      {jeu.ecole.telephone && (
-                        <div className="flex items-center gap-1 mt-1">
-                          <Phone className="h-3 w-3 text-gray-500" />
-                          <span className="text-sm text-gray-700">{jeu.ecole.telephone}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
+                <GameImageWithLoader 
+                  src={jeu.image} 
+                  alt={jeu.titre}
+                  fallbackSrc={defaultGameImage}
+                  className="relative h-80 w-full rounded-xl overflow-hidden shadow-md border border-orange-100"
+                />
               </div>
             </CardContent>
           </Card>
@@ -437,8 +390,74 @@ const JeuDetailsContent = () => {
 
         {/* Sidebar - 1 colonne */}
         <div className="xl:col-span-1 space-y-6">
-          {/* Statistiques */}
+          {/* Détails de l'enseignant */}
           <Card className="border-orange-200 sticky top-6 shadow-lg">
+            <CardHeader className="bg-gradient-to-r from-orange-50 to-orange-100 border-b border-orange-200">
+              <CardTitle className="text-lg text-orange-800 font-bold flex items-center gap-2">
+                <UserCheck className="h-5 w-5" />
+                Enseignant créateur
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 p-6">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <User className="h-8 w-8 text-orange-600" />
+                </div>
+                <h3 className="font-bold text-gray-900 text-lg">
+                  {jeu.createdBy.prenom} {jeu.createdBy.nom}
+                </h3>
+                <Badge variant="outline" className={`${getRoleBadgeColor(jeu.createdBy.role)} mt-2`}>
+                  {getRoleLabel(jeu.createdBy.role)}
+                </Badge>
+              </div>
+              
+              <div className="space-y-3 pt-4 border-t border-gray-200">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                    <User className="h-4 w-4 text-gray-600" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500">Matricule</p>
+                    <p className="font-mono text-sm font-medium text-gray-900">{jeu.createdBy.matricule}</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                    <Mail className="h-4 w-4 text-gray-600" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500">Email</p>
+                    <p className="text-sm font-medium text-gray-900">{jeu.createdBy.email}</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                    <Phone className="h-4 w-4 text-gray-600" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500">Téléphone</p>
+                    <p className="text-sm font-medium text-gray-900">{jeu.createdBy.phone}</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                    <MapPin className="h-4 w-4 text-gray-600" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500">École</p>
+                    <p className="text-sm font-medium text-gray-900">{jeu.ecole.libelle}</p>
+                    <p className="text-xs text-gray-600">{jeu.ecole.ville}</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Statistiques */}
+          <Card className="border-orange-200 shadow-lg">
             <CardHeader className="bg-gradient-to-r from-orange-50 to-orange-100 border-b border-orange-200">
               <CardTitle className="text-lg text-orange-800 font-bold">Statistiques</CardTitle>
             </CardHeader>
@@ -463,33 +482,6 @@ const JeuDetailsContent = () => {
                   {jeu.planification.reduce((total, plan) => total + plan.participants.length, 0)}
                 </Badge>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Actions rapides */}
-          <Card className="border-orange-200 shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-orange-50 to-orange-100 border-b border-orange-200">
-              <CardTitle className="text-lg text-orange-800 font-bold">Actions</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3 p-6">
-              <EditGameDialog
-                gameId={jeu._id}
-                currentTitle={jeu.titre}
-                currentImage={jeu.image}
-                onUpdate={handleGameUpdate}
-              />
-              <Button 
-                variant="outline" 
-                className="w-full border-orange-300 text-orange-700 hover:bg-orange-50 font-medium"
-                onClick={() => navigate(`/jeux/${jeu._id}/planifications/new`)}
-              >
-                <Calendar className="h-4 w-4 mr-2" />
-                Nouvelle planification
-              </Button>
-              <DeleteGameDialog
-                gameId={jeu._id}
-                gameTitle={jeu.titre}
-              />
             </CardContent>
           </Card>
         </div>
