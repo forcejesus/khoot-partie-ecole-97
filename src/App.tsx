@@ -23,7 +23,7 @@ import Solution from "@/pages/Solution";
 import Offres from "@/pages/Offres";
 import FAQ from "@/pages/FAQ";
 import InscriptionEcoles from "@/pages/InscriptionEcoles";
-import ErrorBoundary from "@/components/ErrorBoundary";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import "@/App.css";
 
 function App() {
