@@ -12,7 +12,26 @@ export interface CreateEnseignantRequest {
   password: string;
 }
 
+export interface UpdateEnseignantRequest {
+  nom: string;
+  prenom: string;
+  genre: string;
+  phone: string;
+  email: string;
+  pays: string;
+  role: string;
+  password: string;
+  statut: string;
+  adresse: string;
+}
+
 export interface CreateEnseignantResponse {
+  success: boolean;
+  message: string;
+  data: any;
+}
+
+export interface UpdateEnseignantResponse {
   success: boolean;
   message: string;
   data: any;
@@ -66,13 +85,20 @@ export const enseignantService = {
     return response.data;
   },
 
+  updateEnseignant: async (id: string, data: UpdateEnseignantRequest): Promise<UpdateEnseignantResponse> => {
+    console.log("Updating enseignant with id:", id, "and data:", data);
+    const response = await api.post(`/api/admin/update/${id}`, data);
+    return response.data;
+  },
+
   getEnseignants: async (): Promise<GetEnseignantsResponse> => {
     const response = await api.get('/api/mes-enseignants');
     return response.data;
   },
 
   deleteEnseignant: async (id: string): Promise<{ success: boolean; message: string }> => {
-    const response = await api.delete(`/api/user/delete/${id}`);
+    console.log("Deleting enseignant with id:", id);
+    const response = await api.post(`/api/admin/delete/${id}`);
     return response.data;
   },
 };

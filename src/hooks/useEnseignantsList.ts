@@ -81,12 +81,12 @@ export const useEnseignantsList = (searchTerm: string = "", onEnseignantChange?:
         });
         fetchEnseignants();
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erreur lors de la suppression:", error);
       toast({
         variant: "destructive",
         title: "Erreur",
-        description: "Impossible de supprimer l'enseignant",
+        description: error.response?.data?.message || "Impossible de supprimer l'enseignant",
       });
     }
   };

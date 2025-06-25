@@ -30,14 +30,14 @@ export const apprenantService = {
       ...data,
       avatar: ""
     };
-    const response = await api.put(`/api/apprenant/update/${id}`, dataWithAvatar);
+    const response = await api.post(`/api/apprenant/update/${id}`, dataWithAvatar);
     return response.data;
   },
 
   // Supprimer un apprenant
   deleteApprenant: async (id: string): Promise<DeleteApprenantResponse> => {
     console.log("Deleting apprenant with id:", id);
-    const response = await api.delete(`/api/apprenant/delete/${id}`);
+    const response = await api.post(`/api/apprenant/delete/${id}`);
     return response.data;
   },
 };
