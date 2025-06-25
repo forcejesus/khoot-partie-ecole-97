@@ -1,11 +1,12 @@
-
 import React, { useState, useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
-import { Gamepad2, Users, Clock, Calendar } from "lucide-react";
+import { Gamepad2, Users, Clock, Calendar, Eye } from "lucide-react";
 import { config } from "@/config/hosts";
 
 interface Ecole {
@@ -35,6 +36,7 @@ interface JeuxListProps {
 }
 
 export const JeuxList = ({ searchTerm = "" }: JeuxListProps) => {
+  const navigate = useNavigate();
   const [jeux, setJeux] = useState<Jeu[]>([]);
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -110,6 +112,10 @@ export const JeuxList = ({ searchTerm = "" }: JeuxListProps) => {
       hour: '2-digit',
       minute: '2-digit'
     });
+  };
+
+  const handleViewDetails = (jeuId: string) => {
+    navigate(`/jeux/${jeuId}`);
   };
 
   return (
@@ -208,7 +214,7 @@ export const JeuxList = ({ searchTerm = "" }: JeuxListProps) => {
               </CardHeader>
               
               <CardContent>
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center justify-between text-sm mb-4">
                   <div className="flex items-center gap-1 text-gray-500">
                     <Calendar className="h-4 w-4" />
                     <span>Créé le</span>
@@ -217,6 +223,15 @@ export const JeuxList = ({ searchTerm = "" }: JeuxListProps) => {
                     {formatDate(jeu.date)}
                   </span>
                 </div>
+                
+                <Button 
+                  onClick={() => handleViewDetails(jeu._id)}
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white"
+                  size="sm"
+                >
+                  <Eye className="h-4 w-4 mr-2" />
+                  Voir les détails
+                </Button>
               </CardContent>
             </Card>
           ))}
