@@ -25,6 +25,15 @@ export interface UpdateEnseignantRequest {
   adresse: string;
 }
 
+export interface SimpleUpdateEnseignantRequest {
+  nom: string;
+  prenom: string;
+  genre: string;
+  phone: string;
+  email: string;
+  statut: string;
+}
+
 export interface CreateEnseignantResponse {
   success: boolean;
   message: string;
@@ -85,7 +94,7 @@ export const enseignantService = {
     return response.data;
   },
 
-  updateEnseignant: async (id: string, data: UpdateEnseignantRequest): Promise<UpdateEnseignantResponse> => {
+  updateEnseignant: async (id: string, data: SimpleUpdateEnseignantRequest): Promise<UpdateEnseignantResponse> => {
     console.log("Updating enseignant with id:", id, "and data:", data);
     const response = await api.post(`/api/admin/update/${id}`, data);
     return response.data;
