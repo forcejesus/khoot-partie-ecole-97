@@ -1,16 +1,13 @@
-
 // Configuration des URLs et hosts de l'application AKILI
 export const config = {
   // URLs de base
   baseUrl: import.meta.env.PROD 
-    ? 'http://kahoot.nos-apps.com' 
+    ? 'https://api.akili.guru' 
     : 'http://localhost:3000',
   
   // API endpoints
   api: {
-    baseUrl: import.meta.env.PROD
-      ? 'http://kahoot.nos-apps.com'
-      : 'http://localhost:3000',
+    baseUrl: 'https://api.akili.guru',
     
     endpoints: {
       auth: '/auth',
@@ -32,7 +29,6 @@ export const config = {
     }
   },
   
-  // Informations de contact
   contact: {
     emails: {
       support: 'support@akili-education.cg',
