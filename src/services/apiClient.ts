@@ -37,6 +37,22 @@ apiClient.interceptors.response.use(
       statusText: error.response?.statusText,
       data: error.response?.data,
     });
+
+    // Si erreur 401, nettoyer les données d'authentification
+    if (error.response?.status === 401) {
+      console.log('Token invalide ou expiré, nettoyage des données d\'authentification');
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      
+      // Rediriger vers la page de connexion si on n'est pas déjà sur une page publique
+      const currentPath = window.location.pathname;
+      const publicPaths = ['/', '/login', '/offres', '/solution', '/contact', '/faq'];
+      
+      if (!publicPaths.includes(currentPath)) {
+        window.location.href = '/login';
+      }
+    }
+    
     return Promise.reject(error);
   }
 );
